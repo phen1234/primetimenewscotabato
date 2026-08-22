@@ -1988,920 +1988,97 @@ body.dark .no-weather-news,
 }
 
 
-/* =========================================================
-   SATELLITE BUTTON
-========================================================= */
-
-.satellite-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-
-    padding: 10px 16px;
-
-    background: linear-gradient(135deg, #e30613, #ff4d4d);
-    color: #fff;
-
-    text-decoration: none;
-
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: .2px;
-
-    border-radius: 6px;
-    border: none;
-
-    cursor: pointer;
-
-    box-shadow: 0 6px 18px rgba(227, 6, 19, .30);
-
-    transition:
-        transform .25s ease,
-        box-shadow .25s ease,
-        background .25s ease;
-}
-
-.satellite-btn:hover {
-    background: linear-gradient(135deg, #ff4d4d, #e30613);
-
-    transform: translateY(-2px);
-
-    box-shadow: 0 10px 25px rgba(227, 6, 19, .45);
-}
-
-.satellite-btn:active {
-    transform: scale(.97);
-}
-
-.satellite-btn i {
-    font-size: 15px;
-}
-
-
-/* =========================================================
-   OVERLAY
-========================================================= */
-
-.overlay p {
-    margin-top: -8px;
-    margin-bottom: 25px;
-}
-
-
-/* =========================================================
-   CONTAINER
-========================================================= */
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-
-/* =========================================================
-   WEATHER PAGE
-========================================================= */
-
-.weather-page {
-    width: 94%;
-    max-width: 1400px;
-
-    margin: 0 auto;
-
-    padding: 28px 0 60px;
-
-    display: grid;
-
-    grid-template-columns:
-        minmax(0, 2.2fr)
-        minmax(320px, .9fr);
-
-    gap: 28px;
-
-    align-items: start;
-}
-
-.weather-main {
-    min-width: 0;
-}
-
-
-/* =========================================================
-   WEATHER NEWS SECTION
-========================================================= */
-
-.weather-news-section {
-    width: 100%;
-    margin: 0 0 40px;
-}
-
-.weather-news-section .section-heading {
-    margin-bottom: 18px;
-}
-
-.weather-news-section .section-heading h2 {
-    margin: 0 0 6px;
-
-    font-size: 26px;
-    font-weight: 800;
-
-    color: #111827;
-}
-
-.weather-news-section .section-heading p {
-    margin: 0;
-
-    color: #6b7280;
-    font-size: 14px;
-}
-
-
-/* =========================================================
-   WEATHER NEWS GRID
-========================================================= */
-
-.weather-news-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
-    gap: 16px;
-
-    width: 100%;
-}
-
-
-/* =========================================================
-   FEATURED WEATHER NEWS
-========================================================= */
-
-.weather-featured-card {
-    grid-column: 1 / -1;
-
-    position: relative;
-
-    width: 100%;
-    height: 500px;
-
-    overflow: hidden;
-
-    border-radius: 10px;
-
-    background: #111827;
-
-    cursor: pointer;
-
-    margin-bottom: 18px;
-}
-
-.weather-featured-card img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    display: block;
-}
-
-.weather-featured-card::after {
-    content: "";
-
-    position: absolute;
-
-    inset: 0;
-
-    background:
-        linear-gradient(
-            to top,
-            rgba(0, 0, 0, .92),
-            rgba(0, 0, 0, .40) 55%,
-            rgba(0, 0, 0, .05)
-        );
-}
-
-.weather-featured-content {
-    position: absolute;
-
-    left: 28px;
-    right: 28px;
-    bottom: 26px;
-
-    z-index: 2;
-
-    color: #fff;
-}
-
-.weather-featured-content .badge {
-    display: inline-block;
-
-    margin-bottom: 8px;
-
-    padding: 5px 10px;
-
-    border-radius: 20px;
-
-    background: #e30613;
-    color: #fff;
-
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.weather-featured-content h2 {
-    margin: 6px 0 10px;
-
-    max-width: 90%;
-
-    font-size: 32px;
-    line-height: 1.15;
-    font-weight: 800;
-}
-
-.weather-featured-content p {
-    max-width: 85%;
-
-    margin: 0 0 12px;
-
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.weather-featured-meta {
-    display: flex;
-
-    gap: 18px;
-
-    flex-wrap: wrap;
-
-    font-size: 12px;
-}
-
-
-/* =========================================================
-   WEATHER NEWS CARDS
-========================================================= */
-
-.weather-news-card {
-    background: #fff;
-
-    border-radius: 9px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 3px 12px rgba(0, 0, 0, .08);
-
-    cursor: pointer;
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease;
-}
-
-.weather-news-card:hover {
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 8px 20px rgba(0, 0, 0, .13);
-}
-
-.weather-news-card img {
-    width: 100%;
-    height: 145px;
-
-    object-fit: cover;
-
-    display: block;
-}
-
-.weather-news-card-content {
-    padding: 13px;
-}
-
-.weather-news-card .badge {
-    color: #e60000;
-
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.weather-news-card h3 {
-    margin: 6px 0 10px;
-
-    font-size: 15px;
-    line-height: 1.3;
-    font-weight: 800;
-
-    color: #111827;
-}
-
-.weather-news-card-meta {
-    display: flex;
-
-    gap: 8px;
-
-    color: #6b7280;
-
-    font-size: 11px;
-}
-
-
-/* =========================================================
-   RIGHT SIDEBAR
-========================================================= */
-
-.weather-sidebar {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 18px;
-
-    min-width: 0;
-
-    position: sticky;
-
-    top: 20px;
-}
-
-.weather-card {
-    background: #fff;
-
-    border-radius: 10px;
-
-    padding: 18px;
-
-    box-shadow:
-        0 3px 14px rgba(0, 0, 0, .08);
-}
-
-.weather-card h2 {
-    margin: 0 0 14px;
-
-    font-size: 20px;
-    font-weight: 800;
-
-    color: #111827;
-}
-
-.weather-card p {
-    margin: 8px 0;
-
-    font-size: 13px;
-
-    color: #4b5563;
-}
-
-
-/* =========================================================
-   CURRENT WEATHER
-========================================================= */
-
-.current-weather-section {
-    background: #fff;
-
-    border-radius: 12px;
-
-    padding: 30px;
-
-    margin-top: 35px;
-
-    box-shadow:
-        0 4px 15px rgba(0, 0, 0, .08);
-}
-
-.current-weather-section h2 {
-    font-size: 28px;
-
-    margin-bottom: 20px;
-}
-
-.weather-current-main {
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-}
-
-.weather-current-main img {
-    width: 70px;
-    height: 70px;
-}
-
-.weather-current-main h1 {
-    margin: 0;
-
-    font-size: 34px;
-
-    color: #006eff;
-}
-
-.weather-current-main h3 {
-    margin: 3px 0 0;
-
-    font-size: 15px;
-
-    color: #4b5563;
-}
-
-
-/* =========================================================
-   WEATHER ALERTS
-========================================================= */
-
-.weather-alerts-section {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 15px;
-
-    margin-top: 25px;
-}
-
-.weather-alert-buttons {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 10px;
-}
-
-.weather-alert-btn {
-    width: 100%;
-
-    min-height: 48px;
-
-    padding: 12px 16px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    border-radius: 6px;
-
-    font-family: inherit;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    text-align: left;
-
-    transition: .2s ease;
-}
-
-.weather-alert-btn:hover {
-    transform: translateY(-1px);
-}
-
-.weather-alert-btn.cyclone {
-    color: #d32f2f;
-
-    border: 1px solid #ffb3b3;
-
-    background: #fff5f5;
-}
-
-.weather-alert-btn.flood {
-    color: #1976d2;
-
-    border: 1px solid #a8d1ff;
-
-    background: #f1f7ff;
-}
-
-.weather-alert-btn.rainfall {
-    color: #2e7d32;
-
-    border: 1px solid #b9e6bd;
-
-    background: #f2fbf3;
-}
-
-.weather-alert-card {
-    padding: 11px 13px;
-
-    margin-bottom: 9px;
-
-    border-radius: 5px;
-
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.weather-alert-card.cyclone {
-    background: #fff0f0;
-
-    border: 1px solid #ffb3b3;
-
-    color: #dc2626;
-}
-
-.weather-alert-card.flood {
-    background: #eef7ff;
-
-    border: 1px solid #b8d9ff;
-
-    color: #2563eb;
-}
-
-.weather-alert-card.rainfall {
-    background: #effaf0;
-
-    border: 1px solid #b9e6bd;
-
-    color: #15803d;
-}
-
-
-/* =========================================================
-   WINDY MAP
-========================================================= */
-
-.windy-section {
-    margin-top: 35px;
-
-    background: #fff;
-
-    padding: 25px;
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 4px 15px rgba(0, 0, 0, .08);
-}
-
-.windy-map {
-    overflow: hidden;
-
-    border-radius: 7px;
-}
-
-.windy-map iframe {
-    width: 100%;
-
-    height: 220px;
-
-    border: 0;
-
-    display: block;
-}
-
-
-/* =========================================================
-   SATELLITE
-========================================================= */
-
-.satellite-section {
-    margin-top: 35px;
-
-    min-height: 300px;
-
-    border-radius: 12px;
-
-    overflow: hidden;
-
-    position: relative;
-
-    background:
-        linear-gradient(
-            rgba(0, 0, 0, .55),
-            rgba(0, 0, 0, .55)
-        ),
-        url("images/satellite.jpg");
-
-    background-size: cover;
-
-    background-position: center;
-}
-
-.satellite-overlay {
-    padding: 60px 40px;
-
-    color: #fff;
-}
-
-.satellite-overlay h2 {
-    font-size: 30px;
-
-    margin-bottom: 10px;
-}
-
-.satellite-overlay p {
-    font-size: 16px;
-
-    margin-bottom: 25px;
-}
-
-.satellite-card p {
-    color: #6b7280;
-
-    font-size: 13px;
-
-    line-height: 1.5;
-}
-
-
-/* =========================================================
-   NO WEATHER NEWS
-========================================================= */
-
-.no-weather-news {
-    text-align: center;
-
-    padding: 40px 20px;
-
-    background: #fff;
-
-    border-radius: 12px;
-}
-
-
-/* =========================================================
-   DESKTOP
-========================================================= */
-
-@media (min-width: 1200px) {
-
-    .weather-page {
-        width: 94%;
-
-        max-width: 1450px;
-
-        grid-template-columns:
-            minmax(0, 2.25fr)
-            minmax(340px, .85fr);
-
-        gap: 30px;
-    }
-
-    .weather-featured-card {
-        height: 510px;
-    }
-
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 1000px) {
-
-    .weather-page {
-        grid-template-columns: 1fr;
-    }
-
-    .weather-sidebar {
-        position: static;
-    }
-
-    .weather-news-grid {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-    }
-
-    .weather-news-list {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
-
-    .weather-alerts-section {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
-
-}
-
-
-/* =========================================================
-   MOBILE WEATHER
-========================================================= */
-
-@media (max-width: 600px) {
-
-    .weather-page {
-        width: 92%;
-
-        padding-top: 20px;
-    }
-
-    .weather-news-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .weather-news-list {
-        grid-template-columns: 1fr;
-    }
-
-    .weather-featured-card {
-        height: 360px;
-    }
-
-    .weather-featured-content {
-        left: 18px;
-        right: 18px;
-        bottom: 18px;
-    }
-
-    .weather-featured-content h2 {
-        font-size: 23px;
-    }
-
-    .weather-featured-content p {
-        max-width: 100%;
-    }
-
-    .weather-news-image {
-        height: 210px;
-    }
-
-    .weather-alerts-section {
-        grid-template-columns: 1fr;
-    }
-
-    .current-weather-section {
-        padding: 20px;
-    }
-
-}
-
-
-/* =========================================================
-   MOBILE CATEGORY MENU
-   SINGLE MENU ONLY
-========================================================= */
-
-/*
-   IMPORTANT:
-   Gagamit tayo ng .mobile-category-menu bilang
-   iisang mobile category menu.
-
-   Kung may #mobileCategoryMenu na lumang duplicate,
-   itatago natin.
-*/
-
-#mobileCategoryMenu {
-    display: none !important;
-}
-
-
-/* =========================================================
-   MOBILE SEARCH + HAMBURGER
-========================================================= */
+/* =========================================
+   DARK MODE - MOBILE CATEGORY BORDER
+========================================= */
 
 @media (max-width: 900px) {
 
-    .search-section {
-        position: relative;
+    body.dark-mode .mobile-category-menu a,
+    body.dark .mobile-category-menu a,
+    [data-theme="dark"] .mobile-category-menu a {
 
-        z-index: 100;
+        border-bottom: 1px solid #273449;
     }
 
+}
+
+/* =========================================
+   MOBILE CATEGORY MENU - DARK MODE
+========================================= */
+
+@media (max-width: 600px) {
+
+    /* CATEGORY / HAMBURGER WRAPPER */
     .search-mobile-wrapper {
         position: relative;
-
         display: flex;
-
-        align-items: center;
-
-        gap: 8px;
-
-        width: 100%;
+        flex-direction: column;
+        gap: 10px;
     }
 
+    /* HAMBURGER BUTTON */
     .search-mobile-wrapper .menu-toggle {
-
-        display: inline-flex !important;
-
+        display: flex;
         align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
 
-        justify-content: center;
+        width: 100%;
+        min-height: 48px;
 
-        gap: 7px;
+        padding: 12px 16px;
 
-        min-height: 42px;
-
-        padding: 9px 13px;
-
-        background: #0b1f3a;
-
-        color: #fff;
+        background: #020d18;
+        color: #ffffff;
 
         border: 1px solid #26384a;
-
-        border-radius: 7px;
+        border-radius: 8px;
 
         font-family: "Poppins", sans-serif;
-
-        font-size: 12px;
-
+        font-size: 14px;
         font-weight: 700;
 
         cursor: pointer;
-
-        white-space: nowrap;
-
-        flex-shrink: 0;
-
-        transition:
-            background .2s ease,
-            transform .2s ease;
-    }
-
-    .search-mobile-wrapper .menu-toggle:hover {
-        background: #172f50;
-    }
-
-    .search-mobile-wrapper .menu-toggle:active {
-        transform: scale(.97);
     }
 
     .search-mobile-wrapper .menu-toggle i {
-        font-size: 15px;
+        color: #ffffff;
+        font-size: 17px;
+    }
+
+    .search-mobile-wrapper .menu-toggle:hover {
+        background: #0b1f3a;
     }
 
 
-    /* =====================================================
-       SEARCH BOX
-    ===================================================== */
+    /* =====================================
+       CATEGORY MENU
+       Kung category menu ay .nav-links
+    ===================================== */
 
-    .search-mobile-wrapper .search-box {
+    #navbar .nav-links {
 
-        flex: 1;
+        background: #020d18 !important;
 
-        min-width: 0;
+        border: 1px solid #26384a;
 
-        box-sizing: border-box;
-
-        background: #fff;
-
-        border: 1px solid #d1d5db;
-
-        border-radius: 7px;
-    }
-
-
-    /* =====================================================
-       MOBILE CATEGORY MENU
-       SMALLER + COMPACT
-    ===================================================== */
-
-    .mobile-category-menu {
-
-        display: none;
-
-        width: calc(100% - 20px);
-
-        max-width: 420px;
-
-        max-height: 60vh;
-
-        margin: 6px auto 0;
-
-        padding: 0;
-
-        background: #fff;
-
-        border: 1px solid #d9dee7;
-
-        border-radius: 7px;
+        border-radius: 8px;
 
         box-shadow:
-            0 8px 22px rgba(0, 0, 0, .14);
+            0 10px 30px rgba(0, 0, 0, .45);
 
-        overflow-x: hidden;
-
-        overflow-y: auto;
-
-        box-sizing: border-box;
-
-        animation: categorySlideDown .18s ease;
     }
 
 
-    /* OPEN */
+    /* CATEGORY ITEMS */
 
-    .mobile-category-menu.open {
-
-        display: block !important;
+    #navbar .nav-links li {
+        background: transparent !important;
     }
 
 
-    /* =====================================================
-       CATEGORY LINKS
-    ===================================================== */
-
-    .mobile-category-menu a {
+    #navbar .nav-links li a {
 
         display: flex;
 
@@ -2909,506 +2086,247 @@ body.dark .no-weather-news,
 
         width: 100%;
 
-        min-height: 42px;
+        padding: 13px 16px;
 
-        box-sizing: border-box;
+        color: #ffffff !important;
 
-        padding: 10px 13px;
+        background: transparent !important;
 
-        gap: 9px;
+        border-bottom: 1px solid rgba(255,255,255,.08);
 
-        background: #fff;
-
-        color: #0b1f3a;
-
-        border: 0;
-
-        border-bottom: 1px solid #eeeeee;
+        font-size: 14px;
 
         text-decoration: none;
 
-        font-family: "Poppins", sans-serif;
-
-        font-size: 13px;
-
-        font-weight: 600;
-
-        line-height: 1.2;
-
-        transition:
-            background .15s ease,
-            color .15s ease;
     }
 
-    .mobile-category-menu a:last-child {
+
+    #navbar .nav-links li:last-child a {
         border-bottom: none;
     }
 
 
-    /* ICON */
+    #navbar .nav-links li a:hover {
 
-    .mobile-category-menu a i {
+        background: #0b1f3a !important;
 
-        width: 19px;
+        color: #ffffff !important;
 
-        min-width: 19px;
-
-        margin: 0;
-
-        color: #e30613;
-
-        text-align: center;
-
-        font-size: 14px;
     }
 
 
-    /* HOVER */
+    /* ACTIVE CATEGORY */
 
-    .mobile-category-menu a:hover {
+    #navbar .nav-links li a.active {
 
-        background: #f5f7fa;
+        background: #e30613 !important;
 
-        color: #0b1f3a;
+        color: #ffffff !important;
+
     }
 
 
-    /* ACTIVE */
+    /* =====================================
+       IF CATEGORY DROPDOWN USES
+       .latest-category-bar
+    ===================================== */
 
-    .mobile-category-menu a.active {
+    .latest-category-bar {
 
-        background: #e30613;
+        background: #020d18 !important;
 
-        color: #fff;
+        border: 1px solid #26384a !important;
+
+        border-radius: 8px;
+
+        box-shadow:
+            0 10px 30px rgba(0,0,0,.45);
+
     }
 
-    .mobile-category-menu a.active i {
-        color: #fff;
+
+    .latest-category-bar .latest-filter {
+
+        color: #ffffff !important;
+
+        background: transparent !important;
+
+        border-color: transparent !important;
+
     }
 
-}
 
+    .latest-category-bar .latest-filter:hover {
 
-/* =========================================================
-   VERY SMALL PHONE
-========================================================= */
+        background: #0b1f3a !important;
 
-@media (max-width: 480px) {
+        color: #ffffff !important;
 
-    .search-mobile-wrapper {
-
-        width: 100%;
-
-        gap: 6px;
     }
 
-    .search-mobile-wrapper .menu-toggle {
 
-        min-height: 40px;
+    .latest-category-bar .latest-filter.active {
 
-        padding: 8px 10px;
+        background: #e30613 !important;
 
-        font-size: 11px;
+        color: #ffffff !important;
 
-        gap: 6px;
     }
 
-    .search-mobile-wrapper .menu-toggle i {
-        font-size: 14px;
+
+    /* =====================================
+       SEARCH BOX DARK MODE
+    ===================================== */
+
+    .search-box {
+
+        background: #020d18 !important;
+
+        border: 1px solid #26384a !important;
+
+        color: #ffffff;
+
     }
 
-    .mobile-category-menu {
-
-        width: calc(100% - 16px);
-
-        max-width: none;
-
-        max-height: 55vh;
-
-        margin-top: 5px;
-
-        border-radius: 6px;
+    .search-box i {
+        color: #ffffff;
     }
 
-    .mobile-category-menu a {
+    .search-box input {
 
-        min-height: 40px;
+        background: transparent !important;
 
-        padding: 9px 12px;
+        color: #ffffff !important;
 
-        font-size: 12px;
     }
 
-    .mobile-category-menu a i {
+    .search-box input::placeholder {
 
-        width: 18px;
+        color: #9ca3af;
 
-        min-width: 18px;
-
-        font-size: 13px;
     }
 
 }
 
 
-/* =========================================================
-   CATEGORY ANIMATION
-========================================================= */
+/* =========================================
+   DARK MODE - CATEGORY MENU
+========================================= */
 
-@keyframes categorySlideDown {
-
-    from {
-        opacity: 0;
-
-        transform: translateY(-6px);
-    }
-
-    to {
-        opacity: 1;
-
-        transform: translateY(0);
-    }
-
-}
-
-
-/* =========================================================
-   DARK MODE - MOBILE CATEGORY
-========================================================= */
-
-body.dark .mobile-category-menu,
-body.dark-mode .mobile-category-menu,
-[data-theme="dark"] .mobile-category-menu {
+[data-theme="dark"] #navbar .nav-links,
+.dark-mode #navbar .nav-links {
 
     background: #020d18 !important;
 
-    color: #fff !important;
+    color: #ffffff !important;
 
     border-color: #26384a !important;
 
-    box-shadow:
-        0 8px 24px rgba(0, 0, 0, .55) !important;
 }
 
 
-/* CATEGORY LINKS */
-
-body.dark .mobile-category-menu a,
-body.dark-mode .mobile-category-menu a,
-[data-theme="dark"] .mobile-category-menu a {
-
-    background: #020d18 !important;
-
-    color: #fff !important;
-
-    border-bottom-color: #26384a !important;
-}
-
-
-/* ICON */
-
-body.dark .mobile-category-menu a i,
-body.dark-mode .mobile-category-menu a i,
-[data-theme="dark"] .mobile-category-menu a i {
-
-    color: #ff3030 !important;
-}
-
-
-/* HOVER */
-
-body.dark .mobile-category-menu a:hover,
-body.dark-mode .mobile-category-menu a:hover,
-[data-theme="dark"] .mobile-category-menu a:hover {
-
-    background: #0b1f3a !important;
-
-    color: #fff !important;
-}
-
-
-/* ACTIVE */
-
-body.dark .mobile-category-menu a.active,
-body.dark-mode .mobile-category-menu a.active,
-[data-theme="dark"] .mobile-category-menu a.active {
-
-    background: #e30613 !important;
-
-    color: #fff !important;
-}
-
-body.dark .mobile-category-menu a.active i,
-body.dark-mode .mobile-category-menu a.active i,
-[data-theme="dark"] .mobile-category-menu a.active i {
-
-    color: #fff !important;
-}
-
-
-/* =========================================================
-   DARK MODE - HAMBURGER
-========================================================= */
-
-body.dark .search-mobile-wrapper .menu-toggle,
-body.dark-mode .search-mobile-wrapper .menu-toggle,
-[data-theme="dark"] .search-mobile-wrapper .menu-toggle {
-
-    background: #020d18 !important;
-
-    color: #fff !important;
-
-    border-color: #26384a !important;
-}
-
-body.dark .search-mobile-wrapper .menu-toggle:hover,
-body.dark-mode .search-mobile-wrapper .menu-toggle:hover,
-[data-theme="dark"] .search-mobile-wrapper .menu-toggle:hover {
-
-    background: #0b1f3a !important;
-}
-
-
-/* =========================================================
-   DARK MODE - SEARCH
-========================================================= */
-
-body.dark .search-box,
-body.dark-mode .search-box,
-[data-theme="dark"] .search-box {
-
-    background: #020d18 !important;
-
-    border-color: #26384a !important;
-
-    color: #fff !important;
-}
-
-body.dark .search-box input,
-body.dark-mode .search-box input,
-[data-theme="dark"] .search-box input {
+[data-theme="dark"] #navbar .nav-links li,
+.dark-mode #navbar .nav-links li {
 
     background: transparent !important;
 
-    color: #fff !important;
-}
-
-body.dark .search-box input::placeholder,
-body.dark-mode .search-box input::placeholder,
-[data-theme="dark"] .search-box input::placeholder {
-
-    color: #9ca3af !important;
-}
-
-body.dark .search-box i,
-body.dark-mode .search-box i,
-[data-theme="dark"] .search-box i {
-
-    color: #cbd5e1 !important;
 }
 
 
-/* =========================================================
-   DARK MODE - WEATHER CARDS
-========================================================= */
+[data-theme="dark"] #navbar .nav-links li a,
+.dark-mode #navbar .nav-links li a {
 
-body.dark .weather-card,
-body.dark-mode .weather-card,
-[data-theme="dark"] .weather-card {
+    color: #ffffff !important;
 
-    background: #111827 !important;
+    background: transparent !important;
 
-    color: #f3f4f6 !important;
-
-    box-shadow:
-        0 4px 18px rgba(0, 0, 0, .35);
-}
-
-body.dark .weather-card h2,
-body.dark-mode .weather-card h2,
-[data-theme="dark"] .weather-card h2 {
-
-    color: #fff !important;
-}
-
-body.dark .weather-card p,
-body.dark-mode .weather-card p,
-[data-theme="dark"] .weather-card p {
-
-    color: #cbd5e1 !important;
-}
-
-body.dark .weather-current-main h3,
-body.dark-mode .weather-current-main h3,
-[data-theme="dark"] .weather-current-main h3 {
-
-    color: #cbd5e1 !important;
 }
 
 
-/* =========================================================
-   DARK MODE - WEATHER SECTION
-========================================================= */
+[data-theme="dark"] #navbar .nav-links li a:hover,
+.dark-mode #navbar .nav-links li a:hover {
 
-body.dark .weather-news-section .section-heading h2,
-body.dark-mode .weather-news-section .section-heading h2,
-[data-theme="dark"] .weather-news-section .section-heading h2 {
+    background: #0b1f3a !important;
 
-    color: #fff !important;
-}
+    color: #ffffff !important;
 
-body.dark .weather-news-section .section-heading p,
-body.dark-mode .weather-news-section .section-heading p,
-[data-theme="dark"] .weather-news-section .section-heading p {
-
-    color: #94a3b8 !important;
 }
 
 
-/* =========================================================
-   DARK MODE - NEWS CARDS
-========================================================= */
+[data-theme="dark"] #navbar .nav-links li a.active,
+.dark-mode #navbar .nav-links li a.active {
 
-body.dark .weather-news-card,
-body.dark-mode .weather-news-card,
-[data-theme="dark"] .weather-news-card {
+    background: #e30613 !important;
 
-    background: #111827 !important;
+    color: #ffffff !important;
 
-    color: #fff !important;
-
-    box-shadow:
-        0 4px 15px rgba(0, 0, 0, .35);
-}
-
-body.dark .weather-news-card h3,
-body.dark-mode .weather-news-card h3,
-[data-theme="dark"] .weather-news-card h3 {
-
-    color: #fff !important;
-}
-
-body.dark .weather-news-card p,
-body.dark-mode .weather-news-card p,
-[data-theme="dark"] .weather-news-card p {
-
-    color: #cbd5e1 !important;
-}
-
-body.dark .weather-news-card-meta,
-body.dark-mode .weather-news-card-meta,
-[data-theme="dark"] .weather-news-card-meta {
-
-    color: #94a3b8 !important;
 }
 
 
-/* =========================================================
-   DARK MODE - CURRENT WEATHER
-========================================================= */
+/* =========================================
+   DARK MODE - HAMBURGER
+========================================= */
 
-body.dark .current-weather-section,
-body.dark-mode .current-weather-section,
-[data-theme="dark"] .current-weather-section {
+[data-theme="dark"] .search-mobile-wrapper .menu-toggle,
+.dark-mode .search-mobile-wrapper .menu-toggle {
 
-    background: #111827 !important;
+    background: #020d18 !important;
 
-    color: #fff !important;
+    color: #ffffff !important;
 
-    box-shadow:
-        0 4px 18px rgba(0, 0, 0, .35);
+    border-color: #26384a !important;
+
+}
+
+
+[data-theme="dark"] .search-mobile-wrapper .menu-toggle:hover,
+.dark-mode .search-mobile-wrapper .menu-toggle:hover {
+
+    background: #0b1f3a !important;
+
 }
 
 
-/* =========================================================
-   DARK MODE - WEATHER ALERT BUTTONS
-========================================================= */
+/* =========================================
+   DARK MODE - CATEGORY BAR
+========================================= */
 
-body.dark .weather-alert-btn,
-body.dark-mode .weather-alert-btn,
-[data-theme="dark"] .weather-alert-btn {
+[data-theme="dark"] .latest-category-bar,
+.dark-mode .latest-category-bar {
 
-    background: #172235 !important;
+    background: #020d18 !important;
 
-    border-color: #334155 !important;
+    color: #ffffff !important;
 
-    color: #fff;
+    border-color: #26384a !important;
+
 }
 
-body.dark .weather-alert-btn.cyclone,
-body.dark-mode .weather-alert-btn.cyclone,
-[data-theme="dark"] .weather-alert-btn.cyclone {
 
-    background: #291719 !important;
+[data-theme="dark"] .latest-category-bar .latest-filter,
+.dark-mode .latest-category-bar .latest-filter {
 
-    border-color: #7f1d1d !important;
+    color: #ffffff !important;
 
-    color: #fca5a5 !important;
-}
+    background: transparent !important;
 
-body.dark .weather-alert-btn.flood,
-body.dark-mode .weather-alert-btn.flood,
-[data-theme="dark"] .weather-alert-btn.flood {
-
-    background: #17263a !important;
-
-    border-color: #1e40af !important;
-
-    color: #93c5fd !important;
-}
-
-body.dark .weather-alert-btn.rainfall,
-body.dark-mode .weather-alert-btn.rainfall,
-[data-theme="dark"] .weather-alert-btn.rainfall {
-
-    background: #17251c !important;
-
-    border-color: #166534 !important;
-
-    color: #86efac !important;
 }
 
 
-/* =========================================================
-   DARK MODE - SATELLITE / NO NEWS
-========================================================= */
+[data-theme="dark"] .latest-category-bar .latest-filter:hover,
+.dark-mode .latest-category-bar .latest-filter:hover {
 
-body.dark .satellite-card p,
-body.dark-mode .satellite-card p,
-[data-theme="dark"] .satellite-card p {
-
-    color: #94a3b8 !important;
-}
-
-body.dark .no-weather-news,
-body.dark-mode .no-weather-news,
-[data-theme="dark"] .no-weather-news {
-
-    background: #111827 !important;
-
-    color: #fff !important;
-}
-
-
-/* =========================================================
-   MOBILE FINAL OVERRIDE
-   ENSURE ONLY ONE CATEGORY MENU IS VISIBLE
-========================================================= */
-
-@media (max-width: 600px) {
-
-    /* Hide old duplicate ID menu */
-    #mobileCategoryMenu {
-        display: none !important;
-    }
-
-    /* Only class-based menu can open */
-    .mobile-category-menu:not(.open) {
-        display: none !important;
-    }
-
-    .mobile-category-menu.open {
-        display: block !important;
-    }
+    background: #0b1f3a !important;
 
 }
+
+
+[data-theme="dark"] .latest-category-bar .latest-filter.active,
+.dark-mode .latest-category-bar .latest-filter.active {
+
+    background: #e30613 !important;
+
+    color: #ffffff !important;
+
+}
+
