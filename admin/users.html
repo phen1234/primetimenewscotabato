@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Account Management</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link rel="stylesheet" href="../css/users.css">
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="page-header">
+
+        <div class="header-left">
+
+            <a href="dashboard.html" class="backBtn">
+
+                <i class="fas fa-arrow-left"></i>
+
+                Back
+
+            </a>
+
+            <div class="titleBox">
+
+                <h1>
+
+                    <i class="fas fa-users"></i>
+
+                    Account Management
+
+                </h1>
+
+                <p>
+                    Manage registered users.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="header-right">
+
+            <a href="register.html" class="addBtn">
+
+                <i class="fas fa-user-plus"></i>
+
+                Add Account
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+    <div class="users-table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th width="90">Photo</th>
+
+                    <th>Name</th>
+
+                    <th>Email</th>
+
+                    <th width="140">Role</th>
+
+                    <th width="140">Status</th>
+
+                    <th width="120">Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="usersTable">
+
+                <tr>
+
+                    <td colspan="6" style="text-align:center;padding:35px;">
+
+                        Loading users...
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="module" src="../js/users.js"></script>
+<script type="module" src="../js/permissions.js"></script>
+
+<script type="module" src="../js/online-status.js"></script>
+
+</body>
+
+</html>

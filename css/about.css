@@ -1,0 +1,728 @@
+/* PRIMETIME NEWS COTABATO - ABOUT PAGE */
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    margin:0;
+    padding:0;
+    font-family:"Poppins",sans-serif;
+    background:#06131d;
+    color:#fff;
+    overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{text-decoration:none}
+
+/* HERO / HEADER */
+.hero{
+    width:100%;
+    min-height:520px;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    align-items:center;
+    gap:50px;
+    padding:55px 8%;
+    background:#06131d;
+}
+.heroLeft{max-width:720px}
+.miniTitle,.smallTitle,.sectionLabel{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:7px 16px;
+    border-radius:999px;
+    background:#ed0000;
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    line-height:1;
+}
+.hero h1{
+    margin:18px 0 14px;
+    padding:0;
+    max-width:700px;
+    font-size:clamp(42px,5vw,76px);
+    line-height:.98;
+    letter-spacing:-2px;
+    font-weight:800;
+    color:#fff;
+}
+.hero h1 span{display:block}
+.hero p{
+    max-width:650px;
+    margin:0;
+    color:#c7d0db;
+    font-size:16px;
+    line-height:1.75;
+}
+.heroRight{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.heroRight img{
+    width:min(330px,80%);
+    height:auto;
+}
+
+/* MISSION */
+.missionSection{
+    width:100%;
+    padding:55px 6% 65px;
+    background:#06131d;
+}
+.missionTitle{
+    text-align:center;
+    margin:0 auto 34px;
+    padding-bottom:13px;
+    font-size:clamp(20px,2.5vw,30px);
+    line-height:1.2;
+    font-weight:800;
+    color:#fff;
+}
+.missionTitle:after{
+    content:"";
+    display:block;
+    width:66px;
+    height:4px;
+    margin:10px auto 0;
+    border-radius:10px;
+    background:#ed0000;
+}
+.missionGrid{
+    width:100%;
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:22px;
+}
+.missionCard{
+    min-height:260px;
+    padding:30px 25px;
+    border-radius:18px;
+    background:#121d31;
+    border:1px solid rgba(255,255,255,.05);
+    text-align:center;
+    transition:.25s ease;
+}
+.missionCard:hover{transform:translateY(-5px)}
+.icon{
+    width:76px;
+    height:76px;
+    margin:0 auto 20px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fff0f0;
+    color:#ed0000;
+    font-size:32px;
+}
+.missionCard h3{
+    margin:0 0 12px;
+    font-size:18px;
+    font-weight:800;
+}
+.missionCard p{
+    margin:0;
+    color:#c4ccd8;
+    font-size:14px;
+    line-height:1.7;
+}
+
+/* TEAM */
+.team{
+    width:100%;
+    padding:60px 6% 70px;
+    background:#071521;
+}
+.teamHeading{
+    max-width:900px;
+    margin:0 auto 45px;
+    text-align:center;
+}
+.teamHeading h2{
+    margin:16px 0 12px;
+    font-size:clamp(26px,4vw,46px);
+    line-height:1.1;
+    font-weight:800;
+}
+.teamHeading p{
+    max-width:720px;
+    margin:auto;
+    color:#bdc7d4;
+    font-size:15px;
+    line-height:1.7;
+}
+.managerSection,.teamSection,.editorSection{
+    width:100%;
+    max-width:1180px;
+    margin:0 auto 55px;
+    text-align: center
+}
+.sectionLabel{margin:0 auto 22px}
+
+/* FOUNDER */
+.managerCard{
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:35px;
+    align-items:center;
+    padding:30px;
+    border-radius:20px;
+    background:#121d31;
+    border:1px solid rgba(255,255,255,.05);
+}
+.managerPhoto img{
+    width:100%;
+    aspect-ratio:1;
+    object-fit:cover;
+    border-radius:16px;
+}
+.managerInfo h2{
+    margin:0 0 6px;
+    font-size:30px;
+    font-weight:800;
+}
+.managerInfo h4{
+    margin:0 0 16px;
+    color:#ed0000;
+    font-size:15px;
+}
+.managerInfo p{
+    margin:0 0 22px;
+    color:#c3ccd8;
+    font-size:14px;
+    line-height:1.8;
+}
+
+/* FACEBOOK */
+.facebookBtn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    min-height:40px;
+    padding:9px 16px;
+    border-radius:8px;
+    background:#1877f2;
+    color:#fff;
+    font-size:13px;
+    font-weight:600;
+}
+.teamSocial{display:flex;justify-content:center}
+
+/* REPORTERS / EDITORS */
+.teamGrid,.editorGrid{
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:22px;
+}
+.editorGrid{
+    grid-template-columns:minmax(0,420px);
+    justify-content:center;
+}
+.teamCard{
+    overflow:hidden;
+    border-radius:18px;
+    background:#121d31;
+    border:1px solid rgba(255,255,255,.05);
+}
+.teamCard>img{
+    width:100%;
+    height:320px;
+    object-fit:cover;
+}
+.teamContent{
+    padding:20px;
+    text-align:center;
+}
+.teamContent h3{
+    margin:0 0 5px;
+    font-size:19px;
+    font-weight:800;
+}
+.teamContent h4{
+    margin:0 0 16px;
+    color:#aeb9c8;
+    font-size:13px;
+    font-weight:500;
+}
+
+/* QUOTE FOOTER */
+.quoteSection{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    align-items:center;
+    gap:50px;
+    padding:55px 8%;
+    background:#050f18;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+.quoteLeft{max-width:750px}
+.quoteLeft>i{
+    color:#ed0000;
+    font-size:30px;
+    margin-bottom:12px;
+}
+.quoteLeft h2{
+    margin:0 0 18px;
+    font-size:clamp(24px,3vw,40px);
+    line-height:1.25;
+    font-weight:800;
+}
+.quoteLeft p{
+    margin:0;
+    color:#adb8c7;
+    font-size:14px;
+    line-height:1.7;
+}
+.quoteRight{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.quoteRight img{width:min(260px,100%);height:auto}
+
+/* TABLET */
+@media(max-width:900px){
+    .hero{
+        min-height:auto;
+        grid-template-columns:1fr;
+        text-align:center;
+        gap:25px;
+        padding:48px 24px 42px;
+    }
+    .heroLeft{max-width:700px;margin:auto}
+    .hero h1{
+        max-width:650px;
+        margin:16px auto 13px;
+        font-size:clamp(40px,8vw,60px);
+        letter-spacing:-1.5px;
+    }
+    .hero p{max-width:650px;margin:auto;font-size:15px}
+    .heroRight img{width:220px}
+    .missionGrid{grid-template-columns:1fr;max-width:620px}
+    .managerCard{grid-template-columns:240px 1fr}
+    .quoteSection{
+        grid-template-columns:1fr;
+        text-align:center;
+        gap:30px;
+    }
+    .quoteLeft{margin:auto}
+}
+
+/* MOBILE */
+@media(max-width:600px){
+    .hero{
+        min-height:auto;
+        padding:30px 18px 28px;
+        gap:12px;
+    }
+    .miniTitle,.smallTitle,.sectionLabel{
+        padding:6px 12px;
+        font-size:9px;
+        letter-spacing:1.2px;
+    }
+    .hero h1{
+        max-width:100%;
+        margin:12px auto;
+        font-size:27px;
+        line-height:1.08;
+        letter-spacing:-.7px;
+    }
+    .hero p{
+        max-width:360px;
+        margin:auto;
+        font-size:12px;
+        line-height:1.55;
+    }
+    .heroRight{display:none}
+
+    .missionSection{padding:35px 10px 40px}
+    .missionTitle{
+        margin-bottom:24px;
+        padding-bottom:9px;
+        font-size:17px;
+    }
+    .missionTitle:after{
+        width:55px;
+        height:3px;
+        margin-top:8px;
+    }
+    .missionGrid{gap:14px}
+    .missionCard{
+        min-height:0;
+        padding:22px 16px;
+        border-radius:16px;
+    }
+    .icon{
+        width:76px;
+        height:76px;
+        margin-bottom:16px;
+        font-size:29px;
+    }
+    .missionCard h3{font-size:16px;margin-bottom:9px}
+    .missionCard p{font-size:12px;line-height:1.6}
+
+    .team{padding:40px 12px 45px}
+    .teamHeading{margin-bottom:32px}
+    .teamHeading h2{
+        margin:12px 0 9px;
+        font-size:23px;
+    }
+    .teamHeading p{font-size:12px;line-height:1.55}
+
+    .managerSection,.teamSection,.editorSection{margin-bottom:35px}
+    .sectionLabel{margin-bottom:14px}
+    .managerCard{
+        grid-template-columns:1fr;
+        gap:18px;
+        padding:16px;
+        border-radius:16px;
+        text-align:center;
+    }
+    .managerPhoto img{
+        width:min(190px,70%);
+        margin:auto;
+    }
+    .managerInfo h2{font-size:21px}
+    .managerInfo h4{margin-bottom:12px;font-size:12px}
+    .managerInfo p{
+        margin-bottom:16px;
+        font-size:12px;
+        line-height:1.65;
+    }
+    .facebookBtn{
+        min-height:36px;
+        padding:8px 12px;
+        font-size:11px;
+    }
+
+    .teamGrid,.editorGrid{
+        grid-template-columns:1fr;
+        gap:14px;
+    }
+    .teamCard>img{height:280px}
+    .teamContent{padding:16px 12px}
+    .teamContent h3{font-size:16px}
+    .teamContent h4{font-size:12px;margin-bottom:13px}
+
+    .quoteSection{
+        grid-template-columns:1fr;
+        gap:22px;
+        padding:35px 18px 38px;
+    }
+    .quoteLeft{text-align:center}
+    .quoteLeft>i{font-size:24px}
+    .quoteLeft h2{
+        margin-bottom:13px;
+        font-size:20px;
+        line-height:1.35;
+    }
+    .quoteLeft p{font-size:11px;line-height:1.55}
+    .quoteRight img{width:170px}
+}
+
+/* SMALL PHONES */
+@media(max-width:380px){
+    .hero{padding:25px 14px 24px}
+    .hero h1{font-size:24px}
+    .hero p{font-size:11px}
+    .missionTitle{font-size:15px}
+    .teamHeading h2{font-size:21px}
+    .missionCard{padding:20px 13px}
+}
+
+/* DARK THEME COMPATIBILITY */
+body.dark-mode,
+body.dark{
+    background:#06131d;
+    color:#fff;
+}
+body.dark-mode .hero,
+body.dark-mode .missionSection,
+body.dark-mode .team,
+body.dark .hero,
+body.dark .missionSection,
+body.dark .team{
+    background:#06131d;
+}
+body.dark-mode .missionCard,
+body.dark-mode .managerCard,
+body.dark-mode .teamCard,
+body.dark .missionCard,
+body.dark .managerCard,
+body.dark .teamCard{
+    background:#121d31;
+}
+body.dark-mode .quoteSection,
+body.dark .quoteSection{
+    background:#050f18;
+}
+
+/* =====================================================
+   TEAM PHOTOS - SAME SIZE AS FOUNDER
+===================================================== */
+
+/* FOUNDER */
+.managerPhoto img {
+    width: 256px;
+    height: 256px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    border-radius: 14px;
+}
+
+
+/* REPORTER + EDITOR */
+.teamCard > img {
+    width: 256px;
+    height: 256px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    border-radius: 14px;
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media (min-width: 769px) {
+
+    .managerPhoto img,
+    .teamCard > img {
+        width: 256px;
+        height: 256px;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .managerPhoto img,
+    .teamCard > img {
+        width: 256px;
+        height: 256px;
+        max-width: 100%;
+        object-fit: cover;
+        margin: 0 auto;
+    }
+
+}
+
+/* =========================================================
+   ABOUT PAGE - LIGHT / DARK MODE SUPPORT
+========================================================= */
+
+/* =========================
+   DARK MODE
+========================= */
+
+html.dark .hero,
+body.dark .hero {
+    background: #00121d;
+    color: #ffffff;
+}
+
+html.dark .missionSection,
+body.dark .missionSection {
+    background: #00121d;
+    color: #ffffff;
+}
+
+html.dark .team,
+body.dark .team {
+    background: #00121d;
+    color: #ffffff;
+}
+
+html.dark .missionCard,
+body.dark .missionCard {
+    background: #121d33;
+    color: #ffffff;
+}
+
+html.dark .managerCard,
+body.dark .managerCard {
+    background: #121d33;
+    color: #ffffff;
+}
+
+html.dark .teamCard,
+body.dark .teamCard {
+    background: #121d33;
+    color: #ffffff;
+}
+
+html.dark .quoteSection,
+body.dark .quoteSection {
+    background: #00121d;
+    color: #ffffff;
+}
+
+
+/* =========================
+   LIGHT MODE
+========================= */
+
+html.light .hero,
+body.light .hero {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+
+html.light .missionSection,
+body.light .missionSection {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+
+html.light .team,
+body.light .team {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+
+html.light .missionCard,
+body.light .missionCard {
+    background: #f8fafc !important;
+    color: #111827 !important;
+
+    border: 1px solid #e5e7eb;
+}
+
+html.light .managerCard,
+body.light .managerCard {
+    background: #f8fafc !important;
+    color: #111827 !important;
+
+    border: 1px solid #e5e7eb;
+}
+
+html.light .teamCard,
+body.light .teamCard {
+    background: #f8fafc !important;
+    color: #111827 !important;
+
+    border: 1px solid #e5e7eb;
+}
+
+html.light .quoteSection,
+body.light .quoteSection {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+
+
+/* =========================
+   LIGHT MODE TEXT
+========================= */
+
+html.light .hero h1,
+body.light .hero h1,
+
+html.light .missionTitle,
+body.light .missionTitle,
+
+html.light .teamHeading h2,
+body.light .teamHeading h2,
+
+html.light .missionCard h3,
+body.light .missionCard h3,
+
+html.light .managerInfo h2,
+body.light .managerInfo h2,
+
+html.light .teamContent h3,
+body.light .teamContent h3,
+
+html.light .quoteLeft h2,
+body.light .quoteLeft h2 {
+    color: #111827 !important;
+}
+
+
+html.light .hero p,
+body.light .hero p,
+
+html.light .missionCard p,
+body.light .missionCard p,
+
+html.light .managerInfo p,
+body.light .managerInfo p,
+
+html.light .teamHeading p,
+body.light .teamHeading p,
+
+html.light .quoteLeft p,
+body.light .quoteLeft p {
+    color: #4b5563 !important;
+}
+
+
+/* =========================
+   SECTION LABEL
+========================= */
+
+html.light .sectionLabel,
+body.light .sectionLabel {
+    background: #ef0000 !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================
+   MINI TITLE
+========================= */
+
+html.light .miniTitle,
+body.light .miniTitle {
+    background: #ef0000 !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================
+   TEAM ROLE
+========================= */
+
+html.light .managerInfo h4,
+body.light .managerInfo h4,
+
+html.light .teamContent h4,
+body.light .teamContent h4 {
+    color: #ef0000 !important;
+}
+
+
+/* =========================
+   ICON
+========================= */
+
+html.light .missionCard .icon,
+body.light .missionCard .icon {
+    color: #ef0000;
+}
+
+
+/* =========================
+   LINKS
+========================= */
+
+html.light .facebookBtn,
+body.light .facebookBtn {
+    color: #ffffff !important;
+}

@@ -1,0 +1,670 @@
+/* =====================================================
+   PRIMETIME NEWS COTABATO
+   ADVERTISE PAGE
+   Responsive Desktop / Tablet / Mobile
+===================================================== */
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.advertise-hero {
+    position: relative;
+    height: 220px;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    background:
+        linear-gradient(
+            rgba(5, 15, 30, 0.72),
+            rgba(5, 15, 30, 0.82)
+        ),
+        url("../images/advertise-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+.advertise-hero .overlay {
+    width: 100%;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+}
+
+.about-logo {
+    width: 125px;
+    height: 125px;
+    object-fit: contain;
+    margin: 0 auto 20px;
+}
+
+.advertise-hero h1 {
+    margin: 0;
+    font-size: 34px;
+    line-height: 1.15;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 6px 0;
+}
+
+.advertise-hero p {
+    margin: 14px 0 0;
+    max-width: 650px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #ffffff;
+}
+
+
+/* =====================================================
+   WHY ADVERTISE
+===================================================== */
+
+.advertise {
+    padding: 70px 0;
+    text-align: center;
+}
+
+.advertise h2 {
+    margin: 0 0 15px;
+    font-size: 34px;
+    line-height: 1.25;
+    font-weight: 800;
+}
+
+.advertise > .container > p {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   ADVERTISING BOXES
+===================================================== */
+
+.ad-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    margin-top: 35px;
+}
+
+.ad-box {
+    min-height: 220px;
+    padding: 30px 22px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    border-radius: 14px;
+    border: 1px solid #e3e7ee;
+
+    background: #ffffff;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.ad-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.13);
+}
+
+.ad-box i {
+    font-size: 38px;
+    margin-bottom: 18px;
+    color: #e10600;
+}
+
+.ad-box h3 {
+    margin: 0 0 10px;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.ad-box p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   PRICING
+===================================================== */
+
+.pricing {
+    padding: 70px 0;
+    text-align: center;
+    background: #f5f7fa;
+}
+
+.pricing h2 {
+    margin: 0 0 40px;
+    font-size: 34px;
+    font-weight: 800;
+}
+
+.price-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    align-items: stretch;
+}
+
+.price-card {
+    position: relative;
+
+    padding: 35px 28px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: #ffffff;
+    border: 1px solid #e1e6ed;
+    border-radius: 16px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.price-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.13);
+}
+
+.price-card.featured {
+    border: 2px solid #e10600;
+    transform: scale(1.03);
+}
+
+.price-card.featured:hover {
+    transform: scale(1.03) translateY(-6px);
+}
+
+.price-card h3 {
+    margin: 0 0 12px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.price-card h1 {
+    margin: 0 0 25px;
+    font-size: 40px;
+    line-height: 1.1;
+    font-weight: 800;
+    color: #e10600;
+}
+
+.price-card ul {
+    width: 100%;
+    margin: 0 0 30px;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+
+.price-card li {
+    position: relative;
+    margin: 10px 0;
+    padding-left: 25px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.price-card li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: 700;
+    color: #e10600;
+}
+
+.price-card button {
+    width: 100%;
+    margin-top: auto;
+    padding: 13px 20px;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: #e10600;
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.price-card button:hover {
+    background: #b90000;
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   ADVERTISING FORM
+===================================================== */
+
+.advertise-form {
+    padding: 70px 0;
+    text-align: center;
+}
+
+.advertise-form h2 {
+    margin: 0 0 35px;
+    font-size: 34px;
+    font-weight: 800;
+}
+
+.advertise-form form {
+    width: min(760px, 100%);
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    text-align: left;
+}
+
+.advertise-form input,
+.advertise-form select,
+.advertise-form textarea {
+    width: 100%;
+    padding: 14px 15px;
+
+    border: 1px solid #d7dde6;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #222;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.advertise-form input:focus,
+.advertise-form select:focus,
+.advertise-form textarea:focus {
+    border-color: #e10600;
+    box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.10);
+}
+
+.advertise-form textarea {
+    min-height: 150px;
+    resize: vertical;
+    grid-column: 1 / -1;
+}
+
+.advertise-form button {
+    grid-column: 1 / -1;
+
+    width: 100%;
+    padding: 14px 20px;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: #e10600;
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.advertise-form button:hover {
+    background: #b90000;
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    padding: 25px 0;
+    text-align: center;
+    background: #0b1f3a;
+    color: #ffffff;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .advertise-hero {
+        min-height: 380px;
+    }
+
+    .advertise-hero h1 {
+        font-size: 44px;
+    }
+
+    .ad-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .price-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .price-card.featured {
+        transform: none;
+    }
+
+    .price-card.featured:hover {
+        transform: translateY(-6px);
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .container {
+        width: min(100% - 30px, 560px);
+    }
+
+
+    /* HERO */
+
+    .advertise-hero {
+        min-height: 100px;
+    }
+
+    .advertise-hero .overlay {
+        padding: 20px 15px;
+    }
+
+    .about-logo {
+        width: 85px;
+        height: 85px;
+        margin-bottom: 14px;
+    }
+
+    .advertise-hero h1 {
+        font-size: 24px;
+        line-height: 1.2;
+    }
+
+    .advertise-hero p {
+        margin-top: 10px;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+
+    /* WHY ADVERTISE */
+
+    .advertise {
+        padding: 45px 0;
+    }
+
+    .advertise h2 {
+        font-size: 25px;
+        line-height: 1.3;
+    }
+
+    .advertise > .container > p {
+        margin-bottom: 28px;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .ad-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .ad-box {
+        min-height: auto;
+        padding: 25px 20px;
+    }
+
+    .ad-box i {
+        font-size: 32px;
+        margin-bottom: 13px;
+    }
+
+    .ad-box h3 {
+        font-size: 18px;
+    }
+
+    .ad-box p {
+        font-size: 14px;
+    }
+
+
+    /* PRICING */
+
+    .pricing {
+        padding: 45px 0;
+    }
+
+    .pricing h2 {
+        margin-bottom: 28px;
+        font-size: 26px;
+    }
+
+    .price-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .price-card {
+        width: 100%;
+        padding: 28px 22px;
+    }
+
+    .price-card h3 {
+        font-size: 21px;
+    }
+
+    .price-card h1 {
+        font-size: 36px;
+    }
+
+    .price-card.featured {
+        transform: none;
+    }
+
+    .price-card.featured:hover {
+        transform: translateY(-5px);
+    }
+
+
+    /* FORM */
+
+    .advertise-form {
+        padding: 45px 0;
+    }
+
+    .advertise-form h2 {
+        margin-bottom: 28px;
+        font-size: 26px;
+    }
+
+    .advertise-form form {
+        grid-template-columns: 1fr;
+        gap: 13px;
+    }
+
+    .advertise-form input,
+    .advertise-form select,
+    .advertise-form textarea {
+        font-size: 14px;
+        padding: 13px 14px;
+    }
+
+    .advertise-form textarea {
+        grid-column: auto;
+        min-height: 130px;
+    }
+
+    .advertise-form button {
+        grid-column: auto;
+        padding: 14px;
+    }
+
+
+    /* FOOTER */
+
+    footer {
+        padding: 20px 15px;
+    }
+
+    footer p {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL PHONE
+===================================================== */
+
+@media (max-width: 400px) {
+
+    .container {
+        width: calc(100% - 24px);
+    }
+
+    .advertise-hero {
+    height: 220px;
+    min-height: 220px;
+}
+
+.advertise-hero .overlay {
+    min-height: 220px;
+    padding: 20px 15px;
+}
+
+    .about-logo {
+        width: 72px;
+        height: 72px;
+    }
+
+    .advertise-hero h1 {
+        font-size: 25px;
+    }
+
+    .advertise-hero p {
+        font-size: 13px;
+    }
+
+    .advertise h2,
+    .pricing h2,
+    .advertise-form h2 {
+        font-size: 23px;
+    }
+
+    .ad-box {
+        padding: 22px 16px;
+    }
+
+    .price-card {
+        padding: 25px 18px;
+    }
+
+    .price-card h1 {
+        font-size: 32px;
+    }
+
+}

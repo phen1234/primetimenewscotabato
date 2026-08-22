@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Login | Primetime News</title>
+
+<link rel="stylesheet" href="../css/admin.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<div class="overlay"></div>
+
+<!-- LEFT SIDE -->
+
+<div class="left-panel">
+
+    <img
+    id="brandLogo"
+    src="../images/PRIMETIME NEWS LOGO.png"
+    class="brand"
+    alt="Website Logo">
+
+<h1 id="brandName">
+    Loading...
+</h1>
+
+    <span id="brandDescription">
+        
+    </span>
+</p>
+
+</div>
+
+<!-- LOGIN -->
+
+<div class="login-card">
+
+    <img
+    id="loginLogo"
+    src="../images/PRIMETIME NEWS LOGO.png"
+    class="login-logo"
+    alt="Website Logo">
+
+<h2 id="loginTitle">
+    Sign in to Access Your Newsroom
+</h2>
+
+    <p class="subtitle">
+        Empowering journalists to create, manage, and publish trusted news.
+    </p>
+
+    <form id="loginForm">
+
+        <div class="input-box">
+
+            <i class="fas fa-envelope"></i>
+
+            <input
+                id="email"
+                type="email"
+                placeholder="Email Address"
+                required>
+
+        </div>
+
+        <div class="input-box">
+
+            <i class="fas fa-lock"></i>
+
+            <input
+                id="password"
+                type="password"
+                placeholder="Password"
+                required>
+
+            <i class="fas fa-eye toggle-password" data-target="password"></i>
+
+        </div>
+
+        <button type="submit">
+
+            <i class="fas fa-right-to-bracket"></i>
+
+            Sign In
+
+        </button>
+
+        <p id="loginMessage"></p>
+
+
+        <div class="divider">
+    <span>or continue with Google</span>
+</div>
+
+<button
+    type="button"
+    id="googleLogin"
+    class="google-logo-btn">
+
+    <img
+        src="../images/google-logo.png"
+        alt="Google">
+
+</button>
+
+<p class="secure-text">
+    <i class="fas fa-shield-alt"></i>
+    Secure Acess with Gmail Authentication
+</p>
+
+    </form>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="module" src="../js/login.js"></script>
+
+</body>
+
+</html>

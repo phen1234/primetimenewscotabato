@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>News Article | Primetime News Cotabato</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/article.css">
+<link rel="stylesheet" href="css/public-theme.css">
+
+
+<style>
+/* =========================================
+   ARTICLE PAGE - MOBILE ONLY
+   Desktop is untouched.
+   ========================================= */
+@media (max-width: 768px) {
+    /* Header */
+    .page-header .top-header {
+        min-height: 72px !important;
+        padding: 8px 10px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+    }
+
+    .page-header .logo img {
+        width: 125px !important;
+        height: auto !important;
+    }
+
+    .page-header .header-text h1 {
+        font-size: 18px !important;
+        line-height: 1.1 !important;
+        margin: 0 !important;
+    }
+
+    /* Navbar / hamburger */
+    #navbar {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 99999 !important;
+    }
+
+    #navbar .nav {
+        position: relative !important;
+        min-height: 42px !important;
+        padding: 0 8px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        box-sizing: border-box !important;
+    }
+
+    #navbar .mobile-menu-toggle {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 36px !important;
+        height: 36px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        background: transparent !important;
+        color: #fff !important;
+        font-size: 18px !important;
+        cursor: pointer !important;
+        z-index: 100002 !important;
+    }
+
+    #navbar .nav-links {
+        display: none !important;
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-height: calc(100vh - 120px) !important;
+        overflow-y: auto !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #081a3b !important;
+        list-style: none !important;
+        z-index: 100001 !important;
+        box-sizing: border-box !important;
+    }
+
+    #navbar .nav-links.mobile-open {
+        display: flex !important;
+    }
+
+    #navbar .nav-links li {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    #navbar .nav-links li a {
+        display: block !important;
+        width: 100% !important;
+        padding: 12px 14px !important;
+        box-sizing: border-box !important;
+        font-size: 12px !important;
+        line-height: 1.2 !important;
+        color: #fff !important;
+        background: #081a3b !important;
+        border-bottom: 1px solid rgba(255,255,255,.12) !important;
+        text-decoration: none !important;
+    }
+
+    #navbar .nav-links li a:hover,
+    #navbar .nav-links li a:active {
+        background: #d60000 !important;
+        color: #fff !important;
+    }
+
+    /* Article */
+    .article-page { padding: 10px 0 !important; }
+    .article-layout { display: block !important; width: 100% !important; padding: 0 8px !important; }
+    .article-main { width: 100% !important; max-width: 100% !important; }
+    .breadcrumb { font-size: 10px !important; margin-bottom: 6px !important; }
+    .category-badge { font-size: 9px !important; padding: 3px 6px !important; margin-bottom: 6px !important; }
+    #articleTitle { font-size: 20px !important; line-height: 1.18 !important; margin: 5px 0 8px !important; }
+    #articleSummary { font-size: 12px !important; line-height: 1.45 !important; margin-bottom: 8px !important; }
+    .article-meta { display: flex !important; flex-wrap: wrap !important; gap: 5px 9px !important; font-size: 9px !important; }
+    .share { display: flex !important; gap: 5px !important; margin-bottom: 9px !important; }
+    .share button { width: 27px !important; height: 27px !important; padding: 0 !important; font-size: 10px !important; }
+    #articleImage { width: 100% !important; height: auto !important; display: block !important; border-radius: 4px !important; margin-bottom: 10px !important; }
+    #articleBody { width: 100% !important; }
+    #articleBody p { font-size: 13px !important; line-height: 1.55 !important; margin-bottom: 10px !important; }
+    #articleBody img, #articleBody video, #articleBody iframe { max-width: 100% !important; height: auto !important; }
+
+    /* Keep sidebar visible below article */
+    .article-sidebar { display: block !important; width: 100% !important; margin-top: 16px !important; }
+    .article-sidebar .widget { width: 100% !important; padding: 9px !important; margin-bottom: 10px !important; box-sizing: border-box !important; }
+    .article-sidebar .widget h3 { font-size: 15px !important; margin-bottom: 7px !important; }
+    .article-sidebar a, .article-sidebar li { font-size: 11px !important; line-height: 1.35 !important; }
+
+    .related-news { padding: 14px 0 !important; }
+    .related-news h2 { font-size: 17px !important; }
+}
+
+@media (max-width: 480px) {
+    .page-header .top-header { min-height: 62px !important; padding: 6px 8px !important; }
+    .page-header .logo img { width: 108px !important; }
+    .page-header .header-text h1 { font-size: 16px !important; }
+    #navbar .nav { min-height: 38px !important; padding: 0 6px !important; }
+    #navbar .mobile-menu-toggle { width: 32px !important; height: 32px !important; font-size: 16px !important; }
+    #navbar .nav-links li a { padding: 10px 12px !important; font-size: 11px !important; }
+    #articleTitle { font-size: 18px !important; }
+    #articleSummary { font-size: 11px !important; }
+    #articleBody p { font-size: 12.5px !important; }
+}
+
+@media (min-width: 769px) {
+    .mobile-menu-toggle { display: none !important; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+
+
+<!-- HEADER -->
+
+<header class="page-header">
+
+    <div class="container top-header">
+
+    <div class="logo">
+        <a href="index.html">
+            <img
+                id="siteLogo"
+                src="images/PRIMETIME NEWS LOGO.png"
+                alt="Primetime News Cotabato">
+        </a>
+    </div>
+
+    <div class="header-text">
+
+           <h1>
+           Article News
+        </h1>
+
+
+    </div>
+
+</div>
+
+</header>
+
+<!-- NAV -->
+
+<nav id="navbar">
+
+    <div class="container nav">
+
+    <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Open menu" aria-expanded="false">
+        <i class="fas fa-bars"></i> 
+    </button>
+
+    <ul class="nav-links" id="articleNavLinks">
+
+        <li>
+            <a href="index.html">Home</a>
+        </li>
+
+        <li>
+            <a href="local-news.html"
+               data-category="Local News">
+                Local News
+            </a>
+        </li>
+
+        <li>
+            <a href="police-report.html"
+               data-category="Police Report">
+                Police Report
+            </a>
+        </li>
+
+        <li>
+            <a href="political-news.html"
+               data-category="Political News">
+                Political News
+            </a>
+        </li>
+
+        <li>
+            <a href="weather-news.html"
+               data-category="Weather">
+                Weather
+            </a>
+        </li>
+
+        <li>
+            <a href="national-news.html"
+               data-category="National News">
+                National News
+            </a>
+        </li>
+
+        <li>
+            <a href="international-news.html"
+               data-category="International News">
+                International News
+            </a>
+        </li>
+
+    </ul>
+
+</div>
+
+</nav>
+
+<!-- ARTICLE -->
+
+<section class="article-page">
+
+<div class="container article-layout">
+
+<!-- LEFT -->
+
+<div class="article-main">
+
+<div class="breadcrumb">
+
+<a href="latest.html">Back</a>
+
+<i class="fas fa-angle-right"></i>
+
+<span id="articleCategory">
+
+Local News
+
+</span>
+
+</div>
+
+<span class="category-badge" id="categoryBadge">
+
+LOCAL NEWS
+
+</span>
+
+<h1 id="articleTitle">
+
+Loading headline...
+
+</h1>
+
+<p class="summary" id="articleSummary">
+
+Loading summary...
+
+</p>
+
+<div class="article-meta">
+
+<div>
+
+<i class="fas fa-user"></i>
+<span id="articleAuthor">Loading...</span>
+
+</div>
+
+<div>
+
+<i class="fas fa-calendar"></i>
+
+<span id="articleDate">
+
+Loading...
+
+</span>
+
+</div>
+
+<div>
+    <i class="fas fa-eye"></i>
+    <span id="articleViews">0</span> Views
+</div>
+
+</div>
+
+<div class="share">
+
+<button id="shareFacebook">
+    <i class="fab fa-facebook-f"></i>
+</button>
+
+<button id="copyLink">
+    <i class="fas fa-link"></i>
+</button>
+
+<button id="nativeShare">
+    <i class="fas fa-share-alt"></i>
+</button>
+
+</div>
+
+<img
+id="articleImage"
+class="featured-image"
+src="images/news1.jpg">
+
+<div
+id="articleBody"
+class="article-body">
+
+<p>
+
+Loading article...
+
+</p>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<aside class="article-sidebar">
+
+<div class="widget">
+
+<h3>
+
+Most Read
+
+</h3>
+
+<div id="mostRead"></div>
+
+</div>
+
+<div class="widget">
+
+<h3>
+
+Latest News
+
+</h3>
+
+<div id="latestSidebar"></div>
+
+</div>
+
+<div class="widget">
+
+<h3>
+
+Follow Us
+
+</h3>
+
+<div class="social">
+
+<a href="facebook.html">
+
+<i class="fab fa-facebook-f"></i>
+
+Facebook
+
+</a>
+
+<a href="https://www.youtube.com/@PRIMETIMENEWSCOTABATO">
+
+<i class="fab fa-youtube"></i>
+
+YouTube
+
+</a>
+
+</div>
+
+</div>
+
+</aside>
+
+</div>
+
+</section>
+
+<!-- RELATED -->
+
+<section class="related-news">
+
+<div class="container">
+
+<h2>
+
+Related News
+
+</h2>
+
+<div
+id="relatedNews"
+class="related-grid">
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<div class="container">
+
+<h2>
+
+Primetime News Cotabato
+
+</h2>
+
+<p>
+
+© 2026 Primetime News Cotabato
+
+</p>
+
+</div>
+
+</footer>
+
+<script type="module" src="js/article.js"></script>
+<script type="module" src="../js/website-settings.js"></script>
+
+
+<script src="js/public-theme.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const button = document.getElementById('mobileMenuToggle');
+    const menu = document.getElementById('articleNavLinks');
+    if (!button || !menu) return;
+
+    const icon = button.querySelector('i');
+
+    function setMenu(open) {
+        menu.classList.toggle('mobile-open', open);
+        button.setAttribute('aria-expanded', open ? 'true' : 'false');
+        button.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        if (icon) {
+            icon.classList.toggle('fa-bars', !open);
+            icon.classList.toggle('fa-xmark', open);
+        }
+    }
+
+    button.addEventListener('click', function (e) {
+        e.stopPropagation();
+        setMenu(!menu.classList.contains('mobile-open'));
+    });
+
+    menu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () { setMenu(false); });
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!menu.contains(e.target) && !button.contains(e.target)) setMenu(false);
+    });
+
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) setMenu(false);
+    });
+});
+</script>
+</body>
+
+</html>

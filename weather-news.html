@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Weather| Primetime News Cotabato</title>
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/category-news.css">
+<link rel="stylesheet" href="css/weather.css">
+
+<style>
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:25px;
+}
+
+.card{
+background:#fff;
+border-radius:18px;
+padding:25px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card h2{
+color:#0B1F3A;
+margin-bottom:20px;
+font-size:22px;
+}
+
+.weather-temp{
+font-size:60px;
+font-weight:bold;
+color:#E30613;
+}
+
+.weather-info{
+margin-top:20px;
+line-height:2;
+color:#555;
+}
+
+.advisory{
+display:block;
+background:#f8f9fc;
+padding:15px;
+border-radius:10px;
+margin-top:15px;
+text-decoration:none;
+color:#0B1F3A;
+font-weight:600;
+transition:.3s;
+}
+
+.advisory:hover{
+background:#E30613;
+color:#fff;
+}
+
+iframe{
+width:100%;
+height:500px;
+border:none;
+border-radius:15px;
+}
+
+</style>
+
+    <link rel="stylesheet" href="css/public-theme.css">
+</head>
+
+<body data-page="weather">
+
+<!-- HEADER -->
+
+<header class="page-header">
+ 
+<div class="container top-header">
+
+    <div class="logo">
+        <a href="index.html">
+            <img
+                id="siteLogo"
+                src="images/PRIMETIME NEWS LOGO.png"
+                alt="Primetime News Cotabato">
+        </a>
+    </div>
+
+    <div class="header-text">
+
+        <p id="pageSubtitle">
+            Primetime News Cotabato
+        </p>
+
+        <h1 id="pageTitle">
+            Weather Update
+        </h1>
+
+    </div>
+
+</div>
+
+</header>
+
+
+<!-- NAV -->
+<nav id="navbar">
+    <div class="container nav">
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+
+            <li>
+                <a href="local-news.html">Local News</a>
+            </li>
+
+            <li>
+                <a href="police-report.html">Police Report</a>
+            </li>
+
+            <li>
+                <a href="political-news.html">Political News</a>
+            </li>
+
+            <li>
+                <a href="weather.html"
+                   data-category="Weather Update"
+                   class="active">
+                    Weather
+                </a>
+            </li>
+
+            <li>
+                <a href="national-news.html">National News</a>
+            </li>
+
+            <li>
+                <a href="international-news.html">
+                    International News
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+</nav>
+
+
+<!-- MAIN CONTENT -->
+<main>
+
+    <div class="weather-page">
+
+    <!-- ================================
+         LEFT SIDE
+    ================================= -->
+
+    <main class="weather-main">
+
+        <!-- WEATHER NEWS -->
+
+        <!-- SEARCH -->
+
+<section class="search-section">
+
+    <div class="container search-mobile-wrapper">
+
+        <button class="menu-toggle" id="menuToggle" type="button">
+            <i class="fas fa-bars"></i>
+            <span>Categories</span>
+        </button>
+
+        <div class="search-box">
+
+            <i class="fas fa-search"></i>
+
+            <input
+                type="text"
+                placeholder="Search Local News..."
+            >
+
+        </div>
+
+    </div>
+
+</section>
+
+        <section class="weather-news-section">
+
+            <div class="section-heading">
+
+
+                <p>
+                    Latest weather-related news and updates
+                    from Primetime News Cotabato.
+                </p>
+
+            </div>
+
+
+            <!-- FEATURED NEWS -->
+
+            <div
+                id="featuredContent"
+                class="weather-featured-card">
+
+                Loading weather news...
+
+            </div>
+
+            <!-- ===============================
+     RELATED WEATHER NEWS
+================================ -->
+
+<section class="related-weather-section">
+
+    <div class="section-heading">
+
+        <h2>
+            <i class="fas fa-newspaper"></i>
+            Related Weather News
+        </h2>
+
+        <p>
+            More weather-related news from Primetime News Cotabato.
+        </p>
+
+    </div>
+
+    <div
+        id="relatedWeatherNews"
+        class="weather-news-list">
+
+        Loading related weather news...
+
+    </div>
+
+</section>
+
+
+            <!-- SMALL NEWS -->
+
+            <div
+                id="contentList"
+                class="weather-news-grid">
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================================
+         RIGHT SIDEBAR
+    ================================= -->
+
+    <aside class="weather-sidebar">
+
+
+        <!-- CURRENT WEATHER -->
+
+        <section class="weather-card">
+
+            <h2>
+                Current Weather
+            </h2>
+
+            <div class="weather-current-main">
+
+                <img
+                    id="weatherIcon"
+                    src=""
+                    alt="Weather"
+                    style="display:none;">
+
+                <div>
+
+                    <h1 id="weatherTemp">
+                        --°C
+                    </h1>
+
+                    <h3 id="weatherDescription">
+                        Loading...
+                    </h3>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <p>
+                📍
+                <span id="location">
+                    Current Location
+                </span>
+            </p>
+
+            <p>
+                💧 Humidity:
+                <span id="humidity">
+                    --%
+                </span>
+            </p>
+
+            <p>
+                🌬 Wind:
+                <span id="wind">
+                    -- km/h
+                </span>
+            </p>
+
+            <p>
+                🌅 Sunrise:
+                <span id="sunrise">
+                    --
+                </span>
+            </p>
+
+            <p>
+                🌇 Sunset:
+                <span id="sunset">
+                    --
+                </span>
+            </p>
+
+        </section>
+
+
+        <!-- WEATHER INFORMATION -->
+
+        <section class="weather-card">
+
+            <h2>
+    Weather Information
+</h2>
+
+<div class="weather-alert-buttons">
+
+    <button
+        type="button"
+        class="weather-alert-btn cyclone"
+        onclick="window.open('https://bagong.pagasa.dost.gov.ph/', '_blank')">
+
+        🌪
+        <span>Tropical Cyclone Bulletin</span>
+
+    </button>
+
+
+    <button
+        type="button"
+        class="weather-alert-btn flood"
+        onclick="window.open('https://bagong.pagasa.dost.gov.ph/', '_blank')">
+
+        🌊
+        <span>Flood Advisory</span>
+
+    </button>
+
+
+    <button
+        type="button"
+        class="weather-alert-btn rainfall"
+        onclick="window.open('https://bagong.pagasa.dost.gov.ph/', '_blank')">
+
+        🌧
+        <span>Rainfall Forecast</span>
+
+    </button>
+
+</div>
+
+        </section>
+
+
+        <!-- WINDY -->
+
+        <section class="weather-card">
+
+            <h2>
+                <i class="fas fa-cloud"></i>
+                Live Weather Map
+            </h2>
+
+            <div class="windy-map">
+
+                <iframe
+                    src="https://embed.windy.com/embed2.html?lat=7.22&lon=124.25&zoom=6&level=surface&overlay=clouds&product=ecmwf"
+                    frameborder="0">
+                </iframe>
+
+            </div>
+
+        </section>
+
+
+        <!-- SATELLITE -->
+
+        <section class="weather-card satellite-card">
+
+            <h2>
+                <i class="fas fa-satellite"></i>
+                Live Satellite Map
+            </h2>
+
+            <p>
+                Explore real-time wind, cloud cover
+                and global weather conditions.
+            </p>
+
+            <a
+                href="https://zoom.earth/maps/satellite/#view=7.212,124.251,6z"
+                target="_blank"
+                class="satellite-btn">
+
+                <i class="fas fa-satellite"></i>
+
+                View Interactive Satellite
+
+                <i class="fas fa-arrow-right"></i>
+
+            </a>
+
+        </section>
+
+    </aside>
+
+</div>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        Primetime News Cotabato
+    </p>
+
+    <p>
+        © 2026 Primetime News Cotabato
+    </p>
+
+</footer>
+
+<script type="module" src="../js/website-settings.js"></script>
+<script type="module" src="../js/category-news.js"></script>
+<script type="module" src="js/weather.js"></script>
+
+    <script src="js/public-theme.js"></script>
+</body>
+
+</html>

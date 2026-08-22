@@ -1,0 +1,1481 @@
+.satellite-btn{
+
+display:inline-flex;
+align-items:center;
+justify-content:center;
+gap:12px;
+
+padding:18px 40px;
+
+background:linear-gradient(135deg,#E30613,#ff4d4d);
+
+color:#fff;
+text-decoration:none;
+
+font-size:20px;
+font-weight:700;
+letter-spacing:.5px;
+
+border-radius:50px;
+border:none;
+
+cursor:pointer;
+
+box-shadow:0 10px 30px rgba(227,6,19,.45);
+
+transition:all .35s ease;
+
+animation:pulse 2s infinite;
+
+}
+
+.satellite-btn:hover{
+
+background:linear-gradient(135deg,#ff4d4d,#E30613);
+
+transform:translateY(-5px) scale(1.06);
+
+box-shadow:0 18px 40px rgba(227,6,19,.65);
+
+}
+
+.satellite-btn:active{
+
+transform:scale(.97);
+
+}
+
+.satellite-btn i{
+
+font-size:22px;
+
+}
+
+@keyframes pulse{
+
+0%{
+
+box-shadow:0 0 0 0 rgba(227,6,19,.65);
+
+}
+
+70%{
+
+box-shadow:0 0 0 18px rgba(227,6,19,0);
+
+}
+
+100%{
+
+box-shadow:0 0 0 0 rgba(227,6,19,0);
+
+}
+
+}
+.overlay p{
+    margin-top:-8px;
+    margin-bottom:25px;
+}
+
+
+/* ===============================
+   WEATHER NEWS
+================================ */
+
+.weather-news-section {
+    margin-bottom: 40px;
+}
+
+.section-heading {
+    margin-bottom: 20px;
+}
+
+.section-heading h2 {
+    margin-bottom: 6px;
+}
+
+.section-heading p {
+    color: #777;
+    margin: 0;
+}
+
+.weather-news-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.weather-news-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.weather-news-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.14);
+}
+
+.weather-news-image {
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+}
+
+.weather-news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.weather-news-content {
+    padding: 18px;
+}
+
+.weather-news-category {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.weather-news-content h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    line-height: 1.3;
+}
+
+.weather-news-content p {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.weather-news-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 12px;
+    color: #777;
+}
+
+.weather-news-meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.no-weather-news {
+    text-align: center;
+    padding: 40px 20px;
+    background: #fff;
+    border-radius: 12px;
+}
+
+/* =========================================
+   WEATHER NEWS SECTION
+========================================= */
+
+.weather-news-section {
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.section-heading {
+    margin-bottom: 20px;
+}
+
+.section-heading h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.section-heading p {
+    color: #777;
+    font-size: 16px;
+}
+
+
+/* =========================================
+   WEATHER NEWS LIST
+========================================= */
+
+.weather-news-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    width: 100%;
+}
+
+
+/* =========================================
+   WEATHER NEWS CARD
+========================================= */
+
+.weather-news-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.weather-news-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+
+/* IMAGE */
+
+.weather-news-image {
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+}
+
+.weather-news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+/* CONTENT */
+
+.weather-news-content {
+    padding: 20px;
+}
+
+.weather-news-category {
+    display: inline-block;
+    color: #e60000;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.weather-news-content h3 {
+    font-size: 21px;
+    line-height: 1.3;
+    margin: 0 0 10px;
+    color: #111;
+}
+
+.weather-news-content p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+
+/* META */
+
+.weather-news-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: #777;
+    font-size: 13px;
+}
+
+.weather-news-meta i {
+    color: #e60000;
+    margin-right: 4px;
+}
+
+
+/* =========================================
+   FIRST WEATHER NEWS = LARGE FEATURED
+========================================= */
+
+.weather-news-card:first-child {
+    grid-column: span 2;
+}
+
+.weather-news-card:first-child .weather-news-image {
+    height: 420px;
+}
+
+.weather-news-card:first-child .weather-news-content h3 {
+    font-size: 30px;
+}
+
+.weather-news-card:first-child .weather-news-content {
+    padding: 24px;
+}
+
+
+/* =========================================
+   CURRENT WEATHER
+========================================= */
+
+.current-weather-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 35px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.current-weather-section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+
+/* =========================================
+   WEATHER INFORMATION
+========================================= */
+
+.weather-alerts-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.weather-alert-card {
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    font-weight: 600;
+}
+
+
+/* =========================================
+   WINDY
+========================================= */
+
+.windy-section {
+    margin-top: 35px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.windy-section iframe {
+    width: 100%;
+    height: 500px;
+    border: 0;
+    border-radius: 10px;
+}
+
+
+/* =========================================
+   SATELLITE
+========================================= */
+
+.satellite-section {
+    margin-top: 35px;
+    min-height: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.55),
+            rgba(0,0,0,0.55)
+        ),
+        url("images/satellite.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.satellite-overlay {
+    padding: 60px 40px;
+    color: white;
+}
+
+.satellite-overlay h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.satellite-overlay p {
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+
+.satellite-btn {
+    display: inline-block;
+    background: #e60000;
+    color: white;
+    padding: 13px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* =========================================
+   WEATHER PAGE - DESKTOP
+========================================= */
+
+.weather-page {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 28px 0 50px;
+
+    display: grid;
+    grid-template-columns: minmax(0, 2.15fr) minmax(300px, 0.95fr);
+    gap: 26px;
+
+    align-items: start;
+}
+
+.weather-main {
+    min-width: 0;
+}
+
+
+/* =========================================
+   WEATHER NEWS HEADING
+========================================= */
+
+.weather-news-section .section-heading {
+    margin-bottom: 18px;
+}
+
+.weather-news-section .section-heading h2 {
+    margin: 0 0 6px;
+
+    font-size: 25px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.weather-news-section .section-heading p {
+    margin: 0;
+
+    color: #6b7280;
+    font-size: 15px;
+}
+
+
+/* =========================================
+   NEWS GRID
+========================================= */
+
+.weather-news-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 16px;
+}
+
+
+/* =========================================
+   FEATURED CARD
+========================================= */
+
+.weather-featured-card {
+    grid-column: 1 / -1;
+
+    position: relative;
+
+    height: 500px;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background: #111827;
+
+    cursor: pointer;
+}
+
+.weather-featured-card img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+.weather-featured-card::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.90),
+            rgba(0,0,0,.40) 50%,
+            rgba(0,0,0,.05)
+        );
+}
+
+.weather-featured-content {
+    position: absolute;
+
+    left: 25px;
+    right: 25px;
+    bottom: 25px;
+
+    z-index: 2;
+
+    color: white;
+}
+
+.weather-featured-content p {
+    margin: 0 0 12px;
+
+    max-width: 90%;
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.weather-featured-content .badge {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    background: white;
+    color: #111827;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   SMALL NEWS CARDS
+========================================= */
+
+.weather-news-card {
+    background: #fff;
+
+    border-radius: 9px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.08);
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.weather-news-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.13);
+}
+
+.weather-news-card img {
+    width: 100%;
+    height: 145px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+.weather-news-card-content {
+    padding: 13px;
+}
+
+.weather-news-card h3 {
+    margin: 5px 0 10px;
+
+    font-size: 15px;
+    line-height: 1.3;
+
+    font-weight: 800;
+}
+
+.weather-news-card .badge {
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.weather-news-card-meta {
+    display: flex;
+    gap: 8px;
+
+    color: #6b7280;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   RIGHT SIDEBAR
+========================================= */
+
+.weather-sidebar {
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+
+    min-width: 0;
+}
+
+.weather-card {
+    background: #fff;
+
+    border-radius: 10px;
+
+    padding: 18px;
+
+    box-shadow:
+        0 3px 14px rgba(0,0,0,.08);
+}
+
+.weather-card h2 {
+    margin: 0 0 14px;
+
+    font-size: 20px;
+    font-weight: 800;
+}
+
+
+/* =========================================
+   CURRENT WEATHER
+========================================= */
+
+.weather-current-main {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.weather-current-main img {
+    width: 70px;
+    height: 70px;
+}
+
+.weather-current-main h1 {
+    margin: 0;
+
+    font-size: 34px;
+}
+
+.weather-current-main h3 {
+    margin: 3px 0 0;
+
+    font-size: 15px;
+
+    color: #4b5563;
+}
+
+.current-weather-section p {
+    margin: 8px 0;
+
+    font-size: 13px;
+
+    color: #4b5563;
+}
+
+
+/* =========================================
+   WEATHER ALERTS
+========================================= */
+
+.weather-alert-card {
+    padding: 11px 13px;
+
+    margin-bottom: 9px;
+
+    border-radius: 5px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.weather-alert-card.cyclone {
+    background: #fff0f0;
+    border: 1px solid #ffb3b3;
+    color: #dc2626;
+}
+
+.weather-alert-card.flood {
+    background: #eef7ff;
+    border: 1px solid #b8d9ff;
+    color: #2563eb;
+}
+
+.weather-alert-card.rainfall {
+    background: #effaf0;
+    border: 1px solid #b9e6bd;
+    color: #15803d;
+}
+
+
+/* =========================================
+   WINDY
+========================================= */
+
+.windy-map {
+    overflow: hidden;
+
+    border-radius: 7px;
+}
+
+.windy-map iframe {
+    width: 100%;
+    height: 220px;
+
+    border: 0;
+
+    display: block;
+}
+
+
+/* =========================================
+   SATELLITE
+========================================= */
+
+.satellite-card p {
+    color: #6b7280;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+.satellite-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 14px;
+
+    background: #e60000;
+
+    color: #fff;
+
+    border-radius: 5px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.satellite-btn:hover {
+    background: #c90000;
+}
+
+/* =====================================================
+   WEATHER PAGE - DESKTOP FINAL LAYOUT
+===================================================== */
+
+.weather-page {
+    width: 94%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 28px 0 60px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 2.2fr)
+        minmax(320px, 0.9fr);
+
+    gap: 28px;
+
+    align-items: start;
+}
+
+
+.weather-main {
+    min-width: 0;
+}
+
+
+/* =====================================================
+   WEATHER NEWS
+===================================================== */
+
+.weather-news-section {
+    width: 100%;
+    margin: 0;
+}
+
+
+.weather-news-section .section-heading {
+    margin-bottom: 18px;
+}
+
+
+.weather-news-section .section-heading h2 {
+    font-size: 26px;
+    margin: 0 0 6px;
+    font-weight: 800;
+}
+
+
+.weather-news-section .section-heading p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   FEATURED NEWS
+===================================================== */
+
+.weather-featured-card {
+
+    position: relative;
+
+    width: 100%;
+    height: 500px;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background: #111827;
+
+    cursor: pointer;
+
+    margin-bottom: 18px;
+}
+
+
+.weather-featured-card img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+.weather-featured-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.92),
+            rgba(0,0,0,.40) 55%,
+            rgba(0,0,0,.05)
+        );
+
+}
+
+
+.weather-featured-content {
+
+    position: absolute;
+
+    left: 28px;
+    right: 28px;
+    bottom: 26px;
+
+    z-index: 2;
+
+    color: #fff;
+}
+
+
+.weather-featured-content .badge {
+
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    background: red;
+
+    color: white;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.weather-alert-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.weather-alert-btn {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 16px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    border-radius: 6px;
+    background: #fff;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    text-align: left;
+
+    transition: 0.2s ease;
+}
+
+.weather-alert-btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Tropical Cyclone */
+.weather-alert-btn.cyclone {
+    color: #d32f2f;
+    border: 1px solid #ffb3b3;
+    background: #fff5f5;
+}
+
+/* Flood */
+.weather-alert-btn.flood {
+    color: #1976d2;
+    border: 1px solid #a8d1ff;
+    background: #f1f7ff;
+}
+
+/* Rainfall */
+.weather-alert-btn.rainfall {
+    color: #2e7d32;
+    border: 1px solid #b9e6bd;
+    background: #f2fbf3;
+}
+
+.weather-featured-content h2 {
+
+    margin: 6px 0 10px;
+
+    max-width: 90%;
+
+    font-size: 32px;
+
+    line-height: 1.15;
+
+    font-weight: 800;
+}
+
+
+.weather-featured-content p {
+
+    max-width: 85%;
+
+    margin: 0 0 12px;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+.weather-featured-meta {
+
+    display: flex;
+
+    gap: 18px;
+
+    flex-wrap: wrap;
+
+    font-size: 12px;
+}
+
+
+
+
+/* =====================================================
+   SMALL NEWS GRID
+===================================================== */
+
+.weather-news-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 16px;
+
+    width: 100%;
+}
+
+
+.weather-news-card {
+
+    background: #fff;
+
+    border-radius: 9px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.08);
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.weather-news-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.13);
+}
+
+
+.weather-news-card img {
+
+    width: 100%;
+    height: 145px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+.weather-news-card-content {
+
+    padding: 13px;
+}
+
+
+.weather-news-card .badge {
+
+    color: #e60000;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+.weather-news-card h3 {
+
+    margin: 6px 0 10px;
+
+    font-size: 15px;
+
+    line-height: 1.3;
+
+    font-weight: 800;
+}
+
+
+.weather-news-card-meta {
+
+    display: flex;
+
+    gap: 8px;
+
+    color: #6b7280;
+
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   RIGHT SIDEBAR
+===================================================== */
+
+.weather-sidebar {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+    min-width: 0;
+
+    position: sticky;
+
+    top: 20px;
+}
+
+
+.weather-card {
+
+    background: #fff;
+
+    border-radius: 10px;
+
+    padding: 18px;
+
+    box-shadow:
+        0 3px 14px rgba(0,0,0,.08);
+}
+
+
+.weather-card h2 {
+
+    margin: 0 0 14px;
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+    color: #111827;
+}
+
+
+/* =====================================================
+   CURRENT WEATHER
+===================================================== */
+
+.weather-current-main {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.weather-current-main img {
+
+    width: 70px;
+    height: 70px;
+}
+
+
+.weather-current-main h1 {
+
+    margin: 0;
+
+    font-size: 34px;
+
+    color: #006eff;
+}
+
+
+.weather-current-main h3 {
+
+    margin: 3px 0 0;
+
+    font-size: 15px;
+
+    color: #4b5563;
+}
+
+
+.weather-card p {
+
+    margin: 8px 0;
+
+    font-size: 13px;
+
+    color: #4b5563;
+}
+
+
+/* =====================================================
+   WEATHER ALERTS
+===================================================== */
+
+.weather-alert-card {
+
+    padding: 11px 13px;
+
+    margin-bottom: 9px;
+
+    border-radius: 5px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.weather-alert-card.cyclone {
+
+    background: #fff0f0;
+
+    border: 1px solid #ffb3b3;
+
+    color: #dc2626;
+}
+
+
+.weather-alert-card.flood {
+
+    background: #eef7ff;
+
+    border: 1px solid #b8d9ff;
+
+    color: #2563eb;
+}
+
+
+.weather-alert-card.rainfall {
+
+    background: #effaf0;
+
+    border: 1px solid #b9e6bd;
+
+    color: #15803d;
+}
+
+
+/* =====================================================
+   WINDY MAP
+===================================================== */
+
+.windy-map {
+
+    overflow: hidden;
+
+    border-radius: 7px;
+}
+
+
+.windy-map iframe {
+
+    width: 100%;
+
+    height: 220px;
+
+    border: 0;
+
+    display: block;
+}
+
+
+/* =====================================================
+   SATELLITE
+===================================================== */
+
+.satellite-card p {
+
+    color: #6b7280;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+.satellite-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 14px;
+
+    background: #e60000;
+
+    color: #fff;
+
+    border-radius: 5px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.satellite-btn:hover {
+
+    background: #c90000;
+}
+
+
+/* =====================================================
+   DESKTOP WIDTH
+===================================================== */
+
+@media (min-width: 1200px) {
+
+    .weather-page {
+
+        width: 94%;
+
+        max-width: 1450px;
+
+        grid-template-columns:
+            minmax(0, 2.25fr)
+            minmax(340px, .85fr);
+
+        gap: 30px;
+    }
+
+    .weather-featured-card {
+
+        height: 510px;
+    }
+
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .weather-page {
+
+        grid-template-columns: 1fr;
+    }
+
+    .weather-sidebar {
+
+        position: static;
+    }
+
+    .weather-news-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .weather-page {
+
+        width: 92%;
+
+        padding-top: 20px;
+    }
+
+    .weather-news-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .weather-featured-card {
+
+        height: 360px;
+    }
+
+    .weather-featured-content h2 {
+
+        font-size: 23px;
+    }
+
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .weather-news-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .weather-news-card:first-child {
+        grid-column: span 2;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .weather-news-list {
+        grid-template-columns: 1fr;
+    }
+
+    .weather-news-card:first-child {
+        grid-column: span 1;
+    }
+
+    .weather-news-card:first-child .weather-news-image {
+        height: 280px;
+    }
+
+    .weather-news-card:first-child .weather-news-content h3 {
+        font-size: 23px;
+    }
+
+    .weather-alerts-section {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* ===============================
+   MOBILE
+================================ */
+
+@media (max-width: 900px) {
+
+    .weather-news-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .weather-news-list {
+        grid-template-columns: 1fr;
+    }
+
+    .weather-news-image {
+        height: 210px;
+    }
+
+}

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>Videos | Primetime News Cotabato</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/public-theme.css">
+<link rel="stylesheet" href="css/videos.css">
+
+<style>
+
+</style>
+</head>
+
+
+<body>
+
+
+<header class="page-header">
+
+    <div class="container top-header">
+
+        <div class="logo">
+            <a href="index.html">
+                <img
+                    id="siteLogo"
+                    src="images/PRIMETIME NEWS LOGO.png"
+                    alt="Primetime News Cotabato">
+            </a>
+        </div>
+
+        <nav class="top-navigation">
+
+            <a href="videos.html">
+                Videos
+            </a>
+
+            <a href="latest-news.html">
+                Latest News
+            </a>
+
+           <a href="javascript:history.back()">
+    
+    Back
+</a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+<!-- =========================================
+     VIDEOS
+========================================= -->
+
+<main class="videos-page">
+
+    <div class="container">
+
+        <div class="videos-page-title">
+            <h1>
+                <i class="fas fa-play-circle"></i>
+                Videos
+            </h1>
+        </div>
+
+        <div class="video-category-bar">
+
+    <button
+        type="button"
+        class="video-category-toggle"
+        id="videoCategoryToggle"
+        aria-expanded="false">
+
+        <span>
+            <i class="fas fa-bars"></i>
+            <span id="selectedVideoCategory">All</span>
+        </span>
+
+        <i class="fas fa-chevron-down"></i>
+
+    </button>
+
+
+    <div
+        class="video-filters"
+        id="videoFilters">
+
+        <button
+            type="button"
+            class="video-filter active"
+            data-category="All">
+            All
+        </button>
+
+        <button
+            type="button"
+            class="video-filter"
+            data-category="Local News">
+            Local News
+        </button>
+
+        <button
+            type="button"
+            class="video-filter"
+            data-category="Police Report">
+            Police Report
+        </button>
+
+        <button
+            type="button"
+            class="video-filter"
+            data-category="Political News">
+            Political News
+        </button>
+
+        <button
+            type="button"
+            class="video-filter"
+            data-category="Weather">
+            Weather
+        </button>
+
+        <button
+            type="button"
+            class="video-filter"
+            data-category="National News">
+            National News
+        </button>
+
+        <button
+            type="button"
+            class="video-filter"
+            data-category="International News">
+            International News
+        </button>
+
+    </div>
+
+</div>
+
+        <div id="videosGrid" class="videos-grid"></div>
+
+    </div>
+
+</main>
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer>
+
+    <div class="container">
+
+        <h2>
+            Primetime News Cotabato
+        </h2>
+
+        <p>
+            © 2026 Primetime News Cotabato
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script type="module" src="js/videos.js"></script>
+
+<script type="module" src="js/website-settings.js"></script>
+
+<script src="js/public-theme.js"></script>
+
+
+<script>
+
+/* =========================================
+   MOBILE HAMBURGER
+========================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const menu = document.querySelector(".menu-toggle");
+    const nav = document.querySelector("#navbar .nav-links");
+
+    if (!menu || !nav) return;
+
+    menu.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const open = nav.classList.toggle("mobile-open");
+
+        menu.setAttribute("aria-expanded", String(open));
+
+        const icon = menu.querySelector("i");
+
+        if (icon) {
+            icon.classList.toggle("fa-bars", !open);
+            icon.classList.toggle("fa-xmark", open);
+        }
+    });
+
+    // Close only the site hamburger menu when a navigation link is chosen.
+    nav.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", function () {
+            nav.classList.remove("mobile-open");
+            menu.setAttribute("aria-expanded", "false");
+
+            const icon = menu.querySelector("i");
+
+            if (icon) {
+                icon.classList.add("fa-bars");
+                icon.classList.remove("fa-xmark");
+            }
+        });
+    });
+
+    // Close when clicking outside the hamburger menu.
+    document.addEventListener("click", function (event) {
+        if (
+            nav.classList.contains("mobile-open") &&
+            !nav.contains(event.target) &&
+            !menu.contains(event.target)
+        ) {
+            nav.classList.remove("mobile-open");
+            menu.setAttribute("aria-expanded", "false");
+
+            const icon = menu.querySelector("i");
+
+            if (icon) {
+                icon.classList.add("fa-bars");
+                icon.classList.remove("fa-xmark");
+            }
+        }
+    });
+
+});
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Primetime News Cotabato</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+    <link rel="stylesheet" href="css/public-theme.css">
+</head>
+
+<body>
+
+    <div id="pageLoader">
+
+    <div class="loader-card">
+
+       <img
+              id="siteLogo"src="images/PRIMETIME NEWS LOGO.png"class="loader-logo">
+
+        <h1
+id="siteName"
+class="loader-title">
+
+Loading...
+
+</h1>
+
+<div class="title-line"></div>
+
+        <p id="loaderStatus">
+            Connecting to News Server...
+        </p>
+
+        <div class="loader-progress">
+
+            <div id="loaderBar"></div>
+
+        </div>
+
+        <div class="loader-list">
+
+            <p id="step1">○ Loading Latest News</p>
+            <p id="step2">○ Loading Featured Stories</p>
+            <p id="step3">○ Loading Videos</p>
+            <p id="step4">○ Loading Weather</p>
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="container header">
+
+        <!-- Logo -->
+       <div class="logo">
+
+    <a href="index.html" class="main-logo-link">
+        <img
+            id="websiteLogoHeader"
+            src="images/PRIMETIME NEWS LOGO.png"
+            alt="Primetime News Cotabato Logo">
+    </a>
+
+    <!-- DASHBOARD BUTTON: LOGGED-IN USERS ONLY -->
+    <a
+        href="admin/dashboard.html"
+        id="dashboardLogoButton"
+        class="dashboard-logo-button"
+        title="Open Dashboard"
+        aria-label="Open Dashboard"
+        style="display:none;">
+
+        <i class="fas fa-gauge-high"></i>
+
+    </a>
+
+</div>
+
+        <!-- Tagline -->
+        <div class="tagline">
+
+            Tapat na Balita,<br>
+            Para sa Mamamayan ng Cotabato.
+
+        </div>
+
+        <!-- Weather -->
+        <div class="weather">
+
+    <i id="weatherIcon" class="fas fa-cloud-sun"></i>
+
+    <div>
+        <h2 id="weatherTemp">Loading...</h2>
+        <p id="weatherDescription">Loading...</p>
+    </div>
+
+</div>
+
+<!-- Live Clock -->
+<div class="clock">
+
+    <h2 id="clock"></h2>
+    <p id="today"></p>
+
+</div>
+
+    </div>
+
+</header>
+
+<!-- NAVIGATION -->
+
+
+<nav id="navbar">
+
+    <div class="container nav">
+
+        <div class="logo-mobile">
+            <h2>PRIMETIME NEWS</h2>
+        </div>
+
+        <!-- MAIN HAMBURGER -->
+        <button
+            class="menu-toggle"
+            type="button"
+            aria-label="Open navigation menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- MAIN NAVIGATION -->
+        <ul class="nav-links">
+
+            <li>
+                <a href="index.html" class="active">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="local-news.html">
+                    Local News
+                </a>
+            </li>
+
+            <li>
+                <a href="police-report.html">
+                    Police Report
+                </a>
+            </li>
+
+            <li>
+                <a href="political-news.html">
+                    Political News
+                </a>
+            </li>
+
+            <li>
+                <a href="weather-news.html">
+                    Weather
+                </a>
+            </li>
+
+            <li>
+                <a href="national-news.html">
+                    National News
+                </a>
+            </li>
+
+            <li>
+                <a href="international-news.html">
+                    International News
+                </a>
+            </li>
+
+            <!-- MOBILE LOGIN -->
+            <li class="mobile-auth-menu">
+
+                <a
+                    href="admin/login.html"
+                    id="mobileAuthLink">
+
+                    <span id="mobileAuthIcon">🔐</span>
+
+                    <span id="mobileAuthText">
+                        Login
+                    </span>
+
+                </a>
+
+            </li>
+
+        </ul>
+
+
+        <!-- KEBAB MENU -->
+        <div class="kebab-menu">
+
+            <button
+                type="button"
+                id="kebabToggle"
+                class="kebab-toggle"
+                aria-expanded="false"
+                aria-label="More menu">
+
+                <i class="fas fa-ellipsis-vertical"></i>
+
+            </button>
+
+
+            <div
+                id="kebabDropdown"
+                class="kebab-dropdown">
+
+                <a href="about.html">
+                    <i class="fas fa-circle-info"></i>
+                    <span>About Us</span>
+                </a>
+
+                <a href="contact.html">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+
+                <a href="advertise.html">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>Advertise</span>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- DESKTOP AUTH / DASHBOARD -->
+<div class="desktop-auth-menu">
+
+    <a
+        href="admin/login.html"
+        class="login-link"
+        id="desktopAuthLink">
+
+        <i id="desktopAuthIcon" class="fas fa-user-circle"></i>
+
+        <span id="desktopAuthText">
+            Login
+        </span>
+
+    </a>
+
+</div>
+
+
+        <!-- SEARCH -->
+        <div class="menu-search">
+
+            <i class="fas fa-search"></i>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+        <!-- =========================
+     HEADLINES TICKER
+========================= -->
+
+<div class="headline-ticker">
+
+    <div class="headline-label">
+        HEADLINES
+    </div>
+
+    <div class="headline-track-wrap">
+
+        <div
+            class="headline-track"
+            id="newsTicker">
+
+            <span class="headline-loading">
+                Loading latest headlines...
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="container hero-grid">
+
+        <!-- LEFT -->
+        <div class="hero-left">
+
+            <div class="slider">
+
+                <div id="heroSlider"></div>
+
+                <button class="prev">&#10094;</button>
+                <button class="next">&#10095;</button>
+
+                <div id="heroDots" class="dots"></div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+
+        <div class="hero-right">
+
+    <div class="videos-header">
+
+        <h3 class="sidebar-title">
+            <i class="fas fa-play-circle"></i>
+            Latest Videos
+        </h3>
+
+        <a href="videos.html" class="more-videos-btn">
+            More Videos
+            <i class="fas fa-arrow-right"></i>
+        </a>
+
+    </div>
+
+    <div id="heroVideos"></div>
+
+</div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LATEST NEWS ================= -->
+
+
+<section class="latest-news">
+
+    <div class="container latest-grid">
+
+        <!-- LEFT -->
+        <div class="latest-left">
+
+            <div class="section-title">
+              <h2>Latest News</h2>
+
+    <a href="latest-news.html" class="view-all-btn">
+        View All
+    </a>
+</div>
+
+            <!-- Dito ilalagay ng JavaScript ang news -->
+            <div id="newsContainer" class="news-grid"></div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <aside class="sidebar">
+
+    <div class="widget">
+
+        <h3>Most Read</h3>
+
+        <ol id="mostReadList">
+            <li>Loading most read...</li>
+        </ol>
+
+    </div>
+
+</aside>
+
+    </div>
+    </section>
+       
+
+<section class="video-news">
+
+    <div class="container">
+
+        <div class="section-title">
+            
+        </div>
+
+        <div id="youtubeVideos" class="video-grid">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="site-footer">
+
+    <div class="footer-container">
+
+        <!-- BRAND -->
+        <div class="footer-brand">
+
+            <h2 id="footerSiteName">
+                Primetime News Cotabato
+            </h2>
+
+            <p id="footerDescription">
+                Tapat na Balita Para sa Mamamayan ng Cotabato
+            </p>
+
+        </div>
+
+
+    </div>
+
+    <!-- FOOTER BOTTOM -->
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026
+            <span id="footerCopyrightName">
+                Primetime News Cotabato
+            </span>.
+            All Rights Reserved.
+        </p>
+
+        <p id="footerPoweredBy">
+            Powered by: Stephen Jimenez
+        </p>
+
+    </div>
+
+</footer>
+
+<!-- JAVASCRIPTS -->
+
+<script type="module" src="./js/weather.js"></script>
+<script type="module" src="./js/hero.js"></script>
+<script type="module" src="./js/youtube.js"></script>
+<script type="module" src="./js/script.js"></script>
+<script type="module" src="./js/hero-videos.js"></script>
+<script type="module" src="./js/ticker.js"></script>
+<script type="module" src="./js/visitor.js"></script>
+<script type="module" src="./js/website-settings.js"></script>
+<script type="module" src="./js/load-logo.js"></script>
+
+<script src="js/public-theme.js"></script>
+
+<div id="videoModal" class="video-modal">
+
+    <div class="video-modal-content">
+
+        <span id="closeVideo">&times;</span>
+
+        <iframe id="videoFrame"></iframe>
+
+        <div class="video-details">
+
+            <span id="videoCategory"></span>
+
+            <h2 id="videoTitle"></h2>
+
+            <p id="videoDescription"></p>
+
+        </div>
+
+    </div>
+
+</div>
+    
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const kebabToggle =
+        document.getElementById("kebabToggle");
+
+    const kebabDropdown =
+        document.getElementById("kebabDropdown");
+
+
+    if (!kebabToggle || !kebabDropdown) {
+        return;
+    }
+
+
+    kebabToggle.addEventListener("click", function (event) {
+
+        event.stopPropagation();
+
+        const isOpen =
+            kebabDropdown.classList.toggle("open");
+
+        kebabToggle.setAttribute(
+            "aria-expanded",
+            String(isOpen)
+        );
+
+    });
+
+
+    document.addEventListener("click", function (event) {
+
+        if (
+            !kebabDropdown.contains(event.target) &&
+            !kebabToggle.contains(event.target)
+        ) {
+
+            kebabDropdown.classList.remove("open");
+
+            kebabToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+
+    });
+
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+            kebabDropdown.classList.remove("open");
+
+            kebabToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+
+    });
+
+});
+</script>
+<script type="module">
+import { auth } from "./js/firebase.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+
+
+const dashboardLogoButton =
+    document.getElementById("dashboardLogoButton");
+
+
+onAuthStateChanged(auth, (user) => {
+
+    if (!dashboardLogoButton) return;
+
+    if (user) {
+
+        dashboardLogoButton.style.display =
+            "flex";
+
+    } else {
+
+        dashboardLogoButton.style.display =
+            "none";
+
+    }
+
+});
+</script>
+
+
+</body>
+</html>

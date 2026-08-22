@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>Latest News | Primetime News Cotabato</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="stylesheet" href="css/latest-news.css">
+<link rel="stylesheet" href="css/public-theme.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     TOP HEADER / NAVIGATION
+===================================================== -->
+
+<header class="page-header">
+
+    <div class="container top-header">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <a href="index.html">
+                <img
+                    id="siteLogo"
+                    src="images/PRIMETIME NEWS LOGO.png"
+                    alt="Primetime News Cotabato">
+            </a>
+        </div>
+
+        <!-- TOP TEXT LINKS -->
+        <nav class="top-navigation">
+
+            <a href="videos.html">
+                Videos
+            </a>
+
+            <a href="latest-news.html">
+                Latest News
+            </a>
+
+            <a href="javascript:history.back()">
+  
+    Back
+</a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="latest-news-page">
+
+    <div class="container">
+
+        <div class="latest-news-page-title">
+
+            <h1>
+                <i class="fas fa-newspaper"></i>
+                Latest News
+            </h1>
+
+        </div>
+
+
+        <!-- =================================================
+             CATEGORY
+        ================================================== -->
+
+        <div class="latest-category-bar">
+
+            <button
+                type="button"
+                class="latest-category-toggle"
+                id="latestCategoryToggle"
+                aria-expanded="false">
+
+                <span>
+
+                    <i class="fas fa-bars"></i>
+
+                    <span id="selectedLatestCategory">
+                        All
+                    </span>
+
+                </span>
+
+                <i class="fas fa-chevron-down"></i>
+
+            </button>
+
+
+            <div
+                class="latest-filters"
+                id="latestFilters">
+
+                <button
+                    type="button"
+                    class="latest-filter active"
+                    data-category="All">
+                    All
+                </button>
+
+                <button
+                    type="button"
+                    class="latest-filter"
+                    data-category="Local News">
+                    Local News
+                </button>
+
+                <button
+                    type="button"
+                    class="latest-filter"
+                    data-category="Police Report">
+                    Police Report
+                </button>
+
+                <button
+                    type="button"
+                    class="latest-filter"
+                    data-category="Political News">
+                    Political News
+                </button>
+
+                <button
+                    type="button"
+                    class="latest-filter"
+                    data-category="Weather">
+                    Weather
+                </button>
+
+                <button
+                    type="button"
+                    class="latest-filter"
+                    data-category="National News">
+                    National News
+                </button>
+
+                <button
+                    type="button"
+                    class="latest-filter"
+                    data-category="International News">
+                    International News
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             NEWS GRID
+        ================================================== -->
+
+        <div
+            id="latestNewsGrid"
+            class="latest-news-grid">
+
+            <div class="latest-news-status">
+
+                <i class="fas fa-spinner fa-spin"></i>
+
+                Loading latest news...
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="container">
+
+        <h2>
+            Primetime News Cotabato
+        </h2>
+
+        <p>
+            © 2026 Primetime News Cotabato
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+               JAVASCRIPT
+===================================================== -->
+
+<script type="module" src="js/latest-news.js"></script>
+
+<script type="module" src="js/website-settings.js"></script>
+
+<script src="js/public-theme.js"></script>
+
+
+</body>
+
+</html>
+

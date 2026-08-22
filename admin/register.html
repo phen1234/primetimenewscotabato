@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title id="pageTitle">Create New Account | Primetime News CMS</title>
+
+<link rel="stylesheet" href="../css/register.css">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-borderless/borderless.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="registerWrapper">
+
+<div class="registerCard">
+
+        <img id="siteLogo" src="../images/PRIMETIME NEWS LOGO.png" class="logo">
+
+    <h1 id="formTitle">Create New Account</h1>
+
+
+    <form id="registerForm">
+
+
+       <div class="photo-upload">
+
+    <img
+        id="previewPhoto"
+        src="../images/default-user.png"
+        class="profilePreview">
+
+    <input
+        type="file"
+        id="photo"
+        accept="image/*"
+        hidden>
+
+    <button
+        type="button"
+        id="choosePhotoBtn">
+
+        <i class="fas fa-camera"></i>
+
+        Choose Photo
+
+    </button>
+
+</div>
+
+        <div class="input-box">
+            <i class="fas fa-user"></i>
+            <input
+                type="text"
+                id="name"
+                placeholder="Full Name"
+                required>
+        </div>
+
+        <div class="input-box">
+            <i class="fas fa-envelope"></i>
+            <input
+                type="email"
+                id="email"
+                placeholder="Email Address"
+                required>
+        </div>
+
+       <div class="input-box" id="passwordBox">
+    <i class="fas fa-lock"></i>
+    <input
+        type="password"
+        id="password"
+        placeholder="Password"
+        required>
+</div>
+
+        <div class="input-box">
+            <i class="fas fa-user-shield"></i>
+
+            <select id="role">
+
+                <option value="User">User</option>
+                <option value="Reporter">Reporter</option>
+                <option value="Editor">Editor</option>
+                <option value="Admin">Admin</option>
+
+            </select>
+
+        </div>
+
+<button type="submit" id="createAccountBtn">
+    <span id="buttonText">Create Account</span>
+</button>
+
+<div class="divider" id="socialDivider">
+    <span>OR</span>
+</div>
+
+<div class="social-login" id="socialLogin">
+
+    <button type="button" id="googleRegister" class="google-btn">
+        <i class="fab fa-google"></i>
+        Continue with Google
+    </button>
+
+    <button type="button" id="facebookRegister" class="facebook-btn">
+        <i class="fab fa-facebook-f"></i>
+        Continue with Facebook
+    </button>
+
+</div>
+
+<p id="registerMessage"></p>
+    </form>
+
+    <a href="users.html" class="backBtn">
+
+        <i class="fas fa-arrow-left"></i>
+
+        Back to Accounts
+
+    </a>
+
+</div>
+
+</div>
+
+<!-- Admin Password Modal -->
+<div id="adminPasswordModal" class="roleModal" style="display:none;">
+
+    <div class="roleCard">
+
+        <div class="verifyIcon">
+
+            <i class="fas fa-user-shield"></i>
+
+        </div>
+
+        <h2>Super Admin Verification</h2>
+
+        <p class="verifyText">
+
+            To create an <b>Administrator</b> account, verify your identity using your current password.
+
+        </p>
+
+        <div class="passwordGroup">
+
+            <label>
+
+                Current Password
+
+            </label>
+
+            <div class="passwordWrapper">
+
+                <input
+                    type="password"
+                    id="adminPassword"
+                    placeholder="Enter your current password">
+
+                <i class="fas fa-eye toggle-password"
+                   data-target="adminPassword"></i>
+
+            </div>
+
+        </div>
+
+        <div class="roleButtons">
+
+            <button
+                id="cancelAdminPassword"
+                class="cancelBtn">
+
+                <i class="fas fa-times"></i>
+
+                Cancel
+
+            </button>
+
+            <button
+                id="verifyAdminPassword"
+                class="createBtn">
+
+                <i class="fas fa-shield-alt"></i>
+
+                Verify Identity
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Loading Overlay -->
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="module" src="../js/create-users.js"></script>
+<script type="module" src="../js/website-settings.js"></script>
+
+
+</body>
+
+</html>

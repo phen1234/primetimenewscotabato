@@ -1,0 +1,1020 @@
+/* =========================================
+   ADVERTISING INQUIRIES
+   CLEAN ADMIN UI
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #17233c;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+/* =========================================
+   PAGE
+========================================= */
+
+.inquiries-page {
+    width: 100%;
+    max-width: 1700px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.inquiries-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 18px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-left h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 800;
+    color: #17233c;
+}
+
+.header-left h1 i {
+    color: #ef1b1b;
+    margin-right: 8px;
+}
+
+.header-left p {
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: #7b879c;
+}
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.back-btn {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 10px;
+    background: #102744;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+}
+
+.back-btn:hover {
+    background: #1b3a63;
+    transform: translateY(-1px);
+}
+
+/* =========================================
+   COUNT
+========================================= */
+
+.header-count {
+    min-width: 110px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid #e5e9f0;
+    box-shadow: 0 4px 14px rgba(20, 35, 60, 0.06);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.header-count i {
+    color: #ef1b1b;
+}
+
+.header-count span {
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.header-count small {
+    color: #7b879c;
+    font-size: 12px;
+}
+
+/* =========================================
+   BULK ACTIONS
+========================================= */
+
+.bulk-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.select-all {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #40516b;
+    user-select: none;
+}
+
+.select-all input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.delete-selected-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 9px 14px;
+    background: #ffe2e2;
+    color: #d71920;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: 0.2s ease;
+}
+
+.delete-selected-btn:hover:not(:disabled) {
+    background: #ffd0d0;
+}
+
+.delete-selected-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.delete-selected-btn span {
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 20px;
+    background: #d71920;
+    color: #fff;
+    font-size: 11px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================
+   FILTER BAR
+========================================= */
+
+.filter-bar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+
+    background: #fff;
+    border: 1px solid #e1e6ee;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    box-shadow: 0 3px 12px rgba(20, 35, 60, 0.04);
+}
+
+.search-box {
+    flex: 1;
+    height: 42px;
+
+    border: 1px solid #dfe5ed;
+    border-radius: 9px;
+
+    display: flex;
+    align-items: center;
+    padding: 0 13px;
+
+    background: #fff;
+}
+
+.search-box i {
+    color: #8b98aa;
+    margin-right: 9px;
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+
+    color: #24344d;
+    font-size: 13px;
+}
+
+.search-box input::placeholder {
+    color: #9aa5b5;
+}
+
+#statusFilter {
+    height: 42px;
+    min-width: 145px;
+
+    padding: 0 12px;
+
+    border: 1px solid #dfe5ed;
+    border-radius: 9px;
+
+    background: #fff;
+    color: #24344d;
+
+    outline: none;
+    cursor: pointer;
+}
+
+/* =========================================
+   LIST
+========================================= */
+
+.inquiry-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* =========================================
+   INQUIRY CARD
+========================================= */
+
+.inquiry-card {
+    position: relative;
+
+    width: 100%;
+    min-height: 135px;
+
+    padding: 20px 22px;
+
+    background: #fff;
+
+    border: 1px solid #e2e7ef;
+    border-radius: 12px;
+
+    display: grid;
+
+    /*
+       checkbox | icon | content | right
+    */
+    grid-template-columns:
+        28px
+        72px
+        minmax(0, 1fr)
+        190px;
+
+    align-items: center;
+    gap: 16px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 10px rgba(20, 35, 60, 0.035);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
+}
+
+.inquiry-card:hover {
+    transform: translateY(-1px);
+
+    border-color: #ccd5e2;
+
+    box-shadow:
+        0 7px 20px rgba(20, 35, 60, 0.08);
+}
+
+/* =========================================
+   UNREAD
+========================================= */
+
+.inquiry-card.unread {
+    border-left: 3px solid #ef1b1b;
+}
+
+/* =========================================
+   CHECKBOX
+========================================= */
+
+.inquiry-select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inquiry-checkbox {
+    width: 17px;
+    height: 17px;
+    margin: 0;
+    cursor: pointer;
+    accent-color: #1976f3;
+}
+
+/* =========================================
+   ICON
+========================================= */
+
+.inquiry-icon {
+    width: 54px;
+    height: 54px;
+
+    border-radius: 50%;
+
+    background: #ef1111;
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 21px;
+
+    box-shadow:
+        0 4px 10px rgba(239, 17, 17, 0.18);
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.inquiry-content {
+    min-width: 0;
+}
+
+.inquiry-content h3 {
+    margin: 0 0 6px;
+
+    color: #17233c;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.inquiry-contact {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    color: #63738a;
+
+    font-size: 12px;
+
+    margin-bottom: 7px;
+}
+
+.inquiry-contact i {
+    color: #40516b;
+}
+
+.inquiry-message {
+    max-width: 850px;
+
+    color: #748198;
+
+    font-size: 12px;
+    line-height: 1.45;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* =========================================
+   RIGHT SIDE
+========================================= */
+
+.inquiry-right {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+
+    gap: 8px;
+}
+
+.package-badge,
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.package-badge {
+    background: #ffe2e2;
+    color: #df2020;
+}
+
+.status-badge {
+    background: #e7edf5;
+    color: #52657f;
+}
+
+.status-badge.status-new {
+    background: #dcf8e5;
+    color: #159447;
+}
+
+.status-badge.status-read {
+    background: #e7edf5;
+    color: #52657f;
+}
+
+.inquiry-date {
+    color: #8b98aa;
+    font-size: 11px;
+    text-align: right;
+}
+
+/* =========================================
+   LOADING
+========================================= */
+
+.loading {
+    min-height: 180px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    color: #75849a;
+    gap: 10px;
+}
+
+.loading i {
+    font-size: 24px;
+}
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.empty-state {
+    padding: 70px 20px;
+
+    background: #fff;
+
+    border: 1px solid #e2e7ef;
+    border-radius: 12px;
+
+    text-align: center;
+}
+
+.empty-state i {
+    font-size: 40px;
+    color: #b7c0ce;
+    margin-bottom: 14px;
+}
+
+.empty-state h2 {
+    margin: 0 0 7px;
+    color: #263752;
+    font-size: 19px;
+}
+
+.empty-state p {
+    margin: 0;
+    color: #8793a5;
+    font-size: 13px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1000px) {
+
+    .inquiry-card {
+        grid-template-columns:
+            28px
+            60px
+            minmax(0, 1fr)
+            140px;
+
+        padding: 17px;
+        gap: 12px;
+    }
+
+    .inquiry-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 18px;
+    }
+
+    .inquiry-right {
+        align-items: flex-end;
+    }
+
+}
+
+@media (max-width: 760px) {
+
+    .inquiries-page {
+        padding: 15px;
+    }
+
+    .inquiries-header {
+        align-items: flex-start;
+    }
+
+    .header-left h1 {
+        font-size: 22px;
+    }
+
+    .header-count {
+        min-width: auto;
+    }
+
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #statusFilter {
+        width: 100%;
+    }
+
+    .inquiry-card {
+        grid-template-columns:
+            25px
+            55px
+            minmax(0, 1fr);
+
+        align-items: start;
+    }
+
+    .inquiry-right {
+        grid-column: 3;
+        align-items: flex-start;
+        height: auto;
+
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .inquiry-date {
+        text-align: left;
+    }
+
+}
+
+@media (max-width: 520px) {
+
+    .inquiries-header {
+        flex-direction: column;
+    }
+
+    .header-count {
+        align-self: stretch;
+    }
+
+    .bulk-actions {
+        flex-wrap: wrap;
+    }
+
+    .inquiry-card {
+        padding: 14px;
+        grid-template-columns:
+            22px
+            48px
+            minmax(0, 1fr);
+    }
+
+    .inquiry-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 17px;
+    }
+
+    .inquiry-content h3 {
+        font-size: 14px;
+    }
+
+    .inquiry-contact {
+        font-size: 11px;
+    }
+
+}
+
+/* ======================================
+   DARK MODE
+====================================== */
+
+body.dark-mode {
+    background: #0f172a;
+    color: #e5e7eb;
+}
+
+body.dark-mode .inquiries-page {
+    background: #0f172a;
+    color: #e5e7eb;
+}
+
+body.dark-mode .inquiries-header {
+    color: #e5e7eb;
+}
+
+body.dark-mode .inquiries-header h1 {
+    color: #f8fafc;
+}
+
+body.dark-mode .inquiries-header p {
+    color: #94a3b8;
+}
+
+/* Search / Filter */
+
+body.dark-mode .filter-bar {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+body.dark-mode .search-box {
+    background: #1e293b;
+}
+
+body.dark-mode .search-box input {
+    background: transparent;
+    color: #f8fafc;
+}
+
+body.dark-mode .search-box input::placeholder {
+    color: #64748b;
+}
+
+body.dark-mode #statusFilter {
+    background: #1e293b;
+    color: #f8fafc;
+    border-color: #475569;
+}
+
+/* Inquiry cards */
+
+body.dark-mode .inquiry-card {
+    background: #1e293b;
+    border-color: #334155;
+    color: #e5e7eb;
+}
+
+body.dark-mode .inquiry-card:hover {
+    background: #243247;
+}
+
+body.dark-mode .inquiry-content h3 {
+    color: #f8fafc;
+}
+
+body.dark-mode .inquiry-contact {
+    color: #94a3b8;
+}
+
+body.dark-mode .inquiry-message {
+    color: #cbd5e1;
+}
+
+body.dark-mode .inquiry-date {
+    color: #64748b;
+}
+
+/* Right side */
+
+body.dark-mode .package-badge {
+    background: #334155;
+    color: #e2e8f0;
+}
+
+body.dark-mode .status-badge {
+    background: #334155;
+    color: #e2e8f0;
+}
+
+/* Back button */
+
+body.dark-mode .back-btn {
+    background: #1e293b;
+    color: #f8fafc;
+    border-color: #334155;
+}
+
+body.dark-mode .back-btn:hover {
+    background: #334155;
+}
+
+/* Bulk actions */
+
+body.dark-mode .bulk-actions {
+    color: #e2e8f0;
+}
+
+body.dark-mode .select-all {
+    color: #cbd5e1;
+}
+
+body.dark-mode .delete-selected-btn {
+    background: #7f1d1d;
+    color: #fecaca;
+}
+
+body.dark-mode .delete-selected-btn:hover:not(:disabled) {
+    background: #991b1b;
+}
+
+body.dark-mode .delete-selected-btn:disabled {
+    opacity: 0.5;
+}
+
+/* Empty state */
+
+body.dark-mode .empty-state {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+body.dark-mode .empty-state h2 {
+    color: #f8fafc;
+}
+
+body.dark-mode .empty-state p {
+    color: #94a3b8;
+}
+
+/* Loading */
+
+body.dark-mode .loading {
+    color: #cbd5e1;
+}
+
+/* =========================================================
+   DARK MODE - ADVERTISING INQUIRIES
+   ========================================================= */
+
+html.dark-mode,
+body.dark-mode {
+    background: #0f172a;
+    color: #e5e7eb;
+}
+
+body.dark-mode {
+    background: #0f172a;
+}
+
+
+/* PAGE */
+
+body.dark-mode .inquiries-page {
+    background: #0f172a;
+    color: #e5e7eb;
+}
+
+
+/* HEADER */
+
+body.dark-mode .inquiries-header {
+    color: #f8fafc;
+}
+
+body.dark-mode .inquiries-header h1 {
+    color: #f8fafc;
+}
+
+body.dark-mode .inquiries-header p {
+    color: #94a3b8;
+}
+
+
+/* BACK BUTTON */
+
+body.dark-mode .back-btn {
+    background: #1e293b;
+    color: #f8fafc;
+}
+
+body.dark-mode .back-btn:hover {
+    background: #334155;
+}
+
+
+/* COUNT */
+
+body.dark-mode .header-count {
+    background: #1e293b;
+    color: #f8fafc;
+    border-color: #334155;
+}
+
+body.dark-mode .header-count small {
+    color: #94a3b8;
+}
+
+
+/* BULK ACTIONS */
+
+body.dark-mode .select-all {
+    color: #cbd5e1;
+}
+
+body.dark-mode .delete-selected-btn {
+    background: #7f1d1d;
+    color: #fecaca;
+}
+
+body.dark-mode .delete-selected-btn:hover:not(:disabled) {
+    background: #991b1b;
+}
+
+body.dark-mode .delete-selected-btn:disabled {
+    opacity: 0.5;
+}
+
+
+/* FILTER BAR */
+
+body.dark-mode .filter-bar {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+
+/* SEARCH */
+
+body.dark-mode .search-box {
+    background: #0f172a;
+    border-color: #475569;
+}
+
+body.dark-mode .search-box i {
+    color: #94a3b8;
+}
+
+body.dark-mode .search-box input {
+    background: transparent;
+    color: #f8fafc;
+}
+
+body.dark-mode .search-box input::placeholder {
+    color: #64748b;
+}
+
+
+/* STATUS FILTER */
+
+body.dark-mode #statusFilter {
+    background: #0f172a;
+    color: #f8fafc;
+    border-color: #475569;
+}
+
+
+/* INQUIRY CARD */
+
+body.dark-mode .inquiry-card {
+    background: #1e293b;
+    border-color: #334155;
+    color: #e5e7eb;
+}
+
+body.dark-mode .inquiry-card:hover {
+    background: #243449;
+    border-color: #475569;
+}
+
+
+/* UNREAD */
+
+body.dark-mode .inquiry-card.unread {
+    border-left-color: #ef4444;
+}
+
+
+/* ICON */
+
+body.dark-mode .inquiry-icon {
+    background: #dc2626;
+    color: white;
+}
+
+
+/* CONTENT */
+
+body.dark-mode .inquiry-content h3 {
+    color: #f8fafc;
+}
+
+body.dark-mode .inquiry-contact {
+    color: #94a3b8;
+}
+
+body.dark-mode .inquiry-message {
+    color: #cbd5e1;
+}
+
+
+/* RIGHT SIDE */
+
+body.dark-mode .inquiry-date {
+    color: #94a3b8;
+}
+
+
+/* PACKAGE */
+
+body.dark-mode .package-badge {
+    background: #3f1d2e;
+    color: #fda4af;
+}
+
+
+/* STATUS */
+
+body.dark-mode .status-new {
+    background: #064e3b;
+    color: #6ee7b7;
+}
+
+body.dark-mode .status-read {
+    background: #334155;
+    color: #cbd5e1;
+}
+
+
+/* CHECKBOX */
+
+body.dark-mode .inquiry-checkbox,
+body.dark-mode #selectAllInquiries {
+    accent-color: #3b82f6;
+}
+
+
+/* EMPTY STATE */
+
+body.dark-mode .empty-state {
+    color: #cbd5e1;
+}
+
+body.dark-mode .empty-state i {
+    color: #64748b;
+}
+
+body.dark-mode .empty-state h2 {
+    color: #f8fafc;
+}
+
+body.dark-mode .empty-state p {
+    color: #94a3b8;
+}
+
+
+/* LOADING */
+
+body.dark-mode .loading {
+    color: #cbd5e1;
+}

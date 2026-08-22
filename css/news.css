@@ -1,0 +1,1252 @@
+/* =========================================================
+   PRIMETIME NEWS CMS
+   NEWS MANAGEMENT
+   RESPONSIVE + DARK/LIGHT MODE
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+
+    background: #eef2f8;
+    color: #081a3b;
+
+    transition:
+        background .25s ease,
+        color .25s ease;
+
+    overflow-x: hidden;
+}
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.page {
+    width: 100%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 35px 35px 60px;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.headerLeft {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+}
+
+.titleBox {
+    min-width: 0;
+}
+
+.titleBox h1 {
+    font-size: 32px;
+    font-weight: 700;
+
+    color: #081a3b;
+
+    margin-bottom: 5px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.titleBox h1 i {
+    color: #ef2b2d;
+}
+
+.titleBox p {
+    color: #6d7280;
+    font-size: 14px;
+}
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.backBtn {
+    flex-shrink: 0;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    padding: 11px 19px;
+
+    background: #fff;
+
+    border: 1px solid #dce1e8;
+
+    border-radius: 10px;
+
+    color: #081a3b;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: all .2s ease;
+}
+
+.backBtn:hover {
+    background: #081a3b;
+    color: #fff;
+
+    transform: translateY(-1px);
+}
+
+/* =========================================================
+   TYPE BADGES
+   ========================================================= */
+
+.typeBadge.news {
+    background: #1565c0;
+    color: #fff;
+}
+
+.typeBadge.video {
+    background: #e53935;
+    color: #fff;
+}
+
+/* =========================================================
+   CONTENT FILTER
+   ========================================================= */
+
+.contentFilter {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 25px;
+
+    flex-wrap: wrap;
+}
+
+.filterBtn {
+    border: 1px solid #e0e5ec;
+
+    padding: 10px 21px;
+
+    border-radius: 30px;
+
+    background: #fff;
+    color: #13264b;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all .2s ease;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .06);
+}
+
+.filterBtn:hover {
+    background: #13264b;
+    color: #fff;
+}
+
+.filterBtn.active {
+    background: #13264b;
+    color: #fff;
+    border-color: #13264b;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.toolbar {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 22px;
+
+    gap: 18px;
+
+    flex-wrap: wrap;
+}
+
+.toolbarRight {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+/* =========================================================
+   ADD BUTTON
+   ========================================================= */
+
+.addBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    padding: 11px 20px;
+
+    background: #ef2b2d;
+    color: #fff;
+
+    text-decoration: none;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: all .2s ease;
+
+    box-shadow:
+        0 6px 16px rgba(239, 43, 45, .15);
+}
+
+.addBtn:hover {
+    background: #dc2626;
+
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.searchBox {
+    position: relative;
+}
+
+.searchBox i {
+    position: absolute;
+
+    left: 14px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #8a93a3;
+
+    font-size: 13px;
+
+    pointer-events: none;
+}
+
+.searchBox input {
+    width: 250px;
+    height: 42px;
+
+    padding: 0 14px 0 39px;
+
+    background: #fff;
+
+    color: #13264b;
+
+    border: 1px solid #dce1e8;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    font-size: 13px;
+
+    transition: .2s ease;
+}
+
+.searchBox input::placeholder {
+    color: #9aa2ae;
+}
+
+.searchBox input:focus {
+    border-color: #ef2b2d;
+
+    box-shadow:
+        0 0 0 3px rgba(239, 43, 45, .10);
+}
+
+/* =========================================================
+   DATE FILTER
+   ========================================================= */
+
+.filter-bar {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+}
+
+.filter-bar input {
+    height: 42px;
+
+    padding: 0 11px;
+
+    background: #fff;
+
+    color: #13264b;
+
+    border: 1px solid #dce1e8;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+}
+
+.filter-bar input:focus {
+    border-color: #ef2b2d;
+}
+
+.filter-bar button {
+    height: 42px;
+
+    padding: 0 13px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #13264b;
+    color: #fff;
+
+    cursor: pointer;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    transition: .2s ease;
+}
+
+.filter-bar button:hover {
+    background: #1e3a66;
+}
+
+/* =========================================================
+   TABLE CARD
+   ========================================================= */
+
+.card {
+    width: 100%;
+
+    background: #fff;
+
+    border-radius: 13px;
+
+    padding: 18px;
+
+    border: 1px solid #e1e6ed;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, .07);
+
+    overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+table {
+    width: 100%;
+
+    min-width: 850px;
+
+    border-collapse: collapse;
+
+    table-layout: fixed;
+}
+
+thead {
+    background: #13264b;
+    color: #fff;
+}
+
+thead th {
+    padding: 13px 12px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+tbody td {
+    padding: 15px 12px;
+
+    border-bottom: 1px solid #edf0f4;
+
+    vertical-align: middle;
+
+    color: #26344d;
+
+    font-size: 12px;
+}
+
+tbody tr {
+    transition: background .15s ease;
+}
+
+tbody tr:hover {
+    background: #f7f9fc;
+}
+
+/* =========================================================
+   IMAGE
+   ========================================================= */
+
+.thumb {
+    display: block;
+
+    width: 82px;
+    height: 56px;
+
+    object-fit: cover;
+
+    border-radius: 7px;
+
+    border: 1px solid #e1e5eb;
+
+    background: #f1f5f9;
+}
+
+/* =========================================================
+   HEADLINE
+   ========================================================= */
+
+.headlineText {
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1.45;
+
+    color: #13264b;
+
+    white-space: normal;
+
+    word-break: break-word;
+}
+
+/* =========================================================
+   CATEGORY
+   ========================================================= */
+
+.categoryBadge {
+    display: inline-block;
+
+    background: #eef3ff;
+    color: #1e40af;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.publishedBadge {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    color: #16a34a;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+.publishDate {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 10px;
+
+    color: #8b93a0;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+tbody td:last-child {
+    text-align: center;
+}
+
+.editBtn,
+.deleteBtn {
+    width: 34px;
+    height: 34px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    color: #fff;
+
+    cursor: pointer;
+
+    margin: 0 2px;
+
+    transition: all .2s ease;
+}
+
+.editBtn {
+    background: #0d6efd;
+}
+
+.deleteBtn {
+    background: #dc3545;
+}
+
+.editBtn:hover,
+.deleteBtn:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.08);
+}
+
+/* =========================================================
+   COLUMN WIDTHS
+   ========================================================= */
+
+thead th:nth-child(1),
+tbody td:nth-child(1) {
+    width: 95px;
+}
+
+thead th:nth-child(2),
+tbody td:nth-child(2) {
+    width: auto;
+}
+
+thead th:nth-child(3),
+tbody td:nth-child(3) {
+    width: 145px;
+}
+
+thead th:nth-child(4),
+tbody td:nth-child(4) {
+    width: 155px;
+}
+
+thead th:nth-child(5),
+tbody td:nth-child(5) {
+    width: 170px;
+}
+
+thead th:nth-child(6),
+tbody td:nth-child(6) {
+    width: 100px;
+    text-align: center;
+}
+
+/* =========================================================
+   DARK MODE
+   Supports:
+   body.dark-mode
+   body[data-theme="dark"]
+   html[data-theme="dark"]
+   ========================================================= */
+
+body.dark-mode,
+body[data-theme="dark"],
+html[data-theme="dark"] body {
+    background: #061525;
+    color: #f8fafc;
+}
+
+body.dark-mode .titleBox h1,
+body[data-theme="dark"] .titleBox h1,
+html[data-theme="dark"] body .titleBox h1 {
+    color: #f8fafc;
+}
+
+body.dark-mode .titleBox p,
+body[data-theme="dark"] .titleBox p,
+html[data-theme="dark"] body .titleBox p {
+    color: #94a3b8;
+}
+
+/* Back */
+
+body.dark-mode .backBtn,
+body[data-theme="dark"] .backBtn,
+html[data-theme="dark"] body .backBtn {
+    background: #172b49;
+    color: #f8fafc;
+    border-color: #29415f;
+}
+
+body.dark-mode .backBtn:hover,
+body[data-theme="dark"] .backBtn:hover,
+html[data-theme="dark"] body .backBtn:hover {
+    background: #ef2b2d;
+    border-color: #ef2b2d;
+}
+
+/* Filter */
+
+body.dark-mode .filterBtn,
+body[data-theme="dark"] .filterBtn,
+html[data-theme="dark"] body .filterBtn {
+    background: #172b49;
+    color: #e2e8f0;
+    border-color: #29415f;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, .20);
+}
+
+body.dark-mode .filterBtn:hover,
+body[data-theme="dark"] .filterBtn:hover {
+    background: #263d5e;
+    color: #fff;
+}
+
+body.dark-mode .filterBtn.active,
+body[data-theme="dark"] .filterBtn.active {
+    background: #ef2b2d;
+    color: #fff;
+    border-color: #ef2b2d;
+}
+
+/* Search */
+
+body.dark-mode .searchBox input,
+body[data-theme="dark"] .searchBox input,
+html[data-theme="dark"] body .searchBox input {
+    background: #172b49;
+    color: #f8fafc;
+    border-color: #29415f;
+}
+
+body.dark-mode .searchBox input::placeholder,
+body[data-theme="dark"] .searchBox input::placeholder {
+    color: #718096;
+}
+
+body.dark-mode .searchBox i,
+body[data-theme="dark"] .searchBox i {
+    color: #94a3b8;
+}
+
+/* Date */
+
+body.dark-mode .filter-bar input,
+body[data-theme="dark"] .filter-bar input,
+html[data-theme="dark"] body .filter-bar input {
+    background: #172b49;
+    color: #f8fafc;
+    border-color: #29415f;
+}
+
+body.dark-mode .filter-bar button,
+body[data-theme="dark"] .filter-bar button {
+    background: #243b5b;
+}
+
+body.dark-mode .filter-bar button:hover,
+body[data-theme="dark"] .filter-bar button:hover {
+    background: #334f75;
+}
+
+/* Card */
+
+body.dark-mode .card,
+body[data-theme="dark"] .card,
+html[data-theme="dark"] body .card {
+    background: #101f35;
+    border-color: #263d59;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, .30);
+}
+
+/* Table */
+
+body.dark-mode tbody td,
+body[data-theme="dark"] tbody td,
+html[data-theme="dark"] body tbody td {
+    color: #dbe4ef;
+    border-bottom-color: #26374d;
+}
+
+body.dark-mode tbody tr:hover,
+body[data-theme="dark"] tbody tr:hover,
+html[data-theme="dark"] body tbody tr:hover {
+    background: #172b49;
+}
+
+/* Headline */
+
+body.dark-mode .headlineText,
+body[data-theme="dark"] .headlineText,
+html[data-theme="dark"] body .headlineText {
+    color: #f1f5f9;
+}
+
+/* Image */
+
+body.dark-mode .thumb,
+body[data-theme="dark"] .thumb {
+    border-color: #334a65;
+    background: #0b1728;
+}
+
+/* Category */
+
+body.dark-mode .categoryBadge,
+body[data-theme="dark"] .categoryBadge {
+    background: #172f56;
+    color: #93c5fd;
+}
+
+/* Publish date */
+
+body.dark-mode .publishDate,
+body[data-theme="dark"] .publishDate {
+    color: #8291a5;
+}
+
+/* =========================================================
+   SYSTEM DARK MODE
+   Only applies when no explicit light/dark class is set.
+   ========================================================= */
+
+@media (prefers-color-scheme: dark) {
+
+    body:not(.light-mode):not(.dark-mode) {
+        background: #061525;
+        color: #f8fafc;
+    }
+
+    body:not(.light-mode):not(.dark-mode) .titleBox h1 {
+        color: #f8fafc;
+    }
+
+    body:not(.light-mode):not(.dark-mode) .titleBox p {
+        color: #94a3b8;
+    }
+
+    body:not(.light-mode):not(.dark-mode) .backBtn {
+        background: #172b49;
+        color: #f8fafc;
+        border-color: #29415f;
+    }
+
+    body:not(.light-mode):not(.dark-mode) .filterBtn {
+        background: #172b49;
+        color: #e2e8f0;
+        border-color: #29415f;
+    }
+
+    body:not(.light-mode):not(.dark-mode) .filterBtn.active {
+        background: #ef2b2d;
+        color: #fff;
+        border-color: #ef2b2d;
+    }
+
+    body:not(.light-mode):not(.dark-mode) .searchBox input,
+    body:not(.light-mode):not(.dark-mode) .filter-bar input {
+        background: #172b49;
+        color: #fff;
+        border-color: #29415f;
+    }
+
+    body:not(.light-mode):not(.dark-mode) .card {
+        background: #101f35;
+        border-color: #263d59;
+    }
+
+    body:not(.light-mode):not(.dark-mode) tbody td {
+        color: #dbe4ef;
+        border-bottom-color: #26374d;
+    }
+
+    body:not(.light-mode):not(.dark-mode) tbody tr:hover {
+        background: #172b49;
+    }
+
+    body:not(.light-mode):not(.dark-mode) .headlineText {
+        color: #f1f5f9;
+    }
+
+    body:not(.light-mode):not(.dark-mode) .categoryBadge {
+        background: #172f56;
+        color: #93c5fd;
+    }
+
+    body:not(.light-mode):not(.dark-mode) .publishDate {
+        color: #8291a5;
+    }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .page {
+        padding: 25px 20px 50px;
+    }
+
+    .titleBox h1 {
+        font-size: 27px;
+    }
+
+    .toolbar {
+        align-items: stretch;
+    }
+
+    .toolbarRight {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .searchBox input {
+        width: 230px;
+    }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .page {
+        width: 100%;
+        max-width: 100%;
+
+        padding:
+            18px
+            12px
+            35px;
+    }
+
+    /* HEADER */
+
+    .header {
+        margin-bottom: 18px;
+    }
+
+    .headerLeft {
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .backBtn {
+        width: 40px;
+        height: 40px;
+
+        padding: 0;
+
+        border-radius: 9px;
+
+        font-size: 0;
+    }
+
+    .backBtn i {
+        font-size: 14px;
+    }
+
+    .titleBox {
+        flex: 1;
+    }
+
+    .titleBox h1 {
+        font-size: 21px;
+
+        line-height: 1.25;
+
+        gap: 7px;
+    }
+
+    .titleBox h1 i {
+        font-size: 18px;
+    }
+
+    .titleBox p {
+        font-size: 10px;
+
+        line-height: 1.5;
+    }
+
+    /* FILTER BUTTONS */
+
+    .contentFilter {
+        justify-content: flex-start;
+
+        gap: 7px;
+
+        margin-bottom: 18px;
+
+        overflow-x: auto;
+
+        flex-wrap: nowrap;
+
+        padding-bottom: 3px;
+
+        scrollbar-width: none;
+    }
+
+    .contentFilter::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filterBtn {
+        flex-shrink: 0;
+
+        padding: 8px 13px;
+
+        font-size: 11px;
+
+        border-radius: 20px;
+    }
+
+    /* TOOLBAR */
+
+    .toolbar {
+        width: 100%;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 10px;
+
+        margin-bottom: 16px;
+    }
+
+    .addBtn {
+        width: 100%;
+
+        min-height: 43px;
+
+        padding: 10px 15px;
+
+        font-size: 12px;
+    }
+
+    .toolbarRight {
+        width: 100%;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 8px;
+    }
+
+    .searchBox {
+        width: 100%;
+    }
+
+    .searchBox input {
+        width: 100%;
+        height: 40px;
+
+        font-size: 12px;
+    }
+
+    .filter-bar {
+        width: 100%;
+
+        display: grid;
+
+        grid-template-columns: 1fr auto;
+
+        gap: 7px;
+    }
+
+    .filter-bar input {
+        width: 100%;
+        height: 40px;
+
+        font-size: 11px;
+    }
+
+    .filter-bar button {
+        height: 40px;
+
+        padding: 0 12px;
+
+        font-size: 11px;
+    }
+
+    /* CARD */
+
+    .card {
+        width: 100%;
+
+        padding: 10px;
+
+        border-radius: 11px;
+
+        overflow-x: auto;
+    }
+
+    /* TABLE */
+
+    table {
+        min-width: 820px;
+    }
+
+    thead th {
+        padding: 11px 9px;
+
+        font-size: 10px;
+    }
+
+    tbody td {
+        padding: 12px 9px;
+
+        font-size: 10px;
+    }
+
+    .thumb {
+        width: 70px;
+        height: 48px;
+    }
+
+    .headlineText {
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    .categoryBadge {
+        padding: 4px 8px;
+
+        font-size: 9px;
+    }
+
+    .publishedBadge {
+        font-size: 10px;
+    }
+
+    .publishDate {
+        font-size: 9px;
+    }
+
+    .editBtn,
+    .deleteBtn {
+        width: 31px;
+        height: 31px;
+
+        font-size: 11px;
+    }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .page {
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+
+    .titleBox h1 {
+        font-size: 19px;
+    }
+
+    .titleBox p {
+        font-size: 9px;
+    }
+
+    .backBtn {
+        width: 37px;
+        height: 37px;
+    }
+
+    .filterBtn {
+        padding: 7px 11px;
+        font-size: 10px;
+    }
+
+    .card {
+        padding: 8px;
+    }
+
+    table {
+        min-width: 790px;
+    }
+}
+
+
+```css
+/* =========================================
+   HEADLINE COLUMN — IMPROVED SPACING
+   ========================================= */
+
+.card table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+/* Image */
+.card table th:nth-child(1),
+.card table td:nth-child(1) {
+    width: 85px !important;
+}
+
+/* HEADLINE — GIVE MORE SPACE */
+.card table th:nth-child(2),
+.card table td:nth-child(2) {
+    width: 42% !important;
+}
+
+/* Category */
+.card table th:nth-child(3),
+.card table td:nth-child(3) {
+    width: 125px !important;
+}
+
+/* Author */
+.card table th:nth-child(4),
+.card table td:nth-child(4) {
+    width: 140px !important;
+}
+
+/* Status */
+.card table th:nth-child(5),
+.card table td:nth-child(5) {
+    width: 150px !important;
+}
+
+/* Action */
+.card table th:nth-child(6),
+.card table td:nth-child(6) {
+    width: 90px !important;
+}
+
+
+/* =========================================
+   HEADLINE TEXT
+   ========================================= */
+
+.headlineText {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.65;
+    color: #13264b;
+
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+
+/* More breathing room inside headline cell */
+.card table td:nth-child(2) {
+    padding: 18px 22px !important;
+    vertical-align: top;
+}
+
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+
+body.dark-mode .headlineText {
+    color: #ffffff;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .card {
+        overflow-x: auto;
+        padding: 12px;
+    }
+
+    .card table {
+        min-width: 900px;
+    }
+
+    .card table th:nth-child(2),
+    .card table td:nth-child(2) {
+        width: 360px !important;
+    }
+
+    .headlineText {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+}
+```

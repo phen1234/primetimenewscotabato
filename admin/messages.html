@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Messages | Primetime CMS</title>
+
+<link rel="stylesheet" href="../css/messages.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h1>
+
+<i class="fas fa-envelope"></i>
+
+Contact Messages
+
+</h1>
+
+<a href="dashboard.html" class="backBtn">
+
+<i class="fas fa-arrow-left"></i>
+
+Dashboard
+
+</a>
+
+</div>
+
+<div class="messages-layout">
+
+<!-- LEFT -->
+
+<div class="message-list">
+
+<div class="searchBox">
+
+<input
+type="text"
+id="searchMessage"
+placeholder="Search message...">
+
+</div>
+
+<div id="messagesContainer">
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="message-view">
+
+<div id="emptyState">
+
+<i class="fas fa-envelope-open-text"></i>
+
+<h2>No message selected</h2>
+
+<p>Select a message from the left.</p>
+
+</div>
+
+<div id="messageContent" style="display:none;">
+
+<h2 id="viewSubject"></h2>
+
+<p>
+
+<strong>Name :</strong>
+
+<span id="viewName"></span>
+
+</p>
+
+<p>
+
+<strong>Email :</strong>
+
+<span id="viewEmail"></span>
+
+</p>
+
+<p>
+
+<strong>Date :</strong>
+
+<span id="viewDate"></span>
+
+</p>
+
+<hr>
+
+<p id="viewMessage"></p>
+
+<br>
+
+<button id="markRead">
+
+<i class="fas fa-check"></i>
+
+Mark as Read
+
+</button>
+
+<button id="deleteMessage">
+
+<i class="fas fa-trash"></i>
+
+Delete
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module" src="../js/messages.js"></script>
+<script type="module" src="../js/online-status.js"></script>
+
+</body>
+
+</html>

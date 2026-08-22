@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Super Admin</title>
+
+<link rel="stylesheet" href="../css/super-admin.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<div class="overlay"></div>
+
+<div class="left-panel">
+
+<img
+src="../images/PRIMETIME NEWS LOGO.png"
+class="brand">
+
+<p class="tagline">
+
+Create your first Super Administrator
+
+<br>
+
+<span>
+
+Primetime News Content Management System
+
+</span>
+
+</p>
+
+</div>
+
+<div class="login-card">
+
+<img
+src="../images/PRIMETIME NEWS LOGO.png"
+class="login-logo">
+
+<h2>Create Super Admin</h2>
+
+<p class="subtitle">
+
+Only create this account once.
+
+</p>
+
+<form id="adminForm">
+
+<div class="input-box">
+
+<i class="fas fa-user"></i>
+
+<input
+id="name"
+type="text"
+placeholder="Full Name"
+required>
+
+</div>
+
+<div class="input-box">
+
+<i class="fas fa-envelope"></i>
+
+<input
+id="email"
+type="email"
+placeholder="Email Address"
+required>
+
+</div>
+
+<div class="input-box">
+
+<i class="fas fa-lock"></i>
+
+<input
+id="password"
+type="password"
+placeholder="Password"
+required>
+
+<i class="fas fa-eye toggle-password"
+data-target="password"></i>
+
+</div>
+
+<button type="submit">
+
+<i class="fas fa-user-shield"></i>
+
+Create Super Admin
+
+</button>
+
+<p id="msg"></p>
+
+</form>
+
+</div>
+
+<script type="module" src="../js/super-admin.js"></script>
+<script type="module" src="../js/online-status.js"></script>
+<script type="module" src="../js/load-logo.js"></script>
+
+</body>
+
+</html>

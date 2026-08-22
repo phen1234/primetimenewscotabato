@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Weather Center | Primetime News</title>
+
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/weather.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#eef4fb;
+}
+
+header{
+background:linear-gradient(135deg,#0B1F3A,#1C5AA6);
+color:#fff;
+padding:30px;
+text-align:center;
+box-shadow:0 5px 20px rgba(0,0,0,.15);
+}
+
+header h1{
+font-size:36px;
+margin-bottom:10px;
+}
+
+header p{
+opacity:.9;
+}
+
+.container{
+width:95%;
+max-width:1200px;
+margin:40px auto;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:25px;
+}
+
+.card{
+background:#fff;
+border-radius:18px;
+padding:25px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card h2{
+color:#0B1F3A;
+margin-bottom:20px;
+font-size:22px;
+}
+
+.weather-temp{
+font-size:60px;
+font-weight:bold;
+color:#E30613;
+}
+
+.weather-info{
+margin-top:20px;
+line-height:2;
+color:#555;
+}
+
+.advisory{
+display:block;
+background:#f8f9fc;
+padding:15px;
+border-radius:10px;
+margin-top:15px;
+text-decoration:none;
+color:#0B1F3A;
+font-weight:600;
+transition:.3s;
+}
+
+.advisory:hover{
+background:#E30613;
+color:#fff;
+}
+
+iframe{
+width:100%;
+height:500px;
+border:none;
+border-radius:15px;
+}
+
+.back{
+display:inline-block;
+margin-top:30px;
+background:#0B1F3A;
+color:#fff;
+padding:14px 24px;
+text-decoration:none;
+border-radius:10px;
+}
+
+.back:hover{
+background:#E30613;
+}
+
+</style>
+
+    <link rel="stylesheet" href="css/public-theme.css">
+</head>
+
+<body data-page="weather">
+
+<header>
+
+<h1><i class="fas fa-cloud-sun"></i> Weather Center</h1>
+
+<p>Primetime News Cotabato | Weather Information</p>
+
+</header>
+
+<div class="container">
+
+<div class="grid">
+
+<div class="card weather-card">
+
+    <!-- ===============================
+     WEATHER NEWS ARTICLES
+================================ -->
+
+<section class="weather-news-section">
+
+    <div class="section-heading">
+        <h2>
+            <i class="fas fa-newspaper"></i>
+            Weather News
+        </h2>
+
+        <p>
+            Latest weather-related news and updates from Primetime News Cotabato.
+        </p>
+    </div>
+
+    <div id="weatherNewsList" class="weather-news-list">
+        Loading weather news...
+    </div>
+
+</section>
+
+
+<!-- ===============================
+     CURRENT WEATHER
+================================ -->
+
+
+
+    <h2>Current Weather</h2>
+
+    <div class="weather-top">
+
+
+        <div>
+
+            <h1 id="temp">--°C</h1>
+
+            <h3 id="weatherName">Loading...</h3>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <p>📍 <span id="location">Current Location</span></p>
+
+    <p>💧 Humidity:
+        <span id="humidity">--%</span>
+    </p>
+
+    <p>🌬 Wind:
+        <span id="wind">-- km/h</span>
+    </p>
+
+    <p>🌅 Sunrise:
+        <span id="sunrise">--</span>
+    </p>
+
+    <p>🌇 Sunset:
+        <span id="sunset">--</span>
+    </p>
+
+    <br>
+
+    <small>
+        Updated:
+        <span id="updated">--</span>
+    </small>
+
+</div>
+<div class="card">
+
+<h2>Weather Advisories</h2>
+
+<a class="advisory"
+href="https://bagong.pagasa.dost.gov.ph/tropical-cyclone/severe-weather-bulletin"
+target="_blank">
+
+🌪 Tropical Cyclone Bulletin
+
+</a>
+
+<a class="advisory"
+href="https://bagong.pagasa.dost.gov.ph/flood"
+target="_blank">
+
+🌊 Flood Advisory
+
+</a>
+
+<a class="advisory"
+href="https://bagong.pagasa.dost.gov.ph/weather"
+target="_blank">
+
+🌧 Rainfall Forecast
+
+</a>
+
+</div>
+
+</div>
+
+<div style="margin-top:35px">
+
+<div class="card">
+
+<h2>Satellite & Weather Map</h2>
+
+<div class="satellite-card">
+
+    <iframe
+    width="100%"
+    height="500"
+    src="https://embed.windy.com/embed2.html?lat=7.22&lon=124.25&zoom=6&level=surface&overlay=clouds&product=ecmwf"
+    frameborder="0">
+</iframe>
+
+    <div class="overlay">
+
+        <h2>
+            <i class="fas fa-satellite"></i>
+            Live Satellite Map
+        </h2>
+
+        <p>
+            Explore real-time wind, cloud cover and global weather conditions.
+        </p>
+
+        <a
+            href="https://zoom.earth/maps/satellite/#view=7.212,124.251,6z"
+           target="_blank"
+   class="satellite-btn">
+
+    <i class="fas fa-satellite"></i>
+    View Interactive Satellite
+    <i class="fas fa-arrow-right"></i>
+    
+
+    
+
+</a>
+</a>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+<a href="index.html" class="back">
+
+<i class="fas fa-arrow-left"></i>
+Back to Homepage
+
+</a>
+
+</div>
+<script src="js/weather.js"></script>
+    <script src="js/public-theme.js"></script>
+</body>
+</html>

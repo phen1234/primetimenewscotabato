@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Analytics | Primetime News CMS</title>
+
+<link rel="stylesheet" href="../css/dashboard.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+
+    <img
+        id="websiteLogo"
+        src="../images/PRIMETIME NEWS LOGO.png"
+        alt="Website Logo">
+
+    <h2 id="siteName">
+        Loading...
+    </h2>
+
+</div>
+
+<ul>
+
+<li id="dashboardBtn">
+    <i class="fas fa-chart-pie"></i>
+    <span>Dashboard</span>
+</li>
+
+<li class="active">
+    <i class="fas fa-chart-line"></i>
+    <span>Analytics</span>
+</li>
+
+<li id="categorySidebarBtn">
+    <i class="fas fa-folder"></i>
+    <span>Categories</span>
+</li>
+
+<li id="usersBtn">
+    <i class="fas fa-users"></i>
+    <span>Accounts</span>
+</li>
+
+<li id="settingsMenu">
+    <i class="fas fa-gear"></i>
+    <span>Settings</span>
+</li>
+
+<li id="logoutBtn">
+    <i class="fas fa-right-from-bracket"></i>
+    <span>Logout</span>
+</li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<div class="topbar">
+
+<div class="search">
+
+<i class="fas fa-search"></i>
+
+<input
+type="text"
+placeholder="Search Analytics">
+
+</div>
+
+<div class="top-right">
+
+    <div class="clock-area">
+
+        <div id="clock"></div>
+
+        <small id="currentDate"></small>
+
+    </div>
+
+</div>
+
+</div>
+
+<section class="welcome">
+
+<h1>Website Analytics</h1>
+
+<p>
+
+Monitor website traffic, visitors, news performance and overall CMS statistics.
+
+</p>
+
+</section>
+
+
+
+<div class="dashboard-grid">
+
+    <!-- LEFT -->
+
+    <div class="news-panel">
+
+        <div class="panel-title">
+            <h2>
+                <i class="fas fa-chart-line"></i>
+                Website Traffic
+            </h2>
+        </div>
+
+        <canvas id="viewsChart" height="120"></canvas>
+
+        <br>
+
+        <div class="panel-title">
+            <h2>
+                <i class="fas fa-fire"></i>
+                Top Viewed Articles
+            </h2>
+        </div>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Headline</th>
+                    <th>Views</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="topNewsTable"></tbody>
+
+        </table>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="right-panel">
+
+        <div class="weather-widget">
+
+            <h2>
+
+                <i class="fas fa-chart-pie"></i>
+
+                Category Distribution
+
+            </h2>
+
+            <canvas id="categoryChart"></canvas>
+
+        </div>
+
+        <hr style="margin:20px 0;">
+        <div class="activity-widget">
+
+<h2>
+<i class="fas fa-user-shield"></i>
+User Statistics
+</h2>
+
+<table>
+
+<tr>
+<td>Super Admin</td>
+<td id="superAdmins">0</td>
+</tr>
+
+<tr>
+<td>Admin</td>
+<td id="admins">0</td>
+</tr>
+
+<tr>
+<td>Editor</td>
+<td id="editors">0</td>
+</tr>
+
+<tr>
+<td>Reporter</td>
+<td id="reporters">0</td>
+</tr>
+
+</table>
+
+</div>
+
+<h3>Categories</h3>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Category</th>
+
+<th>Total</th>
+
+</tr>
+
+</thead>
+
+<tbody id="categoryAnalytics">
+
+</tbody>
+
+</table>
+
+        <div class="activity-widget">
+
+            <h2>
+
+                <i class="fas fa-users"></i>
+
+                Visitor Statistics
+
+            </h2>
+
+            <p><strong>Today:</strong> <span id="todayVisitors">0</span></p>
+
+            <p><strong>This Week:</strong> <span id="weekVisitors">0</span></p>
+
+            <p><strong>This Month:</strong> <span id="monthVisitors">0</span></p>
+
+            <hr>
+
+            <h3 style="margin-top:15px;">
+                Latest Visitors
+            </h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Name</th>
+                        <th>Date</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="visitorTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<script type="module" src="../js/firebase.js"></script>
+<script type="module" src="../js/permissions.js"></script>
+<script type="module" src="../js/online-status.js"></script>
+<script type="module" src="../js/heartbeat.js"></script>
+<script type="module" src="../js/analytics.js"></script>
+<script type="module" src="../js/load-logo.js"></script>
+<script type="module" src="../js/website-settings.js"></script>
+
+</body>
+</html>

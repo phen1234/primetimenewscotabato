@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Advertising Inquiry</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="../css/advertising-inquiry.css">
+    
+</head>
+
+<body>
+
+    <div class="page-container">
+
+        <div class="page-header">
+
+            <div>
+                <h1>
+                    <i class="fas fa-bullhorn"></i>
+                    Advertising Inquiry
+                </h1>
+
+                <p>View advertising inquiry details</p>
+            </div>
+
+            <button id="backBtn" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Inquiries
+            </button>
+
+        </div>
+
+
+        <div id="loading" class="loading">
+            <i class="fas fa-spinner fa-spin"></i>
+            Loading inquiry...
+        </div>
+
+
+        <div id="errorMessage" class="error-message" style="display:none;">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Unable to load inquiry.</span>
+        </div>
+
+
+        <div id="inquiryContainer"
+             class="inquiry-card"
+             style="display:none;">
+
+            <div class="card-header">
+
+                <div class="business-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+
+                <div>
+                    <h2 id="businessName">-</h2>
+                    <span id="statusBadge" class="status-badge">
+                        New
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="details-grid">
+
+                <div class="detail-item">
+
+                    <span class="label">
+                        <i class="fas fa-user"></i>
+                        Contact Person
+                    </span>
+
+                    <strong id="contactPerson">-</strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span class="label">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </span>
+
+                    <strong id="email">-</strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span class="label">
+                        <i class="fas fa-phone"></i>
+                        Phone
+                    </span>
+
+                    <strong id="phone">-</strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span class="label">
+                        <i class="fas fa-bullhorn"></i>
+                        Advertising Package
+                    </span>
+
+                    <strong id="package">-</strong>
+
+                </div>
+
+
+                <div class="detail-item full-width">
+
+                    <span class="label">
+                        <i class="fas fa-calendar"></i>
+                        Date Submitted
+                    </span>
+
+                    <strong id="createdAt">-</strong>
+
+                </div>
+
+
+                <div class="detail-item full-width">
+
+                    <span class="label">
+                        <i class="fas fa-comment"></i>
+                        Message
+                    </span>
+
+                    <div id="message" class="message-box">
+                        -
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="card-actions">
+
+                <button id="markUnreadBtn" class="secondary-btn">
+                    <i class="fas fa-envelope"></i>
+                    Mark as Unread
+                </button>
+
+                <button id="deleteBtn" class="delete-btn">
+                    <i class="fas fa-trash"></i>
+                    Delete Inquiry
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script type="module" src="../js/advertising-inquiry.js"></script>
+
+</body>
+</html>
+

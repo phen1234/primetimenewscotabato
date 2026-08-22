@@ -1,0 +1,115 @@
+.analyticsCards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+    margin:25px 0;
+
+}
+
+.analyticsCards .card{
+
+    background:#fff;
+
+    border-radius:12px;
+
+    padding:25px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    transition:.3s;
+
+}
+
+.analyticsCards .card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.analyticsCards .card i{
+
+    font-size:38px;
+
+    color:#2563eb;
+
+    margin-bottom:10px;
+
+}
+
+.analyticsCards .card h3{
+
+    font-size:34px;
+
+    color:#111827;
+
+    margin:10px 0 5px;
+
+}
+
+.analyticsCards .card p{
+
+    color:#6b7280;
+
+    font-size:15px;
+
+}
+
+.chartCard{
+
+    width:100%;
+
+    background:#fff;
+
+    border-radius:12px;
+
+    padding:25px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+}
+
+.chartCard h3{
+
+    margin-bottom:20px;
+
+    color:#111827;
+
+}
+
+#articlesChart{
+
+    width:100%;
+
+    height:400px;
+
+}
+
+.top-content-row {
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.top-content-row:hover {
+    background: rgba(37, 99, 235, 0.08);
+}
+
+.top-content-link {
+    color: #2563eb;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.top-content-row:hover .top-content-link {
+    text-decoration: underline;
+}
+

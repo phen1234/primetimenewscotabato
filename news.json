@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Cotabato City prepares for Paglalaya Celebration",
+    "category": "Cotabato",
+    "image": "images/hero.jpg",
+    "date": "July 17, 2026",
+    "description": "Thousands of residents are expected to join the annual Paglalaya celebration."
+  },
+  {
+    "title": "BARMM launches infrastructure projects",
+    "category": "BARMM",
+    "image": "images/news1.jpg",
+    "date": "July 17, 2026",
+    "description": "Several municipalities receive funding for road improvements."
+  },
+  {
+    "title": "Inflation falls to 2.1%",
+    "category": "Business",
+    "image": "images/news2.jpg",
+    "date": "July 17, 2026",
+    "description": "Government reports lower inflation compared to last quarter."
+  },
+  {
+    "title": "Cotabato FC wins regional championship",
+    "category": "Sports",
+    "image": "images/news3.jpg",
+    "date": "July 17, 2026",
+    "description": "The local football club secures another championship title."
+  }
+]

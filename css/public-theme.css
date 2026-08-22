@@ -1,0 +1,599 @@
+/* =========================================
+   PRIMETIME NEWS - PUBLIC LIGHT / DARK MODE
+   ========================================= */
+
+:root {
+    color-scheme: light;
+}
+
+html.dark-mode {
+    color-scheme: dark;
+}
+
+body {
+    transition: background-color .25s ease, color .25s ease;
+}
+
+/* Floating theme control - public pages only */
+.public-theme-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    background: #0b1f3a;
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(0,0,0,.25);
+    transition: transform .2s ease, background-color .2s ease, color .2s ease;
+}
+
+.public-theme-toggle:hover { transform: scale(1.06); }
+.public-theme-toggle:focus-visible { outline: 3px solid #e10600; outline-offset: 3px; }
+
+body.light-mode .public-theme-toggle {
+    background: #0b1f3a;
+    color: #fff;
+}
+
+body.dark-mode {
+    background: #0b1220 !important;
+    color: #e9eef7 !important;
+}
+
+body.dark-mode .public-theme-toggle {
+    background: #f3f6fb;
+    color: #0b1f3a;
+}
+
+/* Main public surfaces */
+body.dark-mode header,
+body.dark-mode .top-header,
+body.dark-mode main,
+body.dark-mode section,
+body.dark-mode .page-main,
+body.dark-mode .page-layout,
+body.dark-mode .content-main,
+body.dark-mode .content-layout,
+body.dark-mode .latest-content,
+body.dark-mode .category-page,
+body.dark-mode .search-section,
+body.dark-mode .weather-page,
+body.dark-mode .weather-main,
+body.dark-mode .weather-top,
+body.dark-mode .site-footer {
+    background-color: #0b1220 !important;
+    color: #e9eef7 !important;
+}
+
+body.dark-mode .container,
+body.dark-mode .card,
+body.dark-mode .widget,
+body.dark-mode .ad-box,
+body.dark-mode .weather-card,
+body.dark-mode .weather-featured-card,
+body.dark-mode .satellite-card,
+body.dark-mode .social-card,
+body.dark-mode .price-card,
+body.dark-mode .missionCard,
+body.dark-mode .teamCard,
+body.dark-mode .article-card,
+body.dark-mode .news-card,
+body.dark-mode .video-card,
+body.dark-mode .search-box,
+body.dark-mode .page-sidebar,
+body.dark-mode .content-sidebar,
+body.dark-mode .ad-card {
+    background-color: #111c2e !important;
+    color: #e9eef7 !important;
+    border-color: #263752 !important;
+}
+
+/* Text */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6,
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode li,
+body.dark-mode label,
+body.dark-mode small,
+body.dark-mode strong,
+body.dark-mode .header-text,
+body.dark-mode .section-title,
+body.dark-mode .section-heading,
+body.dark-mode .sectionLabel,
+body.dark-mode .page-header {
+    color: #e9eef7 !important;
+}
+
+body.dark-mode a:not(.login-link):not(.public-theme-toggle) {
+    color: #dbe7ff;
+}
+
+body.dark-mode .muted,
+body.dark-mode .subtitle,
+body.dark-mode .description,
+body.dark-mode .meta,
+body.dark-mode .date,
+body.dark-mode .summary {
+    color: #aebbd0 !important;
+}
+
+/* Form controls */
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select,
+body.dark-mode button:not(.public-theme-toggle):not(.menu-toggle) {
+    background-color: #17243a !important;
+    color: #f4f7fb !important;
+    border-color: #344967 !important;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #8fa0b8 !important;
+}
+
+/* Navigation */
+body.dark-mode .nav,
+body.dark-mode #navbar {
+    background-color: #071a35 !important;
+}
+
+body.dark-mode .nav-links a,
+body.dark-mode .mobile-auth-menu a,
+body.dark-mode .desktop-auth-menu a {
+    color: #fff !important;
+}
+
+/* Tables / lists / dividers */
+body.dark-mode table,
+body.dark-mode th,
+body.dark-mode td {
+    background-color: #111c2e !important;
+    color: #e9eef7 !important;
+    border-color: #2a3b57 !important;
+}
+
+body.dark-mode hr,
+body.dark-mode .divider,
+body.dark-mode .border,
+body.dark-mode .category-menu a {
+    border-color: #2a3b57 !important;
+}
+
+/* Modals / overlays */
+body.dark-mode .video-modal-content,
+body.dark-mode .video-details,
+body.dark-mode .overlay-content,
+body.dark-mode .modal-content,
+body.dark-mode .search-results,
+body.dark-mode .search-result {
+    background-color: #111c2e !important;
+    color: #e9eef7 !important;
+}
+
+/* Keep the brand red and important action buttons visible in both themes */
+body.dark-mode .active,
+body.dark-mode .active a,
+body.dark-mode .read-more,
+body.dark-mode .view-all-btn,
+body.dark-mode .facebookBtn,
+body.dark-mode .weather-alert-btn,
+body.dark-mode .satellite-btn {
+    color: #fff !important;
+}
+
+@media (max-width: 700px) {
+    .public-theme-toggle {
+        right: 14px;
+        bottom: 14px;
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+    }
+}
+
+
+/* =========================================
+   ABOUT US - DARK MODE
+========================================= */
+
+body.dark-mode .hero,
+body.dark-mode .missionSection,
+body.dark-mode .team,
+body.dark-mode .managerSection,
+body.dark-mode .teamSection,
+body.dark-mode .editorSection,
+body.dark-mode .quoteSection {
+    background: #0b1220 !important;
+    color: #e9eef7 !important;
+}
+
+body.dark-mode .heroLeft,
+body.dark-mode .heroRight,
+body.dark-mode .missionTitle,
+body.dark-mode .teamHeading,
+body.dark-mode .sectionLabel,
+body.dark-mode .quoteLeft,
+body.dark-mode .quoteRight {
+    color: #e9eef7 !important;
+}
+
+body.dark-mode .miniTitle,
+body.dark-mode .smallTitle,
+body.dark-mode .sectionLabel {
+    color:white !important;
+}
+
+body.dark-mode .hero h1,
+body.dark-mode .hero h1 span,
+body.dark-mode .missionTitle,
+body.dark-mode .teamHeading h2,
+body.dark-mode .managerInfo h2,
+body.dark-mode .teamContent h3,
+body.dark-mode .quoteLeft h2 {
+    color: #ffffff !important;
+}
+
+body.dark-mode .hero p,
+body.dark-mode .teamHeading p,
+body.dark-mode .managerInfo p,
+body.dark-mode .missionCard p,
+body.dark-mode .teamContent h4,
+body.dark-mode .quoteLeft p {
+    color: #cbd5e1 !important;
+}
+
+/* Mission cards */
+body.dark-mode .missionCard {
+    background: #111c2e !important;
+    color: #e9eef7 !important;
+    border-color: #263752 !important;
+}
+
+body.dark-mode .missionCard h3 {
+    color: #ffffff !important;
+}
+
+body.dark-mode .missionCard .icon {
+    color: #e00000 !important;
+}
+
+/* Founder / reporter / editor cards */
+body.dark-mode .managerCard,
+body.dark-mode .teamCard {
+    background: #111c2e !important;
+    color: #e9eef7 !important;
+    border-color: #263752 !important;
+}
+
+body.dark-mode .managerInfo h4,
+body.dark-mode .teamContent h4 {
+    color: #aebbd0 !important;
+}
+
+body.dark-mode .managerInfo p {
+    color: #cbd5e1 !important;
+}
+
+/* Quote section */
+body.dark-mode .quoteSection {
+    background: #0b1220 !important;
+}
+
+body.dark-mode .quoteLeft i {
+    color: #e00000 !important;
+}
+
+/* Facebook buttons */
+body.dark-mode .facebookBtn {
+    color: #ffffff !important;
+    background: #1877f2 !important;
+}
+
+/* Images */
+body.dark-mode .managerPhoto img,
+body.dark-mode .teamCard img,
+body.dark-mode .heroRight img,
+body.dark-mode .quoteRight img {
+    border-color: #263752 !important;
+}
+
+/* =========================================================
+   ABOUT US - LIGHT MODE
+========================================================= */
+
+body.light-mode .hero,
+body.light-mode .missionSection,
+body.light-mode .team,
+body.light-mode .managerSection,
+body.light-mode .teamSection,
+body.light-mode .editorSection,
+body.light-mode .quoteSection {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+body.light-mode .heroLeft,
+body.light-mode .heroRight {
+    color: #111827 !important;
+}
+
+body.light-mode .hero h1,
+body.light-mode .hero h1 span {
+    color: #111827 !important;
+}
+
+body.light-mode .hero p {
+    color: #4b5563 !important;
+}
+
+
+/* =========================
+   ABOUT US LABEL
+========================= */
+
+body.light-mode .miniTitle,
+body.light-mode .smallTitle,
+body.light-mode .sectionLabel {
+    background: #e10600 !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================
+   MISSION TITLE
+========================= */
+
+body.light-mode .missionTitle {
+    color: #111827 !important;
+}
+
+body.light-mode .missionTitle::after {
+    background: #e10600 !important;
+}
+
+
+/* =========================
+   MISSION CARDS
+========================= */
+
+body.light-mode .missionCard {
+    background: #f8fafc !important;
+    color: #111827 !important;
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .missionCard h3 {
+    color: #111827 !important;
+}
+
+body.light-mode .missionCard p {
+    color: #4b5563 !important;
+}
+
+body.light-mode .missionCard .icon {
+    color: #e10600 !important;
+}
+
+
+/* =========================
+   TEAM HEADING
+========================= */
+
+body.light-mode .teamHeading {
+    color: #111827 !important;
+}
+
+body.light-mode .teamHeading h2 {
+    color: #111827 !important;
+}
+
+body.light-mode .teamHeading p {
+    color: #4b5563 !important;
+}
+
+
+/* =========================
+   FOUNDER CARD
+========================= */
+
+body.light-mode .managerCard {
+    background: #f8fafc !important;
+    color: #111827 !important;
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .managerInfo h2 {
+    color: #111827 !important;
+}
+
+body.light-mode .managerInfo h4 {
+    color: #e10600 !important;
+}
+
+body.light-mode .managerInfo p {
+    color: #4b5563 !important;
+}
+
+
+/* =========================
+   REPORTER / EDITOR CARDS
+========================= */
+
+body.light-mode .teamCard {
+    background: #f8fafc !important;
+    color: #111827 !important;
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .teamContent h3 {
+    color: #111827 !important;
+}
+
+body.light-mode .teamContent h4 {
+    color: #6b7280 !important;
+}
+
+
+/* =========================
+   FACEBOOK BUTTON
+========================= */
+
+body.light-mode .facebookBtn {
+    background: #1877f2 !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================
+   QUOTE
+========================= */
+
+body.light-mode .quoteSection {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+
+body.light-mode .quoteLeft {
+    color: #111827 !important;
+}
+
+body.light-mode .quoteLeft h2 {
+    color: #111827 !important;
+}
+
+body.light-mode .quoteLeft p {
+    color: #4b5563 !important;
+}
+
+body.light-mode .quoteLeft i {
+    color: #e10600 !important;
+}
+
+
+/* =========================
+   IMAGES
+========================= */
+
+body.light-mode .managerPhoto img,
+body.light-mode .teamCard img,
+body.light-mode .heroRight img,
+body.light-mode .quoteRight img {
+    border-color: #e5e7eb !important;
+}
+
+
+/* =========================
+   GENERAL ABOUT PAGE
+========================= */
+
+body.light-mode .hero *,
+body.light-mode .missionSection *,
+body.light-mode .team *,
+body.light-mode .managerSection *,
+body.light-mode .teamSection *,
+body.light-mode .editorSection *,
+body.light-mode .quoteSection * {
+    transition:
+        background-color .25s ease,
+        color .25s ease,
+        border-color .25s ease;
+}
+
+/* =========================================================
+   SWEETALERT2 - ABOUT PAGE DARK MODE
+========================================================= */
+
+body.dark-mode .swal2-popup {
+    background: #111c2e !important;
+    color: #e9eef7 !important;
+    border: 1px solid #263752 !important;
+}
+
+body.dark-mode .swal2-title {
+    color: #ffffff !important;
+}
+
+body.dark-mode .swal2-html-container,
+body.dark-mode .swal2-content {
+    color: #cbd5e1 !important;
+}
+
+body.dark-mode .swal2-html-container p,
+body.dark-mode .swal2-html-container span,
+body.dark-mode .swal2-html-container div {
+    color: #cbd5e1 !important;
+}
+
+body.dark-mode .swal2-confirm {
+    background: #e10600 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .swal2-close {
+    color: #ffffff !important;
+}
+
+body.dark-mode .swal2-icon.swal2-info {
+    border-color: #e10600 !important;
+    color: #e10600 !important;
+}
+
+
+/* =========================================================
+   SWEETALERT2 - LIGHT MODE
+========================================================= */
+
+body.light-mode .swal2-popup {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+body.light-mode .swal2-title {
+    color: #111827 !important;
+}
+
+body.light-mode .swal2-html-container,
+body.light-mode .swal2-content {
+    color: #4b5563 !important;
+}
+
+body.light-mode .swal2-html-container p,
+body.light-mode .swal2-html-container span,
+body.light-mode .swal2-html-container div {
+    color: #4b5563 !important;
+}
+
+body.light-mode .swal2-confirm {
+    background: #e10600 !important;
+    color: #ffffff !important;
+}
+
+body.light-mode .swal2-close {
+    color: #111827 !important;
+}
+
+

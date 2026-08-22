@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Article Preview | Primetime News</title>
+
+    <link rel="stylesheet" href="../css/preview.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <header class="topbar">
+
+    <div class="headerContainer">
+
+        <button id="backBtn" class="backBtn">
+            <i class="fas fa-arrow-left"></i>
+            Back
+        </button>
+
+        <div class="statusBadge">
+
+            <img  id="siteLogo"
+                src="../images/PRIMETIME NEWS LOGO.png"
+                alt="Primetime News Logo"
+                class="statusLogo">
+
+            <div class="divider"></div>
+
+            <span class="statusDot"></span>
+
+            <div class="statusText">
+                <h4>Ready for Publication</h4>
+                <small>Review • Verify • Publish</small>
+            </div>
+
+        </div>
+
+        <button id="publishBtn" class="publishBtn">
+            <i class="fas fa-paper-plane"></i>
+            Publish
+        </button>
+
+    </div>
+
+</header>
+
+
+    <!-- ARTICLE -->
+
+    <main class="container">
+
+        <!-- CATEGORY -->
+
+        <span id="category" class="category"></span>
+
+        <!-- TITLE -->
+
+        <h1 id="headline" class="headline"></h1>
+
+        <!-- META -->
+
+        <div class="meta">
+
+            <span> <i class="fas fa-user"></i> <span id="authorName"></span></span>
+
+            <span><i class="fas fa-calendar"></i> <span id="publishDate"></span></span>
+
+            <span><i class="fas fa-clock"></i> <span id="readingTime"></span></span>
+
+            <span><i class="fas fa-file-word"></i> <span id="wordCount"></span></span>
+
+        </div>
+
+        <!-- SUMMARY -->
+
+        <div id="summary" class="summary"></div>
+
+        <!-- FEATURED IMAGE -->
+
+        <img id="featuredImage" class="featuredImage">
+
+        <!-- ARTICLE CONTENT -->
+
+        <article id="content" class="content"></article>
+
+        <!-- YOUTUBE -->
+
+        <div id="youtubeContainer"></div>
+
+        <!-- GALLERY -->
+
+        <div class="gallerySection">
+
+    <div class="galleryHeader">
+
+        <h2>Photo Gallery</h2>
+
+        <button id="deleteSelectedBtn" class="deleteSelectedBtn">
+            <i class="fas fa-trash"></i>
+            Delete Selected
+        </button>
+
+    </div>
+
+    <div id="gallery" class="gallery"></div>
+
+</div>
+
+    </main>
+
+    <script type="module" src="../js/news.js"></script>
+    <script type="module" src="../js/preview.js"></script>
+    <script type="module" src="../js/authors.js"></script>
+    <script type="module" src="../js/online-status.js"></script>
+     <script type="module" src="../js/website-settings.js"></script>
+
+</body>
+
+</html>

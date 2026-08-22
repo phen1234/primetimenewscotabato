@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Edit Account | Primetime News CMS</title>
+
+<link rel="stylesheet" href="../css/edit-account.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="page">
+
+<div class="page-header">
+
+<h1>
+
+<i class="fas fa-user-pen"></i>
+
+Edit Account
+
+</h1>
+
+<p>
+
+Update account information.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="userInfo">
+
+<img
+id="userPhoto"
+src="../images/default-user.png">
+
+<div>
+
+<h2 id="displayName">
+
+Loading...
+
+</h2>
+
+<p id="displayEmail">
+
+Loading...
+
+</p>
+
+</div>
+
+</div>
+
+<form id="editForm">
+
+<div class="form-group">
+
+<label>Full Name</label>
+
+<input
+type="text"
+id="name"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Email Address</label>
+
+<input
+type="email"
+id="email"
+readonly>
+
+</div>
+
+<div class="form-group">
+
+<label>Role</label>
+
+<select id="role">
+
+<option>Admin</option>
+
+<option>Editor</option>
+
+<option>Reporter</option>
+
+<option>User</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Status</label>
+
+<select id="status">
+
+<option>Active</option>
+
+<option>Inactive</option>
+
+</select>
+
+</div>
+
+<div class="button-group">
+
+<button
+type="submit"
+class="saveBtn">
+
+<i class="fas fa-floppy-disk"></i>
+
+Save Changes
+
+</button>
+
+<button
+type="button"
+class="cancelBtn"
+onclick="history.back()">
+
+<i class="fas fa-arrow-left"></i>
+
+Cancel
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<script type="module" src="../js/edit-account.js"></script>
+<script type="module" src="../js/online-status.js"></script>
+
+</body>
+</html>

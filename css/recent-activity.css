@@ -1,0 +1,656 @@
+/* =========================================
+   RECENT ACTIVITY PAGE
+   Primetime News Cotabato
+========================================= */
+
+:root {
+    --primary: #b71c1c;
+    --primary-dark: #8e0000;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --background: #f5f7fa;
+    --white: #ffffff;
+    --success: #16a34a;
+    --blue: #2563eb;
+    --orange: #ea580c;
+    --purple: #7c3aed;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+}
+
+
+/* =========================================
+   MAIN PAGE
+========================================= */
+
+.activity-page {
+    width: 100%;
+    max-width: 1250px;
+
+    margin: 0 auto;
+
+    padding: 35px 40px 60px;
+}
+
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
+.activity-page-header {
+    margin-bottom: 28px;
+}
+
+.activity-page-header h1 {
+    margin: 18px 0 8px;
+
+    font-size: 32px;
+    font-weight: 750;
+
+    letter-spacing: -0.5px;
+
+    color: #111827;
+}
+
+.activity-page-header h1 i {
+    margin-right: 10px;
+
+    color: var(--primary);
+}
+
+.activity-page-header p {
+    margin: 0;
+
+    font-size: 14px;
+
+    color: var(--muted);
+}
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.back-btn {
+    display: inline-flex;
+
+    align-items: center;
+    gap: 9px;
+
+    padding: 10px 16px;
+
+    background: var(--white);
+
+    color: #374151;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.04);
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.back-btn:hover {
+    background: #fff5f5;
+
+    color: var(--primary);
+
+    border-color: #f1b5b5;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   ACTIVITY CARD
+========================================= */
+
+.activity-widget {
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.05);
+}
+
+
+/* =========================================
+   ACTIVITY HEADER
+========================================= */
+
+.activity-widget-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 22px 26px;
+
+    border-bottom: 1px solid var(--border);
+
+    background: #ffffff;
+}
+
+.activity-widget-header h2 {
+    margin: 0;
+
+    display: flex;
+
+    align-items: center;
+    gap: 10px;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    color: #111827;
+}
+
+.activity-widget-header h2 i {
+    color: var(--primary);
+}
+
+.activity-count {
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    background: #fef2f2;
+
+    color: var(--primary);
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   ACTIVITY LIST
+========================================= */
+
+#allActivityList {
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+}
+
+
+/* =========================================
+   ACTIVITY ITEM
+========================================= */
+
+.activity-item {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 19px 26px;
+
+    border-bottom: 1px solid #f0f1f3;
+
+    background: #ffffff;
+
+    transition:
+        background 0.2s ease,
+        padding-left 0.2s ease;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-item:hover {
+    background: #fafafa;
+
+    padding-left: 30px;
+}
+
+
+/* =========================================
+   ACTIVITY ICON
+========================================= */
+
+.activity-icon {
+    width: 46px;
+    height: 46px;
+
+    min-width: 46px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #fef2f2;
+
+    color: var(--primary);
+
+    font-size: 17px;
+}
+
+
+/* Different activity colors */
+
+.activity-item.upload .activity-icon {
+    background: #eff6ff;
+    color: var(--blue);
+}
+
+.activity-item.video .activity-icon {
+    background: #fff7ed;
+    color: var(--orange);
+}
+
+.activity-item.user .activity-icon {
+    background: #f0fdf4;
+    color: var(--success);
+}
+
+.activity-item.edit .activity-icon {
+    background: #f5f3ff;
+    color: var(--purple);
+}
+
+
+/* =========================================
+   ACTIVITY INFORMATION
+========================================= */
+
+.activity-info {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.activity-info strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #1f2937;
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+    line-height: 1.45;
+}
+
+.activity-info span {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================
+   ACTIVITY DATE
+========================================= */
+
+.activity-item small {
+    flex-shrink: 0;
+
+    color: #9ca3af;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   ACTIVITY ARROW
+========================================= */
+
+.activity-item::after {
+    content: "\f054";
+
+    font-family: "Font Awesome 6 Free";
+
+    font-weight: 900;
+
+    color: #d1d5db;
+
+    font-size: 10px;
+
+    margin-left: 5px;
+
+    transition: color 0.2s ease;
+}
+
+.activity-item:hover::after {
+    color: var(--primary);
+}
+
+
+/* =========================================
+   LOADING
+========================================= */
+
+.activity-loading {
+    list-style: none;
+
+    padding: 65px 20px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+.activity-loading i {
+    margin-right: 8px;
+
+    color: var(--primary);
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.activity-empty {
+    list-style: none;
+
+    padding: 70px 20px;
+
+    text-align: center;
+
+    color: var(--muted);
+}
+
+.activity-empty i {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 60px;
+    height: 60px;
+
+    margin: 0 auto 15px;
+
+    border-radius: 50%;
+
+    background: #f3f4f6;
+
+    color: #9ca3af;
+
+    font-size: 24px;
+}
+
+.activity-empty strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #374151;
+
+    font-size: 15px;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+    .activity-page {
+        padding: 25px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .activity-page {
+        padding: 20px 15px 40px;
+    }
+
+    .activity-page-header h1 {
+        font-size: 25px;
+    }
+
+    .activity-widget-header {
+        padding: 18px;
+    }
+
+    .activity-item {
+        padding: 16px 18px;
+
+        align-items: flex-start;
+    }
+
+    .activity-item:hover {
+        padding-left: 18px;
+    }
+
+    .activity-icon {
+        width: 40px;
+        height: 40px;
+
+        min-width: 40px;
+
+        border-radius: 10px;
+    }
+
+    .activity-item small {
+        display: none;
+    }
+
+    .activity-item::after {
+        display: none;
+    }
+
+}
+
+/* =================================
+   RECENT ACTIVITY
+================================= */
+
+.activity-widget {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    border: 1px solid #eeeeee;
+}
+
+.activity-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.activity-header h2 {
+    margin: 0 0 5px;
+    font-size: 21px;
+    color: #222;
+}
+
+.activity-header h2 i {
+    margin-right: 8px;
+}
+
+#activityCount {
+    font-size: 13px;
+    color: #888;
+}
+
+.view-all-activity {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: #d32f2f;
+}
+
+.view-all-activity:hover {
+    color: #a92323;
+}
+
+#recentActivityList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 10px;
+    border-bottom: 1px solid #eeeeee;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-item:hover {
+    background: #fafafa;
+    transform: translateX(3px);
+}
+
+.activity-icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fbeaea;
+    color: #d32f2f;
+}
+
+.activity-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.activity-info strong {
+    font-size: 14px;
+    color: #222;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.activity-info span {
+    font-size: 12px;
+    color: #777;
+    margin-top: 3px;
+}
+
+.activity-info small {
+    font-size: 11px;
+    color: #999;
+    margin-top: 5px;
+}
+
+.activity-info small i {
+    margin-right: 4px;
+}
+
+.activity-loading,
+.activity-empty,
+.activity-error {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 25px 10px;
+    color: #888;
+}
+
+.activity-loading > i {
+    color: #d32f2f;
+}
+
+.activity-empty i,
+.activity-error i {
+    font-size: 24px;
+    color: #aaa;
+}
+
+.activity-empty div,
+.activity-error div,
+.activity-loading div {
+    display: flex;
+    flex-direction: column;
+}
+
+.activity-empty strong,
+.activity-error strong,
+.activity-loading strong {
+    color: #555;
+    font-size: 14px;
+}
+
+.activity-empty span,
+.activity-error span,
+.activity-loading span {
+    font-size: 12px;
+    margin-top: 3px;
+}
+

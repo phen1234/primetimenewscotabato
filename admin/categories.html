@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Category Manager | Primetime News CMS</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link rel="stylesheet" href="../css/dashboard.css">
+<link rel="stylesheet" href="../css/categories.css">
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+    <img
+        id="websiteLogo"
+        src="../images/PRIMETIME NEWS LOGO.png"
+        alt="Website Logo">
+
+    <h2 id="siteName">
+        Loading...
+    </h2>
+
+</div>
+
+    <ul>
+
+        <li id="dashboardBtn">
+            <i class="fas fa-chart-pie"></i>
+            <span>Dashboard</span>
+        </li>
+
+        <li id="analyticsBtn">
+        <i class="fas fa-chart-line"></i>
+        <span>Analytics</span>
+    </li>
+
+        <li class="active">
+            <i class="fas fa-tags"></i>
+            <span>Categories</span>
+        </li>
+
+        <li id="usersBtn">
+            <i class="fas fa-users"></i>
+            <span>Accounts</span>
+        </li>
+
+        <li id="settingsBtn">
+            <i class="fas fa-gear"></i>
+            <span>Settings</span>
+        </li>
+
+        <li id="logoutBtn">
+            <i class="fas fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </li>
+
+    </ul>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <h1>
+            <i class="fas fa-tags"></i>
+            Category Manager
+        </h1>
+
+        <button id="addCategoryBtn" class="primary-btn">
+
+            <i class="fas fa-plus-circle"></i>
+
+            Add Category
+
+        </button>
+
+    </div>
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <i class="fas fa-search"></i>
+
+        <input
+        type="text"
+        id="searchCategory"
+        placeholder="Search Category...">
+
+    </div>
+
+    <!-- TABLE -->
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>#</th>
+
+                    <th>Icon</th>
+
+                    <th>Category</th>
+
+                    <th>Slug</th>
+
+                    <th>Articles</th>
+
+                    <th>Date Created</th>
+
+                    <th>Status</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="categoryTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- MODAL -->
+
+<div id="categoryModal" class="modal">
+
+    <div class="modal-content">
+
+        <span id="closeModal">&times;</span>
+
+        <h2>Create Category</h2>
+
+        <div class="form-group">
+
+            <label>Category Name</label>
+
+            <input
+            type="text"
+            id="categoryName"
+            placeholder="Example: Sports">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Slug</label>
+
+            <input
+            type="text"
+            id="categorySlug"
+            readonly>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Icon</label>
+
+            <select id="categoryIcon">
+
+                <option value="📰">📰 News</option>
+
+                <option value="🚓">🚓 Police</option>
+
+                <option value="🏛">🏛 Politics</option>
+
+                <option value="🌦">🌦 Weather</option>
+
+                <option value="🌍">🌍 World</option>
+
+                <option value="💼">💼 Business</option>
+
+                <option value="⚽">⚽ Sports</option>
+
+                <option value="🎬">🎬 Entertainment</option>
+
+                <option value="🎓">🎓 Education</option>
+
+                <option value="💻">💻 Technology</option>
+
+                <option value="❤️">❤️ Health</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Color</label>
+
+            <input
+            type="color"
+            id="categoryColor"
+            value="#2563eb">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Status</label>
+
+            <select id="categoryStatus">
+
+                <option value="Active">Active</option>
+
+                <option value="Hidden">Hidden</option>
+
+            </select>
+
+        </div>
+
+        <button
+        id="saveCategory"
+        class="primary-btn">
+
+            <i class="fas fa-save"></i>
+
+            Save Category
+
+        </button>
+
+        <button
+id="updateCategory"
+class="primary-btn"
+style="display:none; margin-top:10px; background:#f59e0b;">
+
+    <i class="fas fa-pen"></i>
+
+    Update Category
+
+</button>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="module" src="../js/categories.js"></script>
+<script type="module" src="../js/load-logo.js"></script>
+
+</body>
+</html>

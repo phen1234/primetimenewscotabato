@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Authors Management</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link rel="stylesheet" href="../css/authors.css">
+
+</head>
+
+<body>
+
+<div class="page">
+
+<div class="page-header">
+
+<div>
+
+<h1>
+
+<i class="fas fa-user-edit"></i>
+
+Authors Management
+
+</h1>
+
+<p>
+Manage reporters, writers and editors.
+</p>
+
+</div>
+
+<a href="add-news.html" class="backBtn">
+
+<i class="fas fa-arrow-left"></i>
+
+Back to Add News
+
+</a>
+
+</div>
+
+<!-- Register Card -->
+
+<div class="card">
+
+<div class="card-title">
+
+<i class="fas fa-user-plus"></i>
+
+Register New Author
+
+</div>
+
+<div class="form-grid">
+
+<input
+type="text"
+id="authorName"
+placeholder="Full Name">
+
+<select id="authorPosition">
+
+    <option value="">Select Position</option>
+
+    <option value="Writer">Writer</option>
+
+    <option value="Editor">Editor</option>
+
+</select>
+
+<input
+type="email"
+id="authorEmail"
+placeholder="Email Address">
+
+<button id="saveAuthor">
+
+<i class="fas fa-save"></i>
+
+Register Author
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Authors Table -->
+
+<div class="card">
+
+<div class="card-title">
+
+<i class="fas fa-users"></i>
+
+Registered Authors
+
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+
+<th>Position</th>
+
+<th>Email</th>
+
+<th width="180">
+Action
+</th>
+
+</tr>
+
+</thead>
+
+<tbody id="authorsTable">
+
+<tr>
+
+<td colspan="4" style="text-align:center">
+
+No registered authors.
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script type="module" src="../js/authors.js"></script>
+
+</body>
+
+</html>
