@@ -1479,3 +1479,100 @@ box-shadow:0 0 0 0 rgba(227,6,19,0);
     }
 
 }
+
+/* =====================================================
+   MOBILE CATEGORY PANEL - COMPACT
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .mobile-category-menu {
+        width: calc(100% - 32px);
+        max-width: 330px;
+
+        margin: 8px auto 0;
+
+        padding: 6px;
+
+        border-radius: 10px;
+
+        box-shadow:
+            0 8px 22px rgba(0, 0, 0, 0.14);
+
+        max-height: 0;
+        overflow: hidden;
+
+        transition:
+            max-height .25s ease,
+            padding .25s ease,
+            opacity .2s ease;
+
+        opacity: 0;
+    }
+
+
+    .mobile-category-menu.open {
+        max-height: 360px;
+
+        padding: 6px;
+
+        opacity: 1;
+    }
+
+
+    .mobile-category-menu a {
+        display: flex;
+        align-items: center;
+
+        min-height: 38px;
+
+        padding: 7px 10px;
+
+        margin: 2px 0;
+
+        border-radius: 7px;
+
+        font-size: 13px;
+        line-height: 1.2;
+
+        gap: 8px;
+
+        white-space: nowrap;
+    }
+
+
+    .mobile-category-menu a i {
+        width: 17px;
+
+        min-width: 17px;
+
+        font-size: 13px;
+
+        text-align: center;
+    }
+
+
+    .mobile-category-menu a.active {
+        font-weight: 700;
+    }
+
+
+    /* Categories button itself */
+    .menu-toggle {
+        min-height: 38px;
+
+        padding: 8px 12px;
+
+        border-radius: 8px;
+
+        font-size: 13px;
+
+        gap: 7px;
+    }
+
+
+    .menu-toggle i {
+        font-size: 14px;
+    }
+
+}
