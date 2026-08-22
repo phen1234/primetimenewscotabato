@@ -2002,3 +2002,331 @@ body.dark .no-weather-news,
     }
 
 }
+
+
+/* =========================================
+   MOBILE CATEGORY MENU - DARK MODE
+========================================= */
+
+@media (max-width: 600px) {
+
+    /* CATEGORY / HAMBURGER WRAPPER */
+    .search-mobile-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* HAMBURGER BUTTON */
+    .search-mobile-wrapper .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+
+        width: 100%;
+        min-height: 48px;
+
+        padding: 12px 16px;
+
+        background: #020d18;
+        color: #ffffff;
+
+        border: 1px solid #26384a;
+        border-radius: 8px;
+
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+
+        cursor: pointer;
+    }
+
+    .search-mobile-wrapper .menu-toggle i {
+        color: #ffffff;
+        font-size: 17px;
+    }
+
+    .search-mobile-wrapper .menu-toggle:hover {
+        background: #0b1f3a;
+    }
+
+
+    /* =====================================
+       CATEGORY MENU
+       Kung category menu ay .nav-links
+    ===================================== */
+
+    #navbar .nav-links {
+
+        background: #020d18 !important;
+
+        border: 1px solid #26384a;
+
+        border-radius: 8px;
+
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, .45);
+
+    }
+
+
+    /* CATEGORY ITEMS */
+
+    #navbar .nav-links li {
+        background: transparent !important;
+    }
+
+
+    #navbar .nav-links li a {
+
+        display: flex;
+
+        align-items: center;
+
+        width: 100%;
+
+        padding: 13px 16px;
+
+        color: #ffffff !important;
+
+        background: transparent !important;
+
+        border-bottom: 1px solid rgba(255,255,255,.08);
+
+        font-size: 14px;
+
+        text-decoration: none;
+
+    }
+
+
+    #navbar .nav-links li:last-child a {
+        border-bottom: none;
+    }
+
+
+    #navbar .nav-links li a:hover {
+
+        background: #0b1f3a !important;
+
+        color: #ffffff !important;
+
+    }
+
+
+    /* ACTIVE CATEGORY */
+
+    #navbar .nav-links li a.active {
+
+        background: #e30613 !important;
+
+        color: #ffffff !important;
+
+    }
+
+
+    /* =====================================
+       IF CATEGORY DROPDOWN USES
+       .latest-category-bar
+    ===================================== */
+
+    .latest-category-bar {
+
+        background: #020d18 !important;
+
+        border: 1px solid #26384a !important;
+
+        border-radius: 8px;
+
+        box-shadow:
+            0 10px 30px rgba(0,0,0,.45);
+
+    }
+
+
+    .latest-category-bar .latest-filter {
+
+        color: #ffffff !important;
+
+        background: transparent !important;
+
+        border-color: transparent !important;
+
+    }
+
+
+    .latest-category-bar .latest-filter:hover {
+
+        background: #0b1f3a !important;
+
+        color: #ffffff !important;
+
+    }
+
+
+    .latest-category-bar .latest-filter.active {
+
+        background: #e30613 !important;
+
+        color: #ffffff !important;
+
+    }
+
+
+    /* =====================================
+       SEARCH BOX DARK MODE
+    ===================================== */
+
+    .search-box {
+
+        background: #020d18 !important;
+
+        border: 1px solid #26384a !important;
+
+        color: #ffffff;
+
+    }
+
+    .search-box i {
+        color: #ffffff;
+    }
+
+    .search-box input {
+
+        background: transparent !important;
+
+        color: #ffffff !important;
+
+    }
+
+    .search-box input::placeholder {
+
+        color: #9ca3af;
+
+    }
+
+}
+
+
+/* =========================================
+   DARK MODE - CATEGORY MENU
+========================================= */
+
+[data-theme="dark"] #navbar .nav-links,
+.dark-mode #navbar .nav-links {
+
+    background: #020d18 !important;
+
+    color: #ffffff !important;
+
+    border-color: #26384a !important;
+
+}
+
+
+[data-theme="dark"] #navbar .nav-links li,
+.dark-mode #navbar .nav-links li {
+
+    background: transparent !important;
+
+}
+
+
+[data-theme="dark"] #navbar .nav-links li a,
+.dark-mode #navbar .nav-links li a {
+
+    color: #ffffff !important;
+
+    background: transparent !important;
+
+}
+
+
+[data-theme="dark"] #navbar .nav-links li a:hover,
+.dark-mode #navbar .nav-links li a:hover {
+
+    background: #0b1f3a !important;
+
+    color: #ffffff !important;
+
+}
+
+
+[data-theme="dark"] #navbar .nav-links li a.active,
+.dark-mode #navbar .nav-links li a.active {
+
+    background: #e30613 !important;
+
+    color: #ffffff !important;
+
+}
+
+
+/* =========================================
+   DARK MODE - HAMBURGER
+========================================= */
+
+[data-theme="dark"] .search-mobile-wrapper .menu-toggle,
+.dark-mode .search-mobile-wrapper .menu-toggle {
+
+    background: #020d18 !important;
+
+    color: #ffffff !important;
+
+    border-color: #26384a !important;
+
+}
+
+
+[data-theme="dark"] .search-mobile-wrapper .menu-toggle:hover,
+.dark-mode .search-mobile-wrapper .menu-toggle:hover {
+
+    background: #0b1f3a !important;
+
+}
+
+
+/* =========================================
+   DARK MODE - CATEGORY BAR
+========================================= */
+
+[data-theme="dark"] .latest-category-bar,
+.dark-mode .latest-category-bar {
+
+    background: #020d18 !important;
+
+    color: #ffffff !important;
+
+    border-color: #26384a !important;
+
+}
+
+
+[data-theme="dark"] .latest-category-bar .latest-filter,
+.dark-mode .latest-category-bar .latest-filter {
+
+    color: #ffffff !important;
+
+    background: transparent !important;
+
+}
+
+
+[data-theme="dark"] .latest-category-bar .latest-filter:hover,
+.dark-mode .latest-category-bar .latest-filter:hover {
+
+    background: #0b1f3a !important;
+
+}
+
+
+[data-theme="dark"] .latest-category-bar .latest-filter.active,
+.dark-mode .latest-category-bar .latest-filter.active {
+
+    background: #e30613 !important;
+
+    color: #ffffff !important;
+
+}
