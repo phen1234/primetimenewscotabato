@@ -339,7 +339,7 @@ body.light-mode .heroRight {
 
 body.light-mode .hero h1,
 body.light-mode .hero h1 span {
-    color: #111827 !important;
+    color: white !important;
 }
 
 body.light-mode .hero p {
