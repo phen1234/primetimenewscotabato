@@ -98,11 +98,14 @@ border-radius:15px;
  
 <div class="container top-header">
 
-   <div class="logo">
-            <a href="index.html">
-                <img src="./images/profile.png" alt="Logo">
-            </a>
-        </div>
+    <div class="logo">
+        <a href="index.html">
+            <img
+                id="siteLogo"
+                src="images/PRIMETIME NEWS LOGO.png"
+                alt="Primetime News Cotabato">
+        </a>
+    </div>
 
     <div class="header-text">
 
@@ -186,9 +189,16 @@ border-radius:15px;
 
     <div class="container search-mobile-wrapper">
 
-        <button class="menu-toggle" id="menuToggle" type="button">
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            type="button"
+            aria-expanded="false">
+
             <i class="fas fa-bars"></i>
+
             <span>Categories</span>
+
         </button>
 
         <div class="search-box">
@@ -197,10 +207,56 @@ border-radius:15px;
 
             <input
                 type="text"
-                placeholder="Search Local News..."
+                placeholder="Search Weather News..."
             >
 
         </div>
+
+    </div>
+
+
+    <!-- MOBILE CATEGORY MENU -->
+
+    <div
+        class="mobile-category-menu"
+        id="mobileCategoryMenu">
+
+        <a href="index.html">
+            <i class="fas fa-house"></i>
+            Home
+        </a>
+
+        <a href="local-news.html">
+            <i class="fas fa-newspaper"></i>
+            Local News
+        </a>
+
+        <a href="police-report.html">
+            <i class="fas fa-shield-halved"></i>
+            Police Report
+        </a>
+
+        <a href="political-news.html">
+            <i class="fas fa-landmark"></i>
+            Political News
+        </a>
+
+        <a
+            href="weather.html"
+            class="active">
+            <i class="fas fa-cloud-sun"></i>
+            Weather
+        </a>
+
+        <a href="national-news.html">
+            <i class="fas fa-flag"></i>
+            National News
+        </a>
+
+        <a href="international-news.html">
+            <i class="fas fa-globe"></i>
+            International News
+        </a>
 
     </div>
 
@@ -467,11 +523,84 @@ border-radius:15px;
 
 </footer>
 
-<script type="module" src="./js/website-settings.js"></script>
+<script type="module" src="../js/website-settings.js"></script>
 <script type="module" src="../js/category-news.js"></script>
 <script type="module" src="js/weather.js"></script>
 
     <script src="js/public-theme.js"></script>
+
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const menuToggle =
+        document.getElementById("menuToggle");
+
+    const categoryMenu =
+        document.getElementById("mobileCategoryMenu");
+
+
+    if (!menuToggle || !categoryMenu) {
+        return;
+    }
+
+
+    menuToggle.addEventListener("click", function (event) {
+
+        event.stopPropagation();
+
+        const isOpen =
+            categoryMenu.classList.toggle("open");
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            String(isOpen)
+        );
+
+    });
+
+
+    /* CLOSE WHEN CLICKING OUTSIDE */
+
+    document.addEventListener("click", function (event) {
+
+        if (
+            !categoryMenu.contains(event.target) &&
+            !menuToggle.contains(event.target)
+        ) {
+
+            categoryMenu.classList.remove("open");
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+
+    });
+
+
+    /* CLOSE WITH ESC */
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+            categoryMenu.classList.remove("open");
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+
+    });
+
+});
+</script>
+
 </body>
 
 </html>
