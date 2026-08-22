@@ -275,11 +275,9 @@ Loading...
 
 
         <!-- SEARCH -->
-        <div class="menu-search">
-
-            <i class="fas fa-search"></i>
-
-        </div>
+<div class="menu-search">
+    <i class="fas fa-search"></i>
+</div>
 
     </div>
 
@@ -594,6 +592,126 @@ onAuthStateChanged(auth, (user) => {
             "none";
 
     }
+
+});
+</script>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+    <div class="search-box">
+        <button class="search-close" id="searchClose" type="button">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <i class="fas fa-search"></i>
+
+        <input
+            type="text"
+            id="headlineSearch"
+            placeholder="Search headlines..."
+            autocomplete="off">
+    </div>
+
+    <div class="search-results" id="searchResults"></div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const searchButton = document.querySelector(".menu-search");
+    const searchOverlay = document.getElementById("searchOverlay");
+    const searchClose = document.getElementById("searchClose");
+    const searchInput = document.getElementById("headlineSearch");
+    const searchResults = document.getElementById("searchResults");
+
+    if (!searchButton || !searchOverlay || !searchInput) return;
+
+    /* OPEN SEARCH */
+    searchButton.addEventListener("click", function () {
+        searchOverlay.classList.add("active");
+
+        setTimeout(() => {
+            searchInput.focus();
+        }, 150);
+    });
+
+    /* CLOSE SEARCH */
+    searchClose.addEventListener("click", function () {
+        searchOverlay.classList.remove("active");
+        searchInput.value = "";
+        searchResults.innerHTML = "";
+    });
+
+    /* ESC TO CLOSE */
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+            searchOverlay.classList.remove("active");
+        }
+    });
+
+    /*
+       AUTO SEARCH WHILE TYPING
+       Walang Enter na kailangan.
+    */
+    searchInput.addEventListener("input", function () {
+
+        const keyword = this.value.trim().toLowerCase();
+
+        if (!keyword) {
+            searchResults.innerHTML = "";
+            return;
+        }
+
+        const headlines = document.querySelectorAll(
+            "#latestNews h2, #latestNews h3, " +
+            ".news-card h2, .news-card h3, " +
+            ".headline, .news-title, " +
+            "[data-headline]"
+        );
+
+        let results = [];
+
+        headlines.forEach(function (headline) {
+
+            const text = headline.textContent.trim();
+
+            if (text.toLowerCase().includes(keyword)) {
+
+                results.push({
+                    text: text,
+                    element: headline
+                });
+
+            }
+        });
+
+        if (results.length === 0) {
+
+            searchResults.innerHTML = `
+                <div class="no-search-result">
+                    No headlines found.
+                </div>
+            `;
+
+            return;
+        }
+
+       searchResults.innerHTML = results.map(function (item) {
+
+    const link = item.element.closest("a");
+
+    return ` 
+        <a href="${link ? link.href : '#'}" class="search-result-link">
+            <div class="search-result-item"> 
+                <i class="fas fa-newspaper"></i> 
+                <span>${item.text}</span> 
+            </div>
+        </a>
+    `;
+
+}).join("");
+
+    });
 
 });
 </script>
