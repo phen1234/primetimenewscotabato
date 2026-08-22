@@ -1677,3 +1677,328 @@ box-shadow:0 0 0 0 rgba(227,6,19,0);
     }
 
 }
+
+/* =========================================
+   DARK MODE - MOBILE CATEGORY MENU
+========================================= */
+
+body.dark-mode .mobile-category-menu,
+body.dark .mobile-category-menu,
+[data-theme="dark"] .mobile-category-menu {
+
+    background: #111827;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .45);
+}
+
+
+/* CATEGORY LINKS */
+
+body.dark-mode .mobile-category-menu a,
+body.dark .mobile-category-menu a,
+[data-theme="dark"] .mobile-category-menu a {
+
+    background: #111827;
+
+    color: #f3f4f6;
+
+    border-bottom-color: #273449;
+}
+
+
+/* ICON */
+
+body.dark-mode .mobile-category-menu a i,
+body.dark .mobile-category-menu a i,
+[data-theme="dark"] .mobile-category-menu a i {
+
+    color: #ff3b3b;
+}
+
+
+/* HOVER */
+
+body.dark-mode .mobile-category-menu a:hover,
+body.dark .mobile-category-menu a:hover,
+[data-theme="dark"] .mobile-category-menu a:hover {
+
+    background: #1f2937;
+
+    color: #ffffff;
+}
+
+
+/* ACTIVE CATEGORY */
+
+body.dark-mode .mobile-category-menu a.active,
+body.dark .mobile-category-menu a.active,
+[data-theme="dark"] .mobile-category-menu a.active {
+
+    background: #E30613;
+
+    color: #ffffff;
+}
+
+body.dark-mode .mobile-category-menu a.active i,
+body.dark .mobile-category-menu a.active i,
+[data-theme="dark"] .mobile-category-menu a.active i {
+
+    color: #ffffff;
+}
+
+
+/* =========================================
+   DARK MODE - CATEGORY BUTTON
+========================================= */
+
+body.dark-mode .search-mobile-wrapper .menu-toggle,
+body.dark .search-mobile-wrapper .menu-toggle,
+[data-theme="dark"] .search-mobile-wrapper .menu-toggle {
+
+    background: #172235;
+
+    color: #ffffff;
+
+    border: 1px solid #334155;
+}
+
+body.dark-mode .search-mobile-wrapper .menu-toggle:hover,
+body.dark .search-mobile-wrapper .menu-toggle:hover,
+[data-theme="dark"] .search-mobile-wrapper .menu-toggle:hover {
+
+    background: #24344d;
+}
+
+
+/* =========================================
+   DARK MODE - SEARCH BOX
+========================================= */
+
+body.dark-mode .search-box,
+body.dark .search-box,
+[data-theme="dark"] .search-box {
+
+    background: #111827;
+
+    border-color: #334155;
+
+    color: #ffffff;
+}
+
+body.dark-mode .search-box input,
+body.dark .search-box input,
+[data-theme="dark"] .search-box input {
+
+    background: transparent;
+
+    color: #ffffff;
+}
+
+body.dark-mode .search-box input::placeholder,
+body.dark .search-box input::placeholder,
+[data-theme="dark"] .search-box input::placeholder {
+
+    color: #94a3b8;
+}
+
+body.dark-mode .search-box i,
+body.dark .search-box i,
+[data-theme="dark"] .search-box i {
+
+    color: #cbd5e1;
+}
+
+
+/* =========================================
+   DARK MODE - WEATHER PAGE
+========================================= */
+
+body.dark-mode .weather-card,
+body.dark .weather-card,
+[data-theme="dark"] .weather-card {
+
+    background: #111827;
+
+    color: #f3f4f6;
+
+    box-shadow:
+        0 4px 18px rgba(0, 0, 0, .35);
+}
+
+
+body.dark-mode .weather-card h2,
+body.dark .weather-card h2,
+[data-theme="dark"] .weather-card h2 {
+
+    color: #ffffff;
+}
+
+
+body.dark-mode .weather-card p,
+body.dark .weather-card p,
+[data-theme="dark"] .weather-card p {
+
+    color: #cbd5e1;
+}
+
+
+body.dark-mode .weather-current-main h3,
+body.dark .weather-current-main h3,
+[data-theme="dark"] .weather-current-main h3 {
+
+    color: #cbd5e1;
+}
+
+
+/* =========================================
+   DARK MODE - WEATHER NEWS HEADING
+========================================= */
+
+body.dark-mode .weather-news-section .section-heading h2,
+body.dark .weather-news-section .section-heading h2,
+[data-theme="dark"] .weather-news-section .section-heading h2 {
+
+    color: #ffffff;
+}
+
+
+body.dark-mode .weather-news-section .section-heading p,
+body.dark .weather-news-section .section-heading p,
+[data-theme="dark"] .weather-news-section .section-heading p {
+
+    color: #94a3b8;
+}
+
+
+/* =========================================
+   DARK MODE - NEWS CARDS
+========================================= */
+
+body.dark-mode .weather-news-card,
+body.dark .weather-news-card,
+[data-theme="dark"] .weather-news-card {
+
+    background: #111827;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, .35);
+}
+
+
+body.dark-mode .weather-news-card h3,
+body.dark .weather-news-card h3,
+[data-theme="dark"] .weather-news-card h3 {
+
+    color: #ffffff;
+}
+
+
+body.dark-mode .weather-news-card p,
+body.dark .weather-news-card p,
+[data-theme="dark"] .weather-news-card p {
+
+    color: #cbd5e1;
+}
+
+
+body.dark-mode .weather-news-card-meta,
+body.dark .weather-news-card-meta,
+[data-theme="dark"] .weather-news-card-meta {
+
+    color: #94a3b8;
+}
+
+
+/* =========================================
+   DARK MODE - WEATHER ALERTS
+========================================= */
+
+body.dark-mode .weather-alert-btn,
+body.dark .weather-alert-btn,
+[data-theme="dark"] .weather-alert-btn {
+
+    background: #172235;
+
+    border-color: #334155;
+}
+
+
+body.dark-mode .weather-alert-btn.cyclone,
+body.dark .weather-alert-btn.cyclone,
+[data-theme="dark"] .weather-alert-btn.cyclone {
+
+    background: #291719;
+
+    border-color: #7f1d1d;
+
+    color: #fca5a5;
+}
+
+
+body.dark-mode .weather-alert-btn.flood,
+body.dark .weather-alert-btn.flood,
+[data-theme="dark"] .weather-alert-btn.flood {
+
+    background: #17263a;
+
+    border-color: #1e40af;
+
+    color: #93c5fd;
+}
+
+
+body.dark-mode .weather-alert-btn.rainfall,
+body.dark .weather-alert-btn.rainfall,
+[data-theme="dark"] .weather-alert-btn.rainfall {
+
+    background: #17251c;
+
+    border-color: #166534;
+
+    color: #86efac;
+}
+
+
+/* =========================================
+   DARK MODE - WINDY / SATELLITE
+========================================= */
+
+body.dark-mode .satellite-card p,
+body.dark .satellite-card p,
+[data-theme="dark"] .satellite-card p {
+
+    color: #94a3b8;
+}
+
+
+/* =========================================
+   DARK MODE - NO WEATHER NEWS
+========================================= */
+
+body.dark-mode .no-weather-news,
+body.dark .no-weather-news,
+[data-theme="dark"] .no-weather-news {
+
+    background: #111827;
+
+    color: #ffffff;
+}
+
+
+/* =========================================
+   DARK MODE - MOBILE CATEGORY BORDER
+========================================= */
+
+@media (max-width: 900px) {
+
+    body.dark-mode .mobile-category-menu a,
+    body.dark .mobile-category-menu a,
+    [data-theme="dark"] .mobile-category-menu a {
+
+        border-bottom: 1px solid #273449;
+    }
+
+}
