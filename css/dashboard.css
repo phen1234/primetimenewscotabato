@@ -3288,6 +3288,11 @@ body.dark-mode .news-panel .editBtn:hover {
     font-size: 11px;
 }
 
+
+
+
+
+
 /* ==========================================
    DESKTOP COLUMN WIDTH
    ========================================== */
@@ -3327,6 +3332,10 @@ body.dark-mode .news-panel .editBtn:hover {
 
 
 
+/* =========================================
+   MESSAGE POPUP - MOBILE ONLY
+   ========================================= */
+
 @media (max-width: 768px) {
 
     #messageDropdown {
@@ -3340,75 +3349,16 @@ body.dark-mode .news-panel .editBtn:hover {
         width: calc(100vw - 36px) !important;
         max-width: 650px !important;
 
-        min-height: 300px !important;
-
         margin: 0 !important;
 
-        background: #fff !important;
+        z-index: 99999 !important;
 
         border-radius: 20px !important;
 
         overflow: hidden !important;
 
-        z-index: 99999 !important;
-
-        box-shadow: 0 20px 60px rgba(0, 0, 0, .35) !important;
-    }
-
-    /* Message title */
-    #messageDropdown h3 {
-        margin: 0 !important;
-        padding: 22px 20px !important;
-
-        text-align: center !important;
-
-        font-size: 20px !important;
-        font-weight: 700 !important;
-
-        color: #142544 !important;
-
-        border-bottom: 1px solid #ddd !important;
-    }
-
-    /* Message content */
-    #messageList {
-        min-height: 160px !important;
-
-        padding: 30px 20px !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-
-        text-align: center !important;
-    }
-
-    #messageList p {
-        margin: 0 !important;
-
-        color: #6b778c !important;
-        font-size: 15px !important;
-    }
-
-    /* Bottom button */
-    #viewAllMessages {
-        width: 100% !important;
-
-        min-height: 70px !important;
-
-        border: none !important;
-
-        background: #0b1e38 !important;
-        color: #fff !important;
-
-        font-size: 17px !important;
-        font-weight: 600 !important;
-
-        cursor: pointer !important;
-    }
-
-    #viewAllMessages:active {
-        opacity: .9;
+        box-sizing: border-box !important;
     }
 
 }
+
