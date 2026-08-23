@@ -3333,32 +3333,106 @@ body.dark-mode .news-panel .editBtn:hover {
 
 
 /* =========================================
-   MESSAGE POPUP - MOBILE ONLY
-   ========================================= */
+   MESSAGE DROPDOWN - TRUE MOBILE CENTER
+========================================= */
 
 @media (max-width: 768px) {
 
     #messageDropdown {
         position: fixed !important;
 
-        top: 50% !important;
-        left: 50% !important;
+        /* EXACT CENTER OF SCREEN */
+        top: 50vh !important;
+        left: 50vw !important;
+
+        right: auto !important;
+        bottom: auto !important;
 
         transform: translate(-50%, -50%) !important;
 
+        /* SIZE */
         width: calc(100vw - 36px) !important;
         max-width: 650px !important;
 
-        margin: 0 !important;
+        height: auto !important;
+        min-height: 300px !important;
 
-        z-index: 99999 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+
+        box-sizing: border-box !important;
+
+        background: #ffffff !important;
 
         border-radius: 20px !important;
 
         overflow: hidden !important;
 
+        z-index: 999999 !important;
+
+        box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.35) !important;
+    }
+
+    #messageDropdown h3 {
+        width: 100% !important;
         box-sizing: border-box !important;
+
+        margin: 0 !important;
+        padding: 22px 20px !important;
+
+        text-align: center !important;
+
+        color: #142544 !important;
+
+        font-size: 20px !important;
+        font-weight: 700 !important;
+
+        border-bottom: 1px solid #e5e5e5 !important;
+    }
+
+    #messageList {
+        width: 100% !important;
+        min-height: 160px !important;
+
+        box-sizing: border-box !important;
+
+        padding: 35px 20px !important;
+
+        display: flex !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        text-align: center !important;
+    }
+
+    #messageList p {
+        margin: 0 !important;
+
+        font-size: 15px !important;
+        color: #68758a !important;
+    }
+
+    #viewAllMessages {
+        display: block !important;
+
+        width: 100% !important;
+        height: 70px !important;
+
+        margin: 0 !important;
+
+        border: 0 !important;
+
+        border-radius: 0 !important;
+
+        background: #0b1e38 !important;
+        color: #ffffff !important;
+
+        font-family: Poppins, sans-serif !important;
+
+        font-size: 17px !important;
+        font-weight: 600 !important;
     }
 
 }
-
