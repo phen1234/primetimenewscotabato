@@ -3329,54 +3329,86 @@ body.dark-mode .news-panel .editBtn:hover {
 
 @media (max-width: 768px) {
 
-    /* MESSAGE POPUP - MOBILE ONLY */
-    .message-modal {
+    #messageDropdown {
         position: fixed !important;
-        inset: 0 !important;
 
-        width: 100vw !important;
-        height: 100vh !important;
+        top: 50% !important;
+        left: 50% !important;
 
-        display: none;
+        transform: translate(-50%, -50%) !important;
+
+        width: calc(100vw - 36px) !important;
+        max-width: 650px !important;
+
+        min-height: 300px !important;
+
+        margin: 0 !important;
+
+        background: #fff !important;
+
+        border-radius: 20px !important;
+
+        overflow: hidden !important;
+
+        z-index: 99999 !important;
+
+        box-shadow: 0 20px 60px rgba(0, 0, 0, .35) !important;
+    }
+
+    /* Message title */
+    #messageDropdown h3 {
+        margin: 0 !important;
+        padding: 22px 20px !important;
+
+        text-align: center !important;
+
+        font-size: 20px !important;
+        font-weight: 700 !important;
+
+        color: #142544 !important;
+
+        border-bottom: 1px solid #ddd !important;
+    }
+
+    /* Message content */
+    #messageList {
+        min-height: 160px !important;
+
+        padding: 30px 20px !important;
+
+        display: flex !important;
         align-items: center !important;
         justify-content: center !important;
 
-        padding: 20px !important;
-
-        z-index: 99999 !important;
+        text-align: center !important;
     }
 
-    .message-modal.active {
-        display: flex !important;
+    #messageList p {
+        margin: 0 !important;
+
+        color: #6b778c !important;
+        font-size: 15px !important;
     }
 
-    .message-modal-box {
-        width: calc(100vw - 40px) !important;
-        max-width: 420px !important;
+    /* Bottom button */
+    #viewAllMessages {
+        width: 100% !important;
 
-        margin: 0 auto !important;
+        min-height: 70px !important;
 
-        position: relative !important;
-        left: auto !important;
-        right: auto !important;
-        top: auto !important;
-        transform: none !important;
+        border: none !important;
 
-        border-radius: 18px !important;
+        background: #0b1e38 !important;
+        color: #fff !important;
+
+        font-size: 17px !important;
+        font-weight: 600 !important;
+
+        cursor: pointer !important;
+    }
+
+    #viewAllMessages:active {
+        opacity: .9;
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
