@@ -58,10 +58,15 @@ async function loadHeroSlider() {
 
                     <a href="article.html?id=${doc.id}">
                         <img
-                            src="${news.featuredImage || "images/PRIMETIME NEWS LOGO.png"}"
-                            alt="${news.headline || "PrimeTime News"}"
-                            onerror="this.onerror=null;this.src='images/PRIMETIME NEWS LOGO.png';"
-                        >
+    src="${
+        typeof news.featuredImage === "string" &&
+        news.featuredImage.trim() !== ""
+            ? news.featuredImage
+            : "images/PRIMETIME NEWS LOGO.png"
+    }"
+    alt="${news.headline || "PrimeTime News"}"
+    onerror="this.onerror=null;this.src='images/PRIMETIME NEWS LOGO.png';"
+>
                     </a>
 
                     <div class="overlay">
