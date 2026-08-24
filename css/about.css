@@ -800,3 +800,70 @@ body.light-mode .missionCard .icon {
     background: #FFF1F1 !important;
     color: #E50914 !important;
 }
+
+
+
+
+
+
+
+.public-theme-toggle {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 50%;
+
+    background: #0B1423;
+    color: #FFFFFF;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        color .2s ease;
+}
+
+.public-theme-toggle:hover {
+    transform: scale(1.05);
+}
+
+.public-theme-toggle svg {
+    width: 20px;
+    height: 20px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+html.light-mode .public-theme-toggle {
+    background: #FFFFFF;
+    color: #0B1423;
+    border-color: #E2E8F0;
+}
+
+html.dark-mode .public-theme-toggle {
+    background: #121D31;
+    color: #FFFFFF;
+    border-color: #2B3A54;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
