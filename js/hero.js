@@ -57,7 +57,11 @@ async function loadHeroSlider() {
                 <div class="slide ${index === 0 ? "active" : ""}">
 
                     <a href="article.html?id=${doc.id}">
-                        <img src="${news.featuredImage}" alt="${news.headline}">
+                        <img
+                            src="${news.featuredImage || "images/PRIMETIME NEWS LOGO.png"}"
+                            alt="${news.headline || "PrimeTime News"}"
+                            onerror="this.onerror=null;this.src='images/PRIMETIME NEWS LOGO.png';"
+                        >
                     </a>
 
                     <div class="overlay">
