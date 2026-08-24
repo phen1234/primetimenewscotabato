@@ -726,3 +726,96 @@ html.light .facebookBtn,
 body.light .facebookBtn {
     color: #ffffff !important;
 }
+
+
+/* =========================================
+   PRIMETIME NEWS - LIGHT MODE HEADER/FOOTER
+   ========================================= */
+
+/* HEADER / NAVBAR */
+header,
+.navbar,
+.topbar,
+.site-header {
+    background: #0B1423 !important;
+    color: #FFFFFF !important;
+    border-bottom: 1px solid #24344D;
+}
+
+/* Header text */
+header a,
+.navbar a,
+.topbar a,
+.site-header a {
+    color: #FFFFFF !important;
+}
+
+/* FOOTER / QUOTE SECTION */
+.quoteSection {
+    background: #0B1423 !important;
+    color: #FFFFFF !important;
+    border-top: 1px solid #24344D;
+}
+
+/* Footer secondary text */
+.quoteSection p {
+    color: #C5CEDB !important;
+}
+
+/* Quote icon */
+.quoteSection i {
+    color: #E50914;
+}
+
+/* Footer logo */
+.quoteRight img {
+    background: transparent;
+}
+
+/* =========================================
+   LIGHT MODE
+   MAIN ABOUT CONTENT
+   ========================================= */
+
+body:not(.dark-mode) {
+    background: #F5F7FA;
+    color: #172033;
+}
+
+body:not(.dark-mode) .missionSection,
+body:not(.dark-mode) .team {
+    background: #F5F7FA;
+}
+
+body:not(.dark-mode) .missionCard,
+body:not(.dark-mode) .teamCard,
+body:not(.dark-mode) .managerCard {
+    background: #FFFFFF;
+    border: 1px solid #E2E7EF;
+}
+
+/* Section headings */
+body:not(.dark-mode) .missionTitle,
+body:not(.dark-mode) .teamHeading h2,
+body:not(.dark-mode) .managerInfo h2,
+body:not(.dark-mode) .teamContent h3 {
+    color: #111827;
+}
+
+/* Normal text */
+body:not(.dark-mode) .missionCard p,
+body:not(.dark-mode) .teamHeading p,
+body:not(.dark-mode) .managerInfo p {
+    color: #5B6678;
+}
+
+
+
+
+
+
+
+
+
+
+
