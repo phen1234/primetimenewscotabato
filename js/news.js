@@ -463,56 +463,115 @@ homeBtn.addEventListener("click",(e)=>{
 // =========================
 
 const dateFilter = document.getElementById("dateFilter");
+const clearDate = document.getElementById("clearDate");
 
-if(dateFilter){
 
-dateFilter.addEventListener("change",()=>{  
+function applyDateFilter() {
 
-    const value = dateFilter.value;
+    let filtered = allNews.filter(item => {
 
-let filtered = allNews.filter(item=>{
+        if (item.type === "news") {
+            return item.status === "published";
+        }
 
-if(item.type==="news"){  
+        return true;
 
-    return item.status==="published";  
+    });
 
-}  
 
-return true;
+    if (currentFilter === "news") {
 
-});
+        filtered = filtered.filter(
+            item => item.type === "news"
+        );
 
-if(currentFilter==="news"){
+    }
 
-filtered = filtered.filter(item=>item.type==="news");
+
+    if (currentFilter === "video") {
+
+        filtered = filtered.filter(
+            item => item.type === "video"
+        );
+
+    }
+
+
+    if (dateFilter?.value) {
+
+        const value = dateFilter.value;
+
+        filtered = filtered.filter(item => {
+
+            const ts =
+                item.publishedAt?.seconds ||
+                item.createdAt?.seconds;
+
+            if (!ts) return false;
+
+            const d = new Date(ts * 1000);
+
+            const yyyy = d.getFullYear();
+
+            const mm =
+                String(d.getMonth() + 1)
+                    .padStart(2, "0");
+
+            const dd =
+                String(d.getDate())
+                    .padStart(2, "0");
+
+
+            return `${yyyy}-${mm}-${dd}` === value;
+
+        });
+
+    }
+
+
+    filtered.sort((a, b) => {
+
+        const A =
+            a.publishedAt?.seconds ||
+            a.createdAt?.seconds ||
+            0;
+
+        const B =
+            b.publishedAt?.seconds ||
+            b.createdAt?.seconds ||
+            0;
+
+        return B - A;
+
+    });
+
+
+    renderNews(filtered);
 
 }
 
-if(currentFilter==="video"){
 
-filtered = filtered.filter(item=>item.type==="video");
+if (dateFilter) {
+
+    dateFilter.addEventListener(
+        "change",
+        applyDateFilter
+    );
 
 }
 
-if(value){
 
-filtered = filtered.filter(item=>{  
+if (clearDate) {
 
-    const ts =  
-    item.publishedAt?.seconds ||  
-    item.createdAt?.seconds;  
+    clearDate.addEventListener("click", () => {
 
-    if(!ts) return false;  
+        if (dateFilter) {
+            dateFilter.value = "";
+        }
 
-    const d=new Date(ts*1000);  
+        applyFilter();
 
-    const yyyy=d.getFullYear();  
-    const mm=String(d.getMonth()+1).padStart(2,"0");  
-    const dd=String(d.getDate()).padStart(2,"0");  
-
-    return `${yyyy}-${mm}-${dd}`===value;  
-
-});
+    });
 
 }
 
