@@ -363,29 +363,26 @@ window.deleteContent = async (id, type) => {
 
     if (!confirm("Delete this item?")) return;
 
-    const collectionName =
-        type === "video" ? "videos" : "news";
+    const collectionName = type === "video" ? "videos" : "news";
 
     try {
 
-        // ==========================
+        // =========================
         // CHECK LOGIN
-        // ==========================
+        // =========================
 
         if (!auth.currentUser) {
             alert("Your session has expired. Please log in again.");
             return;
         }
 
-        // ==========================
+        // =========================
         // GET FIRESTORE DOCUMENT
-        // ==========================
+        // =========================
 
         const itemRef = doc(db, collectionName, id);
 
-        const {
-            getDoc
-        } = await import(
+        const { getDoc } = await import(
             "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js"
         );
 
@@ -393,109 +390,108 @@ window.deleteContent = async (id, type) => {
 
         if (!snap.exists()) {
             alert("This item no longer exists.");
-            loadNews();
+            await loadNews();
             return;
         }
 
         const data = snap.data();
 
-        // ==========================
-        // CLOUDINARY DELETE
-        // ==========================
+        // =========================
+        // COLLECT CLOUDINARY IDS
+        // =========================
 
-        const publicIds = [];
+        let publicIds = [];
 
-        // FEATURED IMAGE
-        if (data.featuredImagePublicId) {
+        if (collectionName === "news") {
 
-            publicIds.push(
-                data.featuredImagePublicId
-            );
-
-        } else if (data.featuredImage) {
-
-            const publicId =
-                extractCloudinaryPublicId(
-                    data.featuredImage
-                );
-
-            if (publicId) {
-                publicIds.push(publicId);
+            // Gallery public IDs
+            if (Array.isArray(data.galleryPublicIds)) {
+                publicIds.push(...data.galleryPublicIds);
             }
 
-        }
+            // Gallery URLs
+            if (Array.isArray(data.gallery)) {
 
-        // GALLERY
-        if (Array.isArray(data.galleryPublicIds)) {
+                data.gallery.forEach(url => {
 
-            publicIds.push(
-                ...data.galleryPublicIds.filter(Boolean)
-            );
+                    const publicId =
+                        extractCloudinaryPublicId(url);
 
-        } else if (Array.isArray(data.gallery)) {
+                    if (publicId) {
+                        publicIds.push(publicId);
+                    }
 
-            data.gallery.forEach(image => {
+                });
+
+            }
+
+            // Featured image public ID
+            if (data.featuredImagePublicId) {
+
+                publicIds.push(
+                    data.featuredImagePublicId
+                );
+
+            }
+
+            // Featured image URL
+            if (data.featuredImage) {
 
                 const publicId =
-                    extractCloudinaryPublicId(image);
+                    extractCloudinaryPublicId(
+                        data.featuredImage
+                    );
 
                 if (publicId) {
                     publicIds.push(publicId);
                 }
 
-            });
+            }
 
         }
 
-        // REMOVE DUPLICATES
-        const uniquePublicIds =
-            [...new Set(publicIds)];
+        // Remove duplicates
+        publicIds = [
+            ...new Set(
+                publicIds.filter(Boolean)
+            )
+        ];
 
         console.log(
-            "Cloudinary Public IDs:",
-            uniquePublicIds
+            "Cloudinary assets to delete:",
+            publicIds
         );
 
-        // ==========================
-        // DELETE FROM CLOUDINARY
-        // ==========================
+        // =========================
+        // DELETE CLOUDINARY FIRST
+        // =========================
 
-        if (uniquePublicIds.length > 0) {
+        if (publicIds.length > 0) {
 
             const result =
                 await deleteCloudinaryAssets(
-                    uniquePublicIds
+                    publicIds
                 );
 
             console.log(
-                "Cloudinary Delete Result:",
+                "Cloudinary delete result:",
                 result
             );
-
-        } else {
-
-            console.log(
-                "No Cloudinary images found for this item."
-            );
-
         }
 
-        // ==========================
+        // =========================
         // DELETE FIRESTORE
-        // ==========================
+        // =========================
 
         await deleteDoc(itemRef);
 
-        console.log(
-            "Firestore document deleted:",
-            id
-        );
-
-        // ==========================
+        // =========================
         // REFRESH TABLE
-        // ==========================
+        // =========================
 
         await loadNews();
+
+        alert("Content and associated images deleted successfully.");
 
     } catch (error) {
 
@@ -512,6 +508,10 @@ window.deleteContent = async (id, type) => {
     }
 
 };
+
+
+
+
 
 // =====================
 // EDIT
