@@ -53,41 +53,45 @@ categoryLinks.forEach(link => {
                 .trim()
                 .toLowerCase();
 
-        const filtered = allNews
+        console.log("CLICKED CATEGORY:", category);
 
-            .filter(item => {
+        const filtered = allNews.filter(item => {
 
-                if (item.type !== "news") {
-                    return false;
-                }
+            // ARTICLE ONLY
+            if (item.type !== "news") {
+                return false;
+            }
 
-                const itemCategory =
-                    (item.category || "")
-                        .trim()
-                        .toLowerCase();
+            const itemCategory =
+                String(item.category || "")
+                    .trim()
+                    .toLowerCase();
 
-                return (
-                    item.status === "published" &&
-                    itemCategory === category
-                );
+            const status =
+                String(item.status || "")
+                    .trim()
+                    .toLowerCase();
 
-            })
+            return (
+                status === "published" &&
+                itemCategory === category
+            );
 
-            .sort((a, b) => {
+        }).sort((a, b) => {
 
-                const A =
-                    a.publishedAt?.seconds ||
-                    a.createdAt?.seconds ||
-                    0;
+            const A =
+                a.publishedAt?.seconds ||
+                a.createdAt?.seconds ||
+                0;
 
-                const B =
-                    b.publishedAt?.seconds ||
-                    b.createdAt?.seconds ||
-                    0;
+            const B =
+                b.publishedAt?.seconds ||
+                b.createdAt?.seconds ||
+                0;
 
-                return B - A;
+            return B - A;
 
-            });
+        });
 
         renderNews(filtered);
 
@@ -101,7 +105,6 @@ categoryLinks.forEach(link => {
     });
 
 });
-
 
 // =====================
 // APPLY FILTER
