@@ -153,203 +153,243 @@ function applyFilter() {
 // RENDER TABLE
 // =====================
 
-function renderNews(newsList) {
+async function loadHeroSlider() {
 
-    if (!newsTable) {
-        console.error("❌ newsTable not found.");
+    if (!heroSlider || !heroDots) {
+        console.error("❌ Hero elements not found.");
         return;
     }
 
-    newsTable.innerHTML = "";
+    heroSlider.innerHTML = "";
+    heroDots.innerHTML = "";
+
+    try {
+
+        console.log("🔥 Loading hero news...");
+
+        const snapshot =
+            await getDocs(
+                collection(db, "news")
+            );
+
+        let newsList = [];
+
+        snapshot.forEach(docSnap => {
+
+            const news = docSnap.data();
+
+            const status =
+                String(news.status || "")
+                    .trim()
+                    .toLowerCase();
+
+            // Only published
+            if (status !== "published") {
+                return;
+            }
+
+            newsList.push({
+                id: docSnap.id,
+                ...news
+            });
+
+        });
+
+        // =========================
+        // SORT LATEST
+        // =========================
+
+        newsList.sort((a, b) => {
+
+            const A =
+                a.publishedAt?.seconds ||
+                a.createdAt?.seconds ||
+                0;
+
+            const B =
+                b.publishedAt?.seconds ||
+                b.createdAt?.seconds ||
+                0;
+
+            return B - A;
+
+        });
+
+        // =========================
+        // PINNED FIRST
+        // =========================
+
+        const pinned =
+            newsList.filter(
+                news => news.pinned === true
+            );
+
+        const normal =
+            newsList.filter(
+                news => news.pinned !== true
+            );
+
+        newsList = [
+            ...pinned,
+            ...normal
+        ].slice(0, 5);
 
 
-    if (newsList.length === 0) {
-
-        newsTable.innerHTML = `
-            <tr>
-                <td
-                    colspan="6"
-                    style="text-align:center;padding:40px;"
-                >
-                    No news found.
-                </td>
-            </tr>
-        `;
-
-        return;
-
-    }
-
-
-    newsList.forEach(item => {
-
-        const publishTimestamp =
-            item.publishedAt?.seconds ||
-            item.createdAt?.seconds ||
-            0;
-
-
-        const publishDate =
-            publishTimestamp
-                ? new Date(
-                    publishTimestamp * 1000
-                ).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric"
-                })
-                : "-";
+        console.log(
+            "🔥 PUBLISHED NEWS:",
+            newsList
+        );
 
 
         // =========================
-        // IMAGE
+        // NO NEWS
         // =========================
 
-        const image =
-            item.type === "video"
-                ? (
-                    item.thumbnail ||
-                    item.featuredImage ||
-                    "https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png"
-                )
-                : (
-                    item.featuredImage ||
-                    "https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png"
-                );
+        if (!newsList.length) {
 
-
-        // =========================
-        // TITLE
-        // =========================
-
-        const title =
-            item.headline ||
-            item.title ||
-            "Untitled";
-
-
-        // =========================
-        // TYPE BADGE
-        // =========================
-
-        const typeBadge =
-            item.type === "video"
-
-                ? `
-                    <span class="typeBadge video">
-                        <i class="fab fa-youtube"></i>
-                        VIDEO
-                    </span>
-                  `
-
-                : `
-                    <span class="typeBadge news">
-                        <i class="fas fa-newspaper"></i>
-                        ARTICLE
-                    </span>
-                  `;
-
-
-        // =========================
-        // ROW
-        // =========================
-
-        newsTable.innerHTML += `
-
-            <tr>
-
-                <td>
+            heroSlider.innerHTML = `
+                <div class="slide active">
 
                     <img
-                        src="${image}"
-                        class="thumb"
-                        alt="News image"
-                        onerror="
-                            this.onerror=null;
-                            this.src='https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png';
-                        "
+                        src="${DEFAULT_IMAGE}"
+                        alt="PrimeTime News"
                     >
 
-                </td>
+                    <div class="overlay">
 
+                        <span>NO NEWS</span>
 
-                <td>
-
-                    ${typeBadge}
-
-                    <div class="headlineText">
-
-                        ${title}
+                        <h1>
+                            No news available.
+                        </h1>
 
                     </div>
 
-                </td>
+                </div>
+            `;
+
+            return;
+        }
 
 
-                <td>
+        // =========================
+        // CREATE SLIDES
+        // =========================
 
-                    ${item.category || "-"}
+        newsList.forEach((news, index) => {
 
-                </td>
+            const image =
+                news.featuredImage ||
+                DEFAULT_IMAGE;
+
+            const headline =
+                news.headline ||
+                news.title ||
+                "PrimeTime News";
+
+            const category =
+                news.category ||
+                "News";
+
+            const summary =
+                news.summary ||
+                "";
 
 
-                <td>
+            heroSlider.innerHTML += `
+                <div class="slide ${index === 0 ? "active" : ""}">
 
-                    ${item.author || "-"}
+                    <a href="article.html?id=${news.id}">
 
-                </td>
+                        <img
+                            src="${image}"
+                            alt="${headline.replace(/"/g, "&quot;")}"
+                            onerror="
+                                this.onerror=null;
+                                this.src='${DEFAULT_IMAGE}';
+                            "
+                        >
 
+                    </a>
 
-                <td class="statusColumn">
+                    <div class="overlay">
 
-                    <span class="publishedBadge">
+                        <span class="hero-category">
+                            ${category}
+                        </span>
 
-                        <i class="fas fa-circle-check"></i>
+                        <h1>
+                            ${headline}
+                        </h1>
 
-                        Published
+                        <p>
+                            ${summary}
+                        </p>
 
-                    </span>
-
-                    <div class="publishDate">
-
-                        ${publishDate}
+                        <a
+                            href="article.html?id=${news.id}"
+                            class="hero-btn"
+                        >
+                            Read Full Story
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
-                </td>
+                </div>
+            `;
+
+            heroDots.innerHTML += `
+                <span
+                    class="dot ${index === 0 ? "active" : ""}"
+                    data-index="${index}">
+                </span>
+            `;
+
+        });
 
 
-                <td>
+        slides =
+            document.querySelectorAll(
+                "#heroSlider .slide"
+            );
 
-                    <button
-                        class="editBtn"
-                        onclick="editContent('${item.id}','${item.type}')"
-                    >
+        dots =
+            document.querySelectorAll(
+                "#heroDots .dot"
+            );
 
-                        <i class="fas fa-edit"></i>
-
-                    </button>
+        currentSlide = 0;
 
 
-                    <button
-                        class="deleteBtn"
-                        onclick="deleteContent('${item.id}','${item.type}')"
-                    >
+        dots.forEach((dot, index) => {
 
-                        <i class="fas fa-trash"></i>
+            dot.addEventListener("click", () => {
 
-                    </button>
+                currentSlide = index;
 
-                </td>
+                showSlide(currentSlide);
 
-            </tr>
+            });
 
-        `;
+        });
 
-    });
+
+        console.log(
+            "✅ HERO NEWS LOADED:",
+            slides.length
+        );
+
+    } catch (err) {
+
+        console.error(
+            "❌ Hero Slider Error:",
+            err
+        );
+
+    }
 
 }
-
 
 // =====================
 // LOAD NEWS + VIDEOS
