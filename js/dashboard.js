@@ -413,18 +413,15 @@ async function loadDashboardCounters() {
         // TOTAL UPLOADS
         // ---------------------------------------------
 
-        const totalUploads =
-            document.getElementById(
-                "totalUploads"
-            );
+       const totalUploads =
+    document.getElementById("totalUploads");
 
-        if (totalUploads) {
+if (totalUploads) {
 
-            totalUploads.textContent =
-                videoSnapshot.size;
+    totalUploads.textContent =
+        newsSnapshot.size + videoSnapshot.size;
 
-        }
-
+}
 
         // ---------------------------------------------
         // TOTAL USERS
