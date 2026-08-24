@@ -329,6 +329,30 @@ if (!userSnap.exists) {
 
 });
 
+// ==========================
+// SERVER HEALTH CHECK
+// ==========================
+
+app.get("/", (req, res) => {
+    res.json({
+        success: true,
+        message: "PrimeTime News server is running."
+    });
+});
+
+
+// ==========================
+// SERVER
+// ==========================
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, "0.0.0.0", () => {
+
+    console.log(`✅ Server running on port ${PORT}`);
+
+});
+
 
 // ==========================
 // SERVER
