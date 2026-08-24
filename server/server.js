@@ -1,0 +1,343 @@
+import express from "express";
+import cors from "cors";
+import "dotenv/config";
+
+import { adminAuth, adminDb } from "./firebase-admin.js";
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+
+// ==========================
+// UPDATE USER
+// ==========================
+
+app.put("/update-user/:uid", async (req, res) => {
+
+    const uid = req.params.uid;
+
+    const {
+        name,
+        email,
+        role,
+        password,
+        photoURL
+    } = req.body;
+
+    try {
+
+        const updateAuth = {
+            displayName: name,
+            email: email
+        };
+
+        if (password && password.trim() !== "") {
+            updateAuth.password = password;
+        }
+
+        await adminAuth.updateUser(uid, updateAuth);
+
+        const updateData = {
+            name,
+            email,
+            role,
+            updatedAt: new Date()
+        };
+
+        if (photoURL) {
+            updateData.photoURL = photoURL;
+        }
+
+        await adminDb
+            .collection("users")
+            .doc(uid)
+            .update(updateData);
+
+        res.json({
+            success: true
+        });
+
+    } catch (err) {
+
+        console.error(err);
+
+        res.status(500).json({
+            success: false,
+            error: err.message
+        });
+
+    }
+
+});
+
+
+// ==========================
+// DELETE USER
+// ==========================
+
+app.delete("/delete-user/:uid", async (req, res) => {
+
+    const uid = req.params.uid;
+
+    try {
+
+        await adminAuth.deleteUser(uid);
+
+        await adminDb
+            .collection("users")
+            .doc(uid)
+            .delete();
+
+        res.json({
+            success: true,
+            message: "User deleted successfully."
+        });
+
+    } catch (err) {
+
+        console.error(err);
+
+        res.status(500).json({
+            success: false,
+            error: err.message
+        });
+
+    }
+
+});
+
+
+// ==========================
+// CREATE USER
+// ==========================
+
+app.post("/create-user", async (req, res) => {
+
+    const {
+        name,
+        email,
+        password,
+        role,
+        photoURL
+    } = req.body;
+
+    try {
+
+        const userRecord = await adminAuth.createUser({
+            email,
+            password,
+            displayName: name
+        });
+
+        await adminDb
+            .collection("users")
+            .doc(userRecord.uid)
+            .set({
+                name,
+                email,
+                role,
+                status: "Active",
+                photoURL: photoURL || "",
+                createdAt: new Date()
+            });
+
+        res.json({
+            success: true,
+            uid: userRecord.uid
+        });
+
+    } catch (err) {
+
+        console.error(err);
+
+        res.status(500).json({
+            success: false,
+            error: err.message
+        });
+
+    }
+
+});
+
+
+// ==========================
+// VERIFY ADMIN PASSWORD
+// ==========================
+
+const MASTER_ADMIN_PASSWORD = process.env.MASTER_ADMIN_PASSWORD;
+
+app.post("/verify-admin-password", (req, res) => {
+
+    const { password } = req.body;
+
+    if (password === MASTER_ADMIN_PASSWORD) {
+
+        return res.json({
+            success: true
+        });
+
+    }
+
+    res.json({
+        success: false
+    });
+
+});
+
+
+// ==========================
+// DELETE CLOUDINARY IMAGES
+// ==========================
+
+import crypto from "crypto";
+
+async function verifyFirebaseUser(req) {
+
+    const header = req.headers.authorization || "";
+
+    if (!header.startsWith("Bearer ")) {
+        throw new Error("Missing authorization token.");
+    }
+
+    const token = header.slice(7);
+    return await adminAuth.verifyIdToken(token);
+}
+
+function cloudinarySignature(params, apiSecret) {
+
+    const toSign = Object.keys(params)
+        .filter(key => params[key] !== undefined && params[key] !== null && params[key] !== "")
+        .sort()
+        .map(key => `${key}=${params[key]}`)
+        .join("&");
+
+    return crypto
+        .createHash("sha1")
+        .update(toSign + apiSecret)
+        .digest("hex");
+}
+
+app.post("/delete-cloudinary-assets", async (req, res) => {
+
+    try {
+
+        const decoded = await verifyFirebaseUser(req);
+
+       const userSnap = await adminDb
+    .collection("users")
+    .doc(decoded.uid)
+    .get();
+
+if (!userSnap.exists) {
+    return res.status(403).json({
+        success: false,
+        error: "User account was not found."
+    });
+}
+
+        const publicIds = Array.isArray(req.body.publicIds)
+            ? [...new Set(req.body.publicIds.filter(Boolean))]
+            : [];
+
+        if (!publicIds.length) {
+            return res.json({ success: true, deleted: 0 });
+        }
+
+        const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+        const apiKey = process.env.CLOUDINARY_API_KEY;
+        const apiSecret = process.env.CLOUDINARY_API_SECRET;
+
+        if (!cloudName || !apiKey || !apiSecret) {
+            return res.status(500).json({
+                success: false,
+                error: "Cloudinary server credentials are not configured."
+            });
+        }
+
+        const timestamp = Math.floor(Date.now() / 1000);
+        const results = [];
+
+        for (const publicId of publicIds) {
+
+            const params = {
+                invalidate: true,
+                public_id: publicId,
+                timestamp
+            };
+
+            const signature = cloudinarySignature(params, apiSecret);
+            const form = new URLSearchParams();
+
+            form.append("public_id", publicId);
+            form.append("timestamp", String(timestamp));
+            form.append("api_key", apiKey);
+            form.append("signature", signature);
+            form.append("invalidate", "true");
+
+            const response = await fetch(
+                `https://api.cloudinary.com/v1_1/${cloudName}/image/destroy`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: form
+                }
+            );
+
+            const data = await response.json();
+
+            results.push({
+                publicId,
+                result: data.result || null,
+                success: response.ok && ["ok", "not found"].includes(data.result)
+            });
+
+            if (!response.ok || !["ok", "not found"].includes(data.result)) {
+                console.error("Cloudinary delete failed:", publicId, data);
+            }
+        }
+
+        const failed = results.filter(item => !item.success);
+
+        if (failed.length) {
+            return res.status(502).json({
+                success: false,
+                error: "One or more Cloudinary images could not be deleted.",
+                results
+            });
+        }
+
+        return res.json({
+            success: true,
+            deleted: publicIds.length,
+            results
+        });
+
+    } catch (err) {
+
+        console.error("Cloudinary Delete Error:", err);
+
+        return res.status(401).json({
+            success: false,
+            error: err.message
+        });
+
+    }
+
+});
+
+
+// ==========================
+// SERVER
+// ==========================
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, "0.0.0.0", () => {
+
+    console.log(`✅ Server running on port ${PORT}`);
+
+});
