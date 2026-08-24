@@ -1355,23 +1355,6 @@ async function loadDashboardCounters() {
 loadDashboardCounters();
 
 
-// ======================================
-// TOTAL VIDEOS
-// ======================================
-
-const totalVideos = document.getElementById("totalVideos");
-
-if(totalVideos){
-
-    const totalVideoCount = items.filter(item =>
-        item.type === "video"
-    ).length;
-
-    totalVideos.textContent = totalVideoCount;
-
-}
-
-
         // Latest first
         items.sort((a,b)=>{
 
