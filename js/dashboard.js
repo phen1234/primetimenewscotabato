@@ -396,30 +396,36 @@ async function loadDashboardCounters() {
         // VIDEO COUNT
         // ---------------------------------------------
 
-        const totalVideos =
-            document.getElementById(
-                "totalVideos"
-            );
+       const videoSnapshot =
+    await getDocs(
+        collection(db, "videos")
+    );
 
-        if (totalVideos) {
+const totalVideos =
+    document.getElementById("totalVideos");
 
-            totalVideos.textContent =
-                videoSnapshot.size;
+if (totalVideos) {
 
-        }
+    totalVideos.textContent =
+        videoSnapshot.size;
+
+}
 
 
         // ---------------------------------------------
         // TOTAL UPLOADS
         // ---------------------------------------------
 
-       const totalUploads =
+     const uploadCount =
+    newsSnapshot.size + videoSnapshot.size;
+
+const totalUploads =
     document.getElementById("totalUploads");
 
 if (totalUploads) {
 
     totalUploads.textContent =
-        newsSnapshot.size + videoSnapshot.size;
+        uploadCount;
 
 }
 
