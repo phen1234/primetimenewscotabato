@@ -3,7 +3,6 @@
 // ======================================
 
 import { auth, db } from "./firebase.js";
-import { extractCloudinaryPublicId } from "./cloudinary-delete.js";
 
 import {
     doc,
@@ -785,16 +784,6 @@ publishBtn.addEventListener("click", async () => {
                 ? finalGallery[featuredIndex]
                 : "";
 
-        // Keep the Cloudinary public IDs together with the URLs.
-        // This makes server-side deletion reliable even when URLs contain
-        // delivery transformations or version segments.
-        const galleryPublicIds = finalGallery
-            .map(url => extractCloudinaryPublicId(url))
-            .filter(Boolean);
-
-        const featuredImagePublicId =
-            extractCloudinaryPublicId(featuredImage);
-
         const newsData = {
 
     author: editId
@@ -812,11 +801,7 @@ publishBtn.addEventListener("click", async () => {
 
             featuredImage,
 
-            featuredImagePublicId,
-
             gallery: finalGallery,
-
-            galleryPublicIds,
 
             readingTime: document.getElementById("readingTime").textContent,
 
