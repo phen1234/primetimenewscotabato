@@ -109,78 +109,159 @@ renderNews(filtered);
 // RENDER TABLE
 // =====================
 
-function renderNews(newsList){
+function renderNews(newsList) {
 
-if(!newsTable) return;  
+    if (!newsTable) return;
 
-newsTable.innerHTML = "";  
+    newsTable.innerHTML = "";
 
-if(newsList.length === 0){  
+    if (newsList.length === 0) {
 
-    newsTable.innerHTML = `  
-    <tr>  
-        <td colspan="6" style="text-align:center;padding:30px;">  
-            No news found.  
-        </td>  
-    </tr>  
-    `;  
-    return;  
-}  
+        newsTable.innerHTML = `
+            <tr>
+                <td colspan="6" style="text-align:center;padding:30px;">
+                    No news found.
+                </td>
+            </tr>
+        `;
 
-newsList.forEach(item=>{  
+        return;
+    }
 
-    const publishDate =  
-    (item.publishedAt?.seconds || item.createdAt?.seconds)  
-    ? new Date(  
-        (item.publishedAt?.seconds || item.createdAt?.seconds)*1000  
-    ).toLocaleDateString("en-US",{  
-        month:"short",  
-        day:"numeric",  
-        year:"numeric"  
-    })  
-    : "-";  
 
-    newsTable.innerHTML += `
+    newsList.forEach(item => {
 
-<tr>  <td>  <img src="${
-item.type==="video"
-? (item.thumbnail || "../images/PRIMETIME NEWS LOGO.png")
-: (item.featuredImage || "../images/PRIMETIME NEWS LOGO.png")
-}" class="thumb">
+        const publishDate =
+            (item.publishedAt?.seconds || item.createdAt?.seconds)
+            ? new Date(
+                (item.publishedAt?.seconds ||
+                 item.createdAt?.seconds) * 1000
+            ).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric"
+            })
+            : "-";
 
-</td>  <td>  <span class="typeBadge ${item.type}">  ${
-item.type==="video"
-? <span class="typeBadge video">   <i class="fab fa-youtube"></i> VIDEO   </span>
-: <span class="typeBadge news">   <i class="fas fa-newspaper"></i> ARTICLE   </span>
-}
 
-</span>  <div class="headlineText">  ${item.title || item.headline}
+        const image =
+            item.type === "video"
+                ? (
+                    item.thumbnail ||
+                    "https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png"
+                )
+                : (
+                    item.featuredImage ||
+                    "https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png"
+                );
 
-</div>  </td>  <td>  ${item.category || "-"}
 
-</td>  <td>  ${item.author || "-"}
+        const title =
+            item.title ||
+            item.headline ||
+            "Untitled";
 
-</td>  <td class="statusColumn">  <span class="publishedBadge">  <i class="fas fa-circle-check"></i>
 
-Published
+        const typeBadge =
+            item.type === "video"
+                ? `
+                    <span class="typeBadge video">
+                        <i class="fab fa-youtube"></i>
+                        VIDEO
+                    </span>
+                  `
+                : `
+                    <span class="typeBadge news">
+                        <i class="fas fa-newspaper"></i>
+                        ARTICLE
+                    </span>
+                  `;
 
-</span>  <div class="publishDate">  ${publishDate}
 
-</div>  </td>  <td>  <button  
-class="editBtn"  
-onclick="editContent('${item.id}','${item.type}')">
+        newsTable.innerHTML += `
 
-<i class="fas fa-edit"></i>
+            <tr>
 
-</button>  <button  
-class="deleteBtn"  
-onclick="deleteContent('${item.id}','${item.type}')">
+                <td>
 
-<i class="fas fa-trash"></i>
+                    <img
+                        src="${image}"
+                        class="thumb"
+                        onerror="
+                            this.onerror=null;
+                            this.src='https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png';
+                        "
+                    >
 
-</button>  </td>  </tr>  `;
+                </td>
 
-});
+
+                <td>
+
+                    ${typeBadge}
+
+                    <div class="headlineText">
+                        ${title}
+                    </div>
+
+                </td>
+
+
+                <td>
+                    ${item.category || "-"}
+                </td>
+
+
+                <td>
+                    ${item.author || "-"}
+                </td>
+
+
+                <td class="statusColumn">
+
+                    <span class="publishedBadge">
+
+                        <i class="fas fa-circle-check"></i>
+
+                        Published
+
+                    </span>
+
+                    <div class="publishDate">
+                        ${publishDate}
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    <button
+                        class="editBtn"
+                        onclick="editContent('${item.id}','${item.type}')"
+                    >
+
+                        <i class="fas fa-edit"></i>
+
+                    </button>
+
+
+                    <button
+                        class="deleteBtn"
+                        onclick="deleteContent('${item.id}','${item.type}')"
+                    >
+
+                        <i class="fas fa-trash"></i>
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
 
 }
 
