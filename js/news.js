@@ -1,109 +1,153 @@
 import { db } from "./firebase.js";
 
 import {
-collection,
-getDocs,
-deleteDoc,
-doc
+    collection,
+    getDocs,
+    deleteDoc,
+    doc
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 const newsTable = document.getElementById("newsTable");
 
-if(!newsTable){
-console.log("newsTable not found.");
-}
-
 let allNews = [];
 let currentFilter = "all";
 
-document.querySelectorAll(".filterBtn").forEach(btn=>{
 
-btn.addEventListener("click",()=>{  
+// =====================
+// FILTER BUTTONS
+// =====================
 
-    document.querySelectorAll(".filterBtn")  
-    .forEach(b=>b.classList.remove("active"));  
+document.querySelectorAll(".filterBtn").forEach(btn => {
 
-    btn.classList.add("active");  
+    btn.addEventListener("click", () => {
 
-    currentFilter = btn.dataset.type;  
+        document.querySelectorAll(".filterBtn")
+            .forEach(b => b.classList.remove("active"));
 
-    applyFilter();  
+        btn.classList.add("active");
+
+        currentFilter = btn.dataset.type;
+
+        applyFilter();
+
+    });
 
 });
 
-});
+
+// =====================
+// CATEGORY LINKS
+// =====================
 
 const categoryLinks =
-document.querySelectorAll(".category-link");
+    document.querySelectorAll(".category-link");
 
-categoryLinks.forEach(link=>{
+categoryLinks.forEach(link => {
 
-link.addEventListener("click",(e)=>{  
+    link.addEventListener("click", (e) => {
 
-    e.preventDefault();  
+        e.preventDefault();
 
-    const category =  
-    link.dataset.category;  
+        const category = link.dataset.category;
 
-    const filtered = allNews  
-.filter(item =>  
-    item.status === "published" &&  
-    item.category === category  
-)  
-  
-.sort((a,b)=>{  
+        const filtered = allNews
+            .filter(item => {
 
-    const A = a.publishedAt?.seconds || a.createdAt?.seconds || 0;  
-    const B = b.publishedAt?.seconds || b.createdAt?.seconds || 0;  
+                if (item.type === "video") {
+                    return item.category === category;
+                }
 
-    return B - A;  
+                return (
+                    item.status === "published" &&
+                    item.category === category
+                );
 
-});  
+            })
+            .sort((a, b) => {
 
-    renderNews(filtered);  
+                const A =
+                    a.publishedAt?.seconds ||
+                    a.createdAt?.seconds ||
+                    0;
+
+                const B =
+                    b.publishedAt?.seconds ||
+                    b.createdAt?.seconds ||
+                    0;
+
+                return B - A;
+
+            });
+
+        renderNews(filtered);
+
+    });
 
 });
 
-});
 
-function applyFilter(){
+// =====================
+// APPLY FILTER
+// =====================
 
-let filtered = allNews.filter(item=>{  
+function applyFilter() {
 
-    if(item.type==="news"){  
+    let filtered = allNews.filter(item => {
 
-        return item.status==="published";  
+        // ARTICLES
+        if (item.type === "news") {
+            return item.status === "published";
+        }
 
-    }  
+        // VIDEOS
+        if (item.type === "video") {
+            return true;
+        }
 
-    return true;  
+        return false;
 
-});  
+    });
 
-if(currentFilter==="news"){  
 
-    filtered = filtered.filter(item=>item.type==="news");  
+    if (currentFilter === "news") {
 
-}  
+        filtered = filtered.filter(
+            item => item.type === "news"
+        );
 
-if(currentFilter==="video"){  
+    }
 
-    filtered = filtered.filter(item=>item.type==="video");  
 
-}  
+    if (currentFilter === "video") {
 
-filtered.sort((a,b)=>{  
+        filtered = filtered.filter(
+            item => item.type === "video"
+        );
 
-    const A = a.publishedAt?.seconds || a.createdAt?.seconds || 0;  
-    const B = b.publishedAt?.seconds || b.createdAt?.seconds || 0;  
+    }
 
-    return B-A;  
 
-});  
+    filtered.sort((a, b) => {
 
-renderNews(filtered);
+        const A =
+            a.publishedAt?.seconds ||
+            a.createdAt?.seconds ||
+            0;
+
+        const B =
+            b.publishedAt?.seconds ||
+            b.createdAt?.seconds ||
+            0;
+
+        return B - A;
+
+    });
+
+
+    renderNews(filtered);
 
 }
+
 
 // =====================
 // RENDER TABLE
@@ -111,43 +155,61 @@ renderNews(filtered);
 
 function renderNews(newsList) {
 
-    if (!newsTable) return;
+    if (!newsTable) {
+        console.error("❌ newsTable not found.");
+        return;
+    }
 
     newsTable.innerHTML = "";
+
 
     if (newsList.length === 0) {
 
         newsTable.innerHTML = `
             <tr>
-                <td colspan="6" style="text-align:center;padding:30px;">
+                <td
+                    colspan="6"
+                    style="text-align:center;padding:40px;"
+                >
                     No news found.
                 </td>
             </tr>
         `;
 
         return;
+
     }
 
 
     newsList.forEach(item => {
 
-        const publishDate =
-            (item.publishedAt?.seconds || item.createdAt?.seconds)
-            ? new Date(
-                (item.publishedAt?.seconds ||
-                 item.createdAt?.seconds) * 1000
-            ).toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-                year: "numeric"
-            })
-            : "-";
+        const publishTimestamp =
+            item.publishedAt?.seconds ||
+            item.createdAt?.seconds ||
+            0;
 
+
+        const publishDate =
+            publishTimestamp
+                ? new Date(
+                    publishTimestamp * 1000
+                ).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric"
+                })
+                : "-";
+
+
+        // =========================
+        // IMAGE
+        // =========================
 
         const image =
             item.type === "video"
                 ? (
                     item.thumbnail ||
+                    item.featuredImage ||
                     "https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png"
                 )
                 : (
@@ -156,20 +218,30 @@ function renderNews(newsList) {
                 );
 
 
+        // =========================
+        // TITLE
+        // =========================
+
         const title =
-            item.title ||
             item.headline ||
+            item.title ||
             "Untitled";
 
 
+        // =========================
+        // TYPE BADGE
+        // =========================
+
         const typeBadge =
             item.type === "video"
+
                 ? `
                     <span class="typeBadge video">
                         <i class="fab fa-youtube"></i>
                         VIDEO
                     </span>
                   `
+
                 : `
                     <span class="typeBadge news">
                         <i class="fas fa-newspaper"></i>
@@ -177,6 +249,10 @@ function renderNews(newsList) {
                     </span>
                   `;
 
+
+        // =========================
+        // ROW
+        // =========================
 
         newsTable.innerHTML += `
 
@@ -187,6 +263,7 @@ function renderNews(newsList) {
                     <img
                         src="${image}"
                         class="thumb"
+                        alt="News image"
                         onerror="
                             this.onerror=null;
                             this.src='https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png';
@@ -201,19 +278,25 @@ function renderNews(newsList) {
                     ${typeBadge}
 
                     <div class="headlineText">
+
                         ${title}
+
                     </div>
 
                 </td>
 
 
                 <td>
+
                     ${item.category || "-"}
+
                 </td>
 
 
                 <td>
+
                     ${item.author || "-"}
+
                 </td>
 
 
@@ -228,7 +311,9 @@ function renderNews(newsList) {
                     </span>
 
                     <div class="publishDate">
+
                         ${publishDate}
+
                     </div>
 
                 </td>
@@ -265,34 +350,65 @@ function renderNews(newsList) {
 
 }
 
+
 // =====================
-// LOAD NEWS
+// LOAD NEWS + VIDEOS
 // =====================
 
 async function loadNews() {
 
-    if (!newsTable) return;
+    if (!newsTable) {
+        console.error("❌ newsTable not found.");
+        return;
+    }
+
 
     try {
 
+        newsTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="6"
+                    style="text-align:center;padding:40px;"
+                >
+                    Loading...
+                </td>
+            </tr>
+        `;
+
+
         allNews = [];
+
 
         // =========================
         // LOAD ARTICLES
         // =========================
 
         const newsSnap =
-            await getDocs(collection(db, "news"));
+            await getDocs(
+                collection(db, "news")
+            );
+
 
         newsSnap.forEach(docSnap => {
 
             allNews.push({
+
                 id: docSnap.id,
+
                 type: "news",
+
                 ...docSnap.data()
+
             });
 
         });
+
+
+        console.log(
+            "📰 ARTICLES:",
+            newsSnap.size
+        );
 
 
         // =========================
@@ -300,41 +416,37 @@ async function loadNews() {
         // =========================
 
         const videoSnap =
-            await getDocs(collection(db, "videos"));
+            await getDocs(
+                collection(db, "videos")
+            );
+
 
         videoSnap.forEach(docSnap => {
 
             allNews.push({
+
                 id: docSnap.id,
+
                 type: "video",
+
                 ...docSnap.data()
+
             });
 
         });
 
 
-        // =========================
-        // DISPLAY
-        // =========================
-
-        const published = allNews.filter(item => {
-
-            // Videos are always displayed
-            if (item.type === "video") {
-                return true;
-            }
-
-            // Articles must be published
-            return item.status === "published";
-
-        });
+        console.log(
+            "🎬 VIDEOS:",
+            videoSnap.size
+        );
 
 
         // =========================
-        // SORT LATEST FIRST
+        // SORT
         // =========================
 
-        published.sort((a, b) => {
+        allNews.sort((a, b) => {
 
             const A =
                 a.publishedAt?.seconds ||
@@ -351,13 +463,19 @@ async function loadNews() {
         });
 
 
-        renderNews(published);
+        // =========================
+        // DISPLAY
+        // =========================
+
+        applyFilter();
+
 
         console.log(
-            "✅ NEWS LOADED:",
-            published.length,
-            published
+            "✅ TOTAL CONTENT:",
+            allNews.length,
+            allNews
         );
+
 
     } catch (err) {
 
@@ -366,237 +484,389 @@ async function loadNews() {
             err
         );
 
+
+        newsTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="6"
+                    style="text-align:center;padding:40px;color:#b00020;"
+                >
+                    Failed to load news.
+                    <br>
+                    Check browser console for details.
+                </td>
+            </tr>
+        `;
+
     }
 
 }
+
+
 // =====================
 // SEARCH
 // =====================
 
-const searchBox = document.getElementById("searchNews");
+const searchBox =
+    document.getElementById("searchNews");
+
 
 if (searchBox) {
 
-searchBox.addEventListener("input", function () {  
+    searchBox.addEventListener(
+        "input",
+        function () {
 
-    const keyword = this.value.toLowerCase();  
+            const keyword =
+                this.value
+                    .toLowerCase()
+                    .trim();
 
-    const filtered = allNews
 
-.filter(item => {
+            let filtered =
+                allNews.filter(item => {
 
-const title = item.headline || item.title || "";  
+                    const title =
+                        item.headline ||
+                        item.title ||
+                        "";
 
-return title.toLowerCase().includes(keyword);
 
-})
-.sort((a,b)=>{
+                    return title
+                        .toLowerCase()
+                        .includes(keyword);
 
-const A=a.publishedAt?.seconds||a.createdAt?.seconds||0;
-const B=b.publishedAt?.seconds||b.createdAt?.seconds||0;
+                });
 
-return B-A;
 
-});
+            // Apply current type filter
+            if (currentFilter === "news") {
 
-renderNews(filtered);
+                filtered =
+                    filtered.filter(
+                        item => item.type === "news"
+                    );
 
-});
+            }
+
+
+            if (currentFilter === "video") {
+
+                filtered =
+                    filtered.filter(
+                        item => item.type === "video"
+                    );
+
+            }
+
+
+            // Published articles only
+            filtered =
+                filtered.filter(item => {
+
+                    if (item.type === "news") {
+                        return item.status === "published";
+                    }
+
+                    return true;
+
+                });
+
+
+            filtered.sort((a, b) => {
+
+                const A =
+                    a.publishedAt?.seconds ||
+                    a.createdAt?.seconds ||
+                    0;
+
+                const B =
+                    b.publishedAt?.seconds ||
+                    b.createdAt?.seconds ||
+                    0;
+
+                return B - A;
+
+            });
+
+
+            renderNews(filtered);
+
+        }
+    );
 
 }
+
 
 // =====================
 // DELETE
 // =====================
 
-window.deleteContent = async(id,type)=>{
+window.deleteContent = async (id, type) => {
 
-if(!confirm("Delete this item?")) return;  
+    if (!confirm("Delete this item?")) {
+        return;
+    }
 
-await deleteDoc(doc(db,type==="video" ? "videos":"news",id));  
 
-loadNews();
+    try {
+
+        const collectionName =
+            type === "video"
+                ? "videos"
+                : "news";
+
+
+        await deleteDoc(
+            doc(db, collectionName, id)
+        );
+
+
+        console.log(
+            "🗑️ Deleted:",
+            collectionName,
+            id
+        );
+
+
+        // Reload
+        await loadNews();
+
+
+    } catch (err) {
+
+        console.error(
+            "❌ DELETE ERROR:",
+            err
+        );
+
+        alert(
+            "Failed to delete item: " +
+            err.message
+        );
+
+    }
 
 };
+
 
 // =====================
 // EDIT
 // =====================
 
-window.editContent = (id,type)=>{
+window.editContent = (id, type) => {
 
-if(type==="video"){  
+    if (type === "video") {
 
-    window.location.href=`add-video.html?id=${id}`;  
+        window.location.href =
+            `add-video.html?id=${id}`;
 
-}else{  
+    } else {
 
-    window.location.href=`add-news.html?id=${id}`;  
+        window.location.href =
+            `add-news.html?id=${id}`;
 
-}
+    }
 
 };
 
-const homeBtn = document.getElementById("homeNews");
 
-if(homeBtn){
+// =====================
+// HOME
+// =====================
 
-homeBtn.addEventListener("click",(e)=>{  
+const homeBtn =
+    document.getElementById("homeNews");
 
-    e.preventDefault();  
 
-    currentFilter = "all";  
+if (homeBtn) {
 
-    document.querySelectorAll(".filterBtn")  
-    .forEach(btn=>btn.classList.remove("active"));  
+    homeBtn.addEventListener(
+        "click",
+        e => {
 
-    document.querySelector('[data-type="all"]')?.classList.add("active");  
+            e.preventDefault();
 
-    applyFilter();  
+            currentFilter = "all";
 
-});
+
+            document
+                .querySelectorAll(".filterBtn")
+                .forEach(btn =>
+                    btn.classList.remove("active")
+                );
+
+
+            document
+                .querySelector(
+                    '[data-type="all"]'
+                )
+                ?.classList.add("active");
+
+
+            if (searchBox) {
+                searchBox.value = "";
+            }
+
+
+            applyFilter();
+
+        }
+    );
 
 }
+
 
 // =========================
 // DATE FILTER
 // =========================
 
-const dateFilter = document.getElementById("dateFilter");
-const clearDate = document.getElementById("clearDate");
-
-
-function applyDateFilter() {
-
-    let filtered = allNews.filter(item => {
-
-        if (item.type === "news") {
-            return item.status === "published";
-        }
-
-        return true;
-
-    });
-
-
-    if (currentFilter === "news") {
-
-        filtered = filtered.filter(
-            item => item.type === "news"
-        );
-
-    }
-
-
-    if (currentFilter === "video") {
-
-        filtered = filtered.filter(
-            item => item.type === "video"
-        );
-
-    }
-
-
-    if (dateFilter?.value) {
-
-        const value = dateFilter.value;
-
-        filtered = filtered.filter(item => {
-
-            const ts =
-                item.publishedAt?.seconds ||
-                item.createdAt?.seconds;
-
-            if (!ts) return false;
-
-            const d = new Date(ts * 1000);
-
-            const yyyy = d.getFullYear();
-
-            const mm =
-                String(d.getMonth() + 1)
-                    .padStart(2, "0");
-
-            const dd =
-                String(d.getDate())
-                    .padStart(2, "0");
-
-
-            return `${yyyy}-${mm}-${dd}` === value;
-
-        });
-
-    }
-
-
-    filtered.sort((a, b) => {
-
-        const A =
-            a.publishedAt?.seconds ||
-            a.createdAt?.seconds ||
-            0;
-
-        const B =
-            b.publishedAt?.seconds ||
-            b.createdAt?.seconds ||
-            0;
-
-        return B - A;
-
-    });
-
-
-    renderNews(filtered);
-
-}
+const dateFilter =
+    document.getElementById("dateFilter");
 
 
 if (dateFilter) {
 
     dateFilter.addEventListener(
         "change",
-        applyDateFilter
+        () => {
+
+            const value =
+                dateFilter.value;
+
+
+            let filtered =
+                allNews.filter(item => {
+
+                    if (item.type === "news") {
+                        return item.status === "published";
+                    }
+
+                    return true;
+
+                });
+
+
+            // TYPE FILTER
+            if (currentFilter === "news") {
+
+                filtered =
+                    filtered.filter(
+                        item => item.type === "news"
+                    );
+
+            }
+
+
+            if (currentFilter === "video") {
+
+                filtered =
+                    filtered.filter(
+                        item => item.type === "video"
+                    );
+
+            }
+
+
+            // DATE
+            if (value) {
+
+                filtered =
+                    filtered.filter(item => {
+
+                        const ts =
+                            item.publishedAt?.seconds ||
+                            item.createdAt?.seconds;
+
+
+                        if (!ts) {
+                            return false;
+                        }
+
+
+                        const d =
+                            new Date(ts * 1000);
+
+
+                        const yyyy =
+                            d.getFullYear();
+
+
+                        const mm =
+                            String(
+                                d.getMonth() + 1
+                            ).padStart(2, "0");
+
+
+                        const dd =
+                            String(
+                                d.getDate()
+                            ).padStart(2, "0");
+
+
+                        return (
+                            `${yyyy}-${mm}-${dd}`
+                            === value
+                        );
+
+                    });
+
+            }
+
+
+            filtered.sort((a, b) => {
+
+                const A =
+                    a.publishedAt?.seconds ||
+                    a.createdAt?.seconds ||
+                    0;
+
+                const B =
+                    b.publishedAt?.seconds ||
+                    b.createdAt?.seconds ||
+                    0;
+
+                return B - A;
+
+            });
+
+
+            renderNews(filtered);
+
+        }
     );
 
 }
 
 
+// =========================
+// CLEAR DATE
+// =========================
+
+const clearDate =
+    document.getElementById("clearDate");
+
+
 if (clearDate) {
 
-    clearDate.addEventListener("click", () => {
+    clearDate.addEventListener(
+        "click",
+        () => {
 
-        if (dateFilter) {
             dateFilter.value = "";
+
+            applyFilter();
+
         }
-
-        applyFilter();
-
-    });
+    );
 
 }
 
-// =========================
-// CLEAR DATE FILTER
-// =========================
 
-const clearDate = document.getElementById("clearDate");
+// =====================
+// START
+// =====================
 
-if(clearDate){
+console.log("🔥 NEWS.JS LOADED");
 
-clearDate.addEventListener("click",()=>{  
-
-    // alisin ang selected date  
-    dateFilter.value = "";  
-
-    // ibalik ang current filter (All / News / Video)  
-    applyFilter();  
-
-});
-
-}
-
-renderNews(filtered);
-
-});
-
-}
+loadNews();
