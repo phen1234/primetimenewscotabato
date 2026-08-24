@@ -590,6 +590,118 @@ body.light-mode .swal2-html-container div {
 body.light-mode .swal2-confirm {
     background: #e10600 !important;
     color: #ffffff !important;
+
+
+
+
+
+
+
+/* =========================================================
+   PRIMETIME NEWS - ABOUT PAGE
+   LIGHT MODE HEADER + FOOTER
+   ========================================================= */
+
+body:not(.dark-mode) .hero {
+    background: #0B1423 !important;
+    color: #FFFFFF !important;
+}
+
+body:not(.dark-mode) .hero h1 {
+    color: #FFFFFF !important;
+}
+
+body:not(.dark-mode) .hero p {
+    color: #C5CEDB !important;
+}
+
+
+/* MAIN CONTENT */
+
+body:not(.dark-mode) .missionSection {
+    background: #F5F7FB !important;
+    color: #111827 !important;
+}
+
+body:not(.dark-mode) .missionTitle {
+    color: #111827 !important;
+}
+
+body:not(.dark-mode) .missionCard {
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    border: 1px solid #E2E8F0 !important;
+}
+
+body:not(.dark-mode) .missionCard h3 {
+    color: #111827 !important;
+}
+
+body:not(.dark-mode) .missionCard p {
+    color: #5B6678 !important;
+}
+
+
+/* TEAM */
+
+body:not(.dark-mode) .team {
+    background: #F5F7FB !important;
+    color: #111827 !important;
+}
+
+body:not(.dark-mode) .teamHeading h2 {
+    color: #111827 !important;
+}
+
+body:not(.dark-mode) .teamHeading p {
+    color: #5B6678 !important;
+}
+
+body:not(.dark-mode) .managerCard,
+body:not(.dark-mode) .teamCard {
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    border: 1px solid #E2E8F0 !important;
+}
+
+body:not(.dark-mode) .managerInfo h2,
+body:not(.dark-mode) .teamContent h3 {
+    color: #111827 !important;
+}
+
+body:not(.dark-mode) .managerInfo p {
+    color: #5B6678 !important;
+}
+
+body:not(.dark-mode) .teamContent h4 {
+    color: #E50914 !important;
+}
+
+
+/* FOOTER */
+
+body:not(.dark-mode) .quoteSection {
+    background: #0B1423 !important;
+    color: #FFFFFF !important;
+    border-top: 1px solid #24344D !important;
+}
+
+body:not(.dark-mode) .quoteSection h2 {
+    color: #FFFFFF !important;
+}
+
+body:not(.dark-mode) .quoteSection p {
+    color: #C5CEDB !important;
+}
+
+body:not(.dark-mode) .quoteLeft > i {
+    color: #E50914 !important;
+}
+
+
+
+
+   
 }
 
 body.light-mode .swal2-close {
