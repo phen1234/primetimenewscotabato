@@ -7,77 +7,127 @@ import {
     doc
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-const newsTable = document.getElementById("newsTable");
+
+// =====================================================
+// ELEMENTS
+// =====================================================
+
+const newsTable =
+    document.getElementById("newsTable");
+
+const searchBox =
+    document.getElementById("searchNews");
+
+const dateFilter =
+    document.getElementById("dateFilter");
+
+const clearDate =
+    document.getElementById("clearDate");
+
+const homeBtn =
+    document.getElementById("homeNews");
+
+
+// =====================================================
+// DATA
+// =====================================================
 
 let allNews = [];
+
 let currentFilter = "all";
 
 
-// =====================
+// =====================================================
 // FILTER BUTTONS
-// =====================
+// =====================================================
 
-document.querySelectorAll(".filterBtn").forEach(btn => {
+document
+    .querySelectorAll(".filterBtn")
+    .forEach(btn => {
 
-    btn.addEventListener("click", () => {
+        btn.addEventListener("click", () => {
 
-        document.querySelectorAll(".filterBtn")
-            .forEach(b => b.classList.remove("active"));
+            document
+                .querySelectorAll(".filterBtn")
+                .forEach(b => {
+                    b.classList.remove("active");
+                });
 
-        btn.classList.add("active");
+            btn.classList.add("active");
 
-        currentFilter = btn.dataset.type;
+            currentFilter =
+                btn.dataset.type || "all";
 
-        applyFilter();
+            applyFilter();
+
+        });
 
     });
 
-});
 
-
-// =====================
+// =====================================================
 // CATEGORY LINKS
-// =====================
+// =====================================================
 
 const categoryLinks =
     document.querySelectorAll(".category-link");
 
+
 categoryLinks.forEach(link => {
 
-    link.addEventListener("click", (e) => {
+    link.addEventListener("click", e => {
 
         e.preventDefault();
 
         const category =
-            (link.dataset.category || "")
-                .trim()
-                .toLowerCase();
+            String(
+                link.dataset.category || ""
+            )
+            .trim()
+            .toLowerCase();
 
-        console.log("CLICKED CATEGORY:", category);
 
-        const filtered = allNews.filter(item => {
+        console.log(
+            "🔥 CATEGORY CLICK:",
+            category
+        );
 
-            // ARTICLE ONLY
-            if (item.type !== "news") {
-                return false;
-            }
 
-            const itemCategory =
-                String(item.category || "")
+        let filtered =
+            allNews.filter(item => {
+
+                // CATEGORY PAGE = ARTICLES ONLY
+                if (item.type !== "news") {
+                    return false;
+                }
+
+
+                const itemCategory =
+                    String(
+                        item.category || ""
+                    )
                     .trim()
                     .toLowerCase();
 
-            const status =
-                String(item.status || "")
+
+                const status =
+                    String(
+                        item.status || ""
+                    )
                     .trim()
                     .toLowerCase();
 
-            return (
-                status === "published" &&
-                itemCategory === category
-            );
 
-        }).sort((a, b) => {
+                return (
+                    status === "published" &&
+                    itemCategory === category
+                );
+
+            });
+
+
+        // SORT LATEST
+        filtered.sort((a, b) => {
 
             const A =
                 a.publishedAt?.seconds ||
@@ -93,7 +143,9 @@ categoryLinks.forEach(link => {
 
         });
 
+
         renderNews(filtered);
+
 
         console.log(
             "CATEGORY:",
@@ -106,47 +158,67 @@ categoryLinks.forEach(link => {
 
 });
 
-// =====================
-// APPLY FILTER
-// =====================
+
+// =====================================================
+// APPLY MAIN FILTER
+// =====================================================
 
 function applyFilter() {
 
-    let filtered = allNews.filter(item => {
+    let filtered =
+        allNews.filter(item => {
 
-        // ARTICLES
-        if (item.type === "news") {
-            return item.status === "published";
-        }
+            // ARTICLES
+            if (item.type === "news") {
 
-        // VIDEOS
-        if (item.type === "video") {
-            return true;
-        }
+                const status =
+                    String(
+                        item.status || ""
+                    )
+                    .trim()
+                    .toLowerCase();
 
-        return false;
+                return status === "published";
 
-    });
+            }
 
 
+            // VIDEOS
+            if (item.type === "video") {
+                return true;
+            }
+
+
+            return false;
+
+        });
+
+
+    // NEWS ONLY
     if (currentFilter === "news") {
 
-        filtered = filtered.filter(
-            item => item.type === "news"
-        );
+        filtered =
+            filtered.filter(
+                item =>
+                    item.type === "news"
+            );
 
     }
 
 
+    // VIDEO ONLY
     if (currentFilter === "video") {
 
-        filtered = filtered.filter(
-            item => item.type === "video"
-        );
+        filtered =
+            filtered.filter(
+                item =>
+                    item.type === "video"
+            );
 
     }
 
 
+    // SORT LATEST
     filtered.sort((a, b) => {
 
         const A =
@@ -169,114 +241,323 @@ function applyFilter() {
 }
 
 
-// =====================
-// CATEGORY LINKS
-// =====================
+// =====================================================
+// RENDER NEWS TABLE
+// =====================================================
 
-document.querySelectorAll(".category-link").forEach(link => {
+function renderNews(newsList) {
 
-    link.addEventListener("click", (e) => {
+    if (!newsTable) {
+        console.error(
+            "❌ newsTable not found."
+        );
+        return;
+    }
 
-        e.preventDefault();
+
+    newsTable.innerHTML = "";
+
+
+    // EMPTY
+    if (!newsList || newsList.length === 0) {
+
+        newsTable.innerHTML = `
+            <tr>
+                <td
+                    colspan="6"
+                    style="
+                        text-align:center;
+                        padding:40px;
+                    "
+                >
+                    No news found.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    // =================================================
+    // RENDER EACH ITEM
+    // =================================================
+
+    newsList.forEach(item => {
+
+        const title =
+            item.headline ||
+            item.title ||
+            "Untitled";
+
 
         const category =
-            String(link.dataset.category || "")
-                .trim()
-                .toLowerCase();
+            item.category ||
+            "-";
 
-        console.log("🔥 CATEGORY CLICK:", category);
 
-        let filtered = allNews.filter(item => {
+        const author =
+            item.author ||
+            "-";
 
-            if (item.type !== "news") {
-                return false;
-            }
 
-            const itemCategory =
-                String(item.category || "")
-                    .trim()
-                    .toLowerCase();
+        // IMAGE
+        const image =
+            item.type === "video"
+                ? (
+                    item.thumbnail ||
+                    item.featuredImage ||
+                    "../images/PRIMETIME NEWS LOGO.png"
+                )
+                : (
+                    item.featuredImage ||
+                    "../images/PRIMETIME NEWS LOGO.png"
+                );
 
-            const status =
-                String(item.status || "")
-                    .trim()
-                    .toLowerCase();
 
-            console.log(
-                "CHECK:",
-                item.headline,
-                "| category:",
-                itemCategory,
-                "| status:",
-                status
-            );
+        // DATE
+        const timestamp =
+            item.publishedAt?.seconds ||
+            item.createdAt?.seconds ||
+            0;
 
-            return (
-                status === "published" &&
-                itemCategory === category
-            );
 
-        });
+        let publishDate = "-";
 
-        filtered.sort((a, b) => {
 
-            const A =
-                a.publishedAt?.seconds ||
-                a.createdAt?.seconds ||
-                0;
+        if (timestamp) {
 
-            const B =
-                b.publishedAt?.seconds ||
-                b.createdAt?.seconds ||
-                0;
+            publishDate =
+                new Date(
+                    timestamp * 1000
+                )
+                .toLocaleDateString(
+                    "en-US",
+                    {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric"
+                    }
+                );
 
-            return B - A;
+        }
 
-        });
 
-        renderNews(filtered);
+        // TYPE BADGE
+        let typeBadge = "";
 
-        console.log(
-            "✅ CATEGORY RESULTS:",
-            filtered.length
-        );
+
+        if (item.type === "video") {
+
+            typeBadge = `
+                <span class="typeBadge video">
+                    <i class="fab fa-youtube"></i>
+                    VIDEO
+                </span>
+            `;
+
+        } else {
+
+            typeBadge = `
+                <span class="typeBadge news">
+                    <i class="fas fa-newspaper"></i>
+                    ARTICLE
+                </span>
+            `;
+
+        }
+
+
+        // =================================================
+        // ROW
+        // =================================================
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <!-- IMAGE -->
+
+            <td>
+
+                <img
+                    src="${escapeHtml(image)}"
+                    class="thumb"
+                    alt="News image"
+                    onerror="
+                        this.onerror=null;
+                        this.src='../images/PRIMETIME NEWS LOGO.png';
+                    "
+                >
+
+            </td>
+
+
+            <!-- TITLE -->
+
+            <td>
+
+                ${typeBadge}
+
+                <div class="headlineText">
+                    ${escapeHtml(title)}
+                </div>
+
+            </td>
+
+
+            <!-- CATEGORY -->
+
+            <td>
+
+                ${escapeHtml(category)}
+
+            </td>
+
+
+            <!-- AUTHOR -->
+
+            <td>
+
+                ${escapeHtml(author)}
+
+            </td>
+
+
+            <!-- STATUS -->
+
+            <td class="statusColumn">
+
+                <span class="publishedBadge">
+
+                    <i class="fas fa-circle-check"></i>
+
+                    Published
+
+                </span>
+
+
+                <div class="publishDate">
+
+                    ${publishDate}
+
+                </div>
+
+            </td>
+
+
+            <!-- ACTIONS -->
+
+            <td>
+
+                <button
+                    class="editBtn"
+                    onclick="
+                        editContent(
+                            '${item.id}',
+                            '${item.type}'
+                        )
+                    "
+                    title="Edit"
+                >
+
+                    <i class="fas fa-edit"></i>
+
+                </button>
+
+
+                <button
+                    class="deleteBtn"
+                    onclick="
+                        deleteContent(
+                            '${item.id}',
+                            '${item.type}'
+                        )
+                    "
+                    title="Delete"
+                >
+
+                    <i class="fas fa-trash"></i>
+
+                </button>
+
+            </td>
+
+        `;
+
+
+        newsTable.appendChild(row);
 
     });
 
-});
+}
 
-// =====================
+
+// =====================================================
+// ESCAPE HTML
+// =====================================================
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+// =====================================================
 // LOAD NEWS + VIDEOS
-// =====================
+// =====================================================
 
 async function loadNews() {
 
     if (!newsTable) {
-        console.error("❌ newsTable not found.");
+
+        console.error(
+            "❌ newsTable not found."
+        );
+
         return;
+
     }
 
 
     try {
 
         newsTable.innerHTML = `
+
             <tr>
+
                 <td
                     colspan="6"
-                    style="text-align:center;padding:40px;"
+                    style="
+                        text-align:center;
+                        padding:40px;
+                    "
                 >
+
                     Loading...
+
                 </td>
+
             </tr>
+
         `;
 
 
         allNews = [];
 
 
-        // =========================
-        // LOAD ARTICLES
-        // =========================
+        // =================================================
+        // LOAD NEWS
+        // =================================================
 
         const newsSnap =
             await getDocs(
@@ -305,9 +586,9 @@ async function loadNews() {
         );
 
 
-        // =========================
+        // =================================================
         // LOAD VIDEOS
-        // =========================
+        // =================================================
 
         const videoSnap =
             await getDocs(
@@ -336,9 +617,9 @@ async function loadNews() {
         );
 
 
-        // =========================
+        // =================================================
         // SORT
-        // =========================
+        // =================================================
 
         allNews.sort((a, b) => {
 
@@ -357,39 +638,50 @@ async function loadNews() {
         });
 
 
-        // =========================
+        // =================================================
         // DISPLAY
-        // =========================
+        // =================================================
 
         applyFilter();
 
 
         console.log(
             "✅ TOTAL CONTENT:",
-            allNews.length,
-            allNews
+            allNews.length
         );
 
 
-    } catch (err) {
+    } catch (error) {
 
         console.error(
             "❌ LOAD NEWS ERROR:",
-            err
+            error
         );
 
 
         newsTable.innerHTML = `
+
             <tr>
+
                 <td
                     colspan="6"
-                    style="text-align:center;padding:40px;color:#b00020;"
+                    style="
+                        text-align:center;
+                        padding:40px;
+                        color:#b00020;
+                    "
                 >
+
                     Failed to load news.
+
                     <br>
-                    Check browser console for details.
+
+                    Check browser console.
+
                 </td>
+
             </tr>
+
         `;
 
     }
@@ -397,13 +689,9 @@ async function loadNews() {
 }
 
 
-// =====================
+// =====================================================
 // SEARCH
-// =====================
-
-const searchBox =
-    document.getElementById("searchNews");
-
+// =====================================================
 
 if (searchBox) {
 
@@ -433,12 +721,36 @@ if (searchBox) {
                 });
 
 
-            // Apply current type filter
+            // PUBLISHED ARTICLES ONLY
+            filtered =
+                filtered.filter(item => {
+
+                    if (item.type === "news") {
+
+                        return (
+                            String(
+                                item.status || ""
+                            )
+                            .trim()
+                            .toLowerCase()
+                            === "published"
+                        );
+
+                    }
+
+
+                    return true;
+
+                });
+
+
+            // TYPE FILTER
             if (currentFilter === "news") {
 
                 filtered =
                     filtered.filter(
-                        item => item.type === "news"
+                        item =>
+                            item.type === "news"
                     );
 
             }
@@ -448,25 +760,14 @@ if (searchBox) {
 
                 filtered =
                     filtered.filter(
-                        item => item.type === "video"
+                        item =>
+                            item.type === "video"
                     );
 
             }
 
 
-            // Published articles only
-            filtered =
-                filtered.filter(item => {
-
-                    if (item.type === "news") {
-                        return item.status === "published";
-                    }
-
-                    return true;
-
-                });
-
-
+            // SORT
             filtered.sort((a, b) => {
 
                 const A =
@@ -492,86 +793,93 @@ if (searchBox) {
 }
 
 
-// =====================
+// =====================================================
 // DELETE
-// =====================
+// =====================================================
 
-window.deleteContent = async (id, type) => {
+window.deleteContent =
+    async (id, type) => {
 
-    if (!confirm("Delete this item?")) {
-        return;
-    }
-
-
-    try {
-
-        const collectionName =
-            type === "video"
-                ? "videos"
-                : "news";
+        if (
+            !confirm(
+                "Delete this item?"
+            )
+        ) {
+            return;
+        }
 
 
-        await deleteDoc(
-            doc(db, collectionName, id)
-        );
+        try {
+
+            const collectionName =
+                type === "video"
+                    ? "videos"
+                    : "news";
 
 
-        console.log(
-            "🗑️ Deleted:",
-            collectionName,
-            id
-        );
+            await deleteDoc(
+                doc(
+                    db,
+                    collectionName,
+                    id
+                )
+            );
 
 
-        // Reload
-        await loadNews();
+            console.log(
+                "🗑️ DELETED:",
+                collectionName,
+                id
+            );
 
 
-    } catch (err) {
-
-        console.error(
-            "❌ DELETE ERROR:",
-            err
-        );
-
-        alert(
-            "Failed to delete item: " +
-            err.message
-        );
-
-    }
-
-};
+            // RELOAD
+            await loadNews();
 
 
-// =====================
+        } catch (error) {
+
+            console.error(
+                "❌ DELETE ERROR:",
+                error
+            );
+
+
+            alert(
+                "Failed to delete item: " +
+                error.message
+            );
+
+        }
+
+    };
+
+
+// =====================================================
 // EDIT
-// =====================
+// =====================================================
 
-window.editContent = (id, type) => {
+window.editContent =
+    (id, type) => {
 
-    if (type === "video") {
+        if (type === "video") {
 
-        window.location.href =
-            `add-video.html?id=${id}`;
+            window.location.href =
+                `add-video.html?id=${id}`;
 
-    } else {
+        } else {
 
-        window.location.href =
-            `add-news.html?id=${id}`;
+            window.location.href =
+                `add-news.html?id=${id}`;
 
-    }
+        }
 
-};
+    };
 
 
-// =====================
+// =====================================================
 // HOME
-// =====================
-
-const homeBtn =
-    document.getElementById("homeNews");
-
+// =====================================================
 
 if (homeBtn) {
 
@@ -581,14 +889,19 @@ if (homeBtn) {
 
             e.preventDefault();
 
+
             currentFilter = "all";
 
 
             document
                 .querySelectorAll(".filterBtn")
-                .forEach(btn =>
-                    btn.classList.remove("active")
-                );
+                .forEach(btn => {
+
+                    btn.classList.remove(
+                        "active"
+                    );
+
+                });
 
 
             document
@@ -599,7 +912,16 @@ if (homeBtn) {
 
 
             if (searchBox) {
+
                 searchBox.value = "";
+
+            }
+
+
+            if (dateFilter) {
+
+                dateFilter.value = "";
+
             }
 
 
@@ -611,13 +933,9 @@ if (homeBtn) {
 }
 
 
-// =========================
+// =====================================================
 // DATE FILTER
-// =========================
-
-const dateFilter =
-    document.getElementById("dateFilter");
-
+// =====================================================
 
 if (dateFilter) {
 
@@ -633,20 +951,31 @@ if (dateFilter) {
                 allNews.filter(item => {
 
                     if (item.type === "news") {
-                        return item.status === "published";
+
+                        return (
+                            String(
+                                item.status || ""
+                            )
+                            .trim()
+                            .toLowerCase()
+                            === "published"
+                        );
+
                     }
+
 
                     return true;
 
                 });
 
 
-            // TYPE FILTER
+            // TYPE
             if (currentFilter === "news") {
 
                 filtered =
                     filtered.filter(
-                        item => item.type === "news"
+                        item =>
+                            item.type === "news"
                     );
 
             }
@@ -656,7 +985,8 @@ if (dateFilter) {
 
                 filtered =
                     filtered.filter(
-                        item => item.type === "video"
+                        item =>
+                            item.type === "video"
                     );
 
             }
@@ -668,39 +998,48 @@ if (dateFilter) {
                 filtered =
                     filtered.filter(item => {
 
-                        const ts =
+                        const timestamp =
                             item.publishedAt?.seconds ||
                             item.createdAt?.seconds;
 
 
-                        if (!ts) {
+                        if (!timestamp) {
+
                             return false;
+
                         }
 
 
-                        const d =
-                            new Date(ts * 1000);
+                        const date =
+                            new Date(
+                                timestamp * 1000
+                            );
 
 
                         const yyyy =
-                            d.getFullYear();
+                            date.getFullYear();
 
 
                         const mm =
                             String(
-                                d.getMonth() + 1
-                            ).padStart(2, "0");
+                                date.getMonth() + 1
+                            )
+                            .padStart(2, "0");
 
 
                         const dd =
                             String(
-                                d.getDate()
-                            ).padStart(2, "0");
+                                date.getDate()
+                            )
+                            .padStart(2, "0");
+
+
+                        const itemDate =
+                            `${yyyy}-${mm}-${dd}`;
 
 
                         return (
-                            `${yyyy}-${mm}-${dd}`
-                            === value
+                            itemDate === value
                         );
 
                     });
@@ -708,6 +1047,7 @@ if (dateFilter) {
             }
 
 
+            // SORT
             filtered.sort((a, b) => {
 
                 const A =
@@ -733,13 +1073,9 @@ if (dateFilter) {
 }
 
 
-// =========================
+// =====================================================
 // CLEAR DATE
-// =========================
-
-const clearDate =
-    document.getElementById("clearDate");
-
+// =====================================================
 
 if (clearDate) {
 
@@ -747,7 +1083,12 @@ if (clearDate) {
         "click",
         () => {
 
-            dateFilter.value = "";
+            if (dateFilter) {
+
+                dateFilter.value = "";
+
+            }
+
 
             applyFilter();
 
@@ -757,10 +1098,13 @@ if (clearDate) {
 }
 
 
-// =====================
+// =====================================================
 // START
-// =====================
+// =====================================================
 
-console.log("🔥 NEWS.JS LOADED");
+console.log(
+    "🔥 NEWS.JS LOADED"
+);
+
 
 loadNews();
