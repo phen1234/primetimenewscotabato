@@ -170,56 +170,55 @@ function applyFilter() {
 
 
 // =====================
-// RENDER TABLE
+// CATEGORY LINKS
 // =====================
 
-async function loadHeroSlider() {
+document.querySelectorAll(".category-link").forEach(link => {
 
-    if (!heroSlider || !heroDots) {
-        console.error("❌ Hero elements not found.");
-        return;
-    }
+    link.addEventListener("click", (e) => {
 
-    heroSlider.innerHTML = "";
-    heroDots.innerHTML = "";
+        e.preventDefault();
 
-    try {
+        const category =
+            String(link.dataset.category || "")
+                .trim()
+                .toLowerCase();
 
-        console.log("🔥 Loading hero news...");
+        console.log("🔥 CATEGORY CLICK:", category);
 
-        const snapshot =
-            await getDocs(
-                collection(db, "news")
-            );
+        let filtered = allNews.filter(item => {
 
-        let newsList = [];
+            if (item.type !== "news") {
+                return false;
+            }
 
-        snapshot.forEach(docSnap => {
-
-            const news = docSnap.data();
-
-            const status =
-                String(news.status || "")
+            const itemCategory =
+                String(item.category || "")
                     .trim()
                     .toLowerCase();
 
-            // Only published
-            if (status !== "published") {
-                return;
-            }
+            const status =
+                String(item.status || "")
+                    .trim()
+                    .toLowerCase();
 
-            newsList.push({
-                id: docSnap.id,
-                ...news
-            });
+            console.log(
+                "CHECK:",
+                item.headline,
+                "| category:",
+                itemCategory,
+                "| status:",
+                status
+            );
+
+            return (
+                status === "published" &&
+                itemCategory === category
+            );
 
         });
 
-        // =========================
-        // SORT LATEST
-        // =========================
-
-        newsList.sort((a, b) => {
+        filtered.sort((a, b) => {
 
             const A =
                 a.publishedAt?.seconds ||
@@ -235,181 +234,16 @@ async function loadHeroSlider() {
 
         });
 
-        // =========================
-        // PINNED FIRST
-        // =========================
-
-        const pinned =
-            newsList.filter(
-                news => news.pinned === true
-            );
-
-        const normal =
-            newsList.filter(
-                news => news.pinned !== true
-            );
-
-        newsList = [
-            ...pinned,
-            ...normal
-        ].slice(0, 5);
-
+        renderNews(filtered);
 
         console.log(
-            "🔥 PUBLISHED NEWS:",
-            newsList
+            "✅ CATEGORY RESULTS:",
+            filtered.length
         );
 
+    });
 
-        // =========================
-        // NO NEWS
-        // =========================
-
-        if (!newsList.length) {
-
-            heroSlider.innerHTML = `
-                <div class="slide active">
-
-                    <img
-                        src="${DEFAULT_IMAGE}"
-                        alt="PrimeTime News"
-                    >
-
-                    <div class="overlay">
-
-                        <span>NO NEWS</span>
-
-                        <h1>
-                            No news available.
-                        </h1>
-
-                    </div>
-
-                </div>
-            `;
-
-            return;
-        }
-
-
-        // =========================
-        // CREATE SLIDES
-        // =========================
-
-        newsList.forEach((news, index) => {
-
-            const image =
-                news.featuredImage ||
-                DEFAULT_IMAGE;
-
-            const headline =
-                news.headline ||
-                news.title ||
-                "PrimeTime News";
-
-            const category =
-                news.category ||
-                "News";
-
-            const summary =
-                news.summary ||
-                "";
-
-
-            heroSlider.innerHTML += `
-                <div class="slide ${index === 0 ? "active" : ""}">
-
-                    <a href="article.html?id=${news.id}">
-
-                        <img
-                            src="${image}"
-                            alt="${headline.replace(/"/g, "&quot;")}"
-                            onerror="
-                                this.onerror=null;
-                                this.src='${DEFAULT_IMAGE}';
-                            "
-                        >
-
-                    </a>
-
-                    <div class="overlay">
-
-                        <span class="hero-category">
-                            ${category}
-                        </span>
-
-                        <h1>
-                            ${headline}
-                        </h1>
-
-                        <p>
-                            ${summary}
-                        </p>
-
-                        <a
-                            href="article.html?id=${news.id}"
-                            class="hero-btn"
-                        >
-                            Read Full Story
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-
-                    </div>
-
-                </div>
-            `;
-
-            heroDots.innerHTML += `
-                <span
-                    class="dot ${index === 0 ? "active" : ""}"
-                    data-index="${index}">
-                </span>
-            `;
-
-        });
-
-
-        slides =
-            document.querySelectorAll(
-                "#heroSlider .slide"
-            );
-
-        dots =
-            document.querySelectorAll(
-                "#heroDots .dot"
-            );
-
-        currentSlide = 0;
-
-
-        dots.forEach((dot, index) => {
-
-            dot.addEventListener("click", () => {
-
-                currentSlide = index;
-
-                showSlide(currentSlide);
-
-            });
-
-        });
-
-
-        console.log(
-            "✅ HERO NEWS LOADED:",
-            slides.length
-        );
-
-    } catch (err) {
-
-        console.error(
-            "❌ Hero Slider Error:",
-            err
-        );
-
-    }
-
-}
+});
 
 // =====================
 // LOAD NEWS + VIDEOS
