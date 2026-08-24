@@ -48,21 +48,31 @@ categoryLinks.forEach(link => {
 
         e.preventDefault();
 
-        const category = link.dataset.category;
+        const category =
+            (link.dataset.category || "")
+                .trim()
+                .toLowerCase();
 
         const filtered = allNews
+
             .filter(item => {
 
-                if (item.type === "video") {
-                    return item.category === category;
+                if (item.type !== "news") {
+                    return false;
                 }
+
+                const itemCategory =
+                    (item.category || "")
+                        .trim()
+                        .toLowerCase();
 
                 return (
                     item.status === "published" &&
-                    item.category === category
+                    itemCategory === category
                 );
 
             })
+
             .sort((a, b) => {
 
                 const A =
@@ -80,6 +90,13 @@ categoryLinks.forEach(link => {
             });
 
         renderNews(filtered);
+
+        console.log(
+            "CATEGORY:",
+            category,
+            "RESULTS:",
+            filtered.length
+        );
 
     });
 
