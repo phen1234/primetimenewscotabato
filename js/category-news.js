@@ -6,9 +6,9 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 
-// =====================================================
+// ===============================
 // PAGE INFO
-// =====================================================
+// ===============================
 
 const page = document.body.dataset.page;
 
@@ -60,13 +60,12 @@ const pageInfo = {
 };
 
 
-// =====================================================
+// ===============================
 // CHECK PAGE
-// =====================================================
+// ===============================
 
 const currentPage =
     pageInfo[page];
-
 
 if (!currentPage) {
 
@@ -78,21 +77,25 @@ if (!currentPage) {
 }
 
 
-// =====================================================
+// ===============================
 // PAGE TITLE
-// =====================================================
+// ===============================
+
+if (pageTitle && currentPage) {
+
+    pageTitle.textContent =
+        currentPage.title;
+
+}
+
+if (pageSubtitle && currentPage) {
+
+    pageSubtitle.textContent =
+        currentPage.subtitle;
+
+}
 
 if (currentPage) {
-
-    if (pageTitle) {
-        pageTitle.textContent =
-            currentPage.title;
-    }
-
-    if (pageSubtitle) {
-        pageSubtitle.textContent =
-            currentPage.subtitle;
-    }
 
     document.title =
         `${currentPage.title} | Primetime News Cotabato`;
@@ -100,27 +103,17 @@ if (currentPage) {
 }
 
 
-// =====================================================
+// ===============================
 // CURRENT CATEGORY
-// =====================================================
+// ===============================
 
 const CURRENT_CATEGORY =
-    String(
-        currentPage?.category || ""
-    )
-    .trim()
-    .toLowerCase();
+    currentPage?.category || "";
 
 
-console.log(
-    "📂 CURRENT CATEGORY:",
-    CURRENT_CATEGORY
-);
-
-
-// =====================================================
+// ===============================
 // ELEMENTS
-// =====================================================
+// ===============================
 
 const featuredContent =
     document.getElementById(
@@ -137,22 +130,26 @@ const sidebarContent =
         "sidebarContent"
     );
 
+
+// IMPORTANT:
+// HTML mo currently walang id="searchInput"
+// Kaya iche-check natin pareho.
+
 const searchInput =
     document.getElementById(
         "searchInput"
+    ) ||
+    document.querySelector(
+        ".search-box input"
     );
 
-
-// =====================================================
-// DATA
-// =====================================================
 
 let newsData = [];
 
 
-// =====================================================
-// NORMALIZE CATEGORY
-// =====================================================
+// ===============================
+// NORMALIZE TEXT
+// ===============================
 
 function normalizeCategory(value) {
 
@@ -164,64 +161,69 @@ function normalizeCategory(value) {
 }
 
 
-// =====================================================
-// GET TIMESTAMP
-// =====================================================
-
-function getTimestamp(news) {
-
-    return (
-        news.publishedAt?.seconds ||
-        news.createdAt?.seconds ||
-        0
-    );
-
-}
-
-
-// =====================================================
+// ===============================
 // LOAD NEWS
-// =====================================================
+// ===============================
 
 async function loadNews() {
 
     console.log(
-        "🔥 Loading category:",
+        "================================="
+    );
+
+    console.log(
+        "🔥 CATEGORY NEWS LOADING"
+    );
+
+    console.log(
+        "PAGE:",
+        page
+    );
+
+    console.log(
+        "TARGET CATEGORY:",
         CURRENT_CATEGORY
+    );
+
+    console.log(
+        "================================="
     );
 
 
     if (featuredContent) {
 
         featuredContent.innerHTML = `
-            <div style="padding:30px;text-align:center;">
-                Loading...
-            </div>
+            <p>Loading...</p>
         `;
 
     }
 
-
     if (contentList) {
+
         contentList.innerHTML = "";
+
     }
 
-
     if (sidebarContent) {
+
         sidebarContent.innerHTML = "";
+
     }
 
 
     try {
 
-        // =================================================
+        // =============================
         // LOAD ALL NEWS
-        // =================================================
+        // =============================
 
         const snapshot =
             await getDocs(
                 collection(db, "news")
             );
+
+
+        newsData = [];
 
 
         console.log(
@@ -230,114 +232,190 @@ async function loadNews() {
         );
 
 
-        newsData = [];
+        snapshot.forEach(
+            docSnap => {
+
+                const news =
+                    docSnap.data();
 
 
-        // =================================================
-        // FILTER PUBLISHED + CATEGORY
-        // =================================================
-
-        snapshot.forEach(docSnap => {
-
-            const news =
-                docSnap.data();
+                const status =
+                    String(
+                        news.status || ""
+                    )
+                    .trim()
+                    .toLowerCase();
 
 
-            const status =
-                normalizeCategory(
+                const savedCategory =
+                    normalizeCategory(
+                        news.category
+                    );
+
+
+                const targetCategory =
+                    normalizeCategory(
+                        CURRENT_CATEGORY
+                    );
+
+
+                console.log(
+                    "---------------------------------"
+                );
+
+                console.log(
+                    "HEADLINE:",
+                    news.headline
+                );
+
+                console.log(
+                    "CATEGORY SAVED:",
+                    news.category
+                );
+
+                console.log(
+                    "CATEGORY NORMALIZED:",
+                    savedCategory
+                );
+
+                console.log(
+                    "TARGET CATEGORY:",
+                    targetCategory
+                );
+
+                console.log(
+                    "STATUS:",
                     news.status
                 );
 
 
-            const category =
-                normalizeCategory(
-                    news.category
+                // =============================
+                // PUBLISHED ONLY
+                // =============================
+
+                if (
+                    status !==
+                    "published"
+                ) {
+
+                    console.log(
+                        "⏭️ SKIPPED: not published"
+                    );
+
+                    return;
+
+                }
+
+
+                // =============================
+                // CATEGORY MATCH
+                // =============================
+
+                if (
+                    savedCategory !==
+                    targetCategory
+                ) {
+
+                    console.log(
+                        "⏭️ SKIPPED: category mismatch"
+                    );
+
+                    return;
+
+                }
+
+
+                // =============================
+                // ADD NEWS
+                // =============================
+
+                newsData.push({
+
+                    id:
+                        docSnap.id,
+
+                    ...news
+
+                });
+
+
+                console.log(
+                    "✅ CATEGORY MATCH"
                 );
 
-
-            console.log(
-                "CHECK NEWS:",
-                news.headline,
-                "| status:",
-                status,
-                "| category:",
-                category
-            );
-
-
-            // ONLY PUBLISHED
-            if (status !== "published") {
-                return;
             }
-
-
-            // ONLY CURRENT CATEGORY
-            if (
-                category !==
-                CURRENT_CATEGORY
-            ) {
-
-                return;
-
-            }
-
-
-            newsData.push({
-
-                id: docSnap.id,
-
-                ...news
-
-            });
-
-        });
-
-
-        // =================================================
-        // SORT LATEST
-        // =================================================
-
-        newsData.sort((a, b) => {
-
-            return (
-                getTimestamp(b) -
-                getTimestamp(a)
-            );
-
-        });
-
-
-        console.log(
-            "✅ CATEGORY RESULTS:",
-            newsData.length,
-            newsData
         );
 
 
-        // =================================================
-        // NO NEWS
-        // =================================================
+        // =============================
+        // SORT LATEST
+        // =============================
 
-        if (newsData.length === 0) {
+        newsData.sort(
+            (a, b) => {
+
+                const A =
+                    a.publishedAt?.seconds ||
+                    a.createdAt?.seconds ||
+                    0;
+
+                const B =
+                    b.publishedAt?.seconds ||
+                    b.createdAt?.seconds ||
+                    0;
+
+
+                return B - A;
+
+            }
+        );
+
+
+        console.log(
+            "================================="
+        );
+
+        console.log(
+            "✅ FINAL CATEGORY:",
+            CURRENT_CATEGORY
+        );
+
+        console.log(
+            "✅ RESULTS:",
+            newsData.length
+        );
+
+        console.log(
+            "✅ NEWS DATA:",
+            newsData
+        );
+
+        console.log(
+            "================================="
+        );
+
+
+        // =============================
+        // NO NEWS
+        // =============================
+
+        if (
+            newsData.length === 0
+        ) {
 
             if (featuredContent) {
 
                 featuredContent.innerHTML = `
 
-                    <div
-                        style="
-                            padding:40px;
-                            text-align:center;
-                        "
-                    >
+                    <div class="no-news">
 
                         <h2>
                             No ${currentPage.title} Found
                         </h2>
 
                         <p>
-                            There are currently no published
-                            articles under this category.
+                            No published news available
+                            in this category.
                         </p>
 
                     </div>
@@ -347,43 +425,58 @@ async function loadNews() {
             }
 
 
+            if (contentList) {
+
+                contentList.innerHTML = "";
+
+            }
+
+
+            if (sidebarContent) {
+
+                sidebarContent.innerHTML = "";
+
+            }
+
+
             return;
 
         }
 
 
-        // =================================================
+        // =============================
         // FEATURED
-        // =================================================
+        // =============================
 
         renderFeaturedNews(
             newsData[0]
         );
 
 
-        // =================================================
+        // =============================
         // LIST
-        // =================================================
+        // =============================
 
         renderNewsList(
             newsData.slice(1)
         );
 
 
-        // =================================================
+        // =============================
         // MOST READ
-        // =================================================
+        // =============================
 
         renderMostRead(
             newsData
         );
 
+    }
 
-    } catch (error) {
+    catch (err) {
 
         console.error(
             "❌ CATEGORY NEWS ERROR:",
-            error
+            err
         );
 
 
@@ -391,12 +484,7 @@ async function loadNews() {
 
             featuredContent.innerHTML = `
 
-                <div
-                    style="
-                        padding:40px;
-                        text-align:center;
-                    "
-                >
+                <div class="no-news">
 
                     <h2>
                         Failed to Load News
@@ -417,9 +505,9 @@ async function loadNews() {
 }
 
 
-// =====================================================
+// ===============================
 // FEATURED NEWS
-// =====================================================
+// ===============================
 
 function renderFeaturedNews(news) {
 
@@ -441,7 +529,7 @@ function renderFeaturedNews(news) {
 
     const category =
         news.category ||
-        currentPage.title;
+        CURRENT_CATEGORY;
 
 
     const summary =
@@ -449,29 +537,44 @@ function renderFeaturedNews(news) {
         "";
 
 
-    const date =
+    const publishedDate =
         news.publishedAt?.seconds
+
             ? new Date(
                 news.publishedAt.seconds * 1000
-            ).toLocaleDateString(
+              ).toLocaleDateString(
                 "en-US",
                 {
                     year: "numeric",
                     month: "long",
                     day: "numeric"
                 }
-            )
+              )
+
             : "";
+
+
+    const author =
+        news.author ||
+        "Primetime News Cotabato";
+
+
+    const views =
+        news.views ||
+        0;
 
 
     featuredContent.innerHTML = `
 
-        <div class="featured-news">
+        <div
+            class="featured-news"
+            data-id="${news.id}"
+        >
 
             <img
                 src="${image}"
                 class="featured-image"
-                alt="${escapeHtml(headline)}"
+                alt="${headline}"
                 onerror="
                     this.onerror=null;
                     this.src='images/news1.jpg';
@@ -482,7 +585,7 @@ function renderFeaturedNews(news) {
             <div class="featured-overlay">
 
                 <span class="badge">
-                    ${escapeHtml(category)}
+                    ${category}
                 </span>
 
 
@@ -492,7 +595,7 @@ function renderFeaturedNews(news) {
 
                         <i class="fas fa-calendar-alt"></i>
 
-                        ${date}
+                        ${publishedDate}
 
                     </span>
 
@@ -501,10 +604,7 @@ function renderFeaturedNews(news) {
 
                         <i class="fas fa-user"></i>
 
-                        ${escapeHtml(
-                            news.author ||
-                            "Primetime News Cotabato"
-                        )}
+                        ${author}
 
                     </span>
 
@@ -513,8 +613,7 @@ function renderFeaturedNews(news) {
 
                         <i class="fas fa-eye"></i>
 
-                        ${news.views || 0}
-                        Views
+                        ${views} Views
 
                     </span>
 
@@ -522,18 +621,19 @@ function renderFeaturedNews(news) {
 
 
                 <h2>
-                    ${escapeHtml(headline)}
+                    ${headline}
                 </h2>
 
 
                 <p>
-                    ${escapeHtml(summary)}
+                    ${summary}
                 </p>
 
 
                 <button
                     class="read-btn"
                     data-id="${news.id}"
+                    type="button"
                 >
 
                     Read Full Story
@@ -549,9 +649,9 @@ function renderFeaturedNews(news) {
 }
 
 
-// =====================================================
+// ===============================
 // NEWS LIST
-// =====================================================
+// ===============================
 
 function renderNewsList(newsList) {
 
@@ -572,85 +672,96 @@ function renderNewsList(newsList) {
     let html = "";
 
 
-    newsList.forEach(news => {
+    newsList.forEach(
+        news => {
 
-        const image =
-            news.featuredImage ||
-            "images/news1.jpg";
-
-
-        const headline =
-            news.headline ||
-            news.title ||
-            "Primetime News";
+            const image =
+                news.featuredImage ||
+                "images/news1.jpg";
 
 
-        html += `
+            const headline =
+                news.headline ||
+                news.title ||
+                "Primetime News";
 
-            <div
-                class="news-card"
-                data-id="${news.id}"
-            >
 
-                <img
-                    src="${image}"
-                    alt="${escapeHtml(headline)}"
-                    loading="lazy"
-                    onerror="
-                        this.onerror=null;
-                        this.src='images/news1.jpg';
-                    "
+            const summary =
+                news.summary ||
+                "";
+
+
+            const category =
+                news.category ||
+                CURRENT_CATEGORY;
+
+
+            const views =
+                news.views ||
+                0;
+
+
+            html += `
+
+                <div
+                    class="news-card"
+                    data-id="${news.id}"
                 >
 
-
-                <div class="news-info">
-
-                    <span class="badge">
-
-                        ${escapeHtml(
-                            news.category ||
-                            currentPage.title
-                        )}
-
-                    </span>
+                    <img
+                        src="${image}"
+                        alt="${headline}"
+                        loading="lazy"
+                        onerror="
+                            this.onerror=null;
+                            this.src='images/news1.jpg';
+                        "
+                    >
 
 
-                    <h3>
+                    <div class="news-info">
 
-                        ${escapeHtml(headline)}
+                        <span class="badge">
 
-                    </h3>
-
-
-                    <p>
-
-                        ${escapeHtml(
-                            news.summary || ""
-                        )}
-
-                    </p>
-
-
-                    <div class="news-meta">
-
-                        <span>
-
-                            <i class="fas fa-eye"></i>
-
-                            ${news.views || 0}
-                            Views
+                            ${category}
 
                         </span>
+
+
+                        <h3>
+
+                            ${headline}
+
+                        </h3>
+
+
+                        <p>
+
+                            ${summary}
+
+                        </p>
+
+
+                        <div class="news-meta">
+
+                            <span>
+
+                                <i class="fas fa-eye"></i>
+
+                                ${views} Views
+
+                            </span>
+
+                        </div>
 
                     </div>
 
                 </div>
 
-            </div>
+            `;
 
-        `;
-
-    });
+        }
+    );
 
 
     contentList.innerHTML =
@@ -659,9 +770,9 @@ function renderNewsList(newsList) {
 }
 
 
-// =====================================================
+// ===============================
 // MOST READ
-// =====================================================
+// ===============================
 
 function renderMostRead(newsList) {
 
@@ -673,7 +784,9 @@ function renderMostRead(newsList) {
     let html = `
 
         <div class="most-read-title">
+
             🔥 Most Read
+
         </div>
 
     `;
@@ -681,68 +794,83 @@ function renderMostRead(newsList) {
 
     newsList
         .slice(0, 5)
-        .forEach(news => {
+        .forEach(
+            news => {
 
-            const image =
-                news.featuredImage ||
-                "images/news1.jpg";
-
-
-            const headline =
-                news.headline ||
-                news.title ||
-                "News";
+                const image =
+                    news.featuredImage ||
+                    "images/news1.jpg";
 
 
-            html += `
+                const headline =
+                    news.headline ||
+                    news.title ||
+                    "News";
 
-                <a
-                    href="article.html?id=${news.id}"
-                    class="most-read-item"
-                    data-id="${news.id}"
-                >
 
-                    <img
-                        src="${image}"
-                        alt="${escapeHtml(headline)}"
-                        loading="lazy"
+                const category =
+                    news.category ||
+                    "";
+
+
+                const views =
+                    news.views ||
+                    0;
+
+
+                html += `
+
+                    <a
+                        href="article.html?id=${news.id}"
+                        class="most-read-item"
+                        data-id="${news.id}"
                     >
 
-
-                    <div class="most-read-content">
-
-                        <span class="badge">
-
-                            ${escapeHtml(
-                                news.category || ""
-                            )}
-
-                        </span>
-
-
-                        <h4>
-
-                            ${escapeHtml(headline)}
-
-                        </h4>
+                        <img
+                            src="${image}"
+                            alt="${headline}"
+                            loading="lazy"
+                            onerror="
+                                this.onerror=null;
+                                this.src='images/news1.jpg';
+                            "
+                        >
 
 
-                        <small>
+                        <div
+                            class="most-read-content"
+                        >
 
-                            <i class="fas fa-eye"></i>
+                            <span class="badge">
 
-                            ${news.views || 0}
-                            Views
+                                ${category}
 
-                        </small>
+                            </span>
 
-                    </div>
 
-                </a>
+                            <h4>
 
-            `;
+                                ${headline}
 
-        });
+                            </h4>
+
+
+                            <small>
+
+                                <i class="fas fa-eye"></i>
+
+                                ${views} Views
+
+                            </small>
+
+                        </div>
+
+                    </a>
+
+                `;
+
+            }
+        );
 
 
     sidebarContent.innerHTML =
@@ -751,13 +879,13 @@ function renderMostRead(newsList) {
 }
 
 
-// =====================================================
-// CLICK HANDLER
-// =====================================================
+// ===============================
+// NEWS CLICK HANDLER
+// ===============================
 
 document.addEventListener(
     "click",
-    e => {
+    (e) => {
 
         const btn =
             e.target.closest(
@@ -804,9 +932,9 @@ document.addEventListener(
 );
 
 
-// =====================================================
+// ===============================
 // SEARCH
-// =====================================================
+// ===============================
 
 if (searchInput) {
 
@@ -820,50 +948,109 @@ if (searchInput) {
                     .trim();
 
 
+            // =========================
+            // EMPTY SEARCH
+            // =========================
+
+            if (!keyword) {
+
+                renderFeaturedNews(
+                    newsData[0]
+                );
+
+
+                renderNewsList(
+                    newsData.slice(1)
+                );
+
+
+                renderMostRead(
+                    newsData
+                );
+
+
+                return;
+
+            }
+
+
+            // =========================
+            // FILTER
+            // =========================
+
             const filtered =
-                newsData.filter(news => {
+                newsData.filter(
+                    news => {
 
-                    const headline =
-                        String(
-                            news.headline || ""
-                        )
-                        .toLowerCase();
-
-
-                    const summary =
-                        String(
-                            news.summary || ""
-                        )
-                        .toLowerCase();
+                        const headline =
+                            String(
+                                news.headline ||
+                                news.title ||
+                                ""
+                            )
+                            .toLowerCase();
 
 
-                    return (
-                        headline.includes(keyword) ||
-                        summary.includes(keyword)
-                    );
+                        const summary =
+                            String(
+                                news.summary ||
+                                ""
+                            )
+                            .toLowerCase();
 
-                });
+
+                        return (
+                            headline.includes(
+                                keyword
+                            ) ||
+                            summary.includes(
+                                keyword
+                            )
+                        );
+
+                    }
+                );
 
 
-            if (!filtered.length) {
+            // =========================
+            // SEARCH RESULT
+            // =========================
+
+            if (
+                filtered.length > 0
+            ) {
+
+                renderFeaturedNews(
+                    filtered[0]
+                );
+
+
+                renderNewsList(
+                    filtered.slice(1)
+                );
+
+
+                renderMostRead(
+                    filtered
+                );
+
+            }
+
+            else {
 
                 if (featuredContent) {
 
                     featuredContent.innerHTML = `
 
-                        <div
-                            style="
-                                padding:40px;
-                                text-align:center;
-                            "
-                        >
+                        <div class="no-news">
 
                             <h2>
                                 No News Found
                             </h2>
 
                             <p>
-                                No article matches your search.
+                                No article matches
+                                your search.
                             </p>
 
                         </div>
@@ -874,33 +1061,19 @@ if (searchInput) {
 
 
                 if (contentList) {
+
                     contentList.innerHTML = "";
+
                 }
 
 
                 if (sidebarContent) {
+
                     sidebarContent.innerHTML = "";
+
                 }
 
-
-                return;
-
             }
-
-
-            renderFeaturedNews(
-                filtered[0]
-            );
-
-
-            renderNewsList(
-                filtered.slice(1)
-            );
-
-
-            renderMostRead(
-                filtered
-            );
 
         }
     );
@@ -908,13 +1081,13 @@ if (searchInput) {
 }
 
 
-// =====================================================
+// ===============================
 // MOBILE MENU
-// =====================================================
+// ===============================
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
+    function () {
 
         const menuToggle =
             document.getElementById(
@@ -936,9 +1109,13 @@ document.addEventListener(
         }
 
 
+        // =========================
+        // OPEN / CLOSE
+        // =========================
+
         menuToggle.addEventListener(
             "click",
-            e => {
+            function (e) {
 
                 e.stopPropagation();
 
@@ -950,35 +1127,48 @@ document.addEventListener(
         );
 
 
+        // =========================
+        // CLOSE AFTER LINK
+        // =========================
+
         navLinks
             .querySelectorAll("a")
-            .forEach(link => {
+            .forEach(
+                function (link) {
 
-                link.addEventListener(
-                    "click",
-                    () => {
+                    link.addEventListener(
+                        "click",
+                        function () {
 
-                        navLinks.classList.remove(
-                            "active"
-                        );
+                            navLinks.classList.remove(
+                                "active"
+                            );
 
-                    }
-                );
+                        }
+                    );
 
-            });
+                }
+            );
 
+
+        // =========================
+        // CLICK OUTSIDE
+        // =========================
 
         document.addEventListener(
             "click",
-            e => {
+            function (e) {
 
                 if (
+
                     !navLinks.contains(
                         e.target
                     ) &&
+
                     !menuToggle.contains(
                         e.target
                     )
+
                 ) {
 
                     navLinks.classList.remove(
@@ -994,43 +1184,23 @@ document.addEventListener(
 );
 
 
-// =====================================================
-// ESCAPE HTML
-// =====================================================
-
-function escapeHtml(value) {
-
-    return String(value ?? "")
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-// =====================================================
+// ===============================
 // START
-// =====================================================
+// ===============================
 
 console.log(
     "🔥 CATEGORY-NEWS.JS LOADED"
 );
+
+console.log(
+    "📂 PAGE:",
+    page
+);
+
+console.log(
+    "📂 CATEGORY:",
+    CURRENT_CATEGORY
+);
+
 
 loadNews();
