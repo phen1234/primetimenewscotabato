@@ -1,4 +1,9 @@
-import { db } from "./firebase.js";
+import { db, auth } from "./firebase.js";
+
+import {
+    deleteCloudinaryAssets,
+    extractCloudinaryPublicId
+} from "./cloudinary-delete.js";
 
 import {
     collection,
@@ -354,13 +359,157 @@ renderNews(filtered);
 // DELETE
 // =====================
 
-window.deleteContent = async(id,type)=>{
+window.deleteContent = async (id, type) => {
 
-    if(!confirm("Delete this item?")) return;
+    if (!confirm("Delete this item?")) return;
 
-    await deleteDoc(doc(db,type==="video" ? "videos":"news",id));
+    const collectionName =
+        type === "video" ? "videos" : "news";
 
-    loadNews();
+    try {
+
+        // ==========================
+        // CHECK LOGIN
+        // ==========================
+
+        if (!auth.currentUser) {
+            alert("Your session has expired. Please log in again.");
+            return;
+        }
+
+        // ==========================
+        // GET FIRESTORE DOCUMENT
+        // ==========================
+
+        const itemRef = doc(db, collectionName, id);
+
+        const {
+            getDoc
+        } = await import(
+            "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js"
+        );
+
+        const snap = await getDoc(itemRef);
+
+        if (!snap.exists()) {
+            alert("This item no longer exists.");
+            loadNews();
+            return;
+        }
+
+        const data = snap.data();
+
+        // ==========================
+        // CLOUDINARY DELETE
+        // ==========================
+
+        const publicIds = [];
+
+        // FEATURED IMAGE
+        if (data.featuredImagePublicId) {
+
+            publicIds.push(
+                data.featuredImagePublicId
+            );
+
+        } else if (data.featuredImage) {
+
+            const publicId =
+                extractCloudinaryPublicId(
+                    data.featuredImage
+                );
+
+            if (publicId) {
+                publicIds.push(publicId);
+            }
+
+        }
+
+        // GALLERY
+        if (Array.isArray(data.galleryPublicIds)) {
+
+            publicIds.push(
+                ...data.galleryPublicIds.filter(Boolean)
+            );
+
+        } else if (Array.isArray(data.gallery)) {
+
+            data.gallery.forEach(image => {
+
+                const publicId =
+                    extractCloudinaryPublicId(image);
+
+                if (publicId) {
+                    publicIds.push(publicId);
+                }
+
+            });
+
+        }
+
+        // REMOVE DUPLICATES
+        const uniquePublicIds =
+            [...new Set(publicIds)];
+
+        console.log(
+            "Cloudinary Public IDs:",
+            uniquePublicIds
+        );
+
+        // ==========================
+        // DELETE FROM CLOUDINARY
+        // ==========================
+
+        if (uniquePublicIds.length > 0) {
+
+            const result =
+                await deleteCloudinaryAssets(
+                    uniquePublicIds
+                );
+
+            console.log(
+                "Cloudinary Delete Result:",
+                result
+            );
+
+        } else {
+
+            console.log(
+                "No Cloudinary images found for this item."
+            );
+
+        }
+
+        // ==========================
+        // DELETE FIRESTORE
+        // ==========================
+
+        await deleteDoc(itemRef);
+
+        console.log(
+            "Firestore document deleted:",
+            id
+        );
+
+        // ==========================
+        // REFRESH TABLE
+        // ==========================
+
+        await loadNews();
+
+    } catch (error) {
+
+        console.error(
+            "Delete Content Error:",
+            error
+        );
+
+        alert(
+            error.message ||
+            "Unable to delete this item."
+        );
+
+    }
 
 };
 
