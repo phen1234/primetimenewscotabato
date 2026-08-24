@@ -2,20 +2,21 @@ import { db } from "./firebase.js";
 
 import {
     collection,
-    getDocs,
-    query,
-    where,
-    orderBy
+    getDocs
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-// ===============================
+
+// =====================================================
 // PAGE INFO
-// ===============================
+// =====================================================
 
 const page = document.body.dataset.page;
 
-const pageTitle = document.getElementById("pageTitle");
-const pageSubtitle = document.getElementById("pageSubtitle");
+const pageTitle =
+    document.getElementById("pageTitle");
+
+const pageSubtitle =
+    document.getElementById("pageSubtitle");
 
 
 const pageInfo = {
@@ -58,242 +59,609 @@ const pageInfo = {
 
 };
 
-const currentPage = pageInfo[page];
 
-pageTitle.textContent = currentPage.title;
-pageSubtitle.textContent = currentPage.subtitle;
-document.title = `${currentPage.title} | Primetime News Cotabato`;
+// =====================================================
+// CHECK PAGE
+// =====================================================
+
+const currentPage =
+    pageInfo[page];
 
 
-// =============================
+if (!currentPage) {
+
+    console.error(
+        "❌ Unknown category page:",
+        page
+    );
+
+}
+
+
+// =====================================================
+// PAGE TITLE
+// =====================================================
+
+if (currentPage) {
+
+    if (pageTitle) {
+        pageTitle.textContent =
+            currentPage.title;
+    }
+
+    if (pageSubtitle) {
+        pageSubtitle.textContent =
+            currentPage.subtitle;
+    }
+
+    document.title =
+        `${currentPage.title} | Primetime News Cotabato`;
+
+}
+
+
+// =====================================================
 // CURRENT CATEGORY
-// =============================
+// =====================================================
 
-const CURRENT_CATEGORY = currentPage.category;
+const CURRENT_CATEGORY =
+    String(
+        currentPage?.category || ""
+    )
+    .trim()
+    .toLowerCase();
 
-// =============================
+
+console.log(
+    "📂 CURRENT CATEGORY:",
+    CURRENT_CATEGORY
+);
+
+
+// =====================================================
 // ELEMENTS
-// =============================
+// =====================================================
 
 const featuredContent =
-document.getElementById("featuredContent");
+    document.getElementById(
+        "featuredContent"
+    );
 
 const contentList =
-document.getElementById("contentList");
+    document.getElementById(
+        "contentList"
+    );
 
 const sidebarContent =
-document.getElementById("sidebarContent");
+    document.getElementById(
+        "sidebarContent"
+    );
 
 const searchInput =
-document.getElementById("searchInput");
+    document.getElementById(
+        "searchInput"
+    );
+
+
+// =====================================================
+// DATA
+// =====================================================
 
 let newsData = [];
 
-// =============================
-// LOAD NEWS
-// =============================
 
-async function loadNews(){
+// =====================================================
+// NORMALIZE CATEGORY
+// =====================================================
+
+function normalizeCategory(value) {
+
+    return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+
+}
+
+
+// =====================================================
+// GET TIMESTAMP
+// =====================================================
+
+function getTimestamp(news) {
+
+    return (
+        news.publishedAt?.seconds ||
+        news.createdAt?.seconds ||
+        0
+    );
+
+}
+
+
+// =====================================================
+// LOAD NEWS
+// =====================================================
+
+async function loadNews() {
+
+    console.log(
+        "🔥 Loading category:",
+        CURRENT_CATEGORY
+    );
+
 
     if (featuredContent) {
-        featuredContent.innerHTML = "Loading...";
+
+        featuredContent.innerHTML = `
+            <div style="padding:30px;text-align:center;">
+                Loading...
+            </div>
+        `;
+
     }
+
 
     if (contentList) {
         contentList.innerHTML = "";
     }
 
+
     if (sidebarContent) {
         sidebarContent.innerHTML = "";
     }
 
-    try{
 
-        const q = query(
+    try {
 
-            collection(db,"news"),
+        // =================================================
+        // LOAD ALL NEWS
+        // =================================================
 
-            where("status","==","published"),
+        const snapshot =
+            await getDocs(
+                collection(db, "news")
+            );
 
-            where("category","==",CURRENT_CATEGORY),
 
-            orderBy("publishedAt","desc")
-
+        console.log(
+            "📰 TOTAL FIRESTORE NEWS:",
+            snapshot.size
         );
 
-        const snapshot = await getDocs(q);
 
         newsData = [];
 
-        snapshot.forEach(doc=>{
+
+        // =================================================
+        // FILTER PUBLISHED + CATEGORY
+        // =================================================
+
+        snapshot.forEach(docSnap => {
+
+            const news =
+                docSnap.data();
+
+
+            const status =
+                normalizeCategory(
+                    news.status
+                );
+
+
+            const category =
+                normalizeCategory(
+                    news.category
+                );
+
+
+            console.log(
+                "CHECK NEWS:",
+                news.headline,
+                "| status:",
+                status,
+                "| category:",
+                category
+            );
+
+
+            // ONLY PUBLISHED
+            if (status !== "published") {
+                return;
+            }
+
+
+            // ONLY CURRENT CATEGORY
+            if (
+                category !==
+                CURRENT_CATEGORY
+            ) {
+
+                return;
+
+            }
+
 
             newsData.push({
 
-                id:doc.id,
+                id: docSnap.id,
 
-                ...doc.data()
+                ...news
 
             });
 
         });
 
-        if(newsData.length===0){
 
-           featuredContent.innerHTML = `
-    <h2>No ${currentPage.title} Found</h2>
-`;
+        // =================================================
+        // SORT LATEST
+        // =================================================
+
+        newsData.sort((a, b) => {
+
+            return (
+                getTimestamp(b) -
+                getTimestamp(a)
+            );
+
+        });
+
+
+        console.log(
+            "✅ CATEGORY RESULTS:",
+            newsData.length,
+            newsData
+        );
+
+
+        // =================================================
+        // NO NEWS
+        // =================================================
+
+        if (newsData.length === 0) {
+
+            if (featuredContent) {
+
+                featuredContent.innerHTML = `
+
+                    <div
+                        style="
+                            padding:40px;
+                            text-align:center;
+                        "
+                    >
+
+                        <h2>
+                            No ${currentPage.title} Found
+                        </h2>
+
+                        <p>
+                            There are currently no published
+                            articles under this category.
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
 
             return;
 
         }
 
-        renderFeaturedNews(newsData[0]);
 
-        renderNewsList(newsData.slice(1));
+        // =================================================
+        // FEATURED
+        // =================================================
 
-        renderMostRead(newsData);
+        renderFeaturedNews(
+            newsData[0]
+        );
 
-    }
 
-    catch(err){
+        // =================================================
+        // LIST
+        // =================================================
 
-        console.error(err);
+        renderNewsList(
+            newsData.slice(1)
+        );
 
-    }
 
-}
+        // =================================================
+        // MOST READ
+        // =================================================
 
-loadNews();
+        renderMostRead(
+            newsData
+        );
 
-// =============================
-// FEATURED NEWS
-// =============================
 
-function renderFeaturedNews(news){
+    } catch (error) {
 
-featuredContent.innerHTML = `
+        console.error(
+            "❌ CATEGORY NEWS ERROR:",
+            error
+        );
 
-<div class="featured-news">
 
-    <img
-        src="${news.featuredImage}"
-        class="featured-image"
-        alt="${news.headline}">
+        if (featuredContent) {
 
-    <div class="featured-overlay">
+            featuredContent.innerHTML = `
 
-        <span class="badge">
-            ${news.category}
-        </span>
+                <div
+                    style="
+                        padding:40px;
+                        text-align:center;
+                    "
+                >
 
-        <div class="news-meta">
+                    <h2>
+                        Failed to Load News
+                    </h2>
 
-    <span>
-        <i class="fas fa-calendar-alt"></i>
+                    <p>
+                        Please check the browser console.
+                    </p>
 
-        ${
-            news.publishedAt?.seconds
-            ? new Date(news.publishedAt.seconds * 1000).toLocaleDateString("en-US",{
-                year:"numeric",
-                month:"long",
-                day:"numeric"
-            })
-            : ""
+                </div>
+
+            `;
+
         }
-    </span>
 
-    <span>
-        <i class="fas fa-user"></i>
-        ${news.author || "Primetime News Cotabato"}
-    </span>
-
-    <span>
-        <i class="fas fa-eye"></i>
-        ${news.views || 0} Views
-    </span>
-
-</div>
-
-        <h2>
-            ${news.headline}
-        </h2>
-
-        <p>
-            ${news.summary || ""}
-        </p>
-
-        <button
-            class="read-btn"
-            data-id="${news.id}">
-
-            Read Full Story
-
-        </button>
-
-    </div>
-
-</div>
-
-`;
+    }
 
 }
 
-// =============================
+
+// =====================================================
+// FEATURED NEWS
+// =====================================================
+
+function renderFeaturedNews(news) {
+
+    if (!featuredContent) {
+        return;
+    }
+
+
+    const image =
+        news.featuredImage ||
+        "images/news1.jpg";
+
+
+    const headline =
+        news.headline ||
+        news.title ||
+        "Primetime News";
+
+
+    const category =
+        news.category ||
+        currentPage.title;
+
+
+    const summary =
+        news.summary ||
+        "";
+
+
+    const date =
+        news.publishedAt?.seconds
+            ? new Date(
+                news.publishedAt.seconds * 1000
+            ).toLocaleDateString(
+                "en-US",
+                {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                }
+            )
+            : "";
+
+
+    featuredContent.innerHTML = `
+
+        <div class="featured-news">
+
+            <img
+                src="${image}"
+                class="featured-image"
+                alt="${escapeHtml(headline)}"
+                onerror="
+                    this.onerror=null;
+                    this.src='images/news1.jpg';
+                "
+            >
+
+
+            <div class="featured-overlay">
+
+                <span class="badge">
+                    ${escapeHtml(category)}
+                </span>
+
+
+                <div class="news-meta">
+
+                    <span>
+
+                        <i class="fas fa-calendar-alt"></i>
+
+                        ${date}
+
+                    </span>
+
+
+                    <span>
+
+                        <i class="fas fa-user"></i>
+
+                        ${escapeHtml(
+                            news.author ||
+                            "Primetime News Cotabato"
+                        )}
+
+                    </span>
+
+
+                    <span>
+
+                        <i class="fas fa-eye"></i>
+
+                        ${news.views || 0}
+                        Views
+
+                    </span>
+
+                </div>
+
+
+                <h2>
+                    ${escapeHtml(headline)}
+                </h2>
+
+
+                <p>
+                    ${escapeHtml(summary)}
+                </p>
+
+
+                <button
+                    class="read-btn"
+                    data-id="${news.id}"
+                >
+
+                    Read Full Story
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+// =====================================================
 // NEWS LIST
-// =============================
+// =====================================================
 
-function renderNewsList(newsList){
+function renderNewsList(newsList) {
 
-let html = "";
+    if (!contentList) {
+        return;
+    }
 
-newsList.forEach(news=>{
 
-html += `
+    if (!newsList.length) {
 
-<div class="news-card" data-id="${news.id}">
+        contentList.innerHTML = "";
 
-    <img
-        src="${news.featuredImage}"
-        alt="${news.headline}">
+        return;
 
-    <div class="news-info">
+    }
 
-        <span class="badge">
-            ${news.category}
-        </span>
 
-        <h3>
-            ${news.headline}
-        </h3>
+    let html = "";
 
-        <p>
-    ${news.summary || ""}
-</p>
 
-<div class="news-meta">
+    newsList.forEach(news => {
 
-    <span>
-        <i class="fas fa-eye"></i>
-        ${news.views || 0} Views
-    </span>
+        const image =
+            news.featuredImage ||
+            "images/news1.jpg";
 
-</div>
 
-    </div>
+        const headline =
+            news.headline ||
+            news.title ||
+            "Primetime News";
 
-</div>
 
-`;
+        html += `
 
-});
+            <div
+                class="news-card"
+                data-id="${news.id}"
+            >
 
-contentList.innerHTML = html;
+                <img
+                    src="${image}"
+                    alt="${escapeHtml(headline)}"
+                    loading="lazy"
+                    onerror="
+                        this.onerror=null;
+                        this.src='images/news1.jpg';
+                    "
+                >
+
+
+                <div class="news-info">
+
+                    <span class="badge">
+
+                        ${escapeHtml(
+                            news.category ||
+                            currentPage.title
+                        )}
+
+                    </span>
+
+
+                    <h3>
+
+                        ${escapeHtml(headline)}
+
+                    </h3>
+
+
+                    <p>
+
+                        ${escapeHtml(
+                            news.summary || ""
+                        )}
+
+                    </p>
+
+
+                    <div class="news-meta">
+
+                        <span>
+
+                            <i class="fas fa-eye"></i>
+
+                            ${news.views || 0}
+                            Views
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+
+    contentList.innerHTML =
+        html;
 
 }
 
-// =============================
+
+// =====================================================
 // MOST READ
-// =============================
+// =====================================================
 
 function renderMostRead(newsList) {
 
@@ -301,209 +669,368 @@ function renderMostRead(newsList) {
         return;
     }
 
+
     let html = `
+
         <div class="most-read-title">
             🔥 Most Read
         </div>
+
     `;
 
-    newsList.slice(0, 5).forEach(news => {
 
-        html += `
-            <a
-                href="article.html?id=${news.id}"
-                class="most-read-item"
-                data-id="${news.id}"
-            >
+    newsList
+        .slice(0, 5)
+        .forEach(news => {
 
-                <img
-                    src="${news.featuredImage || "images/news1.jpg"}"
-                    alt="${news.headline || "News"}"
-                    loading="lazy"
+            const image =
+                news.featuredImage ||
+                "images/news1.jpg";
+
+
+            const headline =
+                news.headline ||
+                news.title ||
+                "News";
+
+
+            html += `
+
+                <a
+                    href="article.html?id=${news.id}"
+                    class="most-read-item"
+                    data-id="${news.id}"
                 >
 
-                <div class="most-read-content">
+                    <img
+                        src="${image}"
+                        alt="${escapeHtml(headline)}"
+                        loading="lazy"
+                    >
 
-                    <span class="badge">
-                        ${news.category || ""}
-                    </span>
 
-                    <h4>
-                        ${news.headline || ""}
-                    </h4>
+                    <div class="most-read-content">
 
-                    <small>
-                        <i class="fas fa-eye"></i>
-                        ${news.views || 0} Views
-                    </small>
+                        <span class="badge">
 
-                </div>
+                            ${escapeHtml(
+                                news.category || ""
+                            )}
 
-            </a>
-        `;
-    });
+                        </span>
 
-    sidebarContent.innerHTML = html;
+
+                        <h4>
+
+                            ${escapeHtml(headline)}
+
+                        </h4>
+
+
+                        <small>
+
+                            <i class="fas fa-eye"></i>
+
+                            ${news.views || 0}
+                            Views
+
+                        </small>
+
+                    </div>
+
+                </a>
+
+            `;
+
+        });
+
+
+    sidebarContent.innerHTML =
+        html;
+
 }
-// =============================
-// NEWS CLICK HANDLER
-// =============================
-
-document.addEventListener("click", (e) => {
-
-    const btn =
-        e.target.closest(".read-btn");
-
-    const card =
-        e.target.closest(".news-card");
-
-    const mostRead =
-        e.target.closest(".most-read-item");
-
-    // Kunin kung alin ang na-click
-    const target =
-        btn || card || mostRead;
-
-    if (!target) return;
-
-    const id =
-        target.dataset.id;
-
-    if (!id) return;
-
-    window.location.href =
-        `article.html?id=${id}`;
-
-});
 
 
-// =============================
+// =====================================================
+// CLICK HANDLER
+// =====================================================
+
+document.addEventListener(
+    "click",
+    e => {
+
+        const btn =
+            e.target.closest(
+                ".read-btn"
+            );
+
+
+        const card =
+            e.target.closest(
+                ".news-card"
+            );
+
+
+        const mostRead =
+            e.target.closest(
+                ".most-read-item"
+            );
+
+
+        const target =
+            btn ||
+            card ||
+            mostRead;
+
+
+        if (!target) {
+            return;
+        }
+
+
+        const id =
+            target.dataset.id;
+
+
+        if (!id) {
+            return;
+        }
+
+
+        window.location.href =
+            `article.html?id=${id}`;
+
+    }
+);
+
+
+// =====================================================
 // SEARCH
-// =============================
+// =====================================================
 
 if (searchInput) {
 
-    searchInput.addEventListener("input", () => {
+    searchInput.addEventListener(
+        "input",
+        () => {
 
-        const keyword =
-            searchInput.value
-                .toLowerCase()
-                .trim();
+            const keyword =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
 
 
-        const filtered =
-            newsData.filter(news => {
+            const filtered =
+                newsData.filter(news => {
 
-                const headline =
-                    (news.headline || "")
+                    const headline =
+                        String(
+                            news.headline || ""
+                        )
                         .toLowerCase();
 
-                const summary =
-                    (news.summary || "")
+
+                    const summary =
+                        String(
+                            news.summary || ""
+                        )
                         .toLowerCase();
 
-                return (
-                    headline.includes(keyword) ||
-                    summary.includes(keyword)
-                );
 
-            });
+                    return (
+                        headline.includes(keyword) ||
+                        summary.includes(keyword)
+                    );
+
+                });
 
 
-        if (filtered.length > 0) {
+            if (!filtered.length) {
 
-            // Featured
+                if (featuredContent) {
+
+                    featuredContent.innerHTML = `
+
+                        <div
+                            style="
+                                padding:40px;
+                                text-align:center;
+                            "
+                        >
+
+                            <h2>
+                                No News Found
+                            </h2>
+
+                            <p>
+                                No article matches your search.
+                            </p>
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                if (contentList) {
+                    contentList.innerHTML = "";
+                }
+
+
+                if (sidebarContent) {
+                    sidebarContent.innerHTML = "";
+                }
+
+
+                return;
+
+            }
+
+
             renderFeaturedNews(
                 filtered[0]
             );
 
 
-            // News list
             renderNewsList(
                 filtered.slice(1)
             );
 
 
-            // Most read
             renderMostRead(
                 filtered
             );
 
         }
-
-        else {
-
-            if (featuredContent) {
-
-                featuredContent.innerHTML = `
-                    <h2>No News Found</h2>
-                    <p>
-                        No article matches your search.
-                    </p>
-                `;
-
-            }
-
-
-            if (contentList) {
-
-                contentList.innerHTML = "";
-
-            }
-
-
-            if (sidebarContent) {
-
-                sidebarContent.innerHTML = "";
-
-            }
-
-        }
-
-    });
+    );
 
 }
 
-document.addEventListener("DOMContentLoaded", function () {
 
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinks = document.querySelector(".nav-links");
+// =====================================================
+// MOBILE MENU
+// =====================================================
 
-    if (!menuToggle || !navLinks) return;
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-
-    // OPEN / CLOSE HAMBURGER
-    menuToggle.addEventListener("click", function (e) {
-
-        e.stopPropagation();
-
-        navLinks.classList.toggle("active");
-
-    });
+        const menuToggle =
+            document.getElementById(
+                "menuToggle"
+            );
 
 
-    // CLOSE AFTER CLICKING A CATEGORY
-    navLinks.querySelectorAll("a").forEach(function (link) {
+        const navLinks =
+            document.querySelector(
+                ".nav-links"
+            );
 
-        link.addEventListener("click", function () {
-
-            navLinks.classList.remove("active");
-
-        });
-
-    });
-
-
-    // CLOSE WHEN CLICKING OUTSIDE
-    document.addEventListener("click", function (e) {
 
         if (
-            !navLinks.contains(e.target) &&
-            !menuToggle.contains(e.target)
+            !menuToggle ||
+            !navLinks
         ) {
-            navLinks.classList.remove("active");
+            return;
         }
 
-    });
 
-});
+        menuToggle.addEventListener(
+            "click",
+            e => {
+
+                e.stopPropagation();
+
+                navLinks.classList.toggle(
+                    "active"
+                );
+
+            }
+        );
+
+
+        navLinks
+            .querySelectorAll("a")
+            .forEach(link => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+                        navLinks.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+            });
+
+
+        document.addEventListener(
+            "click",
+            e => {
+
+                if (
+                    !navLinks.contains(
+                        e.target
+                    ) &&
+                    !menuToggle.contains(
+                        e.target
+                    )
+                ) {
+
+                    navLinks.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+// =====================================================
+// ESCAPE HTML
+// =====================================================
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+// =====================================================
+// START
+// =====================================================
+
+console.log(
+    "🔥 CATEGORY-NEWS.JS LOADED"
+);
+
+loadNews();
