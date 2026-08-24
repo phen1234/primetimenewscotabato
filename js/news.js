@@ -1,9 +1,4 @@
-import { db, auth } from "./firebase.js";
-
-import {
-    deleteCloudinaryAssets,
-    extractCloudinaryPublicId
-} from "./cloudinary-delete.js";
+import { db } from "./firebase.js";
 
 import {
 collection,
@@ -302,85 +297,13 @@ renderNews(filtered);
 // DELETE
 // =====================
 
-window.deleteContent = async (id, type) => {
+window.deleteContent = async(id,type)=>{
 
-    if (!confirm("Delete this item?")) return;
+if(!confirm("Delete this item?")) return;  
 
-    const collectionName = type === "video" ? "videos" : "news";
+await deleteDoc(doc(db,type==="video" ? "videos":"news",id));  
 
-    try {
-
-        if (!auth.currentUser) {
-            alert("Your session has expired. Please log in again.");
-            return;
-        }
-
-        const itemRef = doc(db, collectionName, id);
-        const { getDoc } = await import(
-            "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js"
-        );
-
-        const snap = await getDoc(itemRef);
-
-        if (!snap.exists()) {
-            alert("This item no longer exists.");
-            await loadNews();
-            return;
-        }
-
-        const data = snap.data();
-
-        // Videos keep their existing Firestore-only delete behavior.
-        // News also removes every associated Cloudinary image first.
-        if (collectionName === "news") {
-
-            const publicIds = new Set();
-
-            if (Array.isArray(data.galleryPublicIds)) {
-                data.galleryPublicIds.forEach(id => {
-                    if (id) publicIds.add(id);
-                });
-            }
-
-            if (Array.isArray(data.gallery)) {
-                data.gallery.forEach(url => {
-                    const id = extractCloudinaryPublicId(url);
-                    if (id) publicIds.add(id);
-                });
-            }
-
-            if (data.featuredImagePublicId) {
-                publicIds.add(data.featuredImagePublicId);
-            }
-
-            const featuredId =
-                extractCloudinaryPublicId(data.featuredImage);
-
-            if (featuredId) publicIds.add(featuredId);
-
-            const ids = [...publicIds];
-
-            console.log("Cloudinary assets to delete:", ids);
-
-            if (ids.length) {
-                const result = await deleteCloudinaryAssets(ids);
-                console.log("Cloudinary delete result:", result);
-            }
-        }
-
-        // Only remove the Firestore document after media deletion succeeds.
-        await deleteDoc(itemRef);
-
-        await loadNews();
-
-        alert("Content deleted successfully.");
-
-    } catch (error) {
-
-        console.error("Delete Content Error:", error);
-        alert(error.message || "Unable to delete this item.");
-
-    }
+loadNews();
 
 };
 
