@@ -1,5 +1,4 @@
 import { db, auth } from "./firebase.js";
-
 import {
     deleteCloudinaryAssets,
     extractCloudinaryPublicId
