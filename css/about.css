@@ -627,150 +627,176 @@ body.light .quoteSection {
 }
 
 
-/* =========================
-   LIGHT MODE TEXT
-========================= */
-
-html.light .hero h1,
-body.light .hero h1,
-
-html.light .missionTitle,
-body.light .missionTitle,
-
-html.light .teamHeading h2,
-body.light .teamHeading h2,
-
-html.light .missionCard h3,
-body.light .missionCard h3,
-
-html.light .managerInfo h2,
-body.light .managerInfo h2,
-
-html.light .teamContent h3,
-body.light .teamContent h3,
-
-html.light .quoteLeft h2,
-body.light .quoteLeft h2 {
-    color: #111827 !important;
-}
 
 
-html.light .hero p,
-body.light .hero p,
+/* =========================================================
+   PRIMETIME NEWS ABOUT PAGE
+   LIGHT MODE - PROFESSIONAL NAVY HEADER & FOOTER
+   ========================================================= */
 
-html.light .missionCard p,
-body.light .missionCard p,
-
-html.light .managerInfo p,
-body.light .managerInfo p,
-
-html.light .teamHeading p,
-body.light .teamHeading p,
-
-html.light .quoteLeft p,
-body.light .quoteLeft p {
-    color: #4b5563 !important;
-}
-
-
-/* =========================
-   SECTION LABEL
-========================= */
-
-html.light .sectionLabel,
-body.light .sectionLabel {
-    background: #ef0000 !important;
-    color: #ffffff !important;
-}
-
-
-/* =========================
-   MINI TITLE
-========================= */
-
-html.light .miniTitle,
-body.light .miniTitle {
-    background: #ef0000 !important;
-    color: #ffffff !important;
-}
-
-
-/* =========================
-   TEAM ROLE
-========================= */
-
-html.light .managerInfo h4,
-body.light .managerInfo h4,
-
-html.light .teamContent h4,
-body.light .teamContent h4 {
-    color: #ef0000 !important;
-}
-
-
-/* =========================
-   ICON
-========================= */
-
-html.light .missionCard .icon,
-body.light .missionCard .icon {
-    color: #ef0000;
-}
-
-
-/* =========================
-   LINKS
-========================= */
-
-html.light .facebookBtn,
-body.light .facebookBtn {
-    color: #ffffff !important;
-}
-
-
-
-
-
-
-/* =========================================
-   ABOUT PAGE - LIGHT MODE
-   HEADER + FOOTER
-   ========================================= */
-
-html:not(.dark-mode) body {
+html.light-mode body,
+body.light-mode {
     background: #F5F7FB;
     color: #111827;
 }
 
-/* ABOUT HEADER / HERO */
-html:not(.dark-mode) .hero {
+
+/* =========================
+   HEADER / HERO
+========================= */
+
+html.light-mode .hero,
+body.light-mode .hero {
     background: #0B1423 !important;
     color: #FFFFFF !important;
 }
 
-html:not(.dark-mode) .hero h1 {
+html.light-mode .hero h1,
+body.light-mode .hero h1 {
     color: #FFFFFF !important;
 }
 
-html:not(.dark-mode) .hero p {
+html.light-mode .hero p,
+body.light-mode .hero p {
     color: #C5CEDB !important;
 }
 
-/* ABOUT FOOTER */
-html:not(.dark-mode) .quoteSection {
+
+/* =========================
+   MISSION
+========================= */
+
+html.light-mode .missionSection,
+body.light-mode .missionSection {
+    background: #F5F7FB !important;
+    color: #111827 !important;
+}
+
+html.light-mode .missionTitle,
+body.light-mode .missionTitle {
+    color: #111827 !important;
+}
+
+html.light-mode .missionCard,
+body.light-mode .missionCard {
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    border: 1px solid #E2E8F0 !important;
+}
+
+html.light-mode .missionCard h3,
+body.light-mode .missionCard h3 {
+    color: #111827 !important;
+}
+
+html.light-mode .missionCard p,
+body.light-mode .missionCard p {
+    color: #5B6678 !important;
+}
+
+
+/* =========================
+   TEAM
+========================= */
+
+html.light-mode .team,
+body.light-mode .team {
+    background: #F5F7FB !important;
+    color: #111827 !important;
+}
+
+html.light-mode .teamHeading h2,
+body.light-mode .teamHeading h2 {
+    color: #111827 !important;
+}
+
+html.light-mode .teamHeading p,
+body.light-mode .teamHeading p {
+    color: #5B6678 !important;
+}
+
+html.light-mode .managerCard,
+body.light-mode .managerCard,
+
+html.light-mode .teamCard,
+body.light-mode .teamCard {
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    border: 1px solid #E2E8F0 !important;
+}
+
+html.light-mode .managerInfo h2,
+body.light-mode .managerInfo h2,
+
+html.light-mode .teamContent h3,
+body.light-mode .teamContent h3 {
+    color: #111827 !important;
+}
+
+html.light-mode .managerInfo p,
+body.light-mode .managerInfo p {
+    color: #5B6678 !important;
+}
+
+html.light-mode .teamContent h4,
+body.light-mode .teamContent h4,
+
+html.light-mode .managerInfo h4,
+body.light-mode .managerInfo h4 {
+    color: #E50914 !important;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+html.light-mode .quoteSection,
+body.light-mode .quoteSection {
     background: #0B1423 !important;
     color: #FFFFFF !important;
     border-top: 1px solid #24344D !important;
 }
 
-html:not(.dark-mode) .quoteSection h2 {
+html.light-mode .quoteLeft h2,
+body.light-mode .quoteLeft h2 {
     color: #FFFFFF !important;
 }
 
-html:not(.dark-mode) .quoteSection p {
+html.light-mode .quoteLeft p,
+body.light-mode .quoteLeft p {
     color: #C5CEDB !important;
 }
 
-html:not(.dark-mode) .quoteLeft > i {
+html.light-mode .quoteLeft > i,
+body.light-mode .quoteLeft > i {
+    color: #E50914 !important;
+}
+
+
+/* =========================
+   RED ACCENTS
+========================= */
+
+html.light-mode .miniTitle,
+body.light-mode .miniTitle,
+
+html.light-mode .smallTitle,
+body.light-mode .smallTitle,
+
+html.light-mode .sectionLabel,
+body.light-mode .sectionLabel {
+    background: #E50914 !important;
+    color: #FFFFFF !important;
+}
+
+
+/* =========================
+   MISSION ICON
+========================= */
+
+html.light-mode .missionCard .icon,
+body.light-mode .missionCard .icon {
+    background: #FFF1F1 !important;
     color: #E50914 !important;
 }
