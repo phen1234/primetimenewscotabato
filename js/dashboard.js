@@ -11,8 +11,7 @@ import {
     orderBy,
     limit,
     serverTimestamp,
-    onSnapshot,
-    where
+    onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 import {
@@ -20,19 +19,22 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
 
-// ==============================
-// LOAD SAVED THEME
-// ==============================
+// =====================================================
+// LOAD THEME
+// =====================================================
 
 loadTheme();
 
+
+// =====================================================
+// WEBSITE SETTINGS
+// =====================================================
 
 async function loadWebsiteSettings() {
 
     try {
 
         const ref = doc(db, "settings", "website");
-
         const snap = await getDoc(ref);
 
         if (!snap.exists()) {
@@ -42,30 +44,24 @@ async function loadWebsiteSettings() {
 
         const data = snap.data();
 
-        // ==========================
-        // WEBSITE NAME
-        // ==========================
-
         const siteName =
             document.getElementById("siteName");
 
         if (siteName) {
 
             siteName.textContent =
-                data.websiteName || "Primetime News Cotabato";
+                data.websiteName ||
+                "Primetime News Cotabato";
 
         }
-
-        // ==========================
-        // WEBSITE LOGO
-        // ==========================
 
         const siteLogo =
             document.getElementById("siteLogo");
 
         if (siteLogo && data.websiteLogo) {
 
-            siteLogo.src = data.websiteLogo;
+            siteLogo.src =
+                data.websiteLogo;
 
         }
 
@@ -80,9 +76,12 @@ async function loadWebsiteSettings() {
 
 }
 
-// ===============================
-// DASHBOARD WEATHER
-// ===============================
+loadWebsiteSettings();
+
+
+// =====================================================
+// WEATHER
+// =====================================================
 
 const weatherTemp =
     document.getElementById("weatherTemp");
@@ -101,183 +100,6 @@ const weatherSunrise =
 
 const weatherSunset =
     document.getElementById("weatherSunset");
-
-
-async function loadWeather() {
-
-    try {
-
-        const settingsRef =
-            doc(db, "settings", "website");
-
-        const settingsSnap =
-            await getDoc(settingsRef);
-
-
-        if (!settingsSnap.exists()) {
-
-            setWeatherLoading("Weather unavailable");
-
-            return;
-        }
-
-
-        const settings =
-            settingsSnap.data();
-
-
-        const city =
-            settings.weatherCity ||
-            "Cotabato City";
-
-
-        const apiKey =
-            settings.weatherApiKey;
-
-
-        const unit =
-            settings.weatherUnit ||
-            "metric";
-
-
-        if (!apiKey) {
-
-            console.error(
-                "Weather API key is empty."
-            );
-
-            setWeatherLoading(
-                "Weather unavailable"
-            );
-
-            return;
-        }
-
-
-        const url =
-            `https://api.openweathermap.org/data/2.5/weather` +
-            `?q=${encodeURIComponent(city)}` +
-            `&units=${unit}` +
-            `&appid=${apiKey}`;
-
-
-        const response =
-            await fetch(url);
-
-
-        if (!response.ok) {
-
-            const errorData =
-                await response.json()
-                    .catch(() => ({}));
-
-            console.error(
-                "OpenWeather error:",
-                errorData
-            );
-
-            setWeatherLoading(
-                "Weather unavailable"
-            );
-
-            return;
-        }
-
-
-        const data =
-            await response.json();
-
-
-        // TEMPERATURE
-
-        if (weatherTemp) {
-
-            weatherTemp.textContent =
-                `${Math.round(data.main.temp)}°C`;
-
-        }
-
-
-        // CONDITION
-
-        if (weatherCondition) {
-
-            const description =
-                data.weather?.[0]?.description ||
-                "Unknown";
-
-            weatherCondition.textContent =
-                description.charAt(0).toUpperCase() +
-                description.slice(1);
-
-        }
-
-
-        // HUMIDITY
-
-        if (weatherHumidity) {
-
-            weatherHumidity.textContent =
-                `${data.main.humidity}%`;
-
-        }
-
-
-        // WIND
-
-        if (weatherWind) {
-
-            weatherWind.textContent =
-                `${data.wind?.speed ?? 0} m/s`;
-
-        }
-
-
-        // SUNRISE
-
-        if (weatherSunrise) {
-
-            weatherSunrise.textContent =
-                formatWeatherTime(
-                    data.sys?.sunrise
-                );
-
-        }
-
-
-        // SUNSET
-
-        if (weatherSunset) {
-
-            weatherSunset.textContent =
-                formatWeatherTime(
-                    data.sys?.sunset
-                );
-
-        }
-
-
-        console.log(
-            "Dashboard Weather Loaded:",
-            data
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Weather loading error:",
-            error
-        );
-
-        setWeatherLoading(
-            "Weather unavailable"
-        );
-
-    }
-
-}
 
 
 function setWeatherLoading(message) {
@@ -309,22 +131,636 @@ function formatWeatherTime(timestamp) {
 }
 
 
+async function loadWeather() {
+
+    try {
+
+        const settingsRef =
+            doc(db, "settings", "website");
+
+        const settingsSnap =
+            await getDoc(settingsRef);
+
+        if (!settingsSnap.exists()) {
+
+            setWeatherLoading(
+                "Weather unavailable"
+            );
+
+            return;
+        }
+
+        const settings =
+            settingsSnap.data();
+
+        const city =
+            settings.weatherCity ||
+            "Cotabato City";
+
+        const apiKey =
+            settings.weatherApiKey;
+
+        const unit =
+            settings.weatherUnit ||
+            "metric";
+
+        if (!apiKey) {
+
+            console.error(
+                "Weather API key is empty."
+            );
+
+            setWeatherLoading(
+                "Weather unavailable"
+            );
+
+            return;
+        }
+
+        const url =
+            `https://api.openweathermap.org/data/2.5/weather` +
+            `?q=${encodeURIComponent(city)}` +
+            `&units=${unit}` +
+            `&appid=${apiKey}`;
+
+        const response =
+            await fetch(url);
+
+        if (!response.ok) {
+
+            const errorData =
+                await response.json()
+                    .catch(() => ({}));
+
+            console.error(
+                "OpenWeather error:",
+                errorData
+            );
+
+            setWeatherLoading(
+                "Weather unavailable"
+            );
+
+            return;
+        }
+
+        const data =
+            await response.json();
+
+
+        if (weatherTemp) {
+
+            weatherTemp.textContent =
+                `${Math.round(data.main.temp)}°C`;
+
+        }
+
+
+        if (weatherCondition) {
+
+            const description =
+                data.weather?.[0]?.description ||
+                "Unknown";
+
+            weatherCondition.textContent =
+                description.charAt(0).toUpperCase() +
+                description.slice(1);
+
+        }
+
+
+        if (weatherHumidity) {
+
+            weatherHumidity.textContent =
+                `${data.main.humidity}%`;
+
+        }
+
+
+        if (weatherWind) {
+
+            weatherWind.textContent =
+                `${data.wind?.speed ?? 0} m/s`;
+
+        }
+
+
+        if (weatherSunrise) {
+
+            weatherSunrise.textContent =
+                formatWeatherTime(
+                    data.sys?.sunrise
+                );
+
+        }
+
+
+        if (weatherSunset) {
+
+            weatherSunset.textContent =
+                formatWeatherTime(
+                    data.sys?.sunset
+                );
+
+        }
+
+        console.log(
+            "Dashboard Weather Loaded:",
+            data
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Weather loading error:",
+            error
+        );
+
+        setWeatherLoading(
+            "Weather unavailable"
+        );
+
+    }
+
+}
+
 loadWeather();
 
-loadWebsiteSettings();
+
+// =====================================================
+// FIRESTORE DATE HELPERS
+// =====================================================
+
+function getFirestoreTime(timestamp) {
+
+    if (!timestamp) {
+        return 0;
+    }
+
+    if (
+        typeof timestamp === "object" &&
+        typeof timestamp.toDate === "function"
+    ) {
+
+        return timestamp.toDate().getTime();
+
+    }
+
+    if (
+        typeof timestamp === "object" &&
+        typeof timestamp.seconds === "number"
+    ) {
+
+        return timestamp.seconds * 1000;
+
+    }
+
+    if (timestamp instanceof Date) {
+
+        return timestamp.getTime();
+
+    }
+
+    if (typeof timestamp === "string") {
+
+        const time =
+            new Date(timestamp).getTime();
+
+        return isNaN(time)
+            ? 0
+            : time;
+
+    }
+
+    return 0;
+
+}
 
 
+// =====================================================
+// DASHBOARD COUNTERS
+// =====================================================
 
-// =============================
+async function loadDashboardCounters() {
+
+    try {
+
+        // ---------------------------------------------
+        // TOTAL ARTICLES
+        // ---------------------------------------------
+
+        const newsSnapshot =
+            await getDocs(
+                collection(db, "news")
+            );
+
+
+        // ---------------------------------------------
+        // TOTAL VIDEOS
+        // ---------------------------------------------
+
+        const videoSnapshot =
+            await getDocs(
+                collection(db, "videos")
+            );
+
+
+        // ---------------------------------------------
+        // TOTAL USERS
+        // ---------------------------------------------
+
+        const usersSnapshot =
+            await getDocs(
+                collection(db, "users")
+            );
+
+
+        // ---------------------------------------------
+        // ARTICLE COUNT
+        // ---------------------------------------------
+
+        const totalArticle =
+            document.getElementById(
+                "totalArticle"
+            );
+
+        if (totalArticle) {
+
+            totalArticle.textContent =
+                newsSnapshot.size;
+
+        }
+
+
+        // ---------------------------------------------
+        // VIDEO COUNT
+        // ---------------------------------------------
+
+        const totalVideos =
+            document.getElementById(
+                "totalVideos"
+            );
+
+        if (totalVideos) {
+
+            totalVideos.textContent =
+                videoSnapshot.size;
+
+        }
+
+
+        // ---------------------------------------------
+        // TOTAL UPLOADS
+        // ---------------------------------------------
+
+        const totalUploads =
+            document.getElementById(
+                "totalUploads"
+            );
+
+        if (totalUploads) {
+
+            totalUploads.textContent =
+                videoSnapshot.size;
+
+        }
+
+
+        // ---------------------------------------------
+        // TOTAL USERS
+        // ---------------------------------------------
+
+        const totalUsers =
+            document.getElementById(
+                "totalUsers"
+            );
+
+        if (totalUsers) {
+
+            totalUsers.textContent =
+                usersSnapshot.size;
+
+        }
+
+
+        console.log(
+            "================================="
+        );
+
+        console.log(
+            "DASHBOARD COUNTERS"
+        );
+
+        console.log(
+            "Total Articles:",
+            newsSnapshot.size
+        );
+
+        console.log(
+            "Total Videos:",
+            videoSnapshot.size
+        );
+
+        console.log(
+            "Total Users:",
+            usersSnapshot.size
+        );
+
+        console.log(
+            "================================="
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Dashboard counters error:",
+            error
+        );
+
+    }
+
+}
+
+loadDashboardCounters();
+
+
+// =====================================================
+// TOTAL CONTENT VIEWS
+// =====================================================
+
+async function loadAnalytics() {
+
+    try {
+
+        let totalViews = 0;
+
+
+        // NEWS VIEWS
+
+        const newsSnap =
+            await getDocs(
+                collection(db, "news")
+            );
+
+        newsSnap.forEach(docSnap => {
+
+            const news =
+                docSnap.data();
+
+            totalViews +=
+                Number(news.views || 0);
+
+        });
+
+
+        // VIDEO VIEWS
+
+        const videoSnap =
+            await getDocs(
+                collection(db, "videos")
+            );
+
+        videoSnap.forEach(docSnap => {
+
+            const video =
+                docSnap.data();
+
+            totalViews +=
+                Number(video.views || 0);
+
+        });
+
+
+        const totalViewsElement =
+            document.getElementById(
+                "totalViews"
+            );
+
+        if (totalViewsElement) {
+
+            totalViewsElement.textContent =
+                totalViews.toLocaleString();
+
+        }
+
+        console.log(
+            "Total Content Views:",
+            totalViews
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Analytics error:",
+            error
+        );
+
+    }
+
+}
+
+loadAnalytics();
+
+
+// =====================================================
+// TODAY VISITORS
+// =====================================================
+
+const dailyAnalyticsRef =
+    doc(db, "analytics", "daily");
+
+onSnapshot(
+    dailyAnalyticsRef,
+    snap => {
+
+        const todayVisitors =
+            document.getElementById(
+                "todayVisitors"
+            );
+
+        if (!todayVisitors) {
+            return;
+        }
+
+        if (!snap.exists()) {
+
+            todayVisitors.textContent =
+                "0";
+
+            return;
+        }
+
+        todayVisitors.textContent =
+            snap.data().todayVisitors || 0;
+
+    },
+    error => {
+
+        console.error(
+            "Visitor listener error:",
+            error
+        );
+
+    }
+);
+
+
+// =====================================================
+// ADMIN PROFILE
+// =====================================================
+
+auth.onAuthStateChanged(async user => {
+
+    if (!user) {
+        return;
+    }
+
+    try {
+
+        const snap =
+            await getDoc(
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                )
+            );
+
+        if (!snap.exists()) {
+            return;
+        }
+
+        const data =
+            snap.data();
+
+
+        const adminName =
+            document.getElementById(
+                "adminName"
+            );
+
+        if (adminName) {
+
+            adminName.textContent =
+                data.name ||
+                user.displayName ||
+                "Administrator";
+
+        }
+
+
+        const adminPhoto =
+            document.getElementById(
+                "adminPhoto"
+            );
+
+        if (adminPhoto) {
+
+            adminPhoto.src =
+                data.photoURL ||
+                "../images/default-user.png";
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Admin profile error:",
+            error
+        );
+
+    }
+
+});
+
+
+// =====================================================
+// DASHBOARD PROFILE
+// =====================================================
+
+async function loadDashboardProfile() {
+
+    const user =
+        auth.currentUser;
+
+    if (!user) {
+        return;
+    }
+
+    try {
+
+        const userRef =
+            doc(
+                db,
+                "users",
+                user.uid
+            );
+
+        const snap =
+            await getDoc(userRef);
+
+        if (!snap.exists()) {
+            return;
+        }
+
+        const data =
+            snap.data();
+
+
+        const dashboardName =
+            document.getElementById(
+                "dashboardName"
+            );
+
+        if (dashboardName) {
+
+            dashboardName.textContent =
+                data.name ||
+                user.displayName ||
+                "User";
+
+        }
+
+
+        const dashboardProfile =
+            document.getElementById(
+                "dashboardProfile"
+            );
+
+        if (dashboardProfile) {
+
+            dashboardProfile.src =
+                data.photoURL ||
+                "../images/PRIMETIME NEWS LOGO.png";
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Dashboard profile error:",
+            error
+        );
+
+    }
+
+}
+
+
+// =====================================================
 // RECENT ACTIVITY
-// =============================
+// =====================================================
 
 async function loadRecentActivity() {
 
     const activityList =
-        document.getElementById("recentActivityList");
+        document.getElementById(
+            "recentActivityList"
+        );
 
-    if (!activityList) return;
+    if (!activityList) {
+        return;
+    }
 
     activityList.innerHTML = `
         <li class="activity-loading">
@@ -333,11 +769,8 @@ async function loadRecentActivity() {
         </li>
     `;
 
-    try {
 
-        // =========================
-        // GET DATA
-        // =========================
+    try {
 
         const newsSnap =
             await getDocs(
@@ -354,12 +787,13 @@ async function loadRecentActivity() {
                 collection(db, "users")
             );
 
+
         const activities = [];
 
 
-        // =========================
-        // ARTICLES
-        // =========================
+        // ---------------------------------------------
+        // NEWS
+        // ---------------------------------------------
 
         newsSnap.forEach(docSnap => {
 
@@ -368,35 +802,35 @@ async function loadRecentActivity() {
 
             activities.push({
 
-    type: "article",
+                type: "article",
 
-    id: docSnap.id,
+                id: docSnap.id,
 
-    title:
-        data.headline ||
-        data.title ||
-        "Untitled Article",
+                title:
+                    data.headline ||
+                    data.title ||
+                    "Untitled Article",
 
-    category:
-        data.category ||
-        "News",
+                category:
+                    data.category ||
+                    "News",
 
-    date:
-        data.publishedAt ||
-        data.createdAt ||
-        null,
+                date:
+                    data.publishedAt ||
+                    data.createdAt ||
+                    null,
 
-    icon:
-        "fas fa-newspaper"
+                icon:
+                    "fas fa-newspaper"
 
-});
+            });
 
         });
 
 
-        // =========================
+        // ---------------------------------------------
         // VIDEOS
-        // =========================
+        // ---------------------------------------------
 
         videosSnap.forEach(docSnap => {
 
@@ -405,35 +839,35 @@ async function loadRecentActivity() {
 
             activities.push({
 
-    type: "video",
+                type: "video",
 
-    id: docSnap.id,
+                id: docSnap.id,
 
-    title:
-        data.title ||
-        data.headline ||
-        "Untitled Video",
+                title:
+                    data.title ||
+                    data.headline ||
+                    "Untitled Video",
 
-    category:
-        data.category ||
-        "Video",
+                category:
+                    data.category ||
+                    "Video",
 
-    date:
-        data.createdAt ||
-        data.publishedAt ||
-        null,
+                date:
+                    data.createdAt ||
+                    data.publishedAt ||
+                    null,
 
-    icon:
-        "fas fa-video"
+                icon:
+                    "fas fa-video"
 
-});
+            });
 
         });
 
 
-        // =========================
+        // ---------------------------------------------
         // USERS
-        // =========================
+        // ---------------------------------------------
 
         usersSnap.forEach(docSnap => {
 
@@ -467,209 +901,23 @@ async function loadRecentActivity() {
         });
 
 
-        // =========================
-        // CONVERT FIRESTORE DATE
-        // =========================
-
-        function getActivityTime(date) {
-
-            if (!date) {
-                return 0;
-            }
-
-            // Firestore Timestamp
-            if (
-                typeof date === "object" &&
-                typeof date.seconds === "number"
-            ) {
-
-                return date.seconds * 1000;
-
-            }
-
-            // JavaScript Date
-            if (date instanceof Date) {
-
-                return date.getTime();
-
-            }
-
-            // String date
-            if (typeof date === "string") {
-
-                const time =
-                    new Date(date).getTime();
-
-                return isNaN(time)
-                    ? 0
-                    : time;
-
-            }
-
-            return 0;
-
-        }
-
-
-        // =========================
-        // SORT NEWEST FIRST
-        // =========================
+        // ---------------------------------------------
+        // SORT
+        // ---------------------------------------------
 
         activities.sort((a, b) => {
 
             return (
-                getActivityTime(b.date) -
-                getActivityTime(a.date)
+                getFirestoreTime(b.date) -
+                getFirestoreTime(a.date)
             );
 
         });
 
 
-        // =========================
-        // COUNT
-        // =========================
-
         const totalActivities =
             activities.length;
 
-
-        console.log(
-            "RECENT ACTIVITIES:",
-            totalActivities
-        );
-
-
-        // =========================
-        // NO ACTIVITY
-        // =========================
-
-        if (totalActivities === 0) {
-
-            activityList.innerHTML = `
-                <li class="activity-empty">
-
-                    <i class="fas fa-clock"></i>
-
-                    <div>
-                        <strong>No Activities</strong>
-
-                        <p>
-                            No recent activity found.
-                        </p>
-                    </div>
-
-                </li>
-            `;
-
-            return;
-
-        }
-
-
-        // =========================
-        // SHOW ONLY 6
-        // =========================
-
-        const recentActivities =
-            activities.slice(0, 6);
-
-
-        // =========================
-        // RENDER
-        // =========================
-
-        activityList.innerHTML = "";
-
-
-        recentActivities.forEach(activity => {
-
-            const time =
-                getActivityTime(activity.date);
-
-
-            const formattedDate =
-                time
-                    ? new Date(time).toLocaleString(
-                        "en-US",
-                        {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                            hour: "numeric",
-                            minute: "2-digit"
-                        }
-                    )
-                    : "Date unavailable";
-
-
-            const li =
-                document.createElement("li");
-
-
-            li.className =
-                `activity-item ${activity.type}`;
-
-
-            li.innerHTML = `
-
-                <div class="activity-icon">
-
-                    <i class="${activity.icon}"></i>
-
-                </div>
-
-
-                <div class="activity-content">
-
-                    <strong>
-                        ${activity.title}
-                    </strong>
-
-                    <span class="activity-category">
-
-                        ${activity.category}
-
-                    </span>
-
-                    <small>
-
-                        <i class="far fa-clock"></i>
-
-                        ${formattedDate}
-
-                    </small>
-
-                </div>
-
-            `;
-
-
-            activityList.appendChild(li);
-            li.addEventListener("click", () => {
-
-    if (!activity.id) return;
-
-    if (activity.type === "video") {
-
-        window.location.href =
-            `../videos.html?id=${activity.id}&autoplay=1`;
-
-
-    } else {
-
-        window.location.href =
-            `../article.html?id=${activity.id}`;
-
-    }
-
-});
-
-        });
-
-
-        // =========================
-        // ACTIVITY COUNT
-        // =========================
 
         const activityCount =
             document.getElementById(
@@ -682,6 +930,134 @@ async function loadRecentActivity() {
                 `${totalActivities} Activities`;
 
         }
+
+
+        if (totalActivities === 0) {
+
+            activityList.innerHTML = `
+                <li class="activity-empty">
+
+                    <i class="fas fa-clock"></i>
+
+                    <div>
+
+                        <strong>
+                            No Activities
+                        </strong>
+
+                        <p>
+                            No recent activity found.
+                        </p>
+
+                    </div>
+
+                </li>
+            `;
+
+            return;
+        }
+
+
+        activityList.innerHTML = "";
+
+
+        activities
+            .slice(0, 6)
+            .forEach(activity => {
+
+                const time =
+                    getFirestoreTime(
+                        activity.date
+                    );
+
+
+                const formattedDate =
+                    time
+                        ? new Date(time)
+                            .toLocaleString(
+                                "en-US",
+                                {
+                                    month: "short",
+                                    day: "numeric",
+                                    year: "numeric",
+                                    hour: "numeric",
+                                    minute: "2-digit"
+                                }
+                            )
+                        : "Date unavailable";
+
+
+                const li =
+                    document.createElement("li");
+
+
+                li.className =
+                    `activity-item ${activity.type}`;
+
+
+                li.innerHTML = `
+
+                    <div class="activity-icon">
+
+                        <i class="${activity.icon}"></i>
+
+                    </div>
+
+                    <div class="activity-content">
+
+                        <strong>
+                            ${activity.title}
+                        </strong>
+
+                        <span class="activity-category">
+                            ${activity.category}
+                        </span>
+
+                        <small>
+
+                            <i class="far fa-clock"></i>
+
+                            ${formattedDate}
+
+                        </small>
+
+                    </div>
+
+                `;
+
+
+                activityList.appendChild(li);
+
+
+                li.addEventListener(
+                    "click",
+                    () => {
+
+                        if (!activity.id) {
+                            return;
+                        }
+
+
+                        if (
+                            activity.type === "video"
+                        ) {
+
+                            window.location.href =
+                                `../videos.html?id=${activity.id}&autoplay=1`;
+
+                        } else if (
+                            activity.type === "article"
+                        ) {
+
+                            window.location.href =
+                                `../article.html?id=${activity.id}`;
+
+                        }
+
+                    }
+                );
+
+            });
 
 
     } catch (error) {
@@ -718,751 +1094,834 @@ async function loadRecentActivity() {
 
 }
 
-
-// =============================
-// FIRESTORE DATE
-// =============================
-
-function getActivityDate(timestamp) {
-
-    if (!timestamp) return 0;
-
-    if (
-        typeof timestamp.toDate === "function"
-    ) {
-
-        return timestamp
-            .toDate()
-            .getTime();
-
-    }
-
-    if (timestamp.seconds) {
-
-        return timestamp.seconds * 1000;
-
-    }
-
-    const date =
-        new Date(timestamp);
-
-    return isNaN(date.getTime())
-        ? 0
-        : date.getTime();
-
-}
-
-
-// =============================
-// FORMAT DATE
-// =============================
-
-function formatActivityDate(timestamp) {
-
-    const time =
-        getActivityDate(timestamp);
-
-    if (!time) return "";
-
-    return new Date(time)
-        .toLocaleString("en-US", {
-
-            month: "short",
-            day: "numeric",
-
-            hour: "numeric",
-            minute: "2-digit"
-
-        });
-
-}
-
-
-// =============================
-// START
-// =============================
-
 loadRecentActivity();
 
-// ===============================
-// DASHBOARD ANALYTICS
-// ===============================
 
-async function loadAnalytics() {
+// =====================================================
+// SIDEBAR NAVIGATION
+// =====================================================
 
-    let totalViews = 0;
+document
+    .getElementById("dashboardBtn")
+    ?.addEventListener(
+        "click",
+        () => {
 
-    // NEWS
-    const newsSnap = await getDocs(collection(db, "news"));
+            window.location.href =
+                "dashboard.html";
 
-    newsSnap.forEach(doc => {
-
-        const news = doc.data();
-
-        totalViews += news.views || 0;
-
-    });
-
-    // VIDEOS
-    const videoSnap = await getDocs(collection(db, "videos"));
-
-    videoSnap.forEach(doc => {
-
-        const video = doc.data();
-
-        totalViews += video.views || 0;
-
-    });
-
-    document.getElementById("totalViews").textContent =
-        totalViews.toLocaleString();
-
-}
-
-loadAnalytics();
-
-
-
-
-
-// ===============================
-// LOAD VISITORS
-// ===============================
-
-onSnapshot(doc(db, "analytics", "daily"), (snap) => {
-
-    if (!snap.exists()) return;
-
-    document.getElementById("todayVisitors").textContent =
-        snap.data().todayVisitors || 0;
-
-});
-
-auth.onAuthStateChanged(async (user) => {
-
-    if (!user) return;
-
-    const snap = await getDoc(
-        doc(db, "users", user.uid)
+        }
     );
 
-    if (!snap.exists()) return;
 
-    const data = snap.data();
+document
+    .getElementById("analyticsBtn")
+    ?.addEventListener(
+        "click",
+        () => {
 
-    document.getElementById("adminName").textContent =
-        data.name || "Administrator";
+            window.location.href =
+                "analytics.html";
 
-    document.getElementById("adminPhoto").src =
-        data.photoURL || "../images/default-user.png";
-
-});
-
-
-// ======================
-// SIDEBAR NAVIGATION
-// ======================
-
-document.getElementById("dashboardBtn")?.addEventListener("click", () => {
-    window.location.href = "dashboard.html";
-});
-
-document.getElementById("analyticsBtn")?.addEventListener("click", () => {
-    window.location.href = "analytics.html";
-});
-
-document.getElementById("categorySidebarBtn")?.addEventListener("click", () => {
-    window.location.href = "categories.html";
-});
-
-document.getElementById("usersBtn")?.addEventListener("click", () => {
-    window.location.href = "users.html";
-});
-
-document.getElementById("settingsMenu")?.addEventListener("click", () => {
-    window.location.href = "settings.html";
-});
+        }
+    );
 
 
+document
+    .getElementById("categorySidebarBtn")
+    ?.addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "categories.html";
+
+        }
+    );
+
+
+document
+    .getElementById("usersBtn")
+    ?.addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "users.html";
+
+        }
+    );
+
+
+document
+    .getElementById("settingsMenu")
+    ?.addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "settings.html";
+
+        }
+    );
+
+
+// =====================================================
 // LOGOUT
-document.getElementById("logoutBtn").addEventListener("click", async (e) => {
+// =====================================================
 
-    e.preventDefault();
+const logoutBtn =
+    document.getElementById(
+        "logoutBtn"
+    );
 
-    if (confirm("Are you sure you want to logout?")) {
+if (logoutBtn) {
 
-        try {
+    logoutBtn.addEventListener(
+        "click",
+        async e => {
 
-            // Update status muna
-            if (auth.currentUser) {
+            e.preventDefault();
 
-                await updateDoc(
-                    doc(db, "users", auth.currentUser.uid),
-                    {
-                        status: "Offline",
-                        lastSeen: serverTimestamp()
-                    }
+            if (
+                !confirm(
+                    "Are you sure you want to logout?"
+                )
+            ) {
+                return;
+            }
+
+            try {
+
+                if (auth.currentUser) {
+
+                    await updateDoc(
+                        doc(
+                            db,
+                            "users",
+                            auth.currentUser.uid
+                        ),
+                        {
+                            status: "Offline",
+                            lastSeen:
+                                serverTimestamp()
+                        }
+                    );
+
+                }
+
+                await signOut(auth);
+
+                window.location.replace(
+                    "../index.html"
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
+                alert(
+                    error.message
                 );
 
             }
 
-            // Logout
-            await signOut(auth);
+        }
+    );
 
-            window.location.replace("../index.html");
+}
 
-        } catch (error) {
 
-            console.error(error);
+// =====================================================
+// MESSAGES
+// =====================================================
 
-            alert(error.message);
+const messagesBtn =
+    document.getElementById(
+        "messagesBtn"
+    );
+
+const messageDropdown =
+    document.getElementById(
+        "messageDropdown"
+    );
+
+const messageList =
+    document.getElementById(
+        "messageList"
+    );
+
+const messageCount =
+    document.getElementById(
+        "messageCount"
+    );
+
+
+if (
+    messagesBtn &&
+    messageDropdown
+) {
+
+    messagesBtn.addEventListener(
+        "click",
+        e => {
+
+            e.stopPropagation();
+
+            messageDropdown.classList.toggle(
+                "show"
+            );
+
+        }
+    );
+
+}
+
+
+document.addEventListener(
+    "click",
+    e => {
+
+        if (
+            messageDropdown &&
+            messagesBtn &&
+            !messagesBtn.contains(e.target) &&
+            !messageDropdown.contains(e.target)
+        ) {
+
+            messageDropdown.classList.remove(
+                "show"
+            );
 
         }
 
     }
-
-});
-
+);
 
 
-const messagesBtn = document.getElementById("messagesBtn");
-const dropdown = document.getElementById("messageDropdown");
+const messagesQuery =
+    query(
+        collection(
+            db,
+            "contactMessages"
+        ),
+        orderBy(
+            "createdAt",
+            "desc"
+        ),
+        limit(5)
+    );
 
-messagesBtn.addEventListener("click",()=>{
 
-    dropdown.classList.toggle("show");
+if (
+    messageList &&
+    messageCount
+) {
 
-});
+    onSnapshot(
+        messagesQuery,
+        snapshot => {
 
-document.addEventListener("click",(e)=>{
+            messageList.innerHTML = "";
 
-    if(!messagesBtn.contains(e.target) &&
-       !dropdown.contains(e.target)){
+            let unread = 0;
 
-        dropdown.classList.remove("show");
+
+            if (snapshot.empty) {
+
+                messageList.innerHTML = `
+                    <div class="empty-message">
+
+                        <i class="fas fa-inbox"></i>
+
+                        <p>
+                            No messages yet.
+                        </p>
+
+                    </div>
+                `;
+
+                messageCount.style.display =
+                    "none";
+
+                return;
+
+            }
+
+
+            snapshot.forEach(docSnap => {
+
+                const data =
+                    docSnap.data();
+
+
+                if (
+                    data.status === "unread"
+                ) {
+
+                    unread++;
+
+                }
+
+
+                const div =
+                    document.createElement("div");
+
+                div.className =
+                    "message-item";
+
+
+                div.innerHTML = `
+
+                    <h4>
+                        ${data.name || ""}
+                    </h4>
+
+                    <p>
+                        ${data.subject || ""}
+                    </p>
+
+                    <small>
+                        ${data.email || ""}
+                    </small>
+
+                `;
+
+
+                messageList.appendChild(div);
+
+            });
+
+
+            if (unread > 0) {
+
+                messageCount.style.display =
+                    "flex";
+
+                messageCount.textContent =
+                    unread;
+
+            } else {
+
+                messageCount.style.display =
+                    "none";
+
+            }
+
+        },
+        error => {
+
+            console.error(
+                "Messages listener error:",
+                error
+            );
+
+        }
+    );
+
+}
+
+
+const viewAllMessages =
+    document.getElementById(
+        "viewAllMessages"
+    );
+
+if (viewAllMessages) {
+
+    viewAllMessages.addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "messages.html";
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// LIVE CLOCK
+// =====================================================
+
+function updateClock() {
+
+    const now =
+        new Date();
+
+
+    const clock =
+        document.getElementById(
+            "clock"
+        );
+
+    const currentDate =
+        document.getElementById(
+            "currentDate"
+        );
+
+
+    if (clock) {
+
+        clock.textContent =
+            now.toLocaleTimeString(
+                "en-PH",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: true
+                }
+            );
 
     }
 
-});
 
-document.getElementById("viewAllMessages")
-.addEventListener("click",()=>{
+    if (currentDate) {
 
-    window.location.href="messages.html";
+        currentDate.textContent =
+            now.toLocaleDateString(
+                "en-PH",
+                {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                }
+            );
 
-});
-
-
-
-// LIVE CLOCK
-function updateClock() {
-
-    const now = new Date();
-
-    document.getElementById("clock").textContent =
-        now.toLocaleTimeString("en-PH", {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: true
-        });
-
-    document.getElementById("currentDate").textContent =
-        now.toLocaleDateString("en-PH", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        });
+    }
 
 }
 
 updateClock();
 
-setInterval(updateClock, 1000);
-
-const messageList =
-document.getElementById("messageList");
-
-const messageCount =
-document.getElementById("messageCount");
-
-const q = query(
-
-collection(db,"contactMessages"),
-
-orderBy("createdAt","desc"),
-
-limit(5)
-
+setInterval(
+    updateClock,
+    1000
 );
 
-onSnapshot(q, (snapshot) => {
 
-    messageList.innerHTML = "";
+// =====================================================
+// QUICK ACTIONS
+// =====================================================
 
-    let unread = 0;
-
-    if (snapshot.empty) {
-
-        messageList.innerHTML = `
-            <div class="empty-message">
-                <i class="fas fa-inbox"></i>
-                <p>No messages yet.</p>
-            </div>
-        `;
-
-        messageCount.style.display = "none";
-        return;
-
-    }
-
-    snapshot.forEach((doc) => {
-
-        const data = doc.data();
-
-        if (data.status === "unread") unread++;
-
-        const div = document.createElement("div");
-
-        div.className = "message-item";
-
-        div.innerHTML = `
-            <h4>${data.name}</h4>
-            <p>${data.subject}</p>
-            <small>${data.email}</small>
-        `;
-
-        messageList.appendChild(div);
-
-    });
-
-    if (unread > 0) {
-
-        messageCount.style.display = "flex";
-        messageCount.textContent = unread;
-
-    } else {
-
-        messageCount.style.display = "none";
-
-    }
-
-});
-
-
-
-
-const addNewsBtn = document.getElementById("addNewsBtn");
+const addNewsBtn =
+    document.getElementById(
+        "addNewsBtn"
+    );
 
 if (addNewsBtn) {
+
     addNewsBtn.onclick = () => {
-        window.location.href = "add-news.html";
+
+        window.location.href =
+            "add-news.html";
+
     };
+
 }
 
-const viewAllNewsBtn = document.getElementById("viewAllNewsBtn");
 
-if(viewAllNewsBtn){
+const addVideoBtn =
+    document.getElementById(
+        "addVideoBtn"
+    );
+
+if (addVideoBtn) {
+
+    addVideoBtn.onclick = () => {
+
+        window.location.href =
+            "add-video.html";
+
+    };
+
+}
+
+
+const liveWebsiteBtn =
+    document.getElementById(
+        "liveWebsiteBtn"
+    );
+
+if (liveWebsiteBtn) {
+
+    liveWebsiteBtn.onclick = () => {
+
+        window.location.href =
+            "../index.html?cms=1";
+
+    };
+
+}
+
+
+const newsManagerBtn =
+    document.getElementById(
+        "newsManagerBtn"
+    );
+
+if (newsManagerBtn) {
+
+    newsManagerBtn.onclick = () => {
+
+        window.location.href =
+            "news.html";
+
+    };
+
+}
+
+
+const viewAllNewsBtn =
+    document.getElementById(
+        "viewAllNewsBtn"
+    );
+
+if (viewAllNewsBtn) {
 
     viewAllNewsBtn.onclick = () => {
 
-        window.location.href = "../latest-news.html";
+        window.location.href =
+            "../latest-news.html";
+
     };
 
 }
 
-const liveWebsiteBtn = document.getElementById("liveWebsiteBtn");
 
-if (liveWebsiteBtn) {
-    liveWebsiteBtn.onclick = () => {
-        window.location.href = "../index.html?cms=1";
-    };
-}
+// =====================================================
+// LATEST CONTENT
+// =====================================================
 
-const newsManagerBtn = document.getElementById("newsManagerBtn");
-
-if (newsManagerBtn) {
-    newsManagerBtn.onclick = () => {
-        location.href = "news.html";
-    };
-}
-
-const addVideoBtn = document.getElementById("addVideoBtn");
-
-if (addVideoBtn) {
-    addVideoBtn.onclick = () => {
-        location.href = "add-video.html";
-    };
-}
+const newsTable =
+    document.getElementById(
+        "newsTable"
+    );
 
 
+async function loadLatestContent() {
 
-// ======================================
-// LATEST CONTENT (NEWS + VIDEOS)
-// ======================================
-
-const newsTable = document.getElementById("newsTable");
-
-async function loadLatestContent(){
-
-    if(!newsTable) return;
-
-    newsTable.innerHTML=`
-    <tr>
-        <td colspan="5">Loading...</td>
-    </tr>
-    `;
-
-    try{
-
-        let items=[];
-
-        // NEWS
-        const newsSnap=await getDocs(collection(db,"news"));
-
-        newsSnap.forEach(docSnap=>{
-
-            items.push({
-
-                id:docSnap.id,
-                type:"news",
-                ...docSnap.data()
-
-            });
-
-        });
-
-        // VIDEOS
-        const videoSnap=await getDocs(collection(db,"videos"));
-        console.log("Total Videos:", videoSnap.size);
-
-        videoSnap.forEach(docSnap=>{
-            console.log(docSnap.data());
-
-            items.push({
-
-                id:docSnap.id,
-                type:"video",
-                ...docSnap.data()
-
-            });
-
-        });
-
-        // Published News + All Videos
-items = items.filter(item => {
-
-    if(item.type === "video"){
-
-        return true;
-
+    if (!newsTable) {
+        return;
     }
 
-    return item.status === "published";
 
-});
+    newsTable.innerHTML = `
+        <tr>
+            <td colspan="5"
+                style="text-align:center;padding:30px;">
+                Loading...
+            </td>
+        </tr>
+    `;
 
-// ======================================
-// DASHBOARD TOTAL COUNTERS
-// ======================================
-
-async function loadDashboardCounters() {
 
     try {
 
-        // ==============================
-        // LOAD NEWS
-        // ==============================
+        const items = [];
 
-        const newsSnapshot =
+
+        // ---------------------------------------------
+        // LOAD NEWS
+        // ---------------------------------------------
+
+        const newsSnap =
             await getDocs(
                 collection(db, "news")
             );
 
 
-        // ==============================
-        // COUNT ARTICLES ONLY
-        // ==============================
+        newsSnap.forEach(docSnap => {
 
-        let articleCount = 0;
+            const data =
+                docSnap.data();
 
-        newsSnapshot.forEach((docSnap) => {
 
-            const data = docSnap.data();
+            // Published articles only
 
-            /*
-             * ARTICLE ONLY
-             *
-             * Kapag may type field na "video",
-             * HUWAG isama sa article count.
-             *
-             * Normal news documents na walang type
-             * ay articles pa rin.
-             */
-
-            const type =
-                String(data.type || "")
+            if (
+                String(data.status || "")
                     .trim()
-                    .toLowerCase();
+                    .toLowerCase()
+                !== "published"
+            ) {
 
-            if (type === "video") {
                 return;
+
             }
 
-            articleCount++;
+
+            items.push({
+
+                id: docSnap.id,
+
+                type: "news",
+
+                ...data
+
+            });
 
         });
 
 
-        // ==============================
-        // TOTAL ARTICLES
-        // ==============================
-
-        const totalArticle =
-            document.getElementById("totalArticle") ||
-            document.getElementById("totalArticles") ||
-            document.getElementById("totalNews");
-
-
-        if (totalArticle) {
-
-            totalArticle.textContent =
-                articleCount;
-
-        }
-
-
-        // ==============================
+        // ---------------------------------------------
         // LOAD VIDEOS
-        // ==============================
+        // ---------------------------------------------
 
-        const videoSnapshot =
+        const videoSnap =
             await getDocs(
                 collection(db, "videos")
             );
 
 
-        // ==============================
-        // TOTAL VIDEOS
-        // ==============================
+        videoSnap.forEach(docSnap => {
 
-        const totalVideos =
-            document.getElementById("totalVideos");
+            items.push({
+
+                id: docSnap.id,
+
+                type: "video",
+
+                ...docSnap.data()
+
+            });
+
+        });
 
 
-        if (totalVideos) {
+        // ---------------------------------------------
+        // SORT NEWEST
+        // ---------------------------------------------
 
-            totalVideos.textContent =
-                videoSnapshot.size;
+        items.sort((a, b) => {
+
+            const A =
+                getFirestoreTime(
+                    a.publishedAt ||
+                    a.createdAt
+                );
+
+            const B =
+                getFirestoreTime(
+                    b.publishedAt ||
+                    b.createdAt
+                );
+
+            return B - A;
+
+        });
+
+
+        // ---------------------------------------------
+        // LATEST 5
+        // ---------------------------------------------
+
+        const latest =
+            items.slice(0, 5);
+
+
+        if (latest.length === 0) {
+
+            newsTable.innerHTML = `
+                <tr>
+                    <td colspan="5"
+                        style="text-align:center;padding:30px;">
+                        No content found.
+                    </td>
+                </tr>
+            `;
+
+            return;
 
         }
 
 
-        // ==============================
-        // TOTAL UPLOADS
-        // ==============================
-
-        const totalUploads =
-            document.getElementById("totalUploads");
+        newsTable.innerHTML = "";
 
 
-        if (totalUploads) {
+        // ---------------------------------------------
+        // RENDER
+        // ---------------------------------------------
 
-            /*
-             * Uploads = videos uploaded.
-             * Kung gusto mong ibang definition
-             * ng Uploads, pwede natin baguhin later.
-             */
+        latest.forEach(item => {
 
-            totalUploads.textContent =
-                videoSnapshot.size;
-
-        }
+            const title =
+                item.headline ||
+                item.title ||
+                "Untitled";
 
 
-        // ==============================
-        // TOTAL USERS
-        // ==============================
-
-        const usersSnapshot =
-            await getDocs(
-                collection(db, "users")
-            );
+            const category =
+                item.category ||
+                (item.type === "video"
+                    ? "Video"
+                    : "News");
 
 
-        const totalUsers =
-            document.getElementById("totalUsers");
+            const timestamp =
+                item.publishedAt ||
+                item.createdAt;
 
 
-        if (totalUsers) {
-
-            totalUsers.textContent =
-                usersSnapshot.size;
-
-        }
+            const date =
+                getFirestoreTime(
+                    timestamp
+                );
 
 
-        // ==============================
-        // DEBUG
-        // ==============================
+            const formattedDate =
+                date
+                    ? new Date(date)
+                        .toLocaleDateString(
+                            "en-US",
+                            {
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric"
+                            }
+                        )
+                    : "-";
+
+
+            const row =
+                document.createElement("tr");
+
+
+            row.innerHTML = `
+
+                <td>
+
+                    <span class="typeBadge ${item.type}">
+
+                        ${
+                            item.type === "video"
+
+                            ? `
+                                <i class="fab fa-youtube"></i>
+                                VIDEO
+                              `
+
+                            : `
+                                <i class="fas fa-newspaper"></i>
+                                NEWS ARTICLE
+                              `
+                        }
+
+                    </span>
+
+                    <br>
+
+                    <strong>
+                        ${title}
+                    </strong>
+
+                </td>
+
+
+                <td>
+
+                    <span class="categoryBadge">
+                        ${category}
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <span class="published">
+                        Published
+                    </span>
+
+                </td>
+
+
+                <td>
+                    ${formattedDate}
+                </td>
+
+
+                <td>
+
+                    <button
+                        class="editBtn"
+                        type="button"
+                    >
+
+                        <i class="fas fa-edit"></i>
+
+                    </button>
+
+                </td>
+
+            `;
+
+
+            const editBtn =
+                row.querySelector(
+                    ".editBtn"
+                );
+
+
+            if (editBtn) {
+
+                editBtn.addEventListener(
+                    "click",
+                    () => {
+
+                        if (
+                            item.type === "video"
+                        ) {
+
+                            window.location.href =
+                                `add-video.html?id=${item.id}`;
+
+                        } else {
+
+                            window.location.href =
+                                `add-news.html?id=${item.id}`;
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            newsTable.appendChild(row);
+
+        });
+
 
         console.log(
-            "================================"
+            "Latest Content:",
+            latest
         );
-
-        console.log(
-            "📊 DASHBOARD COUNTERS"
-        );
-
-        console.log(
-            "📰 Total Articles:",
-            articleCount
-        );
-
-        console.log(
-            "🎬 Total Videos:",
-            videoSnapshot.size
-        );
-
-        console.log(
-            "📤 Total Uploads:",
-            videoSnapshot.size
-        );
-
-        console.log(
-            "👥 Total Users:",
-            usersSnapshot.size
-        );
-
-        console.log(
-            "================================"
-        );
-
 
     } catch (error) {
 
         console.error(
-            "❌ Dashboard counters error:",
+            "Latest content error:",
             error
         );
 
-    }
 
-}
-
-
-loadDashboardCounters();
-
-
-        // Latest first
-        items.sort((a,b)=>{
-
-            const A=a.publishedAt?.seconds||a.createdAt?.seconds||0;
-            const B=b.publishedAt?.seconds||b.createdAt?.seconds||0;
-
-            return B-A;
-
-        });
-
-        // Latest 5 only
-        items=items.slice(0,5);
-
-        newsTable.innerHTML="";
-
-        items.forEach(item=>{
-
-            newsTable.innerHTML+=`
-
-<tr>
-
-<td>
-
-<span class="typeBadge ${item.type}">
-
-${
-item.type==="video"
-? `<span class="typeBadge video"><i class="fab fa-youtube"></i> VIDEO</span>`
-: `<span class="typeBadge news"><i class="fas fa-newspaper"></i> NEWS ARTICLE</span>`
-}
-
-</span>
-
-<br>
-
-<strong>
-
-${item.headline || item.title}
-
-</strong>
-
-</td>
-
-<td>
-
-<span class="categoryBadge">
-
-${item.category}
-
-</span>
-
-</td>
-
-<td>
-
-<span class="published">
-
-Published
-
-</span>
-
-</td>
-
-<td>
-
-${
-(item.publishedAt?.seconds || item.createdAt?.seconds)
-? new Date(
-    (item.publishedAt?.seconds || item.createdAt?.seconds) * 1000
-).toLocaleDateString("en-US",{
-    month:"short",
-    day:"numeric",
-    year:"numeric"
-})
-: "-"
-}
-
-</td>
-
-</td>
-
-<td>
-
-<button class="editBtn"
-
-onclick="window.location.href='${
-item.type==="video"
-? "add-video.html"
-: "add-news.html"
-}?id=${item.id}'">
-
-<i class="fas fa-edit"></i>
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-        });
-
-    }
-
-    catch(err){
-
-        console.error(err);
+        newsTable.innerHTML = `
+            <tr>
+                <td colspan="5"
+                    style="text-align:center;padding:30px;color:#b00020;">
+                    Failed to load content.
+                </td>
+            </tr>
+        `;
 
     }
 
@@ -1470,395 +1929,267 @@ item.type==="video"
 
 loadLatestContent();
 
-const usersBtn = document.getElementById("usersBtn");
 
-if(usersBtn){
-
-    usersBtn.addEventListener("click",()=>{
-
-        window.location.href = "users.html";
-
-    });
-
-}
-
-async function loadDashboardProfile() {
-
-    const user = auth.currentUser;
-
-    if (!user) {
-        console.warn("No logged in user.");
-        return;
-    }
-
-    try {
-
-        const userRef = doc(
-            db,
-            "users",
-            user.uid
-        );
-
-        const snap = await getDoc(userRef);
-
-        if (!snap.exists()) {
-            console.warn(
-                "User document not found:",
-                user.uid
-            );
-            return;
-        }
-
-        const data = snap.data();
-
-        console.log(
-            "DASHBOARD USER DATA:",
-            data
-        );
-
-        // =========================
-        // NAME
-        // =========================
-
-        const dashboardName =
-            document.getElementById("dashboardName");
-
-        if (dashboardName) {
-
-            dashboardName.textContent =
-                data.name ||
-                user.displayName ||
-                "User";
-        }
-
-        // =========================
-        // PROFILE IMAGE
-        // =========================
-
-        const dashboardProfile =
-            document.getElementById("dashboardProfile");
-
-        if (dashboardProfile) {
-
-            dashboardProfile.src =
-                data.photoURL ||
-                "../images/PRIMETIME NEWS LOGO.png";
-
-        }
-
-    } catch (error) {
-
-        console.error(
-            "Failed to load dashboard profile:",
-            error
-        );
-
-    }
-}
-
-
-// ======================================
-// ADVERTISING INQUIRY NOTIFICATIONS
-// ======================================
+// =====================================================
+// ADVERTISING NOTIFICATIONS
+// =====================================================
 
 const notificationBtn =
-    document.getElementById("notificationBtn");
+    document.getElementById(
+        "notificationBtn"
+    );
 
 const notificationDropdown =
-    document.getElementById("notificationDropdown");
+    document.getElementById(
+        "notificationDropdown"
+    );
 
 const notificationList =
-    document.getElementById("notificationList");
+    document.getElementById(
+        "notificationList"
+    );
 
 const notificationCount =
-    document.getElementById("notificationCount");
+    document.getElementById(
+        "notificationCount"
+    );
 
 
-// ======================================
-// CHECK ELEMENTS
-// ======================================
+if (
+    notificationBtn &&
+    notificationDropdown
+) {
 
-console.log("Advertising Notification Elements:", {
-    notificationBtn,
-    notificationDropdown,
-    notificationList,
-    notificationCount
-});
+    notificationBtn.addEventListener(
+        "click",
+        e => {
 
+            e.stopPropagation();
 
-// ======================================
-// CLICK BELL
-// ======================================
+            notificationDropdown.classList.toggle(
+                "show"
+            );
 
-if (notificationBtn && notificationDropdown) {
-
-    notificationBtn.addEventListener("click", (e) => {
-
-        e.stopPropagation();
-
-        notificationDropdown.classList.toggle("show");
-
-    });
+        }
+    );
 
 }
 
 
-// ======================================
-// CLOSE DROPDOWN
-// ======================================
+document.addEventListener(
+    "click",
+    e => {
 
-document.addEventListener("click", (e) => {
+        if (
+            notificationDropdown &&
+            notificationBtn &&
+            !notificationBtn.contains(e.target) &&
+            !notificationDropdown.contains(e.target)
+        ) {
 
-    if (
-        notificationDropdown &&
-        notificationBtn &&
-        !notificationBtn.contains(e.target)
-    ) {
+            notificationDropdown.classList.remove(
+                "show"
+            );
 
-        notificationDropdown.classList.remove("show");
+        }
 
     }
-
-});
-
-
-// ======================================
-// FIRESTORE ADVERTISING INQUIRIES
-// ======================================
-
-const advertisingQuery = query(
-    collection(db, "advertising_inquiries"),
-    orderBy("createdAt", "desc")
 );
 
 
-onSnapshot(
+// =====================================================
+// ADVERTISING FIRESTORE
+// =====================================================
 
-    advertisingQuery,
-
-    (snapshot) => {
-
-        console.log(
-            "Advertising inquiries:",
-            snapshot.size
-        );
-
-
-        if (!notificationList) {
-
-            console.error(
-                "notificationList not found in dashboard.html"
-            );
-
-            return;
-
-        }
+const advertisingQuery =
+    query(
+        collection(
+            db,
+            "advertising_inquiries"
+        ),
+        orderBy(
+            "createdAt",
+            "desc"
+        )
+    );
 
 
-        notificationList.innerHTML = "";
+if (notificationList) {
 
-        let unreadCount = 0;
+    onSnapshot(
+        advertisingQuery,
+
+        snapshot => {
+
+            notificationList.innerHTML = "";
+
+            let unreadCount = 0;
 
 
-        // ==================================
-        // NO DATA
-        // ==================================
+            if (snapshot.empty) {
 
-        if (snapshot.empty) {
+                notificationList.innerHTML = `
+                    <div class="empty-notification">
 
-            notificationList.innerHTML = `
+                        <i class="fas fa-inbox"></i>
 
-                <div class="empty-notification">
+                        <p>
+                            No advertising inquiries.
+                        </p>
 
-                    <i class="fas fa-inbox"></i>
+                    </div>
+                `;
 
-                    <p>
-                        No advertising inquiries.
-                    </p>
 
-                </div>
+                if (notificationCount) {
 
-            `;
+                    notificationCount.style.display =
+                        "none";
+
+                }
+
+                return;
+
+            }
+
+
+            snapshot.forEach(docSnap => {
+
+                const data =
+                    docSnap.data();
+
+                const id =
+                    docSnap.id;
+
+
+                if (
+                    data.read === false ||
+                    data.status === "new"
+                ) {
+
+                    unreadCount++;
+
+                }
+
+
+                const item =
+                    document.createElement("div");
+
+
+                item.className =
+                    "notification-item";
+
+
+                item.innerHTML = `
+
+                    <div class="notification-icon">
+
+                        <i class="fas fa-bullhorn"></i>
+
+                    </div>
+
+
+                    <div class="notification-content">
+
+                        <strong>
+                            ${data.businessName || "New Client"}
+                        </strong>
+
+                        <span>
+                            ${data.package || "Advertising Inquiry"}
+                        </span>
+
+                        <small>
+                            ${data.contactPerson || ""}
+                        </small>
+
+                    </div>
+
+
+                    <i class="fas fa-chevron-right notification-arrow"></i>
+
+                `;
+
+
+                item.addEventListener(
+                    "click",
+                    async () => {
+
+                        try {
+
+                            await updateDoc(
+                                doc(
+                                    db,
+                                    "advertising_inquiries",
+                                    id
+                                ),
+                                {
+                                    read: true,
+                                    status: "read"
+                                }
+                            );
+
+
+                            window.location.href =
+                                `advertising-inquiry.html?id=${id}`;
+
+                        } catch (error) {
+
+                            console.error(
+                                "Failed to open advertising inquiry:",
+                                error
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                notificationList.appendChild(
+                    item
+                );
+
+            });
+
 
             if (notificationCount) {
 
-                notificationCount.style.display = "none";
+                if (unreadCount > 0) {
 
-            }
+                    notificationCount.style.display =
+                        "flex";
 
-            return;
+                    notificationCount.textContent =
+                        unreadCount;
 
-        }
+                } else {
 
-
-        // ==================================
-        // LOOP
-        // ==================================
-
-        snapshot.forEach((docSnap) => {
-
-            const data = docSnap.data();
-
-            const id = docSnap.id;
-
-
-            console.log(
-                "Advertising inquiry:",
-                id,
-                data
-            );
-
-
-            // ==================================
-            // UNREAD
-            // ==================================
-
-            if (
-                data.read === false ||
-                data.status === "new"
-            ) {
-
-                unreadCount++;
-
-            }
-
-
-            // ==================================
-            // CREATE ITEM
-            // ==================================
-
-            const item =
-                document.createElement("div");
-
-            item.className =
-                "notification-item";
-
-
-            item.innerHTML = `
-
-                <div class="notification-icon">
-
-                    <i class="fas fa-bullhorn"></i>
-
-                </div>
-
-
-                <div class="notification-content">
-
-                    <strong>
-                        ${data.businessName || "New Client"}
-                    </strong>
-
-                    <span>
-                        ${data.package || "Advertising Inquiry"}
-                    </span>
-
-                    <small>
-                        ${data.contactPerson || ""}
-                    </small>
-
-                </div>
-
-
-                <i class="fas fa-chevron-right notification-arrow"></i>
-
-            `;
-
-
-            // ==================================
-            // CLICK
-            // ==================================
-
-            item.addEventListener(
-                "click",
-                async () => {
-
-                    console.log(
-                        "Opening inquiry:",
-                        id
-                    );
-
-
-                    try {
-
-                        await updateDoc(
-    doc(
-        db,
-        "advertising_inquiries",
-        id
-    ),
-    {
-        read: true,
-        status: "read"
-    }
-);
-
-
-                        window.location.href =
-                            `advertising-inquiry.html?id=${id}`;
-
-                    }
-
-                    catch (error) {
-
-                        console.error(
-                            "Failed to open advertising inquiry:",
-                            error
-                        );
-
-                    }
+                    notificationCount.style.display =
+                        "none";
 
                 }
+
+            }
+
+        },
+
+        error => {
+
+            console.error(
+                "Advertising notification listener error:",
+                error
             );
 
-
-            notificationList.appendChild(item);
-
-        });
-
-
-        // ==================================
-        // BADGE
-        // ==================================
-
-        if (notificationCount) {
-
-            if (unreadCount > 0) {
-
-                notificationCount.style.display =
-                    "flex";
-
-                notificationCount.textContent =
-                    unreadCount;
-
-            }
-
-            else {
-
-                notificationCount.style.display =
-                    "none";
-
-            }
-
         }
+    );
 
-    },
-
-    (error) => {
-
-        console.error(
-            "Advertising notification listener error:",
-            error
-        );
-
-    }
-
-);
+}
 
 
-// ======================================
-// VIEW ALL
-// ======================================
+// =====================================================
+// VIEW ALL ADVERTISING
+// =====================================================
 
 const viewAllNotifications =
     document.getElementById(
@@ -1879,3 +2210,37 @@ if (viewAllNotifications) {
     );
 
 }
+
+
+// =====================================================
+// START PROFILE
+// =====================================================
+
+auth.onAuthStateChanged(
+    user => {
+
+        if (user) {
+
+            loadDashboardProfile();
+
+        }
+
+    }
+);
+
+
+console.log(
+    "================================="
+);
+
+console.log(
+    "🔥 DASHBOARD.JS LOADED"
+);
+
+console.log(
+    "🔥 ARTICLE COUNT FIX ENABLED"
+);
+
+console.log(
+    "================================="
+);
