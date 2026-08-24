@@ -1172,7 +1172,7 @@ async function loadDashboardCounters() {
     try {
 
         // ==============================
-        // TOTAL ARTICLES
+        // LOAD NEWS
         // ==============================
 
         const newsSnapshot =
@@ -1180,21 +1180,61 @@ async function loadDashboardCounters() {
                 collection(db, "news")
             );
 
+
+        // ==============================
+        // COUNT ARTICLES ONLY
+        // ==============================
+
+        let articleCount = 0;
+
+        newsSnapshot.forEach((docSnap) => {
+
+            const data = docSnap.data();
+
+            /*
+             * ARTICLE ONLY
+             *
+             * Kapag may type field na "video",
+             * HUWAG isama sa article count.
+             *
+             * Normal news documents na walang type
+             * ay articles pa rin.
+             */
+
+            const type =
+                String(data.type || "")
+                    .trim()
+                    .toLowerCase();
+
+            if (type === "video") {
+                return;
+            }
+
+            articleCount++;
+
+        });
+
+
+        // ==============================
+        // TOTAL ARTICLES
+        // ==============================
+
         const totalArticle =
             document.getElementById("totalArticle") ||
             document.getElementById("totalArticles") ||
             document.getElementById("totalNews");
 
+
         if (totalArticle) {
 
             totalArticle.textContent =
-                newsSnapshot.size;
+                articleCount;
 
         }
 
 
         // ==============================
-        // TOTAL UPLOADS / VIDEOS
+        // LOAD VIDEOS
         // ==============================
 
         const videoSnapshot =
@@ -1202,11 +1242,38 @@ async function loadDashboardCounters() {
                 collection(db, "videos")
             );
 
-        const totalUploads =
-            document.getElementById("totalUploads") ||
+
+        // ==============================
+        // TOTAL VIDEOS
+        // ==============================
+
+        const totalVideos =
             document.getElementById("totalVideos");
 
+
+        if (totalVideos) {
+
+            totalVideos.textContent =
+                videoSnapshot.size;
+
+        }
+
+
+        // ==============================
+        // TOTAL UPLOADS
+        // ==============================
+
+        const totalUploads =
+            document.getElementById("totalUploads");
+
+
         if (totalUploads) {
+
+            /*
+             * Uploads = videos uploaded.
+             * Kung gusto mong ibang definition
+             * ng Uploads, pwede natin baguhin later.
+             */
 
             totalUploads.textContent =
                 videoSnapshot.size;
@@ -1223,8 +1290,10 @@ async function loadDashboardCounters() {
                 collection(db, "users")
             );
 
+
         const totalUsers =
             document.getElementById("totalUsers");
+
 
         if (totalUsers) {
 
@@ -1234,24 +1303,54 @@ async function loadDashboardCounters() {
         }
 
 
-        console.log("Dashboard Counters:", {
-            articles: newsSnapshot.size,
-            uploads: videoSnapshot.size,
-            users: usersSnapshot.size
-        });
+        // ==============================
+        // DEBUG
+        // ==============================
 
-    }
+        console.log(
+            "================================"
+        );
 
-    catch (error) {
+        console.log(
+            "📊 DASHBOARD COUNTERS"
+        );
+
+        console.log(
+            "📰 Total Articles:",
+            articleCount
+        );
+
+        console.log(
+            "🎬 Total Videos:",
+            videoSnapshot.size
+        );
+
+        console.log(
+            "📤 Total Uploads:",
+            videoSnapshot.size
+        );
+
+        console.log(
+            "👥 Total Users:",
+            usersSnapshot.size
+        );
+
+        console.log(
+            "================================"
+        );
+
+
+    } catch (error) {
 
         console.error(
-            "Dashboard counters error:",
+            "❌ Dashboard counters error:",
             error
         );
 
     }
 
 }
+
 
 loadDashboardCounters();
 
