@@ -188,75 +188,106 @@ onclick="deleteContent('${item.id}','${item.type}')">
 // LOAD NEWS
 // =====================
 
-async function loadNews(){
+async function loadNews() {
 
-if(!newsTable) return;  
+    if (!newsTable) return;
 
-try{  
+    try {
 
-    allNews = [];  
+        allNews = [];
 
-    // NEWS  
-    const newsSnap = await getDocs(collection(db,"news"));  
+        // =========================
+        // LOAD ARTICLES
+        // =========================
 
-    newsSnap.forEach(docSnap=>{  
+        const newsSnap =
+            await getDocs(collection(db, "news"));
 
-        allNews.push({  
-            id: docSnap.id,  
-            type: "news",  
-            ...docSnap.data()  
-        });  
+        newsSnap.forEach(docSnap => {
 
-    });  
+            allNews.push({
+                id: docSnap.id,
+                type: "news",
+                ...docSnap.data()
+            });
 
-    // VIDEOS  
-    const videoSnap = await getDocs(collection(db,"videos"));  
+        });
 
-    videoSnap.forEach(docSnap=>{  
 
-        allNews.push({  
-            id: docSnap.id,  
-            type: "video",  
-            ...docSnap.data()  
-        });  
+        // =========================
+        // LOAD VIDEOS
+        // =========================
 
-    });  
+        const videoSnap =
+            await getDocs(collection(db, "videos"));
 
-    // Published only  
-    const published = allNews.filter(item => {  
+        videoSnap.forEach(docSnap => {
 
-if(item.type==="video"){  
+            allNews.push({
+                id: docSnap.id,
+                type: "video",
+                ...docSnap.data()
+            });
 
-    return true;  
+        });
 
-}  
 
-return item.status==="published";
+        // =========================
+        // DISPLAY
+        // =========================
 
-});
+        const published = allNews.filter(item => {
 
-// Latest first  
-    published.sort((a,b)=>{  
+            // Videos are always displayed
+            if (item.type === "video") {
+                return true;
+            }
 
-        const A = a.publishedAt?.seconds || a.createdAt?.seconds || 0;  
-        const B = b.publishedAt?.seconds || b.createdAt?.seconds || 0;  
+            // Articles must be published
+            return item.status === "published";
 
-        return B - A;  
+        });
 
-    });  
 
-    renderNews(published);  
+        // =========================
+        // SORT LATEST FIRST
+        // =========================
 
-}catch(err){  
+        published.sort((a, b) => {
 
-    console.error(err);  
+            const A =
+                a.publishedAt?.seconds ||
+                a.createdAt?.seconds ||
+                0;
+
+            const B =
+                b.publishedAt?.seconds ||
+                b.createdAt?.seconds ||
+                0;
+
+            return B - A;
+
+        });
+
+
+        renderNews(published);
+
+        console.log(
+            "✅ NEWS LOADED:",
+            published.length,
+            published
+        );
+
+    } catch (err) {
+
+        console.error(
+            "❌ LOAD NEWS ERROR:",
+            err
+        );
+
+    }
 
 }
-
-}
-
-loadNews();
-
 // =====================
 // SEARCH
 // =====================
