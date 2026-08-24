@@ -1,3 +1,5 @@
+console.log("🔥 HERO.JS LOADED");
+
 import { db } from "./firebase.js";
 
 import {
