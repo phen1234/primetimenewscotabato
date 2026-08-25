@@ -1,442 +1,653 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Primetime News CMS</title>
+    <title>Primetime News CMS</title>
 
-<link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
 </head>
 
 <body>
 
-    
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
 
-<!-- SIDEBAR -->
+    <aside class="sidebar">
 
-<div class="sidebar">
+        <div class="logo">
 
-<div class="logo">
+            <img
+                id="siteLogo"
+                src="../images/PRIMETIME NEWS LOGO.png"
+                alt="Primetime News Logo">
 
-    <img
-        id="siteLogo"
-        src="../images/PRIMETIME NEWS LOGO.png"
-        alt="Logo">
-
-    <h2 id="siteName">
-        Loading...
-    </h2>
-
-</div>
-<ul>
-
-<li class="active">
-    <i class="fas fa-chart-pie"></i>
-    <span>Dashboard</span>
-</li>
-
-<li id="analyticsBtn">
-    <i class="fas fa-chart-line"></i>
-    <span>Analytics</span>
-</li>
-
-
-<li id="categorySidebarBtn">
-    <i class="fas fa-folder"></i>
-    <span>Categories</span>
-</li>
-
-<li id="usersBtn">
-    <i class="fas fa-users"></i>
-    <span>Accounts</span>
-</li>
-
-<li id="settingsMenu">
-    <i class="fas fa-gear"></i>
-    <span>Settings</span>
-</li>
-
-<li id="logoutBtn">
-    <i class="fas fa-right-from-bracket"></i>
-    <span>Logout</span>
-</li>
-
-</ul>
-
-</div>
-
-<!-- MAIN -->
-
-<div class="main">
-
-<!-- TOPBAR -->
-
-<div class="topbar">
-
-<div class="search">
-
-<i class="fas fa-search"></i>
-
-<input
-type="text"
-placeholder="Search News...">
-
-</div>
-
-<div class="top-right">
-
-<div class="notification" id="notificationBtn">
-
-    <i class="fas fa-bell"></i>
-
-    <span class="badge" id="notificationCount"></span>
-
-    <div class="notification-dropdown" id="notificationDropdown">
-
-        <div class="notification-header">
-            <h3>Advertising Inquiries</h3>
-        </div>
-
-        <div id="notificationList">
-
-            <div class="empty-notification">
-                <i class="fas fa-spinner fa-spin"></i>
-                <p>Loading...</p>
-            </div>
-
-        </div>
-
-        <div class="notification-footer">
-
-            <button id="viewAllNotifications">
-                View All Inquiries
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="messages" id="messagesBtn">
-
-    <div class="message-dropdown" id="messageDropdown">
-
-    <h3>Messages</h3>
-
-    <div id="messageList">
-
-        <p>No new messages.</p>
-
-    </div>
-
-    <button id="viewAllMessages">
-
-        View All Messages
-
-    </button>
-
-</div>
-
-    <i class="fas fa-envelope"></i>
-
-    <span class="badge" id="messageCount">0</span>
-
-</div>
-
-<div class="clock-area">
-
-<div id="clock"></div>
-
-<small id="currentDate"></small>
-
-</div>
-
-<div class="admin">
-
-<img
-id="adminPhoto"
-src="../images/default-user.png">
-
-<div>
-
-    <h4 id="adminName">
-        Loading...
-    </h4>
-
-    <div class="user-status">
-        <span class="online-dot"></span>
-        <small>Online</small>
-    </div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- WELCOME -->
-
-<section class="welcome">
-
-<h1>
-
-Welcome Back 👋
-
-</h1>
-
-<p>
-
-Manage your news, weather, livestreams and website content.
-
-</p>
-
-</section>
-
-<!-- CARDS -->
-
-<div class="cards">
-
-<div class="card">
-    <i class="fas fa-newspaper"></i>
-    <h3>Total Article</h3>
-    <h1 id="totalArticle">0</h1>
-</div>
-
-<div class="card">
-    <i class="fas fa-video"></i>
-    <h3>Total Videos</h3>
-    <h1 id="totalVideos">0</h1>
-</div>
-
-<div class="card">
-    <i class="fas fa-upload"></i>
-    <h3>Total Uploads</h3>
-    <h1 id="totalUploads">0</h1>
-</div>
-
-<div class="card">
-    <i class="fas fa-eye"></i>
-    <h3>Total Content Views</h3>
-    <h1 id="totalViews">0</h1>
-</div>
-
-<div class="card">
-    <i class="fas fa-users"></i>
-    <h3>Total Users</h3>
-    <h1 id="totalUsers">0</h1>
-</div>
-
-<div class="card">
-    <i class="fas fa-users"></i>
-    <h3>Total Visitors</h3>
-    <h1 id="todayVisitors">0</h1>
-</div>
-
-</div>
-
-<!-- QUICK ACTION -->
-
-<div class="quick-actions">
-
-    <button id="addNewsBtn">
-        <i class="fas fa-plus-circle"></i>
-        Add News Article
-    </button>
-
-    <button id="addVideoBtn">
-    <i class="fas fa-video"></i>
-    Add Videos
-</button>
-
-    <button id="liveWebsiteBtn">
-        <i class="fas fa-globe"></i>
-        Live Website
-    </button>
-
-    <button id="newsManagerBtn">
-        <i class="fas fa-newspaper"></i>
-        News Manager
-    </button>
-
-</div>
-
-<!-- =========================
-MAIN CONTENT
-========================= -->
-
-<div class="dashboard-grid">
-
-    <!-- Latest News -->
-
-    <div class="news-panel">
-
-        <div class="panel-title">
-
-            <h2>
-                <i class="fas fa-newspaper"></i>
-                Latest News
+            <h2 id="siteName">
+                Loading...
             </h2>
 
-            <button class="view-all" id="viewAllNewsBtn"> View All</button>
-
         </div>
 
-        <table>
+        <ul class="sidebar-menu">
 
-            <thead>
+            <li class="active">
+                <i class="fas fa-chart-pie"></i>
+                <span>Dashboard</span>
+            </li>
 
-                <tr>
+            <li id="analyticsBtn">
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics</span>
+            </li>
 
-                    <th>Headline</th>
+            <li id="categorySidebarBtn">
+                <i class="fas fa-folder"></i>
+                <span>Categories</span>
+            </li>
 
-                    <th>Category</th>
+            <li id="usersBtn">
+                <i class="fas fa-users"></i>
+                <span>Accounts</span>
+            </li>
 
-                    <th>Status</th>
+            <li id="settingsMenu">
+                <i class="fas fa-gear"></i>
+                <span>Settings</span>
+            </li>
 
-                    <th>Date</th>
+            <li id="logoutBtn">
+                <i class="fas fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </li>
 
-                    <th>Action</th>
+        </ul>
 
-                </tr>
-
-            </thead>
-
-            <tbody id="newsTable"> </tbody>
-
-        </table>
-
-    </div>
-
-    <!-- RIGHT PANEL -->
-
-    <div class="right-panel">
-
-   
-           <!-- Weather -->
-
-<div class="weather-widget">
-
-    <h2>
-    <i class="fas fa-cloud-sun"></i>
-    Current Weather
-</h2>
-
-<div class="weather-temp" id="weatherTemp">
-    Loading...
-</div>
-
-<p id="weatherCondition">
-    Loading...
-</p>
-
-<hr>
-
-<p>
-    💧 Humidity :
-    <span id="weatherHumidity">--</span>
-</p>
-
-<p>
-    🌬 Wind :
-    <span id="weatherWind">--</span>
-</p>
-
-<p>
-    🌅 Sunrise :
-    <span id="weatherSunrise">--</span>
-</p>
-
-<p>
-    🌇 Sunset :
-    <span id="weatherSunset">--</span>
-</p>
-
-</div>
-
-<!-- Recent Activity -->
-
-<div class="activity-widget">
-
-    <div class="activity-header">
-
-        <div>
-            <h2>
-                <i class="fas fa-clock"></i>
-                Recent Activity
-            </h2> 
-        </br>
-
-            <span id="activityCount">
-                0 Activities
-            </span>
-        </div>
-
-        <a href="recent-activity.html" class="view-all-activity">
-            View All
-            <i class="fas fa-arrow-right"></i>
-        </a>
-
-    </div>
+    </aside>
 
 
-    <ul id="recentActivityList">
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
 
-        <li class="activity-loading">
+    <main class="main">
 
-            <i class="fas fa-spinner fa-spin"></i>
+        <!-- =================================================
+             TOPBAR
+        ================================================== -->
 
-            <div>
-                <strong>Loading activity...</strong>
+        <div class="topbar">
 
-                <span>
-                    Please wait...
-                </span>
+            <div class="search">
+
+                <i class="fas fa-search"></i>
+
+                <input
+                    type="text"
+                    placeholder="Search News...">
+
             </div>
 
-        </li>
 
-    </ul>
+            <div class="top-right">
 
-</div>
+                <!-- Notification -->
 
-<script type="module" src="../js/online-status.js"></script>
+                <div class="notification" id="notificationBtn">
 
-<script type="module">
-import { auth } from "../js/firebase.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+                    <i class="fas fa-bell"></i>
 
-onAuthStateChanged(auth, (user) => {
+                    <span
+                        class="badge"
+                        id="notificationCount">
+                    </span>
 
-    console.log("CURRENT USER:", user);
 
-});
-</script>
+                    <div
+                        class="notification-dropdown"
+                        id="notificationDropdown">
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                        <div class="notification-header">
 
-<script type="module" src="../js/firebase.js"></script>
-<script type="module" src="../js/dashboard.js"></script>
-<script type="module" src="../js/online-status.js"></script>
-<script type="module" src="../js/visitor.js"></script>
-<script type="module" src="../js/heartbeat.js"></script>
-<script type="module" src="../js/website-settings.js"></script>
-<script src="../js/weather.js"></script>
-<script type="module" src="../js/load-logo.js"></script>
+                            <h3>
+                                Advertising Inquiries
+                            </h3>
 
-<script type="module" src="../js/permissions.js"></script>
-<script type="module" src="js/advertise.js"></script>
-<script type="module" src="js/advertising-inquiries.js"></script>
+                        </div>
+
+
+                        <div id="notificationList">
+
+                            <div class="empty-notification">
+
+                                <i class="fas fa-spinner fa-spin"></i>
+
+                                <p>
+                                    Loading...
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="notification-footer">
+
+                            <button id="viewAllNotifications">
+                                View All Inquiries
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Messages -->
+
+                <div class="messages" id="messagesBtn">
+
+                    <i class="fas fa-envelope"></i>
+
+                    <span
+                        class="badge"
+                        id="messageCount">
+                        0
+                    </span>
+
+
+                    <div
+                        class="message-dropdown"
+                        id="messageDropdown">
+
+                        <h3>
+                            Messages
+                        </h3>
+
+                        <div id="messageList">
+
+                            <p>
+                                No new messages.
+                            </p>
+
+                        </div>
+
+                        <button id="viewAllMessages">
+                            View All Messages
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Clock -->
+
+                <div class="clock-area">
+
+                    <div id="clock">
+                        --:--
+                    </div>
+
+                    <small id="currentDate">
+                        Loading...
+                    </small>
+
+                </div>
+
+
+                <!-- Admin -->
+
+                <div class="admin">
+
+                    <img
+                        id="adminPhoto"
+                        src="../images/default-user.png"
+                        alt="Admin">
+
+                    <div>
+
+                        <h4 id="adminName">
+                            Loading...
+                        </h4>
+
+                        <div class="user-status">
+
+                            <span class="online-dot"></span>
+
+                            <small>
+                                Online
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             WELCOME
+        ================================================== -->
+
+        <section class="welcome">
+
+            <h1>
+                Welcome Back 👋
+            </h1>
+
+            <p>
+                Manage your news, weather, livestreams and website content.
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================== -->
+
+        <section class="cards">
+
+            <div class="card">
+
+                <i class="fas fa-newspaper"></i>
+
+                <h3>
+                    Total Article
+                </h3>
+
+                <h1 id="totalArticle">
+                    0
+                </h1>
+
+            </div>
+
+
+            <div class="card">
+
+                <i class="fas fa-video"></i>
+
+                <h3>
+                    Total Videos
+                </h3>
+
+                <h1 id="totalVideos">
+                    0
+                </h1>
+
+            </div>
+
+
+            <div class="card">
+
+                <i class="fas fa-upload"></i>
+
+                <h3>
+                    Total Uploads
+                </h3>
+
+                <h1 id="totalUploads">
+                    0
+                </h1>
+
+            </div>
+
+
+            <div class="card">
+
+                <i class="fas fa-eye"></i>
+
+                <h3>
+                    Total Content Views
+                </h3>
+
+                <h1 id="totalViews">
+                    0
+                </h1>
+
+            </div>
+
+
+            <div class="card">
+
+                <i class="fas fa-users"></i>
+
+                <h3>
+                    Total Users
+                </h3>
+
+                <h1 id="totalUsers">
+                    0
+                </h1>
+
+            </div>
+
+
+            <div class="card">
+
+                <i class="fas fa-user-group"></i>
+
+                <h3>
+                    Total Visitors
+                </h3>
+
+                <h1 id="todayVisitors">
+                    0
+                </h1>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+        ================================================== -->
+
+        <section class="quick-actions">
+
+            <button id="addNewsBtn">
+
+                <i class="fas fa-plus-circle"></i>
+
+                Add News Article
+
+            </button>
+
+
+            <button id="addVideoBtn">
+
+                <i class="fas fa-video"></i>
+
+                Add Videos
+
+            </button>
+
+
+            <button id="liveWebsiteBtn">
+
+                <i class="fas fa-globe"></i>
+
+                Live Website
+
+            </button>
+
+
+            <button id="newsManagerBtn">
+
+                <i class="fas fa-newspaper"></i>
+
+                News Manager
+
+            </button>
+
+        </section>
+
+
+        <!-- =================================================
+             DASHBOARD GRID
+        ================================================== -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- =================================================
+                 LATEST NEWS
+            ================================================== -->
+
+            <div class="news-panel">
+
+                <div class="panel-title">
+
+                    <h2>
+
+                        <i class="fas fa-newspaper"></i>
+
+                        Latest News
+
+                    </h2>
+
+
+                    <button
+                        class="view-all"
+                        id="viewAllNewsBtn">
+
+                        View All
+
+                    </button>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Headline
+                                </th>
+
+                                <th>
+                                    Category
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Date
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="newsTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 RIGHT PANEL
+            ================================================== -->
+
+            <div class="right-panel">
+
+
+                <!-- WEATHER -->
+
+                <div class="weather-widget">
+
+                    <h2>
+
+                        <i class="fas fa-cloud-sun"></i>
+
+                        Current Weather
+
+                    </h2>
+
+
+                    <div
+                        class="weather-temp"
+                        id="weatherTemp">
+
+                        Loading...
+
+                    </div>
+
+
+                    <p id="weatherCondition">
+                        Loading...
+                    </p>
+
+
+                    <hr>
+
+
+                    <p>
+                        💧 Humidity :
+                        <span id="weatherHumidity">
+                            --
+                        </span>
+                    </p>
+
+
+                    <p>
+                        🌬 Wind :
+                        <span id="weatherWind">
+                            --
+                        </span>
+                    </p>
+
+
+                    <p>
+                        🌅 Sunrise :
+                        <span id="weatherSunrise">
+                            --
+                        </span>
+                    </p>
+
+
+                    <p>
+                        🌇 Sunset :
+                        <span id="weatherSunset">
+                            --
+                        </span>
+                    </p>
+
+                </div>
+
+
+                <!-- RECENT ACTIVITY -->
+
+                <div class="activity-widget">
+
+                    <div class="activity-header">
+
+                        <div>
+
+                            <h2>
+
+                                <i class="fas fa-clock"></i>
+
+                                Recent Activity
+
+                            </h2>
+
+
+                            <span id="activityCount">
+                                0 Activities
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="recent-activity.html"
+                            class="view-all-activity">
+
+                            View All
+
+                            <i class="fas fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+
+                    <ul id="recentActivityList">
+
+                        <li class="activity-loading">
+
+                            <i class="fas fa-spinner fa-spin"></i>
+
+                            <div>
+
+                                <strong>
+                                    Loading activity...
+                                </strong>
+
+                                <span>
+                                    Please wait...
+                                </span>
+
+                            </div>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         SCRIPTS
+    ====================================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <script type="module" src="../js/firebase.js"></script>
+
+    <script type="module" src="../js/dashboard.js"></script>
+
+    <script type="module" src="../js/visitor.js"></script>
+
+    <script type="module" src="../js/heartbeat.js"></script>
+
+    <script type="module" src="../js/website-settings.js"></script>
+
+    <script type="module" src="../js/load-logo.js"></script>
+
+    <script type="module" src="../js/permissions.js"></script>
+
+    <script type="module" src="../js/online-status.js"></script>
+
+
+    <script src="../js/weather.js"></script>
+
+
+    <script type="module" src="../js/advertise.js"></script>
+
+    <script type="module" src="../js/advertising-inquiries.js"></script>
 
 
 </body>
