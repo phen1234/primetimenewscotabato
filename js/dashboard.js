@@ -20,10 +20,59 @@ import {
 
 
 // =====================================================
+// DASHBOARD JS LOADED
+// =====================================================
+
+console.log("🔥 DASHBOARD.JS LOADED");
+
+
+// =====================================================
 // LOAD THEME
 // =====================================================
 
 loadTheme();
+
+
+// =====================================================
+// FIRESTORE DATE HELPER
+// =====================================================
+
+function getFirestoreTime(timestamp) {
+
+    if (!timestamp) {
+        return 0;
+    }
+
+    if (
+        typeof timestamp === "object" &&
+        typeof timestamp.toDate === "function"
+    ) {
+        return timestamp.toDate().getTime();
+    }
+
+    if (
+        typeof timestamp === "object" &&
+        typeof timestamp.seconds === "number"
+    ) {
+        return timestamp.seconds * 1000;
+    }
+
+    if (timestamp instanceof Date) {
+        return timestamp.getTime();
+    }
+
+    if (typeof timestamp === "string") {
+
+        const time =
+            new Date(timestamp).getTime();
+
+        return isNaN(time)
+            ? 0
+            : time;
+    }
+
+    return 0;
+}
 
 
 // =====================================================
@@ -34,15 +83,26 @@ async function loadWebsiteSettings() {
 
     try {
 
-        const ref = doc(db, "settings", "website");
-        const snap = await getDoc(ref);
+        const ref =
+            doc(db, "settings", "website");
+
+        const snap =
+            await getDoc(ref);
 
         if (!snap.exists()) {
-            console.log("Website settings not found.");
+
+            console.log(
+                "Website settings not found."
+            );
+
             return;
         }
 
-        const data = snap.data();
+        const data =
+            snap.data();
+
+
+        // WEBSITE NAME
 
         const siteName =
             document.getElementById("siteName");
@@ -52,18 +112,28 @@ async function loadWebsiteSettings() {
             siteName.textContent =
                 data.websiteName ||
                 "Primetime News Cotabato";
-
         }
+
+
+        // WEBSITE LOGO
 
         const siteLogo =
             document.getElementById("siteLogo");
 
-        if (siteLogo && data.websiteLogo) {
+        if (
+            siteLogo &&
+            data.websiteLogo
+        ) {
 
             siteLogo.src =
                 data.websiteLogo;
-
         }
+
+
+        console.log(
+            "Website Settings:",
+            data
+        );
 
     } catch (error) {
 
@@ -105,11 +175,15 @@ const weatherSunset =
 function setWeatherLoading(message) {
 
     if (weatherTemp) {
-        weatherTemp.textContent = message;
+
+        weatherTemp.textContent =
+            message;
     }
 
     if (weatherCondition) {
-        weatherCondition.textContent = message;
+
+        weatherCondition.textContent =
+            message;
     }
 
 }
@@ -141,6 +215,7 @@ async function loadWeather() {
         const settingsSnap =
             await getDoc(settingsRef);
 
+
         if (!settingsSnap.exists()) {
 
             setWeatherLoading(
@@ -150,19 +225,24 @@ async function loadWeather() {
             return;
         }
 
+
         const settings =
             settingsSnap.data();
+
 
         const city =
             settings.weatherCity ||
             "Cotabato City";
 
+
         const apiKey =
             settings.weatherApiKey;
+
 
         const unit =
             settings.weatherUnit ||
             "metric";
+
 
         if (!apiKey) {
 
@@ -177,14 +257,17 @@ async function loadWeather() {
             return;
         }
 
+
         const url =
             `https://api.openweathermap.org/data/2.5/weather` +
             `?q=${encodeURIComponent(city)}` +
             `&units=${unit}` +
             `&appid=${apiKey}`;
 
+
         const response =
             await fetch(url);
+
 
         if (!response.ok) {
 
@@ -204,17 +287,21 @@ async function loadWeather() {
             return;
         }
 
+
         const data =
             await response.json();
 
+
+        // TEMPERATURE
 
         if (weatherTemp) {
 
             weatherTemp.textContent =
                 `${Math.round(data.main.temp)}°C`;
-
         }
 
+
+        // CONDITION
 
         if (weatherCondition) {
 
@@ -225,25 +312,28 @@ async function loadWeather() {
             weatherCondition.textContent =
                 description.charAt(0).toUpperCase() +
                 description.slice(1);
-
         }
 
+
+        // HUMIDITY
 
         if (weatherHumidity) {
 
             weatherHumidity.textContent =
                 `${data.main.humidity}%`;
-
         }
 
+
+        // WIND
 
         if (weatherWind) {
 
             weatherWind.textContent =
                 `${data.wind?.speed ?? 0} m/s`;
-
         }
 
+
+        // SUNRISE
 
         if (weatherSunrise) {
 
@@ -251,9 +341,10 @@ async function loadWeather() {
                 formatWeatherTime(
                     data.sys?.sunrise
                 );
-
         }
 
+
+        // SUNSET
 
         if (weatherSunset) {
 
@@ -261,8 +352,8 @@ async function loadWeather() {
                 formatWeatherTime(
                     data.sys?.sunset
                 );
-
         }
+
 
         console.log(
             "Dashboard Weather Loaded:",
@@ -288,56 +379,6 @@ loadWeather();
 
 
 // =====================================================
-// FIRESTORE DATE HELPERS
-// =====================================================
-
-function getFirestoreTime(timestamp) {
-
-    if (!timestamp) {
-        return 0;
-    }
-
-    if (
-        typeof timestamp === "object" &&
-        typeof timestamp.toDate === "function"
-    ) {
-
-        return timestamp.toDate().getTime();
-
-    }
-
-    if (
-        typeof timestamp === "object" &&
-        typeof timestamp.seconds === "number"
-    ) {
-
-        return timestamp.seconds * 1000;
-
-    }
-
-    if (timestamp instanceof Date) {
-
-        return timestamp.getTime();
-
-    }
-
-    if (typeof timestamp === "string") {
-
-        const time =
-            new Date(timestamp).getTime();
-
-        return isNaN(time)
-            ? 0
-            : time;
-
-    }
-
-    return 0;
-
-}
-
-
-// =====================================================
 // DASHBOARD COUNTERS
 // =====================================================
 
@@ -345,9 +386,9 @@ async function loadDashboardCounters() {
 
     try {
 
-        // ---------------------------------------------
-        // TOTAL ARTICLES
-        // ---------------------------------------------
+        // =================================================
+        // GET ARTICLES
+        // =================================================
 
         const newsSnapshot =
             await getDocs(
@@ -355,9 +396,9 @@ async function loadDashboardCounters() {
             );
 
 
-        // ---------------------------------------------
-        // TOTAL VIDEOS
-        // ---------------------------------------------
+        // =================================================
+        // GET VIDEOS
+        // =================================================
 
         const videoSnapshot =
             await getDocs(
@@ -365,9 +406,9 @@ async function loadDashboardCounters() {
             );
 
 
-        // ---------------------------------------------
-        // TOTAL USERS
-        // ---------------------------------------------
+        // =================================================
+        // GET USERS
+        // =================================================
 
         const usersSnapshot =
             await getDocs(
@@ -375,107 +416,90 @@ async function loadDashboardCounters() {
             );
 
 
-        // ---------------------------------------------
-        // ARTICLE COUNT
-        // ---------------------------------------------
+        // =================================================
+        // TOTAL ARTICLES
+        // =================================================
 
         const totalArticle =
             document.getElementById(
                 "totalArticle"
             );
 
+
         if (totalArticle) {
 
             totalArticle.textContent =
                 newsSnapshot.size;
-
         }
 
 
-        // ---------------------------------------------
-        // VIDEO COUNT
-        // ---------------------------------------------
+        // =================================================
+        // TOTAL VIDEOS
+        // =================================================
 
-       const videoSnapshot =
-    await getDocs(
-        collection(db, "videos")
-    );
-
-const totalVideos =
-    document.getElementById("totalVideos");
-
-if (totalVideos) {
-
-    totalVideos.textContent =
-        videoSnapshot.size;
-
-}
+        const totalVideos =
+            document.getElementById(
+                "totalVideos"
+            );
 
 
-        // ==============================
-// TOTAL VIDEOS
-// ==============================
+        if (totalVideos) {
 
-const videoSnapshot =
-    await getDocs(
-        collection(db, "videos")
-    );
-
-const totalVideos =
-    document.getElementById("totalVideos");
-
-if (totalVideos) {
-
-    totalVideos.textContent =
-        videoSnapshot.size;
-
-}
+            totalVideos.textContent =
+                videoSnapshot.size;
+        }
 
 
-// ==============================
-// TOTAL UPLOADS
-// ARTICLES + VIDEOS
-// ==============================
+        // =================================================
+        // TOTAL UPLOADS
+        // ARTICLES + VIDEOS
+        // =================================================
 
-const uploadCount =
-    newsSnapshot.size + videoSnapshot.size;
-
-const totalUploads =
-    document.getElementById("totalUploads");
-
-if (totalUploads) {
-
-    totalUploads.textContent =
-        uploadCount;
-
-}
+        const uploadCount =
+            newsSnapshot.size +
+            videoSnapshot.size;
 
 
-        
+        const totalUploads =
+            document.getElementById(
+                "totalUploads"
+            );
 
-        // ---------------------------------------------
+
+        if (totalUploads) {
+
+            totalUploads.textContent =
+                uploadCount;
+        }
+
+
+        // =================================================
         // TOTAL USERS
-        // ---------------------------------------------
+        // =================================================
 
         const totalUsers =
             document.getElementById(
                 "totalUsers"
             );
 
+
         if (totalUsers) {
 
             totalUsers.textContent =
                 usersSnapshot.size;
-
         }
 
+
+        // =================================================
+        // DEBUG
+        // =================================================
 
         console.log(
             "================================="
         );
 
         console.log(
-            "DASHBOARD COUNTERS"
+            "🔥 DASHBOARD COUNTERS"
         );
 
         console.log(
@@ -489,6 +513,11 @@ if (totalUploads) {
         );
 
         console.log(
+            "Total Uploads:",
+            uploadCount
+        );
+
+        console.log(
             "Total Users:",
             usersSnapshot.size
         );
@@ -497,10 +526,11 @@ if (totalUploads) {
             "================================="
         );
 
+
     } catch (error) {
 
         console.error(
-            "Dashboard counters error:",
+            "❌ Dashboard counters error:",
             error
         );
 
@@ -529,6 +559,7 @@ async function loadAnalytics() {
                 collection(db, "news")
             );
 
+
         newsSnap.forEach(docSnap => {
 
             const news =
@@ -547,6 +578,7 @@ async function loadAnalytics() {
                 collection(db, "videos")
             );
 
+
         videoSnap.forEach(docSnap => {
 
             const video =
@@ -563,6 +595,7 @@ async function loadAnalytics() {
                 "totalViews"
             );
 
+
         if (totalViewsElement) {
 
             totalViewsElement.textContent =
@@ -570,10 +603,12 @@ async function loadAnalytics() {
 
         }
 
+
         console.log(
             "Total Content Views:",
             totalViews
         );
+
 
     } catch (error) {
 
@@ -594,10 +629,16 @@ loadAnalytics();
 // =====================================================
 
 const dailyAnalyticsRef =
-    doc(db, "analytics", "daily");
+    doc(
+        db,
+        "analytics",
+        "daily"
+    );
+
 
 onSnapshot(
     dailyAnalyticsRef,
+
     snap => {
 
         const todayVisitors =
@@ -605,9 +646,11 @@ onSnapshot(
                 "todayVisitors"
             );
 
+
         if (!todayVisitors) {
             return;
         }
+
 
         if (!snap.exists()) {
 
@@ -617,10 +660,12 @@ onSnapshot(
             return;
         }
 
+
         todayVisitors.textContent =
             snap.data().todayVisitors || 0;
 
     },
+
     error => {
 
         console.error(
@@ -636,69 +681,75 @@ onSnapshot(
 // ADMIN PROFILE
 // =====================================================
 
-auth.onAuthStateChanged(async user => {
+auth.onAuthStateChanged(
+    async user => {
 
-    if (!user) {
-        return;
-    }
-
-    try {
-
-        const snap =
-            await getDoc(
-                doc(
-                    db,
-                    "users",
-                    user.uid
-                )
-            );
-
-        if (!snap.exists()) {
+        if (!user) {
             return;
         }
 
-        const data =
-            snap.data();
+
+        try {
+
+            const snap =
+                await getDoc(
+                    doc(
+                        db,
+                        "users",
+                        user.uid
+                    )
+                );
 
 
-        const adminName =
-            document.getElementById(
-                "adminName"
+            if (!snap.exists()) {
+                return;
+            }
+
+
+            const data =
+                snap.data();
+
+
+            const adminName =
+                document.getElementById(
+                    "adminName"
+                );
+
+
+            if (adminName) {
+
+                adminName.textContent =
+                    data.name ||
+                    user.displayName ||
+                    "Administrator";
+            }
+
+
+            const adminPhoto =
+                document.getElementById(
+                    "adminPhoto"
+                );
+
+
+            if (adminPhoto) {
+
+                adminPhoto.src =
+                    data.photoURL ||
+                    "../images/default-user.png";
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "Admin profile error:",
+                error
             );
 
-        if (adminName) {
-
-            adminName.textContent =
-                data.name ||
-                user.displayName ||
-                "Administrator";
-
         }
-
-
-        const adminPhoto =
-            document.getElementById(
-                "adminPhoto"
-            );
-
-        if (adminPhoto) {
-
-            adminPhoto.src =
-                data.photoURL ||
-                "../images/default-user.png";
-
-        }
-
-    } catch (error) {
-
-        console.error(
-            "Admin profile error:",
-            error
-        );
 
     }
-
-});
+);
 
 
 // =====================================================
@@ -710,9 +761,11 @@ async function loadDashboardProfile() {
     const user =
         auth.currentUser;
 
+
     if (!user) {
         return;
     }
+
 
     try {
 
@@ -723,12 +776,15 @@ async function loadDashboardProfile() {
                 user.uid
             );
 
+
         const snap =
             await getDoc(userRef);
+
 
         if (!snap.exists()) {
             return;
         }
+
 
         const data =
             snap.data();
@@ -739,13 +795,13 @@ async function loadDashboardProfile() {
                 "dashboardName"
             );
 
+
         if (dashboardName) {
 
             dashboardName.textContent =
                 data.name ||
                 user.displayName ||
                 "User";
-
         }
 
 
@@ -754,13 +810,14 @@ async function loadDashboardProfile() {
                 "dashboardProfile"
             );
 
+
         if (dashboardProfile) {
 
             dashboardProfile.src =
                 data.photoURL ||
                 "../images/PRIMETIME NEWS LOGO.png";
-
         }
+
 
     } catch (error) {
 
@@ -775,6 +832,23 @@ async function loadDashboardProfile() {
 
 
 // =====================================================
+// LOAD PROFILE AFTER AUTH
+// =====================================================
+
+auth.onAuthStateChanged(
+    user => {
+
+        if (user) {
+
+            loadDashboardProfile();
+
+        }
+
+    }
+);
+
+
+// =====================================================
 // RECENT ACTIVITY
 // =====================================================
 
@@ -785,29 +859,60 @@ async function loadRecentActivity() {
             "recentActivityList"
         );
 
+
     if (!activityList) {
         return;
     }
 
+
     activityList.innerHTML = `
+
         <li class="activity-loading">
+
             <i class="fas fa-spinner fa-spin"></i>
-            Loading activity...
+
+            <div>
+
+                <strong>
+                    Loading activity...
+                </strong>
+
+                <span>
+                    Please wait...
+                </span>
+
+            </div>
+
         </li>
+
     `;
 
 
     try {
+
+        // =================================================
+        // GET NEWS
+        // =================================================
 
         const newsSnap =
             await getDocs(
                 collection(db, "news")
             );
 
+
+        // =================================================
+        // GET VIDEOS
+        // =================================================
+
         const videosSnap =
             await getDocs(
                 collection(db, "videos")
             );
+
+
+        // =================================================
+        // GET USERS
+        // =================================================
 
         const usersSnap =
             await getDocs(
@@ -818,14 +923,15 @@ async function loadRecentActivity() {
         const activities = [];
 
 
-        // ---------------------------------------------
-        // NEWS
-        // ---------------------------------------------
+        // =================================================
+        // NEWS ACTIVITIES
+        // =================================================
 
         newsSnap.forEach(docSnap => {
 
             const data =
                 docSnap.data();
+
 
             activities.push({
 
@@ -855,14 +961,15 @@ async function loadRecentActivity() {
         });
 
 
-        // ---------------------------------------------
-        // VIDEOS
-        // ---------------------------------------------
+        // =================================================
+        // VIDEO ACTIVITIES
+        // =================================================
 
         videosSnap.forEach(docSnap => {
 
             const data =
                 docSnap.data();
+
 
             activities.push({
 
@@ -892,18 +999,21 @@ async function loadRecentActivity() {
         });
 
 
-        // ---------------------------------------------
-        // USERS
-        // ---------------------------------------------
+        // =================================================
+        // USER ACTIVITIES
+        // =================================================
 
         usersSnap.forEach(docSnap => {
 
             const data =
                 docSnap.data();
 
+
             activities.push({
 
                 type: "user",
+
+                id: docSnap.id,
 
                 title:
                     data.name ||
@@ -928,19 +1038,25 @@ async function loadRecentActivity() {
         });
 
 
-        // ---------------------------------------------
-        // SORT
-        // ---------------------------------------------
+        // =================================================
+        // SORT NEWEST FIRST
+        // =================================================
 
-        activities.sort((a, b) => {
+        activities.sort(
+            (a, b) => {
 
-            return (
-                getFirestoreTime(b.date) -
-                getFirestoreTime(a.date)
-            );
+                return (
+                    getFirestoreTime(b.date) -
+                    getFirestoreTime(a.date)
+                );
 
-        });
+            }
+        );
 
+
+        // =================================================
+        // ACTIVITY COUNT
+        // =================================================
 
         const totalActivities =
             activities.length;
@@ -951,6 +1067,7 @@ async function loadRecentActivity() {
                 "activityCount"
             );
 
+
         if (activityCount) {
 
             activityCount.textContent =
@@ -959,9 +1076,14 @@ async function loadRecentActivity() {
         }
 
 
+        // =================================================
+        // EMPTY
+        // =================================================
+
         if (totalActivities === 0) {
 
             activityList.innerHTML = `
+
                 <li class="activity-empty">
 
                     <i class="fas fa-clock"></i>
@@ -979,11 +1101,16 @@ async function loadRecentActivity() {
                     </div>
 
                 </li>
+
             `;
 
             return;
         }
 
+
+        // =================================================
+        // SHOW LATEST 6
+        // =================================================
 
         activityList.innerHTML = "";
 
@@ -991,6 +1118,7 @@ async function loadRecentActivity() {
         activities
             .slice(0, 6)
             .forEach(activity => {
+
 
                 const time =
                     getFirestoreTime(
@@ -1015,7 +1143,9 @@ async function loadRecentActivity() {
 
 
                 const li =
-                    document.createElement("li");
+                    document.createElement(
+                        "li"
+                    );
 
 
                 li.className =
@@ -1030,6 +1160,7 @@ async function loadRecentActivity() {
 
                     </div>
 
+
                     <div class="activity-content">
 
                         <strong>
@@ -1037,7 +1168,9 @@ async function loadRecentActivity() {
                         </strong>
 
                         <span class="activity-category">
+
                             ${activity.category}
+
                         </span>
 
                         <small>
@@ -1056,6 +1189,8 @@ async function loadRecentActivity() {
                 activityList.appendChild(li);
 
 
+                // CLICK ACTIVITY
+
                 li.addEventListener(
                     "click",
                     () => {
@@ -1066,14 +1201,16 @@ async function loadRecentActivity() {
 
 
                         if (
-                            activity.type === "video"
+                            activity.type ===
+                            "video"
                         ) {
 
                             window.location.href =
                                 `../videos.html?id=${activity.id}&autoplay=1`;
 
                         } else if (
-                            activity.type === "article"
+                            activity.type ===
+                            "article"
                         ) {
 
                             window.location.href =
@@ -1202,6 +1339,7 @@ const logoutBtn =
         "logoutBtn"
     );
 
+
 if (logoutBtn) {
 
     logoutBtn.addEventListener(
@@ -1210,13 +1348,17 @@ if (logoutBtn) {
 
             e.preventDefault();
 
+
             if (
                 !confirm(
                     "Are you sure you want to logout?"
                 )
             ) {
+
                 return;
+
             }
+
 
             try {
 
@@ -1237,11 +1379,14 @@ if (logoutBtn) {
 
                 }
 
+
                 await signOut(auth);
+
 
                 window.location.replace(
                     "../index.html"
                 );
+
 
             } catch (error) {
 
@@ -1249,6 +1394,7 @@ if (logoutBtn) {
                     "Logout error:",
                     error
                 );
+
 
                 alert(
                     error.message
@@ -1271,25 +1417,16 @@ const messagesBtn =
         "messagesBtn"
     );
 
-const messageDropdown =
+
+const dropdown =
     document.getElementById(
         "messageDropdown"
-    );
-
-const messageList =
-    document.getElementById(
-        "messageList"
-    );
-
-const messageCount =
-    document.getElementById(
-        "messageCount"
     );
 
 
 if (
     messagesBtn &&
-    messageDropdown
+    dropdown
 ) {
 
     messagesBtn.addEventListener(
@@ -1298,9 +1435,32 @@ if (
 
             e.stopPropagation();
 
-            messageDropdown.classList.toggle(
+            dropdown.classList.toggle(
                 "show"
             );
+
+        }
+    );
+
+
+    document.addEventListener(
+        "click",
+        e => {
+
+            if (
+                !messagesBtn.contains(
+                    e.target
+                ) &&
+                !dropdown.contains(
+                    e.target
+                )
+            ) {
+
+                dropdown.classList.remove(
+                    "show"
+                );
+
+            }
 
         }
     );
@@ -1308,38 +1468,19 @@ if (
 }
 
 
-document.addEventListener(
-    "click",
-    e => {
+// =====================================================
+// CONTACT MESSAGES
+// =====================================================
 
-        if (
-            messageDropdown &&
-            messagesBtn &&
-            !messagesBtn.contains(e.target) &&
-            !messageDropdown.contains(e.target)
-        ) {
-
-            messageDropdown.classList.remove(
-                "show"
-            );
-
-        }
-
-    }
-);
+const messageList =
+    document.getElementById(
+        "messageList"
+    );
 
 
-const messagesQuery =
-    query(
-        collection(
-            db,
-            "contactMessages"
-        ),
-        orderBy(
-            "createdAt",
-            "desc"
-        ),
-        limit(5)
+const messageCount =
+    document.getElementById(
+        "messageCount"
     );
 
 
@@ -1348,11 +1489,27 @@ if (
     messageCount
 ) {
 
+    const messagesQuery =
+        query(
+            collection(
+                db,
+                "contactMessages"
+            ),
+            orderBy(
+                "createdAt",
+                "desc"
+            ),
+            limit(5)
+        );
+
+
     onSnapshot(
         messagesQuery,
+
         snapshot => {
 
             messageList.innerHTML = "";
+
 
             let unread = 0;
 
@@ -1360,6 +1517,7 @@ if (
             if (snapshot.empty) {
 
                 messageList.innerHTML = `
+
                     <div class="empty-message">
 
                         <i class="fas fa-inbox"></i>
@@ -1369,58 +1527,68 @@ if (
                         </p>
 
                     </div>
+
                 `;
+
 
                 messageCount.style.display =
                     "none";
 
-                return;
 
+                return;
             }
 
 
-            snapshot.forEach(docSnap => {
+            snapshot.forEach(
+                docSnap => {
 
-                const data =
-                    docSnap.data();
+                    const data =
+                        docSnap.data();
 
 
-                if (
-                    data.status === "unread"
-                ) {
+                    if (
+                        data.status ===
+                        "unread"
+                    ) {
 
-                    unread++;
+                        unread++;
+
+                    }
+
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    div.className =
+                        "message-item";
+
+
+                    div.innerHTML = `
+
+                        <h4>
+                            ${data.name || "Unknown"}
+                        </h4>
+
+                        <p>
+                            ${data.subject || "No subject"}
+                        </p>
+
+                        <small>
+                            ${data.email || ""}
+                        </small>
+
+                    `;
+
+
+                    messageList.appendChild(
+                        div
+                    );
 
                 }
-
-
-                const div =
-                    document.createElement("div");
-
-                div.className =
-                    "message-item";
-
-
-                div.innerHTML = `
-
-                    <h4>
-                        ${data.name || ""}
-                    </h4>
-
-                    <p>
-                        ${data.subject || ""}
-                    </p>
-
-                    <small>
-                        ${data.email || ""}
-                    </small>
-
-                `;
-
-
-                messageList.appendChild(div);
-
-            });
+            );
 
 
             if (unread > 0) {
@@ -1439,6 +1607,7 @@ if (
             }
 
         },
+
         error => {
 
             console.error(
@@ -1452,10 +1621,15 @@ if (
 }
 
 
+// =====================================================
+// VIEW ALL MESSAGES
+// =====================================================
+
 const viewAllMessages =
     document.getElementById(
         "viewAllMessages"
     );
+
 
 if (viewAllMessages) {
 
@@ -1486,6 +1660,7 @@ function updateClock() {
         document.getElementById(
             "clock"
         );
+
 
     const currentDate =
         document.getElementById(
@@ -1526,7 +1701,9 @@ function updateClock() {
 
 }
 
+
 updateClock();
+
 
 setInterval(
     updateClock,
@@ -1543,14 +1720,16 @@ const addNewsBtn =
         "addNewsBtn"
     );
 
+
 if (addNewsBtn) {
 
-    addNewsBtn.onclick = () => {
+    addNewsBtn.onclick =
+        () => {
 
-        window.location.href =
-            "add-news.html";
+            window.location.href =
+                "add-news.html";
 
-    };
+        };
 
 }
 
@@ -1560,14 +1739,16 @@ const addVideoBtn =
         "addVideoBtn"
     );
 
+
 if (addVideoBtn) {
 
-    addVideoBtn.onclick = () => {
+    addVideoBtn.onclick =
+        () => {
 
-        window.location.href =
-            "add-video.html";
+            window.location.href =
+                "add-video.html";
 
-    };
+        };
 
 }
 
@@ -1577,14 +1758,16 @@ const liveWebsiteBtn =
         "liveWebsiteBtn"
     );
 
+
 if (liveWebsiteBtn) {
 
-    liveWebsiteBtn.onclick = () => {
+    liveWebsiteBtn.onclick =
+        () => {
 
-        window.location.href =
-            "../index.html?cms=1";
+            window.location.href =
+                "../index.html?cms=1";
 
-    };
+        };
 
 }
 
@@ -1594,14 +1777,16 @@ const newsManagerBtn =
         "newsManagerBtn"
     );
 
+
 if (newsManagerBtn) {
 
-    newsManagerBtn.onclick = () => {
+    newsManagerBtn.onclick =
+        () => {
 
-        window.location.href =
-            "news.html";
+            window.location.href =
+                "news.html";
 
-    };
+        };
 
 }
 
@@ -1611,20 +1796,23 @@ const viewAllNewsBtn =
         "viewAllNewsBtn"
     );
 
+
 if (viewAllNewsBtn) {
 
-    viewAllNewsBtn.onclick = () => {
+    viewAllNewsBtn.onclick =
+        () => {
 
-        window.location.href =
-            "../latest-news.html";
+            window.location.href =
+                "../latest-news.html";
 
-    };
+        };
 
 }
 
 
 // =====================================================
 // LATEST CONTENT
+// NEWS + VIDEOS
 // =====================================================
 
 const newsTable =
@@ -1641,172 +1829,210 @@ async function loadLatestContent() {
 
 
     newsTable.innerHTML = `
+
         <tr>
-            <td colspan="5"
-                style="text-align:center;padding:30px;">
+
+            <td colspan="5">
                 Loading...
             </td>
+
         </tr>
+
     `;
 
 
     try {
 
-        const items = [];
+        let items = [];
 
 
-        // ---------------------------------------------
-        // LOAD NEWS
-        // ---------------------------------------------
+        // =================================================
+        // NEWS
+        // =================================================
 
         const newsSnap =
             await getDocs(
-                collection(db, "news")
+                collection(
+                    db,
+                    "news"
+                )
             );
 
 
-        newsSnap.forEach(docSnap => {
+        newsSnap.forEach(
+            docSnap => {
 
-            const data =
-                docSnap.data();
+                items.push({
 
+                    id: docSnap.id,
 
-            // Published articles only
+                    type: "news",
 
-            if (
-                String(data.status || "")
-                    .trim()
-                    .toLowerCase()
-                !== "published"
-            ) {
+                    ...docSnap.data()
 
-                return;
+                });
 
             }
+        );
 
 
-            items.push({
-
-                id: docSnap.id,
-
-                type: "news",
-
-                ...data
-
-            });
-
-        });
-
-
-        // ---------------------------------------------
-        // LOAD VIDEOS
-        // ---------------------------------------------
+        // =================================================
+        // VIDEOS
+        // =================================================
 
         const videoSnap =
             await getDocs(
-                collection(db, "videos")
+                collection(
+                    db,
+                    "videos"
+                )
             );
 
 
-        videoSnap.forEach(docSnap => {
+        videoSnap.forEach(
+            docSnap => {
 
-            items.push({
+                items.push({
 
-                id: docSnap.id,
+                    id: docSnap.id,
 
-                type: "video",
+                    type: "video",
 
-                ...docSnap.data()
+                    ...docSnap.data()
 
-            });
+                });
 
-        });
-
-
-        // ---------------------------------------------
-        // SORT NEWEST
-        // ---------------------------------------------
-
-        items.sort((a, b) => {
-
-            const A =
-                getFirestoreTime(
-                    a.publishedAt ||
-                    a.createdAt
-                );
-
-            const B =
-                getFirestoreTime(
-                    b.publishedAt ||
-                    b.createdAt
-                );
-
-            return B - A;
-
-        });
+            }
+        );
 
 
-        // ---------------------------------------------
+        console.log(
+            "Latest Content:",
+            items
+        );
+
+
+        // =================================================
+        // FILTER
+        // PUBLISHED NEWS + ALL VIDEOS
+        // =================================================
+
+        items =
+            items.filter(
+                item => {
+
+                    if (
+                        item.type ===
+                        "video"
+                    ) {
+
+                        return true;
+
+                    }
+
+
+                    return (
+                        item.status ===
+                        "published"
+                    );
+
+                }
+            );
+
+
+        // =================================================
+        // SORT
+        // =================================================
+
+        items.sort(
+            (a, b) => {
+
+                const A =
+                    getFirestoreTime(
+                        a.publishedAt ||
+                        a.createdAt
+                    );
+
+
+                const B =
+                    getFirestoreTime(
+                        b.publishedAt ||
+                        b.createdAt
+                    );
+
+
+                return B - A;
+
+            }
+        );
+
+
+        // =================================================
         // LATEST 5
-        // ---------------------------------------------
+        // =================================================
 
-        const latest =
+        items =
             items.slice(0, 5);
-
-
-        if (latest.length === 0) {
-
-            newsTable.innerHTML = `
-                <tr>
-                    <td colspan="5"
-                        style="text-align:center;padding:30px;">
-                        No content found.
-                    </td>
-                </tr>
-            `;
-
-            return;
-
-        }
 
 
         newsTable.innerHTML = "";
 
 
-        // ---------------------------------------------
+        // =================================================
+        // EMPTY
+        // =================================================
+
+        if (items.length === 0) {
+
+            newsTable.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        style="text-align:center;padding:30px;"
+                    >
+                        No content found.
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+        }
+
+
+        // =================================================
         // RENDER
-        // ---------------------------------------------
+        // =================================================
 
-        latest.forEach(item => {
+        items.forEach(
+            item => {
 
-            const title =
-                item.headline ||
-                item.title ||
-                "Untitled";
-
-
-            const category =
-                item.category ||
-                (item.type === "video"
-                    ? "Video"
-                    : "News");
+                const title =
+                    item.headline ||
+                    item.title ||
+                    "Untitled";
 
 
-            const timestamp =
-                item.publishedAt ||
-                item.createdAt;
+                const category =
+                    item.category ||
+                    "-";
 
 
-            const date =
-                getFirestoreTime(
-                    timestamp
-                );
+                const dateTime =
+                    getFirestoreTime(
+                        item.publishedAt ||
+                        item.createdAt
+                    );
 
 
-            const formattedDate =
-                date
-                    ? new Date(date)
-                        .toLocaleDateString(
+                const publishDate =
+                    dateTime
+                        ? new Date(
+                            dateTime
+                        ).toLocaleDateString(
                             "en-US",
                             {
                                 month: "short",
@@ -1814,124 +2040,118 @@ async function loadLatestContent() {
                                 year: "numeric"
                             }
                         )
-                    : "-";
+                        : "-";
 
 
-            const row =
-                document.createElement("tr");
+                const typeBadge =
+                    item.type ===
+                    "video"
 
+                        ? `
+                            <span class="typeBadge video">
 
-            row.innerHTML = `
-
-                <td>
-
-                    <span class="typeBadge ${item.type}">
-
-                        ${
-                            item.type === "video"
-
-                            ? `
                                 <i class="fab fa-youtube"></i>
+
                                 VIDEO
-                              `
 
-                            : `
+                            </span>
+                        `
+
+                        : `
+                            <span class="typeBadge news">
+
                                 <i class="fas fa-newspaper"></i>
+
                                 NEWS ARTICLE
-                              `
-                        }
 
-                    </span>
-
-                    <br>
-
-                    <strong>
-                        ${title}
-                    </strong>
-
-                </td>
+                            </span>
+                        `;
 
 
-                <td>
+                const editPage =
+                    item.type ===
+                    "video"
 
-                    <span class="categoryBadge">
-                        ${category}
-                    </span>
+                        ? "add-video.html"
 
-                </td>
-
-
-                <td>
-
-                    <span class="published">
-                        Published
-                    </span>
-
-                </td>
+                        : "add-news.html";
 
 
-                <td>
-                    ${formattedDate}
-                </td>
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
 
 
-                <td>
+                row.innerHTML = `
 
-                    <button
-                        class="editBtn"
-                        type="button"
-                    >
+                    <td>
 
-                        <i class="fas fa-edit"></i>
+                        ${typeBadge}
 
-                    </button>
+                        <br>
 
-                </td>
+                        <strong>
+                            ${title}
+                        </strong>
 
-            `;
-
-
-            const editBtn =
-                row.querySelector(
-                    ".editBtn"
-                );
+                    </td>
 
 
-            if (editBtn) {
+                    <td>
 
-                editBtn.addEventListener(
-                    "click",
-                    () => {
+                        <span class="categoryBadge">
 
-                        if (
-                            item.type === "video"
-                        ) {
+                            ${category}
 
-                            window.location.href =
-                                `add-video.html?id=${item.id}`;
+                        </span>
 
-                        } else {
+                    </td>
 
-                            window.location.href =
-                                `add-news.html?id=${item.id}`;
 
-                        }
+                    <td>
 
-                    }
+                        <span class="published">
+
+                            Published
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        ${publishDate}
+
+                    </td>
+
+
+                    <td>
+
+                        <button
+                            class="editBtn"
+                            onclick="
+                                window.location.href='${editPage}?id=${item.id}'
+                            "
+                        >
+
+                            <i class="fas fa-edit"></i>
+
+                        </button>
+
+                    </td>
+
+                `;
+
+
+                newsTable.appendChild(
+                    row
                 );
 
             }
-
-
-            newsTable.appendChild(row);
-
-        });
-
-
-        console.log(
-            "Latest Content:",
-            latest
         );
+
 
     } catch (error) {
 
@@ -1942,12 +2162,20 @@ async function loadLatestContent() {
 
 
         newsTable.innerHTML = `
+
             <tr>
-                <td colspan="5"
-                    style="text-align:center;padding:30px;color:#b00020;">
+
+                <td
+                    colspan="5"
+                    style="text-align:center;padding:30px;"
+                >
+
                     Failed to load content.
+
                 </td>
+
             </tr>
+
         `;
 
     }
@@ -1966,21 +2194,28 @@ const notificationBtn =
         "notificationBtn"
     );
 
+
 const notificationDropdown =
     document.getElementById(
         "notificationDropdown"
     );
+
 
 const notificationList =
     document.getElementById(
         "notificationList"
     );
 
+
 const notificationCount =
     document.getElementById(
         "notificationCount"
     );
 
+
+// =====================================================
+// NOTIFICATION BUTTON
+// =====================================================
 
 if (
     notificationBtn &&
@@ -2003,6 +2238,10 @@ if (
 }
 
 
+// =====================================================
+// CLOSE NOTIFICATION
+// =====================================================
+
 document.addEventListener(
     "click",
     e => {
@@ -2010,8 +2249,9 @@ document.addEventListener(
         if (
             notificationDropdown &&
             notificationBtn &&
-            !notificationBtn.contains(e.target) &&
-            !notificationDropdown.contains(e.target)
+            !notificationBtn.contains(
+                e.target
+            )
         ) {
 
             notificationDropdown.classList.remove(
@@ -2025,37 +2265,45 @@ document.addEventListener(
 
 
 // =====================================================
-// ADVERTISING FIRESTORE
+// ADVERTISING INQUIRIES
 // =====================================================
-
-const advertisingQuery =
-    query(
-        collection(
-            db,
-            "advertising_inquiries"
-        ),
-        orderBy(
-            "createdAt",
-            "desc"
-        )
-    );
-
 
 if (notificationList) {
 
+    const advertisingQuery =
+        query(
+            collection(
+                db,
+                "advertising_inquiries"
+            ),
+            orderBy(
+                "createdAt",
+                "desc"
+            )
+        );
+
+
     onSnapshot(
+
         advertisingQuery,
 
         snapshot => {
 
-            notificationList.innerHTML = "";
+            notificationList.innerHTML =
+                "";
+
 
             let unreadCount = 0;
 
 
+            // =================================================
+            // EMPTY
+            // =================================================
+
             if (snapshot.empty) {
 
                 notificationList.innerHTML = `
+
                     <div class="empty-notification">
 
                         <i class="fas fa-inbox"></i>
@@ -2065,6 +2313,7 @@ if (notificationList) {
                         </p>
 
                     </div>
+
                 `;
 
 
@@ -2075,114 +2324,153 @@ if (notificationList) {
 
                 }
 
-                return;
 
+                return;
             }
 
 
-            snapshot.forEach(docSnap => {
+            // =================================================
+            // LOOP
+            // =================================================
 
-                const data =
-                    docSnap.data();
+            snapshot.forEach(
+                docSnap => {
 
-                const id =
-                    docSnap.id;
-
-
-                if (
-                    data.read === false ||
-                    data.status === "new"
-                ) {
-
-                    unreadCount++;
-
-                }
+                    const data =
+                        docSnap.data();
 
 
-                const item =
-                    document.createElement("div");
+                    const id =
+                        docSnap.id;
 
 
-                item.className =
-                    "notification-item";
+                    // UNREAD
 
+                    if (
+                        data.read === false ||
+                        data.status === "new"
+                    ) {
 
-                item.innerHTML = `
-
-                    <div class="notification-icon">
-
-                        <i class="fas fa-bullhorn"></i>
-
-                    </div>
-
-
-                    <div class="notification-content">
-
-                        <strong>
-                            ${data.businessName || "New Client"}
-                        </strong>
-
-                        <span>
-                            ${data.package || "Advertising Inquiry"}
-                        </span>
-
-                        <small>
-                            ${data.contactPerson || ""}
-                        </small>
-
-                    </div>
-
-
-                    <i class="fas fa-chevron-right notification-arrow"></i>
-
-                `;
-
-
-                item.addEventListener(
-                    "click",
-                    async () => {
-
-                        try {
-
-                            await updateDoc(
-                                doc(
-                                    db,
-                                    "advertising_inquiries",
-                                    id
-                                ),
-                                {
-                                    read: true,
-                                    status: "read"
-                                }
-                            );
-
-
-                            window.location.href =
-                                `advertising-inquiry.html?id=${id}`;
-
-                        } catch (error) {
-
-                            console.error(
-                                "Failed to open advertising inquiry:",
-                                error
-                            );
-
-                        }
+                        unreadCount++;
 
                     }
-                );
 
 
-                notificationList.appendChild(
-                    item
-                );
+                    // CREATE ITEM
 
-            });
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
 
+
+                    item.className =
+                        "notification-item";
+
+
+                    item.innerHTML = `
+
+                        <div class="notification-icon">
+
+                            <i class="fas fa-bullhorn"></i>
+
+                        </div>
+
+
+                        <div class="notification-content">
+
+                            <strong>
+
+                                ${
+                                    data.businessName ||
+                                    "New Client"
+                                }
+
+                            </strong>
+
+
+                            <span>
+
+                                ${
+                                    data.package ||
+                                    "Advertising Inquiry"
+                                }
+
+                            </span>
+
+
+                            <small>
+
+                                ${
+                                    data.contactPerson ||
+                                    ""
+                                }
+
+                            </small>
+
+                        </div>
+
+
+                        <i class="fas fa-chevron-right notification-arrow"></i>
+
+                    `;
+
+
+                    // CLICK
+
+                    item.addEventListener(
+                        "click",
+                        async () => {
+
+                            try {
+
+                                await updateDoc(
+                                    doc(
+                                        db,
+                                        "advertising_inquiries",
+                                        id
+                                    ),
+                                    {
+                                        read: true,
+                                        status: "read"
+                                    }
+                                );
+
+
+                                window.location.href =
+                                    `advertising-inquiry.html?id=${id}`;
+
+
+                            } catch (error) {
+
+                                console.error(
+                                    "Failed to open advertising inquiry:",
+                                    error
+                                );
+
+                            }
+
+                        }
+                    );
+
+
+                    notificationList.appendChild(
+                        item
+                    );
+
+                }
+            );
+
+
+            // =================================================
+            // BADGE
+            // =================================================
 
             if (notificationCount) {
 
-                if (unreadCount > 0) {
+                if (
+                    unreadCount > 0
+                ) {
 
                     notificationCount.style.display =
                         "flex";
@@ -2209,13 +2497,14 @@ if (notificationList) {
             );
 
         }
+
     );
 
 }
 
 
 // =====================================================
-// VIEW ALL ADVERTISING
+// VIEW ALL NOTIFICATIONS
 // =====================================================
 
 const viewAllNotifications =
@@ -2240,34 +2529,13 @@ if (viewAllNotifications) {
 
 
 // =====================================================
-// START PROFILE
+// FINAL DEBUG
 // =====================================================
-
-auth.onAuthStateChanged(
-    user => {
-
-        if (user) {
-
-            loadDashboardProfile();
-
-        }
-
-    }
-);
-
-
-console.log(
-    "================================="
-);
-
-console.log(
-    "🔥 DASHBOARD.JS LOADED"
-);
 
 console.log(
     "🔥 ARTICLE COUNT FIX ENABLED"
 );
 
 console.log(
-    "================================="
+    "🔥 TOTAL UPLOADS = ARTICLES + VIDEOS"
 );
