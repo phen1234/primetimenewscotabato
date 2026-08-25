@@ -412,11 +412,32 @@ if (totalVideos) {
 }
 
 
-        // ---------------------------------------------
-        // TOTAL UPLOADS
-        // ---------------------------------------------
+        // ==============================
+// TOTAL VIDEOS
+// ==============================
 
-     const uploadCount =
+const videoSnapshot =
+    await getDocs(
+        collection(db, "videos")
+    );
+
+const totalVideos =
+    document.getElementById("totalVideos");
+
+if (totalVideos) {
+
+    totalVideos.textContent =
+        videoSnapshot.size;
+
+}
+
+
+// ==============================
+// TOTAL UPLOADS
+// ARTICLES + VIDEOS
+// ==============================
+
+const uploadCount =
     newsSnapshot.size + videoSnapshot.size;
 
 const totalUploads =
@@ -428,6 +449,9 @@ if (totalUploads) {
         uploadCount;
 
 }
+
+
+        
 
         // ---------------------------------------------
         // TOTAL USERS
