@@ -4127,6 +4127,12 @@ body.light-mode .notification:hover > i {
 
 }
 
+
+
+
+
+
+
 /* =========================
    DARK MODE
 ========================= */
@@ -4137,6 +4143,252 @@ body.dark-mode .notification > i {
     color: #ffffff !important;
 
 }
+
+/* =========================================================
+   LIGHT MODE
+   KEEP HEADINGS / CATEGORIES / STATUS COLORS
+========================================================= */
+
+/* Main light background only */
+
+body.light-mode {
+    background: #f5f7fb;
+    color: #1f2937;
+}
+
+
+/* =========================================================
+   TOPBAR ICONS
+========================================================= */
+
+body.light-mode .notification > i,
+body.light-mode .messages > i {
+    color: #1f2937 !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    font-size: 20px !important;
+}
+
+body.light-mode .notification:hover > i,
+body.light-mode .messages:hover > i {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   LIGHT PANELS
+   Background only
+========================================================= */
+
+body.light-mode .news-panel,
+body.light-mode .weather-widget,
+body.light-mode .activity-widget {
+
+    background: #ffffff !important;
+
+    border: 1px solid #e5e7eb;
+
+    color: inherit;
+
+}
+
+
+/* =========================================================
+   HEADINGS
+   KEEP ORIGINAL / CLEAR COLORS
+========================================================= */
+
+body.light-mode .panel-title h2,
+body.light-mode .weather-widget h2,
+body.light-mode .activity-header h2 {
+
+    color: inherit !important;
+
+}
+
+body.light-mode .panel-title h2 i,
+body.light-mode .weather-widget h2 i,
+body.light-mode .activity-header h2 i {
+
+    color: #e30613 !important;
+
+}
+
+
+/* =========================================================
+   NEWS TABLE HEADINGS
+========================================================= */
+
+body.light-mode table th {
+
+    color: inherit !important;
+
+}
+
+
+/* =========================================================
+   NEWS HEADLINE
+========================================================= */
+
+body.light-mode #newsTable td strong {
+
+    color: inherit !important;
+
+}
+
+
+/* =========================================================
+   CATEGORY
+   KEEP ORIGINAL COLOR
+========================================================= */
+
+body.light-mode .categoryBadge {
+
+    background: #13264b !important;
+
+    color: #ffffff !important;
+
+}
+
+
+/* =========================================================
+   NEWS TYPE
+   KEEP ORIGINAL COLORS
+========================================================= */
+
+body.light-mode .typeBadge.news {
+
+    background: #1e3a8a !important;
+
+    color: #ffffff !important;
+
+}
+
+body.light-mode .typeBadge.video {
+
+    background: #dc2626 !important;
+
+    color: #ffffff !important;
+
+}
+
+
+/* =========================================================
+   PUBLISHED STATUS
+   KEEP ORIGINAL GREEN
+========================================================= */
+
+body.light-mode .published {
+
+    background: #16a34a !important;
+
+    color: #ffffff !important;
+
+}
+
+
+/* =========================================================
+   WEATHER
+========================================================= */
+
+body.light-mode .weather-temp {
+
+    color: #e30613 !important;
+
+}
+
+body.light-mode .weather-widget hr {
+
+    border-top-color: #e5e7eb !important;
+
+}
+
+
+/* =========================================================
+   RECENT ACTIVITY
+========================================================= */
+
+body.light-mode .activity-widget li {
+
+    border-bottom-color: #e5e7eb;
+
+}
+
+
+/* =========================================================
+   VIEW ALL
+========================================================= */
+
+body.light-mode .view-all {
+
+    color: inherit !important;
+
+}
+
+
+/* =========================================================
+   MESSAGE DROPDOWN
+========================================================= */
+
+body.light-mode .message-dropdown {
+
+    background: #ffffff !important;
+
+    color: #1f2937 !important;
+
+}
+
+body.light-mode .message-dropdown h3 {
+
+    background: #e30613 !important;
+
+    color: #ffffff !important;
+
+}
+
+
+/* =========================================================
+   NOTIFICATION DROPDOWN
+========================================================= */
+
+body.light-mode .notification-dropdown {
+
+    background: #ffffff !important;
+
+    color: #1f2937 !important;
+
+}
+
+body.light-mode .notification-header h3 {
+
+    color: #ffffff !important;
+
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+body.light-mode .badge {
+
+    background: #e30613 !important;
+
+    color: #ffffff !important;
+
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
