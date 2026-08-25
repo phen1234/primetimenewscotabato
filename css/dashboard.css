@@ -4093,6 +4093,54 @@ body.light-mode .empty-notification i {
 
 
 
+/* =========================
+   TOPBAR ICONS - LIGHT MODE
+========================= */
+
+body.light-mode .messages,
+body.light-mode .notification {
+
+    color: #1f2937 !important;
+
+}
+
+body.light-mode .messages i,
+body.light-mode .notification > i {
+
+    color: #1f2937 !important;
+
+}
+
+/* Hover - same red style */
+
+body.light-mode .messages:hover,
+body.light-mode .notification:hover {
+
+    color: #e30613 !important;
+
+}
+
+body.light-mode .messages:hover i,
+body.light-mode .notification:hover > i {
+
+    color: #e30613 !important;
+
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark-mode .messages i,
+body.dark-mode .notification > i {
+
+    color: #ffffff !important;
+
+}
+
+
+
+
 
 
 
