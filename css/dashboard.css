@@ -3436,3 +3436,670 @@ body.dark-mode .news-panel .editBtn:hover {
     }
 
 }
+
+
+
+
+
+
+/* =========================================================
+   FINAL LIGHT MODE FIX
+   DASHBOARD PANELS / HEADERS / CATEGORIES
+========================================================= */
+
+body.light-mode {
+
+    background: #f5f7fb !important;
+    color: #1f2937 !important;
+
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+body.light-mode .sidebar {
+
+    background: #ffffff !important;
+    border-right: 1px solid #e5e7eb !important;
+
+}
+
+body.light-mode .sidebar li {
+
+    color: #374151 !important;
+
+}
+
+body.light-mode .sidebar li i {
+
+    color: #374151 !important;
+
+}
+
+body.light-mode .sidebar li:hover:not(.active) {
+
+    background: #fff1f2 !important;
+    color: #e30613 !important;
+
+}
+
+body.light-mode .sidebar li:hover:not(.active) i {
+
+    color: #e30613 !important;
+
+}
+
+body.light-mode .sidebar li.active {
+
+    background: linear-gradient(
+        135deg,
+        #e30613,
+        #ff4d4d
+    ) !important;
+
+    color: #ffffff !important;
+
+}
+
+body.light-mode .sidebar li.active i {
+
+    color: #ffffff !important;
+
+}
+
+
+/* =========================
+   LOGO / SITE NAME
+========================= */
+
+body.light-mode .logo h2 {
+
+    color: #111827 !important;
+
+}
+
+
+/* =========================
+   TOPBAR
+========================= */
+
+body.light-mode .topbar {
+
+    background: transparent !important;
+    color: #1f2937 !important;
+
+}
+
+body.light-mode .search {
+
+    background: #ffffff !important;
+
+    border: 1px solid #e5e7eb !important;
+
+    box-shadow: 0 3px 12px rgba(15,23,42,.05);
+
+}
+
+body.light-mode .search i {
+
+    color: #6b7280 !important;
+
+}
+
+body.light-mode .search input {
+
+    color: #1f2937 !important;
+
+}
+
+body.light-mode .search input::placeholder {
+
+    color: #9ca3af !important;
+
+}
+
+body.light-mode #clock {
+
+    color: #111827 !important;
+
+}
+
+body.light-mode #currentDate {
+
+    color: #6b7280 !important;
+
+}
+
+
+/* =========================
+   ADMIN
+========================= */
+
+body.light-mode .admin h4 {
+
+    color: #111827 !important;
+
+}
+
+body.light-mode .admin small {
+
+    color: #374151 !important;
+
+}
+
+
+/* =========================
+   WELCOME
+========================= */
+
+body.light-mode .welcome h1 {
+
+    color: #111827 !important;
+
+}
+
+body.light-mode .welcome p {
+
+    color: #64748b !important;
+
+}
+
+
+/* =========================
+   STATISTIC CARDS
+========================= */
+
+body.light-mode .card {
+
+    background: #ffffff !important;
+
+    border: 1px solid #e5e7eb !important;
+
+    color: #1f2937 !important;
+
+    box-shadow:
+        0 4px 15px rgba(15,23,42,.06) !important;
+
+}
+
+body.light-mode .card > i {
+
+    background: #fff1f2 !important;
+
+    color: #e30613 !important;
+
+}
+
+body.light-mode .card h3 {
+
+    color: #64748b !important;
+
+}
+
+body.light-mode .card h1 {
+
+    color: #111827 !important;
+
+}
+
+
+/* =========================
+   QUICK ACTIONS
+========================= */
+
+body.light-mode .quick-actions button {
+
+    background: #ffffff !important;
+
+    border: 1px solid #e5e7eb !important;
+
+    color: #334155 !important;
+
+}
+
+body.light-mode .quick-actions button:hover {
+
+    background: #e30613 !important;
+
+    border-color: #e30613 !important;
+
+    color: #ffffff !important;
+
+}
+
+body.light-mode .quick-actions button:hover i {
+
+    color: #ffffff !important;
+
+}
+
+
+/* =========================
+   MAIN DASHBOARD PANELS
+========================= */
+
+body.light-mode .news-panel,
+body.light-mode .weather-widget,
+body.light-mode .activity-widget {
+
+    background: #ffffff !important;
+
+    color: #1f2937 !important;
+
+    border: 1px solid #e5e7eb !important;
+
+    box-shadow:
+        0 5px 20px rgba(15,23,42,.06) !important;
+
+}
+
+
+/* =========================
+   LATEST NEWS HEADER
+========================= */
+
+body.light-mode .panel-title {
+
+    background: #ffffff !important;
+
+    border-bottom: 1px solid #e5e7eb !important;
+
+}
+
+body.light-mode .panel-title h2 {
+
+    color: #111827 !important;
+
+}
+
+body.light-mode .panel-title h2 i {
+
+    color: #e30613 !important;
+
+}
+
+body.light-mode .view-all {
+
+    background: #f3f4f6 !important;
+
+    color: #374151 !important;
+
+    border: 1px solid #e5e7eb !important;
+
+}
+
+body.light-mode .view-all:hover {
+
+    background: #e30613 !important;
+
+    color: #ffffff !important;
+
+}
+
+
+/* =========================
+   NEWS TABLE HEADER
+========================= */
+
+body.light-mode table {
+
+    background: #ffffff !important;
+
+    color: #1f2937 !important;
+
+}
+
+body.light-mode table thead {
+
+    background: #f8fafc !important;
+
+}
+
+body.light-mode table th {
+
+    background: #f8fafc !important;
+
+    color: #475569 !important;
+
+    border-bottom: 1px solid #e5e7eb !important;
+
+    font-weight: 600 !important;
+
+}
+
+body.light-mode table td {
+
+    color: #374151 !important;
+
+    background: #ffffff !important;
+
+    border-bottom: 1px solid #eef0f3 !important;
+
+}
+
+body.light-mode table tbody tr:hover td {
+
+    background: #fafafa !important;
+
+}
+
+
+/* =========================
+   NEWS HEADLINE
+========================= */
+
+body.light-mode #newsTable td strong {
+
+    color: #1f2937 !important;
+
+}
+
+
+/* =========================
+   CATEGORY BADGE
+========================= */
+
+body.light-mode .categoryBadge {
+
+    background: #eef2ff !important;
+
+    color: #3730a3 !important;
+
+    border: 1px solid #e0e7ff !important;
+
+}
+
+
+/* =========================
+   TYPE BADGE
+========================= */
+
+body.light-mode .typeBadge.news {
+
+    background: #eff6ff !important;
+
+    color: #1d4ed8 !important;
+
+    border: 1px solid #dbeafe !important;
+
+}
+
+body.light-mode .typeBadge.video {
+
+    background: #fef2f2 !important;
+
+    color: #dc2626 !important;
+
+    border: 1px solid #fee2e2 !important;
+
+}
+
+
+/* =========================
+   PUBLISHED STATUS
+========================= */
+
+body.light-mode .published {
+
+    background: #ecfdf5 !important;
+
+    color: #15803d !important;
+
+    border: 1px solid #bbf7d0 !important;
+
+}
+
+
+/* =========================
+   EDIT / DELETE
+========================= */
+
+body.light-mode .editBtn {
+
+    background: #eff6ff !important;
+
+    color: #2563eb !important;
+
+}
+
+body.light-mode .deleteBtn {
+
+    background: #fef2f2 !important;
+
+    color: #dc2626 !important;
+
+}
+
+
+/* =========================
+   WEATHER
+========================= */
+
+body.light-mode .weather-widget {
+
+    background: #ffffff !important;
+
+    color: #1f2937 !important;
+
+}
+
+body.light-mode .weather-widget h2 {
+
+    color: #111827 !important;
+
+}
+
+body.light-mode .weather-widget h2 i {
+
+    color: #e30613 !important;
+
+}
+
+body.light-mode .weather-temp {
+
+    color: #e30613 !important;
+
+}
+
+body.light-mode .weather-widget p {
+
+    color: #475569 !important;
+
+}
+
+body.light-mode .weather-widget span {
+
+    color: #1f2937 !important;
+
+}
+
+body.light-mode .weather-widget hr {
+
+    border-top: 1px solid #e5e7eb !important;
+
+}
+
+
+/* =========================
+   RECENT ACTIVITY
+========================= */
+
+body.light-mode .activity-widget {
+
+    background: #ffffff !important;
+
+    color: #1f2937 !important;
+
+}
+
+body.light-mode .activity-header h2 {
+
+    color: #111827 !important;
+
+}
+
+body.light-mode .activity-header h2 i {
+
+    color: #e30613 !important;
+
+}
+
+body.light-mode #activityCount {
+
+    color: #64748b !important;
+
+}
+
+body.light-mode .view-all-activity {
+
+    color: #e30613 !important;
+
+}
+
+body.light-mode .activity-widget li {
+
+    color: #374151 !important;
+
+    border-bottom: 1px solid #e5e7eb !important;
+
+}
+
+body.light-mode .activity-widget li strong {
+
+    color: #1f2937 !important;
+
+}
+
+body.light-mode .activity-widget li span {
+
+    color: #64748b !important;
+
+}
+
+body.light-mode .activity-widget li:hover {
+
+    background: #fffafa !important;
+
+    color: #e30613 !important;
+
+}
+
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+body.light-mode .notification-dropdown {
+
+    background: #ffffff !important;
+
+    color: #1f2937 !important;
+
+    border: 1px solid #e5e7eb !important;
+
+}
+
+body.light-mode .notification-header {
+
+    background: #e30613 !important;
+
+    color: #ffffff !important;
+
+}
+
+body.light-mode .notification-header h3 {
+
+    color: #ffffff !important;
+
+}
+
+
+/* =========================
+   MESSAGES
+========================= */
+
+body.light-mode .message-dropdown {
+
+    background: #ffffff !important;
+
+    color: #1f2937 !important;
+
+    border: 1px solid #e5e7eb !important;
+
+}
+
+body.light-mode .message-dropdown h3 {
+
+    color: #ffffff !important;
+
+}
+
+body.light-mode .message-item {
+
+    background: #ffffff !important;
+
+    color: #1f2937 !important;
+
+    border-bottom: 1px solid #e5e7eb !important;
+
+}
+
+body.light-mode .message-item h4 {
+
+    color: #1f2937 !important;
+
+}
+
+body.light-mode .message-item p {
+
+    color: #64748b !important;
+
+}
+
+body.light-mode .message-item small {
+
+    color: #94a3b8 !important;
+
+}
+
+body.light-mode .message-dropdown button {
+
+    background: #f8fafc !important;
+
+    color: #374151 !important;
+
+}
+
+
+/* =========================
+   EMPTY STATES
+========================= */
+
+body.light-mode .empty-message,
+body.light-mode .empty-notification {
+
+    color: #64748b !important;
+
+}
+
+body.light-mode .empty-message i,
+body.light-mode .empty-notification i {
+
+    color: #94a3b8 !important;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
