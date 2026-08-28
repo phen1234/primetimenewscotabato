@@ -237,6 +237,16 @@ if (!userSnap.exists) {
     });
 }
 
+        const userData = userSnap.data() || {};
+        const role = userData.role;
+
+        if (role !== "Admin" && role !== "Super Admin") {
+            return res.status(403).json({
+                success: false,
+                error: "Only Admin or Super Admin can delete Cloudinary images."
+            });
+        }
+
         const publicIds = Array.isArray(req.body.publicIds)
             ? [...new Set(req.body.publicIds.filter(Boolean))]
             : [];
@@ -338,19 +348,6 @@ app.get("/", (req, res) => {
         success: true,
         message: "PrimeTime News server is running."
     });
-});
-
-
-// ==========================
-// SERVER
-// ==========================
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, "0.0.0.0", () => {
-
-    console.log(`✅ Server running on port ${PORT}`);
-
 });
 
 
