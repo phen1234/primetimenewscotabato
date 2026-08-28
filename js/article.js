@@ -557,11 +557,8 @@ const articleUrl = window.location.href;
 
 document.getElementById("shareFacebook").addEventListener("click", () => {
 
-    const facebookPreviewUrl =
-        `${window.location.origin}/share/news/${encodeURIComponent(articleId)}`;
-
     window.open(
-        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(facebookPreviewUrl)}`,
+        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl)}`,
         "_blank",
         "width=600,height=500"
     );
