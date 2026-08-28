@@ -57,8 +57,9 @@ export function extractCloudinaryPublicId(url = "") {
         let path = parsed.pathname.slice(index + marker.length);
         const parts = path.split("/").filter(Boolean);
 
-        // Remove delivery transformations, if present.
-        while (parts.length && /^(?:w_|h_|c_|f_|q_|ar_|g_|dpr_|fl_|e_|t_|so_|du_|pg_|vc_|vc_auto|q_auto|f_auto)/i.test(parts[0])) {
+        // Remove delivery transformations, if present. Cloudinary may use
+        // comma-separated transformation flags such as c_fill,w_1200,q_auto.
+        while (parts.length && /^(?:w_|h_|c_|f_|q_|ar_|g_|dpr_|fl_|e_|t_|so_|du_|pg_|vc_|q_auto|f_auto)/i.test(parts[0])) {
             parts.shift();
         }
 
