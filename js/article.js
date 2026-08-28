@@ -555,7 +555,6 @@ loadRelatedNews();
 
 const articleUrl = window.location.href;
 
-// Facebook Share
 document.getElementById("shareFacebook").addEventListener("click", () => {
 
     const facebookPreviewUrl =
