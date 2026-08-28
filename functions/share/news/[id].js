@@ -112,10 +112,10 @@ export async function onRequest(context) {
         */
 
         const url =
-            new URL(
-                `/article.html?id=${encodeURIComponent(newsId)}`,
-                request.url
-            ).toString();
+    new URL(
+        `/article?id=${encodeURIComponent(newsId)}`,
+        request.url
+    ).toString();
 
         /*
         ==========================================
