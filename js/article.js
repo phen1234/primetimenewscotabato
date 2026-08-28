@@ -549,20 +549,20 @@ loadRelatedNews();
 // SHARE BUTTONS
 // ===============================
 
+// ===============================
+// SHARE BUTTONS
+// ===============================
+
 const articleUrl = window.location.href;
 
 // Facebook Share
 document.getElementById("shareFacebook").addEventListener("click", () => {
 
-    // Use the Render server preview endpoint
-    const apiBase =
-        "https://primetimenewscotabato-1.onrender.com";
-
-    const facebookShareUrl =
-        `${apiBase}/share/news/${encodeURIComponent(articleId)}?url=${encodeURIComponent(articleUrl)}`;
+    const facebookPreviewUrl =
+        `${window.location.origin}/share/news/${encodeURIComponent(articleId)}`;
 
     window.open(
-        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(facebookShareUrl)}`,
+        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(facebookPreviewUrl)}`,
         "_blank",
         "width=600,height=500"
     );
