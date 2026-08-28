@@ -21,6 +21,11 @@ import {
     signOut
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
+import {
+    deleteCloudinaryAssets,
+    extractCloudinaryPublicId
+} from "./cloudinary-delete.js";
+
 
 // ===========================
 // LOGOUT
@@ -58,6 +63,7 @@ if (logoutBtn) {
 
 let selectedImages = [];
 let featuredIndex = 0;
+let originalGallery = [];
 
 // ===============================
 // CURRENT ADMIN / AUTHOR
@@ -314,7 +320,16 @@ document.querySelector(".topbar h1").textContent = "Edit News Article";
 document.querySelector(".previewBtn").dataset.mode = "edit";
 document.querySelector(".previewBtn").dataset.id = editId;
 
-    // existing images
+    // Existing Cloudinary images. Keep a separate snapshot so we can
+    // delete only the old images that the editor actually removes.
+    originalGallery = Array.isArray(news.gallery)
+        ? [...news.gallery]
+        : [];
+
+    if (news.featuredImage && !originalGallery.includes(news.featuredImage)) {
+        originalGallery.push(news.featuredImage);
+    }
+
     if (news.gallery && news.gallery.length) {
 
     selectedImages = [...news.gallery];
@@ -814,6 +829,23 @@ publishBtn.addEventListener("click", async () => {
         };
 
         if(editId){
+
+            // On edit, remove only the OLD Cloudinary images that were
+            // actually removed from the gallery. New uploads are untouched.
+            const removedOldImages = originalGallery.filter(
+                oldUrl => !finalGallery.includes(oldUrl)
+            );
+
+            const removedPublicIds = [...new Set(
+                removedOldImages
+                    .map(extractCloudinaryPublicId)
+                    .filter(Boolean)
+            )];
+
+            if (removedPublicIds.length) {
+                updateLoading("Removing deleted images...");
+                await deleteCloudinaryAssets(removedPublicIds);
+            }
 
             newsData.updatedAt = serverTimestamp();
 
