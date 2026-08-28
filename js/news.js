@@ -3,9 +3,15 @@ import { db } from "./firebase.js";
 import {
     collection,
     getDocs,
+    getDoc,
     deleteDoc,
     doc
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+import {
+    deleteCloudinaryAssets,
+    extractCloudinaryPublicId
+} from "./cloudinary-delete.js";
 
 
 // =====================================================
@@ -816,6 +822,38 @@ window.deleteContent =
                     ? "videos"
                     : "news";
 
+            // News images are stored in Cloudinary while their URLs are
+            // stored in Firestore. Remove the Cloudinary assets first so
+            // deleting the Firestore document does not leave orphan files.
+            if (type !== "video") {
+
+                const newsRef = doc(db, collectionName, id);
+                const newsSnap = await getDoc(newsRef);
+
+                if (newsSnap.exists()) {
+
+                    const news = newsSnap.data();
+                    const imageUrls = [];
+
+                    if (Array.isArray(news.gallery)) {
+                        imageUrls.push(...news.gallery);
+                    }
+
+                    if (news.featuredImage) {
+                        imageUrls.push(news.featuredImage);
+                    }
+
+                    const publicIds = [...new Set(
+                        imageUrls
+                            .map(extractCloudinaryPublicId)
+                            .filter(Boolean)
+                    )];
+
+                    if (publicIds.length) {
+                        await deleteCloudinaryAssets(publicIds);
+                    }
+                }
+            }
 
             await deleteDoc(
                 doc(
