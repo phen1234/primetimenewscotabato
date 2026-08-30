@@ -213,26 +213,7 @@ if (featuredImage) {
         // OPEN GRAPH TAGS
         // ==========================================
 
-        const ogTags = `
-
-<!-- =========================================
-     PRIMETIME NEWS COTABATO
-     DYNAMIC FACEBOOK OPEN GRAPH
-     ========================================= -->
-
-<meta property="og:type"
-      content="article">
-
-<meta property="og:site_name"
-      content="Primetime News Cotabato">
-
-<meta property="og:title"
-      content="${escapeHtml(headline)}">
-
-<meta property="og:description"
-      content="${escapeHtml(summary)}">
-
-<meta property="og:url"
+       <meta property="og:url"
       content="${escapeHtml(articleUrl)}">
 
 ${
@@ -243,6 +224,12 @@ ${
 
 <meta property="og:image:secure_url"
       content="${escapeHtml(featuredImage)}">
+
+<meta property="og:image:width"
+      content="1200">
+
+<meta property="og:image:height"
+      content="630">
 
 <meta property="og:image:alt"
       content="${escapeHtml(headline)}">
@@ -264,11 +251,6 @@ ${
 `
         : ""
 }
-
-<meta name="description"
-      content="${escapeHtml(summary)}">
-
-`;
 
 
         // ==========================================
