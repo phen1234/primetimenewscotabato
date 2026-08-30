@@ -127,16 +127,28 @@ navLinks.forEach(link => {
         // ===============================
 
         const articleImage =
-            document.getElementById("articleImage");
+    document.getElementById("articleImage");
 
-        if (articleImage) {
+if (articleImage) {
 
-            articleImage.src =
-                news.featuredImage || "";
+    if (news.featuredImage) {
 
-            articleImage.alt =
-                news.headline || "";
-        }
+        articleImage.src =
+            news.featuredImage;
+
+        articleImage.alt =
+            news.headline || "";
+
+        articleImage.style.display =
+            "block";
+
+    } else {
+
+        articleImage.style.display =
+            "none";
+
+    }
+}
 
 
         // ===============================
