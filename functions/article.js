@@ -135,11 +135,28 @@ export async function onRequest(context) {
             "Read the latest news from Primetime News Cotabato.";
 
 
-        const featuredImage =
-            getFirestoreValue(
-                fields.featuredImage
-            ) ||
-            "";
+        let featuredImage =
+    getFirestoreValue(
+        fields.featuredImage
+    ) ||
+    "";
+
+// Convert relative image paths to absolute URLs
+if (featuredImage) {
+    try {
+        featuredImage = new URL(
+            featuredImage,
+            requestUrl.origin
+        ).toString();
+    } catch (error) {
+        console.error(
+            "Invalid featured image URL:",
+            featuredImage
+        );
+
+        featuredImage = "";
+    }
+}
 
 
         // ==========================================
