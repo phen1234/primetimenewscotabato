@@ -6,9 +6,15 @@ export async function onRequest(context) {
 
   if (!id) return context.next();
 
+  // Kung walang env, diretso redirect na lang para hindi mag crash
+  if (!env.FIREBASE_PROJECT_ID) {
+    return Response.redirect(`/article.html?id=${id}`, 302);
+  }
+
   try {
     const res = await fetch(`https://firestore.googleapis.com/v1/projects/${env.FIREBASE_PROJECT_ID}/databases/(default)/documents/news/${id}`);
-    if (!res.ok) return context.next();
+    
+    if (!res.ok) throw new Error("Not found");
     const doc = await res.json();
     const data = doc.fields;
 
@@ -16,8 +22,8 @@ export async function onRequest(context) {
     const summary = data.summary.stringValue || "No Summary";
     const image = data.featuredImage.stringValue || "https://primetimenewscotabato.pages.dev/images/profile.png";
 
-    // KUNG FB BOT: bigay natin OG tags
-    if (userAgent.includes('facebook') || userAgent.includes('Facebot')) {
+    // KUNG FB BOT: bigay OG tags
+    if (userAgent.toLowerCase().includes('facebook') || userAgent.toLowerCase().includes('facebot')) {
       const html = `<!doctype html><html><head>
         <title>${headline}</title>
         <meta property="og:title" content="${headline}" />
@@ -28,10 +34,11 @@ export async function onRequest(context) {
       return new Response(html, { headers: { "Content-Type": "text/html" } });
     }
 
-    // KUNG TAO: redirect agad sa article.html mo
+    // KUNG TAO: redirect
     return Response.redirect(`/article.html?id=${id}`, 302);
 
   } catch (e) {
+    // Pag nag error, redirect pa rin para hindi mag 1101
     return Response.redirect(`/article.html?id=${id}`, 302);
   }
 }
