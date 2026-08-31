@@ -6,7 +6,11 @@ export async function onRequest(context) {
 
   if (!id) return context.next();
 
-  const redirectUrl = `/article.html?id=${id}`;
+  // FIX: absolute URL for Cloudflare redirect
+  const redirectUrl = new URL(
+    `/article.html?id=${encodeURIComponent(id)}`,
+    url.origin
+  ).toString();
 
   const defaultTitle = "Prime Time News Cotabato";
   const defaultDesc = "Latest News and Updates";
