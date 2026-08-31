@@ -7,28 +7,26 @@ export async function onRequest(context) {
   if (!id) return context.next();
 
   const redirectUrl = `/article.html?id=${id}`;
+  const defaultTitle = "Prime Time News Cotabato";
+  const defaultDesc = "Latest News and Updates";
+  const defaultImg = "https://primetimenewscotabato.pages.dev/images/profile.png";
 
-  // Lahat ng error, redirect lang. Para walang 1101
   try {
-    const projectId = env.FIREBASE_PROJECT_ID;
-    if (!projectId) return Response.redirect(redirectUrl, 302);
-
-    const apiUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/news/${id}`;
-    const res = await fetch(apiUrl, { method: 'GET' });
+    const res = await fetch(`https://firestore.googleapis.com/v1/projects/${env.FIREBASE_PROJECT_ID}/databases/(default)/documents/news/${id}`);
     
-    if (res.status !== 200) return Response.redirect(redirectUrl, 302);
+    if (!res.ok) throw new Error("fetch failed");
     
     const doc = await res.json();
-    if (!doc.fields) return Response.redirect(redirectUrl, 302);
+    const f = doc.fields || {};
 
-    const f = doc.fields;
-    const headline = f.headline?.stringValue || "Prime Time News Cotabato";
-    const summary = f.summary?.stringValue || "Latest News";
-    const image = f.featuredImage?.stringValue || "https://primetimenewscotabato.pages.dev/images/profile.png";
+    // Gamit ?. para hindi mag crash pag wala yung field
+    const headline = f.headline?.stringValue || defaultTitle;
+    const summary = f.summary?.stringValue || defaultDesc;
+    const image = f.featuredImage?.stringValue || defaultImg;
 
-    // Pag FB Bot lang magbibigay tayo OG tags
+    // Pag FB Bot: bigay OG tags
     if (ua.includes('facebook') || ua.includes('facebot')) {
-      const html = `<!doctype html><html><head>
+      return new Response(`<!doctype html><html><head>
         <meta charset="utf-8">
         <title>${headline}</title>
         <meta property="og:title" content="${headline}" />
@@ -36,14 +34,13 @@ export async function onRequest(context) {
         <meta property="og:image" content="${image}" />
         <meta property="og:url" content="${url.href}" />
         <meta property="og:type" content="article" />
-      </head><body></body></html>`;
-      return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8" } });
+      </head><body></body></html>`, { headers: { "Content-Type": "text/html; charset=utf-8" } });
     }
     
   } catch (e) {
-    // ignore error, redirect lang
+    console.log("Error:", e);
   }
 
-  // Default: redirect lahat ng tao
+  // Pag tao: redirect agad
   return Response.redirect(redirectUrl, 302);
 }
