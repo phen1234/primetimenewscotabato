@@ -1,12 +1,26 @@
 export async function onRequest(context) {
   const { request, env } = context;
+
   const url = new URL(request.url);
+
+  // ==========================================
+  // ONLY HANDLE /article
+  // DO NOT INTERFERE WITH /article.html
+  // ==========================================
+  if (url.pathname !== "/article") {
+    return context.next();
+  }
+
   const id = url.searchParams.get("id");
   const ua = (request.headers.get("User-Agent") || "").toLowerCase();
 
-  if (!id) return context.next();
+  if (!id) {
+    return context.next();
+  }
 
-  // FIX: absolute URL for Cloudflare redirect
+  // ==========================================
+  // NORMAL VISITOR DESTINATION
+  // ==========================================
   const redirectUrl = new URL(
     `/article.html?id=${encodeURIComponent(id)}`,
     url.origin
@@ -18,6 +32,9 @@ export async function onRequest(context) {
     "https://primetimenewscotabato.pages.dev/images/profile.png";
 
   try {
+    // ==========================================
+    // GET ARTICLE FROM FIRESTORE
+    // ==========================================
     const res = await fetch(
       `https://firestore.googleapis.com/v1/projects/${env.FIREBASE_PROJECT_ID}/databases/(default)/documents/news/${id}`
     );
@@ -38,7 +55,9 @@ export async function onRequest(context) {
     const image =
       f.featuredImage?.stringValue || defaultImg;
 
+    // ==========================================
     // FACEBOOK BOT
+    // ==========================================
     if (
       ua.includes("facebook") ||
       ua.includes("facebot") ||
@@ -46,7 +65,7 @@ export async function onRequest(context) {
     ) {
       return new Response(
         `<!doctype html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 
@@ -57,6 +76,11 @@ export async function onRequest(context) {
 <meta property="og:image" content="${image}">
 <meta property="og:url" content="${url.href}">
 <meta property="og:type" content="article">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${headline}">
+<meta name="twitter:description" content="${summary}">
+<meta name="twitter:image" content="${image}">
 
 </head>
 <body></body>
@@ -70,9 +94,11 @@ export async function onRequest(context) {
     }
 
   } catch (error) {
-    console.log("Error:", error);
+    console.log("Article Function Error:", error);
   }
 
+  // ==========================================
   // NORMAL VISITOR
+  // ==========================================
   return Response.redirect(redirectUrl, 302);
 }
