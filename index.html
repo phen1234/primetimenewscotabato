@@ -25,43 +25,21 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 <body>
 
     <div id="pageLoader">
-
-    <div class="loader-card">
-
-       <img
-              id="siteLogo"src="images/PRIMETIME NEWS LOGO.png"class="loader-logo">
-
-        <h1
-id="siteName"
-class="loader-title">
-
-Loading...
-
-</h1>
-
-<div class="title-line"></div>
-
-        <p id="loaderStatus">
-            Connecting to News Server...
-        </p>
-
-        <div class="loader-progress">
-
-            <div id="loaderBar"></div>
-
-        </div>
-
-        <div class="loader-list">
-
-            <p id="step1">○ Loading Latest News</p>
-            <p id="step2">○ Loading Featured Stories</p>
-            <p id="step3">○ Loading Videos</p>
-            <p id="step4">○ Loading Weather</p>
-
-        </div>
-
+  <div class="loader-card">
+    <img id="siteLogo" src="images/PRIMETIME NEWS LOGO.png" class="loader-logo">
+    <h1 id="siteName" class="loader-title"> Loading... </h1>
+    <div class="title-line"></div>
+    <p id="loaderStatus"> Connecting to News Server... </p>
+    <div class="loader-progress">
+      <div id="loaderBar"></div>
     </div>
-
+    <div class="loader-list">
+      <p id="step1">○ Loading Latest News</p>
+      <p id="step2">○ Loading Featured Stories</p>
+      <p id="step3">○ Loading Videos</p>
+      <p id="step4">○ Loading Weather</p>
+    </div>
+  </div>
 </div>
 </div>
 
@@ -713,6 +691,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
+});
+</script>
+
+
+
+
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const loader = document.getElementById("pageLoader");
+  const loaderBar = document.getElementById("loaderBar");
+  const steps = [
+    document.getElementById("step1"),
+    document.getElementById("step2"),
+    document.getElementById("step3"),
+    document.getElementById("step4")
+  ];
+  const statusText = document.getElementById("loaderStatus");
+
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.random() * 15;
+    if (progress > 100) progress = 100;
+
+    loaderBar.style.width = progress + "%";
+
+    // Check off steps
+    if (progress > 25) steps[0]?.classList.add("done");
+    if (progress > 50) steps[1]?.classList.add("done");
+    if (progress > 75) steps[2]?.classList.add("done");
+    if (progress > 90) steps[3]?.classList.add("done");
+
+    if (progress >= 100) {
+      clearInterval(interval);
+      statusText.textContent = "Loaded Successfully!";
+      setTimeout(() => {
+        loader.style.opacity = "0";
+        setTimeout(() => loader.style.display = "none", 500);
+      }, 800);
+    }
+  }, 400);
 });
 </script>
 
