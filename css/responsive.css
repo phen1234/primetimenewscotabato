@@ -693,54 +693,38 @@ margin:0 0 10px;
 
 
 
-
-/* ===== MOBILE VIDEO SLIDER ===== */
+/* ===== VIDEO SLIDE UP ANIMATION - MOBILE ===== */
 @media (max-width: 768px) {
   #heroVideos {
     display: flex;
+    flex-direction: column;
     gap: 15px;
-    overflow-x: auto;
-    scroll-snap-type: y mandatory; /* paakyat */
-    flex-direction: column; /* stack paakyat */
-    max-height: 400px; /* 3 videos lang kita */
-    padding-right: 5px;
-    scroll-behavior: smooth;
-    animation: slideUpLoop 12s infinite; /* Auto slide up */
-  }
-
-  /* Taguan natin yung scrollbar */
-  #heroVideos::-webkit-scrollbar {
-    width: 4px;
-  }
-  #heroVideos::-webkit-scrollbar-thumb {
-    background: #ff0000;
-    border-radius: 10px;
+    overflow: hidden; /* Itatago natin yung iba */
+    max-height: 320px; /* 1 video lang kita at a time */
   }
 
   /* Bawat video card */
-  #heroVideos.video-card {
-    scroll-snap-align: start;
-    flex-shrink: 0;
+  #heroVideos .video-card {
     width: 100%;
-    animation: fadeInUp 0.6s ease;
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translateY(100%); /* Nagsisimula sa baba */
+    animation: slideUpShow 9s infinite;
   }
 
-  /* Auto slide up animation */
-  @keyframes slideUpLoop {
-    0% { transform: translateY(0); }
-    25% { transform: translateY(-110px); } /* slide to 2nd */
-    50% { transform: translateY(-220px); } /* slide to 3rd */
-    75% { transform: translateY(-110px); } /* balik 2nd */
-    100% { transform: translateY(0); } /* balik 1st */
-  }
+  /* Pa-stagger natin para isa-isa */
+  #heroVideos .video-card:nth-child(1) { animation-delay: 0s; }
+  #heroVideos .video-card:nth-child(2) { animation-delay: 3s; }
+  #heroVideos .video-card:nth-child(3) { animation-delay: 6s; }
+  #heroVideos .video-card:nth-child(4) { animation-delay: 9s; }
+  #heroVideos .video-card:nth-child(5) { animation-delay: 12s; }
 
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Pause pag hinawakan ng user */
-  #heroVideos:hover {
-    animation-play-state: paused;
+  /* Animation: galing baba > stay > akyat palabas */
+  @keyframes slideUpShow {
+    0%   { opacity: 0; transform: translateY(100%); } /* Nasa baba */
+    8%   { opacity: 1; transform: translateY(0); }    /* Umakyat, kita */
+    30%  { opacity: 1; transform: translateY(0); }    /* Stay 3 seconds */
+    38%  { opacity: 0; transform: translateY(-100%); }/* Umakyat palabas */
+    100% { opacity: 0; transform: translateY(-100%); }/* Nagtago na */
   }
 }
