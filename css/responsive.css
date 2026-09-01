@@ -678,3 +678,69 @@ margin:0 0 10px;
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===== MOBILE VIDEO SLIDER ===== */
+@media (max-width: 768px) {
+  #heroVideos {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-snap-type: y mandatory; /* paakyat */
+    flex-direction: column; /* stack paakyat */
+    max-height: 400px; /* 3 videos lang kita */
+    padding-right: 5px;
+    scroll-behavior: smooth;
+    animation: slideUpLoop 12s infinite; /* Auto slide up */
+  }
+
+  /* Taguan natin yung scrollbar */
+  #heroVideos::-webkit-scrollbar {
+    width: 4px;
+  }
+  #heroVideos::-webkit-scrollbar-thumb {
+    background: #ff0000;
+    border-radius: 10px;
+  }
+
+  /* Bawat video card */
+  #heroVideos.video-card {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    width: 100%;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  /* Auto slide up animation */
+  @keyframes slideUpLoop {
+    0% { transform: translateY(0); }
+    25% { transform: translateY(-110px); } /* slide to 2nd */
+    50% { transform: translateY(-220px); } /* slide to 3rd */
+    75% { transform: translateY(-110px); } /* balik 2nd */
+    100% { transform: translateY(0); } /* balik 1st */
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Pause pag hinawakan ng user */
+  #heroVideos:hover {
+    animation-play-state: paused;
+  }
+}
