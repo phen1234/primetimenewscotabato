@@ -688,43 +688,52 @@ margin:0 0 10px;
 
 
 
-
-
-
-
-
-/* ===== VIDEO SLIDE UP ANIMATION - MOBILE ===== */
+/* ===== MOBILE VIDEO SLIDE UP - FIXED ===== */
 @media (max-width: 768px) {
   #heroVideos {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    overflow: hidden; /* Itatago natin yung iba */
-    max-height: 320px; /* 1 video lang kita at a time */
+    max-height: 320px; /* 1 video height lang */
+    overflow: hidden;
+    position: relative;
   }
 
-  /* Bawat video card */
+  /* Default state - kita lahat muna pag load */
   #heroVideos .video-card {
     width: 100%;
     flex-shrink: 0;
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.6s ease;
+  }
+
+  /* Pag nag-start na animation */
+  #heroVideos.animate .video-card {
+    position: absolute;
+    top: 0;
+    left: 0;
     opacity: 0;
-    transform: translateY(100%); /* Nagsisimula sa baba */
+    transform: translateY(100%);
     animation: slideUpShow 9s infinite;
   }
 
-  /* Pa-stagger natin para isa-isa */
-  #heroVideos .video-card:nth-child(1) { animation-delay: 0s; }
-  #heroVideos .video-card:nth-child(2) { animation-delay: 3s; }
-  #heroVideos .video-card:nth-child(3) { animation-delay: 6s; }
-  #heroVideos .video-card:nth-child(4) { animation-delay: 9s; }
-  #heroVideos .video-card:nth-child(5) { animation-delay: 12s; }
+  /* Pa-stagger */
+  #heroVideos.animate .video-card:nth-child(1) { animation-delay: 0s; }
+  #heroVideos.animate .video-card:nth-child(2) { animation-delay: 3s; }
+  #heroVideos.animate .video-card:nth-child(3) { animation-delay: 6s; }
+  #heroVideos.animate .video-card:nth-child(4) { animation-delay: 9s; }
+  #heroVideos.animate .video-card:nth-child(5) { animation-delay: 12s; }
 
-  /* Animation: galing baba > stay > akyat palabas */
   @keyframes slideUpShow {
-    0%   { opacity: 0; transform: translateY(100%); } /* Nasa baba */
-    8%   { opacity: 1; transform: translateY(0); }    /* Umakyat, kita */
-    30%  { opacity: 1; transform: translateY(0); }    /* Stay 3 seconds */
-    38%  { opacity: 0; transform: translateY(-100%); }/* Umakyat palabas */
-    100% { opacity: 0; transform: translateY(-100%); }/* Nagtago na */
+    0%   { opacity: 0; transform: translateY(100%); }
+    8%   { opacity: 1; transform: translateY(0); }
+    30%  { opacity: 1; transform: translateY(0); }
+    38%  { opacity: 0; transform: translateY(-100%); }
+    100% { opacity: 0; transform: translateY(-100%); }
   }
 }
+
+
+
+
