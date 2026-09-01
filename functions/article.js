@@ -1,12 +1,8 @@
 export async function onRequest(context) {
   const { request, env } = context;
-
   const url = new URL(request.url);
 
-  // ==========================================
   // ONLY HANDLE /article
-  // DO NOT INTERFERE WITH /article.html
-  // ==========================================
   if (url.pathname !== "/article") {
     return context.next();
   }
@@ -14,17 +10,15 @@ export async function onRequest(context) {
   const id = url.searchParams.get("id");
   const ua = (request.headers.get("User-Agent") || "").toLowerCase();
 
+  // Walang article ID
   if (!id) {
-    return context.next();
+    return new Response("Article not found", {
+      status: 404,
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8"
+      }
+    });
   }
-
-  // ==========================================
-  // NORMAL VISITOR DESTINATION
-  // ==========================================
-  const redirectUrl = new URL(
-    `/article.html?id=${encodeURIComponent(id)}`,
-    url.origin
-  ).toString();
 
   const defaultTitle = "Prime Time News Cotabato";
   const defaultDesc = "Latest News and Updates";
@@ -35,12 +29,13 @@ export async function onRequest(context) {
     // ==========================================
     // GET ARTICLE FROM FIRESTORE
     // ==========================================
+
     const res = await fetch(
-      `https://firestore.googleapis.com/v1/projects/${env.FIREBASE_PROJECT_ID}/databases/(default)/documents/news/${id}`
+      `https://firestore.googleapis.com/v1/projects/${env.FIREBASE_PROJECT_ID}/databases/(default)/documents/news/${encodeURIComponent(id)}`
     );
 
     if (!res.ok) {
-      throw new Error("Firestore fetch failed");
+      throw new Error(`Firestore returned ${res.status}`);
     }
 
     const doc = await res.json();
@@ -56,36 +51,45 @@ export async function onRequest(context) {
       f.featuredImage?.stringValue || defaultImg;
 
     // ==========================================
-    // FACEBOOK BOT
+    // FACEBOOK
     // ==========================================
+
     if (
       ua.includes("facebook") ||
       ua.includes("facebot") ||
       ua.includes("facebookexternalhit")
     ) {
+      const escapeHtml = (value) =>
+        String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+
       return new Response(
         `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 
-<title>${headline}</title>
+<title>${escapeHtml(headline)}</title>
 
-<meta property="og:title" content="${headline}">
-<meta property="og:description" content="${summary}">
-<meta property="og:image" content="${image}">
-<meta property="og:url" content="${url.href}">
+<meta property="og:title" content="${escapeHtml(headline)}">
+<meta property="og:description" content="${escapeHtml(summary)}">
+<meta property="og:image" content="${escapeHtml(image)}">
+<meta property="og:url" content="${escapeHtml(url.href)}">
 <meta property="og:type" content="article">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${headline}">
-<meta name="twitter:description" content="${summary}">
-<meta name="twitter:image" content="${image}">
+<meta name="twitter:title" content="${escapeHtml(headline)}">
+<meta name="twitter:description" content="${escapeHtml(summary)}">
+<meta name="twitter:image" content="${escapeHtml(image)}">
 
 </head>
 <body></body>
 </html>`,
         {
+          status: 200,
           headers: {
             "Content-Type": "text/html; charset=utf-8"
           }
@@ -93,12 +97,29 @@ export async function onRequest(context) {
       );
     }
 
-  } catch (error) {
-    console.log("Article Function Error:", error);
-  }
+    // ==========================================
+    // NORMAL VISITOR
+    // SERVE article.html WITHOUT REDIRECT
+    // ==========================================
 
-  // ==========================================
-  // NORMAL VISITOR
-  // ==========================================
-  return Response.redirect(redirectUrl, 302);
+    const assetUrl = new URL("/article.html", url.origin);
+
+    return env.ASSETS.fetch(
+      new Request(assetUrl, {
+        method: request.method,
+        headers: request.headers
+      })
+    );
+
+  } catch (error) {
+
+    console.error("ARTICLE FUNCTION ERROR:", error);
+
+    return new Response("Article not found", {
+      status: 404,
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8"
+      }
+    });
+  }
 }
