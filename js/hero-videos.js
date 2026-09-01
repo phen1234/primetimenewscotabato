@@ -162,3 +162,41 @@ const observer = new IntersectionObserver((entries) => {
 },{
     threshold:0.15
 });
+
+
+
+
+
+
+
+
+
+
+// Auto slide up for mobile
+document.addEventListener("DOMContentLoaded", () => {
+  const videoContainer = document.getElementById("heroVideos");
+  if (!videoContainer || window.innerWidth > 768) return;
+
+  let isDown = false;
+  let startY;
+  let scrollTop;
+
+  // Mouse/Touch drag
+  videoContainer.addEventListener('touchstart', (e) => {
+    isDown = true;
+    startY = e.touches[0].pageY - videoContainer.offsetTop;
+    scrollTop = videoContainer.scrollTop;
+    videoContainer.style.animation = 'none'; // stop auto
+  });
+
+  videoContainer.addEventListener('touchmove', (e) => {
+    if(!isDown) return;
+    const y = e.touches[0].pageY - videoContainer.offsetTop;
+    const walk = (y - startY) * 2;
+    videoContainer.scrollTop = scrollTop - walk;
+  });
+
+  videoContainer.addEventListener('touchend', () => {
+    isDown = false;
+  });
+});
