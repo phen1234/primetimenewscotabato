@@ -172,22 +172,22 @@ const observer = new IntersectionObserver((entries) => {
 
 
 
-// Auto slide up for mobile
-document.addEventListener("DOMContentLoaded", () => {
-  const videoContainer = document.getElementById("heroVideos");
-  if (!videoContainer || window.innerWidth > 768) return;
+// After mo i-append lahat ng videos sa #heroVideos
+function startVideoSlider() {
+  const videos = document.querySelectorAll('#heroVideos .video-card');
+  if (window.innerWidth > 768 || videos.length <= 1) return;
 
-  let isDown = false;
-  let startY;
-  let scrollTop;
-
-  // Mouse/Touch drag
-  videoContainer.addEventListener('touchstart', (e) => {
-    isDown = true;
-    startY = e.touches[0].pageY - videoContainer.offsetTop;
-    scrollTop = videoContainer.scrollTop;
-    videoContainer.style.animation = 'none'; // stop auto
+  // I-reset animation para umikot ulit
+  videos.forEach((video, i) => {
+    video.style.animation = 'none';
+    video.offsetHeight; // trigger reflow
+    video.style.animation = `slideUpShow 9s infinite`;
+    video.style.animationDelay = `${i * 3}s`; // 3 seconds bawat isa
   });
+}
+
+// Tawagin after mag-load videos
+setTimeout(startVideoSlider, 1000);
 
   videoContainer.addEventListener('touchmove', (e) => {
     if(!isDown) return;
