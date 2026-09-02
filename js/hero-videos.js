@@ -97,6 +97,19 @@ observer.observe(div);
 loadVideos();
 
 
+
+const allItems = heroVideos.querySelectorAll('.video-item');
+allItems.forEach((item, index) => {
+  setTimeout(() => {
+    item.classList.add('show-video');
+  }, 150 * index); // 150ms delay bawat isa
+});
+
+
+
+
+
+
 document.addEventListener("click", async (e) => {
 
     const item = e.target.closest(".video-item");
