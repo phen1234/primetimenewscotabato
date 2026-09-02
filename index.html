@@ -781,10 +781,15 @@ document.addEventListener("DOMContentLoaded", () => {
     <script>
 document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("pageLoader");
-  const html = document.documentElement; // yung <html>
+  const html = document.documentElement;
   const circle = document.getElementById("loaderCircle");
   const percentText = document.getElementById("loaderPercent");
-  const steps = [step1, step2, step3, step4];
+  const steps = [
+    document.getElementById("step1"),
+    document.getElementById("step2"),
+    document.getElementById("step3"),
+    document.getElementById("step4")
+  ];
 
   let progress = 0;
   const circumference = 408;
@@ -808,14 +813,21 @@ document.addEventListener("DOMContentLoaded", () => {
         loader.style.opacity = "0";
         setTimeout(() => {
           loader.style.display = "none";
-          // DITO NATIN AALISIN ANG PAGKATAGO
-          html.classList.remove('loading');
+          html.classList.remove('loading'); // DITO IBABALIK ANG HEADER/NAV
         }, 600);
       }, 800);
     }
-  }, 5000); // Force close after 5s kahit mabagal net
+  }, 200);
+
+  // FORCE CLOSE AFTER 5 SECONDS KAHIT MABAGAL NET
+  setTimeout(() => {
+    clearInterval(interval);
+    progress = 100;
+  }, 5000);
 });
-    </script>
+</script>
+</body>
+</html>
 
 
     
