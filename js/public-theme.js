@@ -86,3 +86,22 @@
         createToggle();
     }
 })();
+
+
+// SEE MORE SA VIDEO DESCRIPTION
+document.addEventListener('DOMContentLoaded', () => {
+  const desc = document.getElementById('videoDescription');
+  
+  if (desc && desc.scrollHeight > 96) { // 96 dapat same sa max-height
+    const btn = document.createElement('button');
+    btn.classList.add('see-more-btn');
+    btn.textContent = 'Basahin pa';
+    
+    btn.addEventListener('click', () => {
+      desc.classList.toggle('expanded');
+      btn.textContent = desc.classList.contains('expanded') ? 'Ipasara' : 'Basahin pa';
+    });
+    
+    desc.after(btn); // Ilalagay yung button after ng description
+  }
+});
