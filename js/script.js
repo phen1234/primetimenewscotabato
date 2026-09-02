@@ -443,68 +443,26 @@ async function openVideoFromActivity() {
 }
 
 
-// ==========================
-// VIDEO MODAL
-// ==========================
-
-function openActivityVideoModal(
-    youtubeId,
-    title
-) {
-
-    // Remove existing activity modal
-    const oldModal =
-        document.getElementById(
-            "activityVideoModal"
-        );
-
-    if (oldModal) {
-        oldModal.remove();
-    }
-
-
-    // ==========================
-    // CREATE MODAL
-    // ==========================
-
-    const modal =
-        document.createElement("div");
-
-    modal.id =
-        "activityVideoModal";
-
-    modal.innerHTML = `
-
-        <div class="activity-video-overlay">
-
-            <button
-                class="activity-video-close"
-                aria-label="Close video"
-            >
-                &times;
-            </button>
-
-
-            <div class="activity-video-container">
-
-                <iframe
-                    src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0"
-                    title="${escapeHtml(title)}"
-                    frameborder="0"
-                    allow="
-                        autoplay;
-                        encrypted-media;
-                        picture-in-picture
-                    "
-                    allowfullscreen
-                ></iframe>
-
-            </div>
-
-        </div>
-
-    `;
-
+// ========================== // CREATE MODAL // ==========================
+const modal = document.createElement("div");
+modal.id = "activityVideoModal";
+modal.innerHTML = `
+  <div class="activity-video-overlay">
+    <button class="activity-video-close" aria-label="Close video" >
+      &times;
+    </button>
+    <div class="activity-video-container">
+      <iframe 
+        src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0" 
+        title="${escapeHtml(title)}" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin">
+      </iframe>
+    </div>
+  </div>
+`;
 
     document.body.appendChild(modal);
 
