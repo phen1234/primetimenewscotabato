@@ -26,16 +26,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
     <div id="pageLoader">
   <div class="loader-card">
-    <img src="images/PRIMETIME NEWS LOGO.png" class="loader-logo">
-    <h1 id="siteName" class="loader-title"> Loading... </h1>
+    <!-- Real loading spinner, hindi image -->
+    <div class="loader-spinner"></div>
+    
+    <img id="siteLogo" src="images/PRIMETIME NEWS LOGO.png" class="loader-logo">
+    <h1 id="siteName" class="loader-title">LOADING...</h1>
     <div class="title-line"></div>
-    <p id="loaderStatus"> Connecting to News Server... </p>
+    <p id="loaderStatus">Verifying Secure Connection...</p>
     <div class="loader-progress">
       <div id="loaderBar"></div>
     </div>
     <div class="loader-list">
-      <p id="step1">○ Loading Latest News</p>
-      <p id="step2">○ Loading Featured Stories</p>
+      <p id="step1">○ Initializing...</p>
+      <p id="step2">○ Verifying Secure Connection...</p>
       <p id="step3">○ Loading Videos</p>
       <p id="step4">○ Loading Weather</p>
     </div>
