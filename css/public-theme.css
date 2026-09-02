@@ -1,22 +1,30 @@
-
 /* ITAGO AGAD HABANG LOADING */
 html.loading header,
 html.loading nav,
-html.loading.headline-ticker,
-html.loading.search-overlay {
+html.loading .headline-ticker,
+html.loading .search-overlay {
   visibility: hidden!important;
   opacity: 0!important;
   height: 0!important;
   overflow: hidden!important;
 }
 
-/* Para yung loader lang ang kita at nasa ibabaw */
+/* FORCE HIDE LAHAT MALIBAN SA LOADER */
+html.loading {
+  overflow: hidden;
+}
+html.loading body > *:not(#pageLoader) {
+  visibility: hidden!important;
+  opacity: 0!important;
+}
+
+/* LOADER */
 #pageLoader {
   position: fixed;
   top: 0; left: 0;
-  width: 100vw; height: 100vh; /* 100vh para sagad */
+  width: 100vw; height: 100vh;
   background: linear-gradient(135deg, #020b1a 0%, #0a1a2f 100%);
-  z-index: 999; /* Pinaka mataas */
+  z-index: 99999; /* DITO PINAKA MATAAS */
   display: flex;
   align-items: center;
   justify-content: center;
