@@ -1883,11 +1883,11 @@ LATEST VIDEO SIDEBAR
   padding:22px; 
   border-radius:18px; 
   box-shadow:0 10px 25px rgba(0,0,0,.15); 
-  height: 320px; /* HEIGHT NG 3 VIDEOS */
-  overflow-y: auto; /* PWEDENG I-SCROLL */
+  height: 330px; /* 110px x 3 = 3 VIDEOS KITA */
+  overflow-y: auto; 
   overflow-x: hidden; 
-  scroll-behavior: smooth; /* SMOOTH SCROLL */
-} 
+  scroll-behavior: smooth; 
+}
 
 /* ITAGO YUNG SCROLLBAR KUNG GUSTO MO */
 .hero-right::-webkit-scrollbar { width: 6px; }
