@@ -1881,57 +1881,48 @@ body.dark-mode .kebab-toggle {
 
 
 /* =================================================== LATEST VIDEO SIDEBAR =================================================== */ 
-.hero-right{ 
-  background:#0f172a; /* Dark blue para mukhang premium news */
-  padding:22px; 
-  border-radius:18px; 
-  box-shadow:0 10px 25px rgba(0,0,0,.15); 
-  border: 1px solid #1e293b;
-} 
+.hero-right{
+  background:#0f172a;
+  padding:22px;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+  height: 320px; /* FIXED HEIGHT PARA 1 LANG MAKITA */
+  overflow: hidden; /* ITAGO YUNG IBA */
+  position: relative;
+}
 
-.sidebar-title{ 
-  display:flex; 
-  align-items:center; 
-  gap:8px; 
-  color:#ef4444; /* Mas maliwanag na red */
-  font-size:17px; 
-  font-weight:700; 
-  margin-bottom:20px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-} 
+#heroVideos{
+  display:flex;
+  flex-direction:column;
+  gap:0; /* Tanggalin gap */
+}
 
-#heroVideos{ 
-  display:flex; 
-  flex-direction:column; 
-  gap:14px; 
-} 
-
-/* =========================== VIDEO ITEM =========================== */ 
-.video-item{ 
-  display:flex; 
-  align-items:center; /* Center para pantay */
-  gap:14px; 
-  cursor:pointer; 
-  padding:12px; 
+.video-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  cursor:pointer;
+  padding:12px;
   border-radius:12px;
   background: #1e293b;
-  opacity:0; 
-  transform:translateY(30px); /* Mas konti para mas mabilis */
-  transition: all .5s cubic-bezier(.4,0,.2,1); /* Mas smooth */
-} 
+  height: 94px; /* FIXED HEIGHT BAWAT ITEM */
+  flex-shrink: 0;
+  opacity: 0; /* START HIDE */
+  transform: translateY(100%); /* START SA ILALIM */
+  position: absolute; /* PATONG PATONG SILA */
+  width: calc(100% - 24px);
+  transition: transform 0.8s cubic-bezier(.4,0,.2,1), opacity 0.8s ease;
+}
 
-.show-video{ 
-  opacity:1; 
-  transform:translateY(0); 
-} 
+.video-item.active{
+  opacity:1;
+  transform:translateY(0); /* GITNA */
+}
 
-.video-item:hover{ 
-  transform:translateX(5px) translateY(-2px); /* Umangat + gilid */
-  background:#334155; 
-  box-shadow: 0 4px 15px rgba(239,68,68,0.2); /* Red glow */
-} 
-
+.video-item.exit{
+  opacity:0;
+  transform:translateY(-100%); /* AAKYAT PALABAS */
+}
 /* THUMBNAIL */
 .thumb-wrapper{
   position: relative;
