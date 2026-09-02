@@ -113,3 +113,29 @@ modal.onclick = (e) => {
     frame.src = ""; 
   } 
 };
+
+
+
+
+// TOGGLE DARK / LIGHT MODE
+const themeToggle = document.querySelector('.theme-toggle'); // YUNG BILOG NA MAY MOON
+
+if(themeToggle){
+  // CHECK KUNG NAKA SAVE NA SA LOCALSTORAGE
+  if(localStorage.getItem('theme') === 'light'){
+    document.body.classList.add('light-mode');
+    themeToggle.innerHTML = '<i class="fas fa-sun"></i>'; // PALITAN NG SUN
+  }
+
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    
+    if(document.body.classList.contains('light-mode')){
+      localStorage.setItem('theme', 'light');
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+      localStorage.setItem('theme', 'dark');
+      themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+  });
+}
