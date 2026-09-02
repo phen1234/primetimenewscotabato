@@ -972,57 +972,47 @@ html.dark-mode .public-theme-toggle {
 }
 
 
-/* VIDEO DESCRIPTION - SEE MORE */
+
+
+
+
+
+/* VIDEO MODAL CONTENT - PARA SCROLLABLE */
+.video-modal-content {
+  max-height: 90vh; /* 90% lang ng screen height */
+  display: flex;
+  flex-direction: column;
+}
+
+/* YUNG DETAILS LANG ANG I-SCROLL */
+.video-details {
+  flex: 1; /* Kukunin lahat ng natirang space */
+  overflow-y: auto; /* DITO MAGSCSCROLL */
+  padding-right: 8px; /* Para di dumikit sa scrollbar */
+  margin-top: 10px;
+}
+
+/* TANGGALIN YUNG FADE AT SEE MORE BUTTON */
 #videoDescription {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #d0d0d0;
-  max-height: 96px; /* 4 lines lang muna */
-  overflow: hidden;
-  position: relative;
-  transition: max-height 0.4s ease;
+  max-height: none !important; /* Tanggalin yung limit */
+  overflow: visible !important;
 }
-
-/* FADE EFFECT SA BABA */
 #videoDescription::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 30px;
-  background: linear-gradient(to bottom, transparent, #0a1a2f); /* same sa video-modal bg mo */
-  pointer-events: none;
-  transition: opacity 0.3s ease;
+  display: none !important; /* Tanggalin yung fade */
 }
-
-/* PAG OPEN NA */
-#videoDescription.expanded {
-  max-height: 2000px; /* Para lahat lumabas */
-}
-#videoDescription.expanded::after {
-  opacity: 0; /* Nawawala yung fade */
-}
-
-/* BUTTON */
 .see-more-btn {
-  background: none;
-  border: none;
-  color: #00aaff;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 8px;
-  display: block;
-}
-.see-more-btn:hover {
-  text-decoration: underline;
+  display: none !important; /* Tanggalin yung button */
 }
 
-
-
-
-
-
-
-
+/* CUSTOM SCROLLBAR PARA MAGANDA TIGNAN SA MOBILE */
+.video-details::-webkit-scrollbar {
+  width: 6px;
+}
+.video-details::-webkit-scrollbar-track {
+  background: #1a2a42;
+  border-radius: 10px;
+}
+.video-details::-webkit-scrollbar-thumb {
+  background: #00aaff;
+  border-radius: 10px;
+}
