@@ -491,20 +491,24 @@ to{
     flex:1;
 }
 
-.news-card-content span{
-    display:inline-block;
-    background:#d60000;
-    color:#fff;
-    padding:4px 10px;
-    border-radius:20px;
-    font-size:11px;
-    margin-bottom:8px;
+.news-card-content span {
+  display: inline-block;
+  background: #d60000;
+  color: #fff;
+  padding: 6px 12px; /* Mas malaki konti padding */
+  border-radius: 20px;
+  font-size: 13px; /* DITO: Ginawa kong 13px galing sa 11px */
+  font-weight: 600; /* Bold para mas kita */
+  text-transform: uppercase; /* Para TV network style */
+  letter-spacing: 0.5px; /* Space sa letters */
+  margin-bottom: 10px;
 }
 
-.news-card-content h3{
-    font-size:18px;
-    line-height:1.4;
-    margin-bottom:8px;
+.news-card-content h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  font-weight: 700; /* Para mas makapal yung title */
 }
 
 .news-card-content p{
