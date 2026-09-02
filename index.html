@@ -778,6 +778,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const loader = document.getElementById("pageLoader");
+  const html = document.documentElement; // yung <html>
+  const circle = document.getElementById("loaderCircle");
+  const percentText = document.getElementById("loaderPercent");
+  const steps = [step1, step2, step3, step4];
+
+  let progress = 0;
+  const circumference = 408;
+
+  const interval = setInterval(() => {
+    progress += Math.random() * 8;
+    if (progress > 100) progress = 100;
+
+    const offset = circumference - (progress / 100) * circumference;
+    if(circle) circle.style.strokeDashoffset = offset;
+    if(percentText) percentText.textContent = Math.floor(progress);
+
+    if (progress > 25) steps[0]?.classList.add('done');
+    if (progress > 50) steps[1]?.classList.add('done');
+    if (progress > 75) steps[2]?.classList.add('done');
+    if (progress > 95) steps[3]?.classList.add('done');
+
+    if (progress >= 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        loader.style.opacity = "0";
+        setTimeout(() => {
+          loader.style.display = "none";
+          // DITO NATIN AALISIN ANG PAGKATAGO
+          html.classList.remove('loading');
+        }, 600);
+      }, 800);
+    }
+  }, 5000); // Force close after 5s kahit mabagal net
+});
+    </script>
+
+
+    
+
+
+
 
 
 
