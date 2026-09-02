@@ -1,5 +1,5 @@
 import { db } from "./firebase.js"; 
-import { collection, getDocs, query, orderBy, limit, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js"; 
+import { collection, getDocs, query, orderBy, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js"; 
 
 const heroVideos = document.getElementById("heroVideos"); 
 const modal = document.getElementById("videoModal"); 
@@ -11,15 +11,14 @@ const videoCategory = document.getElementById("videoCategory");
 let tickerInterval; 
 let autoScroll = true; 
 
-// I-STOP ANG AUTO SCROLL PAG NAG HOVER
 heroVideos.parentElement.addEventListener('mouseenter', () => autoScroll = false); 
 heroVideos.parentElement.addEventListener('mouseleave', () => autoScroll = true); 
 
 async function loadVideos() { 
-  const q = query( collection(db, "videos"), orderBy("createdAt", "desc"), limit(3) ); 
+  const q = query( collection(db, "videos"), orderBy("createdAt", "desc") ); // TINANGGAL LIMIT
   const snapshot = await getDocs(q); 
   heroVideos.innerHTML = ""; 
-  clearInterval(tickerInterval); // STOP LUMANG TICKER
+  clearInterval(tickerInterval);
   
   if(snapshot.empty){
     heroVideos.innerHTML = "<p style='color:#888; text-align:center; padding:20px;'>No videos yet.</p>"; 
@@ -34,7 +33,6 @@ async function loadVideos() {
     if (video.createdAt && video.createdAt.seconds) { 
       date = new Date(video.createdAt.seconds * 1000).toLocaleDateString(); 
     } 
-    
     const div = document.createElement("div"); 
     div.className = "video-item"; 
     div.dataset.video = video.videoId; 
@@ -42,8 +40,6 @@ async function loadVideos() {
     div.dataset.title = video.title || ""; 
     div.dataset.category = video.category || ""; 
     div.dataset.description = video.description || ""; 
-    
-    // ITO NA YUNG TOTOONG HTML
     div.innerHTML = `
       <div class="thumb-wrapper"> 
         <img src="${video.thumbnail || 'images/news1.jpg'}" class="video-thumb" alt="${video.title}"> 
@@ -55,25 +51,38 @@ async function loadVideos() {
         <small> <i class="fas fa-calendar"></i> ${date} </small> 
       </div> 
     `;
-    
     heroVideos.appendChild(div); 
-    
     setTimeout(() => { div.classList.add('show-video'); }, 200 * index); 
   }); 
   
-  // AUTO SCROLL
-  let currentScroll = 0; 
-  const itemHeight = 110; 
-  const totalHeight = videos.length * itemHeight; 
-  const containerHeight = heroVideos.parentElement.clientHeight; 
-  
-  tickerInterval = setInterval(() => { 
-  if(!autoScroll || videos.length <= 3) return; // DATING <= 1, GINAWA KONG <= 3
-  currentScroll += itemHeight; 
-  if(currentScroll >= totalHeight - containerHeight + itemHeight){ currentScroll = 0; } 
-  heroVideos.parentElement.scrollTo({ top: currentScroll, behavior: 'smooth' }); 
-}, 4000);
+  // MAGHINTAY MUNA BAGO MAG SCROLL
+  setTimeout(() => {
+    startTicker();
+  }, 500);
 } 
+
+function startTicker() {
+  const container = heroVideos.parentElement;
+  const itemHeight = 110; 
+  const containerHeight = container.clientHeight; // HEIGHT NG BOX = 330px
+  const scrollHeight = container.scrollHeight; // TOTAL HEIGHT NG LAHAT NG VIDEO
+  
+  if(scrollHeight <= containerHeight) return; // WAG MAGSCROLL KUNG KASYA LAHAT
+
+  let currentScroll = 0; 
+
+  tickerInterval = setInterval(() => { 
+    if(!autoScroll) return; 
+    currentScroll += itemHeight; 
+    
+    // PAG DULO NA, BALIK SA TAAS
+    if(currentScroll >= scrollHeight - containerHeight){ 
+      currentScroll = 0; 
+    } 
+    
+    container.scrollTo({ top: currentScroll, behavior: 'smooth' }); 
+  }, 4000); 
+}
 
 loadVideos(); 
 
