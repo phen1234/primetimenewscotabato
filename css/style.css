@@ -1876,61 +1876,54 @@ body.dark-mode .kebab-toggle {
 LATEST VIDEO SIDEBAR
 =================================================== */
 
-.hero-right{
+.hero-right{ 
+  background:#0f172a; 
+  padding:22px; 
+  border-radius:18px; 
+  box-shadow:0 10px 25px rgba(0,0,0,.15); 
+  height: 320px; /* HEIGHT NG 3 VIDEOS */
+  overflow-y: auto; /* PWEDENG I-SCROLL */
+  overflow-x: hidden;
+  scroll-behavior: smooth; /* SMOOTH SCROLL */
+} 
 
-    background:#fff;
-    padding:22px;
-    border-radius:18px;
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+/* ITAGO YUNG SCROLLBAR KUNG GUSTO MO */
+.hero-right::-webkit-scrollbar { width: 6px; }
+.hero-right::-webkit-scrollbar-thumb { background: #ef4444; border-radius: 10px; }
 
-}
+.sidebar-title{ 
+  display:flex; align-items:center; gap:8px; 
+  color:#ef4444; font-size:17px; font-weight:700; 
+  margin-bottom:20px; position: sticky; top: 0; background:#0f172a; z-index: 2; padding-bottom: 10px;
+} 
 
-.sidebar-title{
+#heroVideos{ 
+  display:flex; 
+  flex-direction:column; 
+  gap:14px; 
+} 
 
-    display:flex;
-    align-items:center;
-    gap:8px;
-
-    color:#d60000;
-    font-size:17px;
-    font-weight:700;
-
-    margin-bottom:20px;
-
-}
-
-#heroVideos{
-
-    display:flex;
-    flex-direction:column;
-    gap:18px;
-
-}
-
-
-/* ===========================
-VIDEO ITEM
-=========================== */
 .video-item{ 
   display:flex; 
   align-items:flex-start; 
   gap:14px; 
   cursor:pointer; 
   padding:14px 0; 
-  border-bottom:1px solid #ededed; 
-  opacity:0; /* NAKA HIDE */
-  transform:translateY(40px); /* NASA ILALIM */
-  transition: opacity .8s ease, transform .8s ease, background .3s ease; /* DAGDAG BG */
+  border-bottom:1px solid #334155; 
+  opacity:0; 
+  transform:translateY(40px); 
+  transition: opacity .8s ease, transform .8s ease, background .3s ease; 
+  flex-shrink: 0;
 } 
 
 .show-video{ 
   opacity:1; 
-  transform:translateY(0); /* NASA PWESTO NA */
+  transform:translateY(0); 
 } 
 
 .video-item:hover{ 
-  transform:translateX(8px) translateY(0); /* DAGDAG translateY(0) DITO */
-  background:#fafafa; 
+  transform:translateX(8px); 
+  background:#1e293b; 
 }
 @keyframes slideUp{
 
