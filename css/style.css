@@ -787,6 +787,7 @@ text-align:center;
     background: #000;
 
     border-radius: 14px;
+    pointer-events: auto;
 
     overflow: hidden;
 
