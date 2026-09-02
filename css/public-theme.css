@@ -1,3 +1,23 @@
+/* HABANG NAGLO-LOAD, ITAGO LAHAT */
+body.loading header,
+body.loading nav,
+body.loading.headline-ticker,
+body.loading.search-overlay,
+body.loading.footer {
+  display: none!important;
+}
+
+/* Para full screen talaga yung loader */
+body.loading {
+  overflow: hidden;
+}
+
+
+
+
+
+
+
 /* =========================================
    PRIMETIME NEWS - PUBLIC LIGHT / DARK MODE
    ========================================= */
