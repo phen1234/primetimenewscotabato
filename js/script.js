@@ -3,13 +3,6 @@ import { getVideoId } from "./youtube.js";
 import { collection, doc, getDoc, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js"; 
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js"; 
 
-// TANGGALIN MO NA TO. NASA HTML NA YUNG LOADER
-// const status = document.getElementById("loaderStatus");
-// const bar = document.getElementById("loaderBar");
-// const pageLoader = document.getElementById("pageLoader");
-// const loadingSiteName = document.getElementById("loadingSiteName");
-// startLoader(); 
-
 async function loadNews() { 
   const container = document.getElementById("newsContainer"); 
   if(!container) return;
@@ -134,4 +127,87 @@ function escapeHtml(value) {
   return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"); 
 }
 
-// MOBILE MENU + CLOCK + AUTH CODE MO DITO... OKAY NA YAN
+// ===================== // MOBILE MENU // =====================
+const menu = document.querySelector(".menu-toggle");
+const links = document.querySelector(".nav-links");
+
+if (menu && links) {
+  menu.addEventListener("click", (e) => {
+    e.stopPropagation();
+    links.classList.toggle("active");
+  });
+
+  // Close menu kapag pumili ng link
+  links.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      links.classList.remove("active");
+    });
+  });
+
+  // Close menu kapag nag-click sa labas
+  document.addEventListener("click", (e) => {
+    if (links.classList.contains("active") && !links.contains(e.target) && !menu.contains(e.target)) {
+      links.classList.remove("active");
+    }
+  });
+}
+
+// ===================== // CLOCK // =====================
+function updateClock(){
+  const now = new Date();
+  const clock = document.getElementById("clock");
+  const today = document.getElementById("today");
+  if(clock) clock.innerHTML = now.toLocaleTimeString();
+  if(today) today.innerHTML = now.toDateString();
+}
+setInterval(updateClock,1000);
+updateClock();
+
+// ========================== // LOGIN / LOG OUT STATE // ==========================
+const auth = getAuth();
+function updateLoginButton(user) {
+  const desktopAuthLink = document.getElementById("desktopAuthLink");
+  const desktopAuthText = document.getElementById("desktopAuthText");
+  const mobileAuthLink = document.getElementById("mobileAuthLink");
+  const mobileAuthText = document.getElementById("mobileAuthText");
+  const mobileAuthIcon = document.getElementById("mobileAuthIcon");
+
+  if (user) {
+    if (desktopAuthLink) {
+      desktopAuthLink.href = "#";
+      desktopAuthText.textContent = "Log Out";
+      desktopAuthLink.onclick = async (e) => {
+        e.preventDefault();
+        await signOut(auth);
+        window.location.href = "index.html";
+      };
+    }
+    if (mobileAuthLink) {
+      mobileAuthLink.href = "#";
+      mobileAuthText.textContent = "Log Out";
+      mobileAuthIcon.textContent = "↪";
+      mobileAuthLink.onclick = async (e) => {
+        e.preventDefault();
+        await signOut(auth);
+        window.location.href = "index.html";
+      };
+    }
+  } else {
+    if (desktopAuthLink) {
+      desktopAuthLink.href = "admin/login.html";
+      desktopAuthText.textContent = "Login";
+      desktopAuthLink.onclick = null;
+    }
+    if (mobileAuthLink) {
+      mobileAuthLink.href = "admin/login.html";
+      mobileAuthText.textContent = "Login";
+      mobileAuthIcon.textContent = "🔐";
+      mobileAuthLink.onclick = null;
+    }
+  }
+}
+
+onAuthStateChanged(auth, (user) => {
+  console.log("Current Firebase User:", user ? user.uid : "NOT LOGGED IN");
+  updateLoginButton(user);
+});
