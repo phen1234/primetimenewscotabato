@@ -25,43 +25,63 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 <body>
 
     <div id="pageLoader">
+<div id="pageLoader">
+  <div class="loader-glass-card">
+    <img id="siteLogo" src="images/PRIMETIME NEWS LOGO.png" class="loader-logo">
 
-    <div class="loader-card">
+    <h1 id="siteName" class="loader-title">PRIMETIME NEWS<br>COTABATO</h1>
+    <p class="loader-subtitle">Preparing your newsroom experience</p>
 
-       <img
-              id="siteLogo"src="images/PRIMETIME NEWS LOGO.png"class="loader-logo">
-
-        <h1
-id="siteName"
-class="loader-title">
-
-Loading...
-
-</h1>
-
-<div class="title-line"></div>
-
-        <p id="loaderStatus">
-            Connecting to News Server...
-        </p>
-
-        <div class="loader-progress">
-
-            <div id="loaderBar"></div>
-
-        </div>
-
-        <div class="loader-list">
-
-            <p id="step1">○ Loading Latest News</p>
-            <p id="step2">○ Loading Featured Stories</p>
-            <p id="step3">○ Loading Videos</p>
-            <p id="step4">○ Loading Weather</p>
-
-        </div>
-
+    <!-- CIRCULAR LOADER -->
+    <div class="circular-loader">
+      <svg>
+        <circle cx="70" cy="70" r="65"></circle>
+        <circle cx="70" cy="70" r="65" id="loaderCircle"></circle>
+      </svg>
+      <div class="circular-text">
+        <span id="loaderPercent">0</span><span>%</span>
+        <small>LOADING</small>
+      </div>
     </div>
 
+    <!-- STEPS -->
+    <div class="loader-steps">
+      <div class="step-item" id="step1">
+        <div class="step-icon"><i class="fas fa-check"></i></div>
+        <div>
+          <h4>Initializing PRIMETIME NEWS COTABATO</h4>
+          <p>System startup complete</p>
+        </div>
+      </div>
+      <div class="step-item" id="step2">
+        <div class="step-icon"><i class="fas fa-check"></i></div>
+        <div>
+          <h4>Verifying Secure Connection</h4>
+          <p>Connection established</p>
+        </div>
+      </div>
+      <div class="step-item" id="step3">
+        <div class="step-icon"><i class="fas fa-check"></i></div>
+        <div>
+          <h4>Loading Videos</h4>
+          <p>Fetching latest videos</p>
+        </div>
+      </div>
+      <div class="step-item" id="step4">
+        <div class="step-icon"><i class="fas fa-spinner fa-spin"></i></div>
+        <div>
+          <h4>Almost Ready</h4>
+          <p>Finalizing setup</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="loader-footer">
+      <i class="fas fa-shield-halved"></i>
+      <p>Secure • Reliable • Trusted</p>
+      <small>© 2026 Primetime News Cotabato</small>
+    </div>
+  </div>
 </div>
 </div>
 
