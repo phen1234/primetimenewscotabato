@@ -809,6 +809,41 @@ document.addEventListener("DOMContentLoaded", () => {
   const interval = setInterval(() => {
     if(isDone) return; // Stop pag tapos na
     
+    progress += Math.random() * 5 + 2; // Mas smooth
+    if (progress > 97) progress = 97; // Max 97% muna. Hintay sa totoong load
+
+    const offset = circumference - (progress / 100) * circumference;
+    if(circle) circle.style.strokeDashoffset = offset;
+    if(percentText) percentText.textContent = Math.floor(progress);
+
+    if (progress > 25) steps[0]?.classList.add('done');
+    if (progress > 50) steps[1]?.classList.add('done');
+    if (progress > 75) steps[2]?.classList.add('done');
+    if (progress > 90) steps[3]?.classList.add('done');
+
+  }, 150);
+});
+
+// ITO ANG TUNAY NA MAGTATAGO - PAG LOAD NA LAHAT
+window.addEventListener("load", () => {
+  const circle = document.getElementById("loaderCircle");
+  const percentText = document.getElementById("loaderPercent");
+  const steps = [
+    document.getElementById("step1"),
+    document.getElementById("step2"),
+    document.getElementById("step3"),
+    document.getElementById("step4")
+  ];
+  
+  // I-100% natin bigla
+  percentText.textContent = 100;
+  circle.style.strokeDashoffset = 0;
+  steps.forEach(step => step?.classList.add('done'));
+
+  setTimeout(hideLoader, 800); // 0.8s delay para makita yung 100%
+});
+</script>
+    
    
 </body>
 </html>
