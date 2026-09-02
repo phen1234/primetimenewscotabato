@@ -8,38 +8,32 @@ const videoTitle = document.getElementById("videoTitle");
 const videoDescription = document.getElementById("videoDescription"); 
 const videoCategory = document.getElementById("videoCategory"); 
 
-// ILAGAY MO MUNA OBSERVER SA TAAS
-const observer = new IntersectionObserver((entries) => { 
-  entries.forEach(entry => { 
-    if(entry.isIntersecting){ 
-      entry.target.classList.add("show-video"); 
-      observer.unobserve(entry.target); 
-    } 
-  }); 
-},{ threshold:0.15 }); 
+let tickerInterval;
+let autoScroll = true;
+
+// I-STOP ANG AUTO SCROLL PAG NAG HOVER
+heroVideos.parentElement.addEventListener('mouseenter', () => autoScroll = false);
+heroVideos.parentElement.addEventListener('mouseleave', () => autoScroll = true);
 
 async function loadVideos() { 
   const q = query( collection(db, "videos"), orderBy("createdAt", "desc"), limit(3) ); 
   const snapshot = await getDocs(q); 
   heroVideos.innerHTML = ""; 
+  clearInterval(tickerInterval); // STOP LUMANG TICKER
   
   if(snapshot.empty){
     heroVideos.innerHTML = "<p style='color:#888; text-align:center; padding:20px;'>No videos yet.</p>";
     return;
   }
-  
+
   const videos = [];
-  snapshot.forEach((docSnap) => { 
-    videos.push({id: docSnap.id, ...docSnap.data()}); 
-  }); 
+  snapshot.forEach((docSnap) => { videos.push({id: docSnap.id, ...docSnap.data()}); }); 
   
-  // GAWA NG HTML
   videos.forEach((video, index) => { 
     let date = ""; 
     if (video.createdAt && video.createdAt.seconds) { 
       date = new Date(video.createdAt.seconds * 1000).toLocaleDateString(); 
     } 
-    
     const div = document.createElement("div"); 
     div.className = "video-item"; 
     div.dataset.video = video.videoId; 
@@ -47,79 +41,25 @@ async function loadVideos() {
     div.dataset.title = video.title || ""; 
     div.dataset.category = video.category || ""; 
     div.dataset.description = video.description || ""; 
-    div.innerHTML = ` 
-      <div class="thumb-wrapper"> 
-        <img src="${video.thumbnail || 'images/news1.jpg'}" class="video-thumb" alt="${video.title}"> 
-        <div class="play-btn"> <i class="fas fa-play"></i> </div> 
-      </div> 
-      <div class="video-info"> 
-        <span class="video-category"> ${video.category || ""} </span> 
-        <h4>${video.title || ""}</h4> 
-        <small> <i class="fas fa-calendar"></i> ${date} </small> 
-      </div> `; 
-    
+    div.innerHTML = `...yung html mo...`; 
     heroVideos.appendChild(div); 
     
-    // SLIDE UP ANIMATION ISA
-    setTimeout(() => {
-      div.classList.add('show-video');
-    }, 200 * index);
+    setTimeout(() => { div.classList.add('show-video'); }, 200 * index); 
   }); 
   
-  // ================ AUTO SCROLL TICKER ================
+  // AUTO SCROLL
   let currentScroll = 0;
-  const itemHeight = 110; // height ng 1 video + gap
+  const itemHeight = 110; 
   const totalHeight = videos.length * itemHeight;
   const containerHeight = heroVideos.parentElement.clientHeight;
   
-  // I-STOP ANG AUTO SCROLL PAG NAG HOVER YUNG USER
-  let autoScroll = true;
-  heroVideos.parentElement.addEventListener('mouseenter', () => autoScroll = false);
-  heroVideos.parentElement.addEventListener('mouseleave', () => autoScroll = true);
-  
-  setInterval(() => {
-    if(!autoScroll || videos.length <= 2) return; // Wag mag auto scroll pag 2 lang
-    
+  tickerInterval = setInterval(() => {
+    if(!autoScroll || videos.length <= 2) return; 
     currentScroll += itemHeight;
-    if(currentScroll >= totalHeight - containerHeight + itemHeight){
-      currentScroll = 0; // Balik sa taas
-    }
-    heroVideos.parentElement.scrollTo({
-      top: currentScroll,
-      behavior: 'smooth'
-    });
-  }, 4000); // 4 seconds bawat scroll
+    if(currentScroll >= totalHeight - containerHeight + itemHeight){ currentScroll = 0; }
+    heroVideos.parentElement.scrollTo({ top: currentScroll, behavior: 'smooth' });
+  }, 4000); 
 } 
+
 loadVideos(); 
-
-// TANGGALIN MO NA TO. DOBLE NA
-// const allItems = heroVideos.querySelectorAll('.video-item');
-// allItems.forEach((item, index) => { ... });
-
-document.addEventListener("click", async (e) => { 
-  const item = e.target.closest(".video-item"); 
-  if (!item) return; 
-  const docId = item.dataset.docid; 
-  const viewedKey = `video_view_${docId}`; 
-  if (!localStorage.getItem(viewedKey)) { 
-    await updateDoc(doc(db, "videos", docId), { views: increment(1) }); 
-    localStorage.setItem(viewedKey, "true"); 
-  } 
-  frame.src = `https://www.youtube.com/embed/${item.dataset.video}?autoplay=1`; 
-  videoTitle.textContent = item.dataset.title; 
-  videoCategory.textContent = item.dataset.category; 
-  videoDescription.textContent = item.dataset.description; 
-  modal.style.display = "flex"; 
-}); 
-
-document.getElementById("closeVideo").onclick = () => { 
-  modal.style.display = "none"; 
-  frame.src = ""; 
-}; 
-
-modal.onclick = (e) => { 
-  if (e.target === modal) { 
-    modal.style.display = "none"; 
-    frame.src = ""; 
-  } 
-};
+// ... yung click at modal code mo same lang ...
