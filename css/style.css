@@ -1877,102 +1877,133 @@ body.dark-mode .kebab-toggle {
     }
 }
 
-/* ===================================================
-LATEST VIDEO SIDEBAR
-=================================================== */
 
-.hero-right{
 
-    background:#fff;
-    padding:22px;
-    border-radius:18px;
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
 
+/* =================================================== LATEST VIDEO SIDEBAR =================================================== */ 
+.hero-right{ 
+  background:#0f172a; /* Dark blue para mukhang premium news */
+  padding:22px; 
+  border-radius:18px; 
+  box-shadow:0 10px 25px rgba(0,0,0,.15); 
+  border: 1px solid #1e293b;
+} 
+
+.sidebar-title{ 
+  display:flex; 
+  align-items:center; 
+  gap:8px; 
+  color:#ef4444; /* Mas maliwanag na red */
+  font-size:17px; 
+  font-weight:700; 
+  margin-bottom:20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+} 
+
+#heroVideos{ 
+  display:flex; 
+  flex-direction:column; 
+  gap:14px; 
+} 
+
+/* =========================== VIDEO ITEM =========================== */ 
+.video-item{ 
+  display:flex; 
+  align-items:center; /* Center para pantay */
+  gap:14px; 
+  cursor:pointer; 
+  padding:12px; 
+  border-radius:12px;
+  background: #1e293b;
+  opacity:0; 
+  transform:translateY(30px); /* Mas konti para mas mabilis */
+  transition: all .5s cubic-bezier(.4,0,.2,1); /* Mas smooth */
+} 
+
+.show-video{ 
+  opacity:1; 
+  transform:translateY(0); 
+} 
+
+.video-item:hover{ 
+  transform:translateX(5px) translateY(-2px); /* Umangat + gilid */
+  background:#334155; 
+  box-shadow: 0 4px 15px rgba(239,68,68,0.2); /* Red glow */
+} 
+
+/* THUMBNAIL */
+.thumb-wrapper{
+  position: relative;
+  flex-shrink: 0;
+  width: 110px;
+  height: 70px;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.sidebar-title{
-
-    display:flex;
-    align-items:center;
-    gap:8px;
-
-    color:#d60000;
-    font-size:17px;
-    font-weight:700;
-
-    margin-bottom:20px;
-
+.video-thumb{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
 }
 
-#heroVideos{
-
-    display:flex;
-    flex-direction:column;
-    gap:18px;
-
+.video-item:hover .video-thumb{
+  transform: scale(1.1); /* Zoom effect sa image */
 }
 
-/* ===========================
-VIDEO ITEM
-=========================== */
-
-.video-item{
-
-    display:flex;
-    align-items:flex-start;
-    gap:14px;
-
-    cursor:pointer;
-
-    padding:14px 0;
-
-    border-bottom:1px solid #ededed;
-
-    opacity:0;
-
-    transform:translateY(40px);
-
-    transition:
-        opacity .8s ease,
-        transform .8s ease;
-
+.play-btn{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(239,68,68,0.9);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.show-video{
-
-    opacity:1;
-
-    transform:translateY(0);
-
+.video-item:hover .play-btn{
+  opacity: 1; /* Lalabas play button pag hover */
 }
 
-
-@keyframes slideUp{
-
-    from{
-
-        opacity:0;
-        transform:translateY(40px);
-
-    }
-
-    to{
-
-        opacity:1;
-        transform:translateY(0);
-
-    }
-
+/* INFO */
+.video-info{
+  flex: 1;
 }
 
-.video-item:hover{
-
-    transform:translateX(8px);
-
-    background:#fafafa;
-
+.video-category{
+  display: inline-block;
+  background: #ef4444;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
 }
 
+.video-info h4{
+  font-size: 14px;
+  color: #f8fafc;
+  line-height: 1.4;
+  margin: 0 0 6px 0;
+  font-weight: 600;
+}
+
+.video-info small{
+  color: #94a3b8;
+  font-size: 11px;
+}
 /* ===========================
 THUMBNAIL
 =========================== */
