@@ -68,11 +68,11 @@ async function loadVideos() {
   const containerHeight = heroVideos.parentElement.clientHeight; 
   
   tickerInterval = setInterval(() => { 
-    if(!autoScroll || videos.length <= 2) return; 
-    currentScroll += itemHeight; 
-    if(currentScroll >= totalHeight - containerHeight + itemHeight){ currentScroll = 0; } 
-    heroVideos.parentElement.scrollTo({ top: currentScroll, behavior: 'smooth' }); 
-  }, 4000); 
+  if(!autoScroll || videos.length <= 3) return; // DATING <= 1, GINAWA KONG <= 3
+  currentScroll += itemHeight; 
+  if(currentScroll >= totalHeight - containerHeight + itemHeight){ currentScroll = 0; } 
+  heroVideos.parentElement.scrollTo({ top: currentScroll, behavior: 'smooth' }); 
+}, 4000);
 } 
 
 loadVideos(); 
