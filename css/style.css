@@ -4151,3 +4151,71 @@ body.dark-mode .search-result-title {
 body.dark-mode .search-result-item:hover {
     background: #243451 !important;
 }
+
+
+
+
+
+
+
+/* DEFAULT = DARK MODE */
+.hero-right{ 
+  background:#0f172a; 
+  padding:22px; 
+  border-radius:18px; 
+  box-shadow:0 10px 25px rgba(0,0,0,.15); 
+  height: 330px; 
+  overflow-y: auto; 
+  overflow-x: hidden; 
+  scroll-behavior: smooth; 
+} 
+
+.sidebar-title{ 
+  color:#ef4444; 
+  background:#0f172a; 
+} 
+
+.video-item{ 
+  border-bottom:1px solid #334155; 
+} 
+.video-item:hover{ 
+  background:#1e293b; 
+}
+.video-info h4{
+  color: #fff;
+}
+.video-info small{
+  color: #94a3b8;
+}
+
+/* LIGHT MODE */
+body.light-mode .hero-right{ 
+  background:#ffffff; 
+  box-shadow:0 10px 25px rgba(0,0,0,.08); 
+} 
+
+body.light-mode .sidebar-title{ 
+  color:#dc2626; 
+  background:#ffffff; 
+} 
+
+body.light-mode .video-item{ 
+  border-bottom:1px solid #e2e8f0; 
+} 
+body.light-mode .video-item:hover{ 
+  background:#f8fafc; 
+}
+body.light-mode .video-info h4{
+  color: #1e293b;
+}
+body.light-mode .video-info small{
+  color: #64748b;
+}
+body.light-mode .video-category{
+  background: #dc2626;
+  color: #fff;
+}
+
+/* SCROLLBAR LIGHT MODE */
+body.light-mode .hero-right::-webkit-scrollbar-thumb { background: #dc2626; }
+body.light-mode .hero-right::-webkit-scrollbar-track { background: #f1f5f9; }
