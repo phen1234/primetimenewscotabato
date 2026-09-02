@@ -28,17 +28,22 @@ async function loadVideos() {
     return;
   }
   
+  const videos = [];
   snapshot.forEach((docSnap) => { 
-    const video = docSnap.data(); 
+    videos.push({id: docSnap.id, ...docSnap.data()}); 
+  }); 
+  
+  // GAWA NG HTML
+  videos.forEach((video, index) => { 
     let date = ""; 
     if (video.createdAt && video.createdAt.seconds) { 
       date = new Date(video.createdAt.seconds * 1000).toLocaleDateString(); 
     } 
     
     const div = document.createElement("div"); 
-    div.className = "video-item"; // NAKA HIDE PA TO DAHIL SA CSS
+    div.className = "video-item"; 
     div.dataset.video = video.videoId; 
-    div.dataset.docid = docSnap.id; 
+    div.dataset.docid = video.id; 
     div.dataset.title = video.title || ""; 
     div.dataset.category = video.category || ""; 
     div.dataset.description = video.description || ""; 
@@ -54,10 +59,37 @@ async function loadVideos() {
       </div> `; 
     
     heroVideos.appendChild(div); 
-    observer.observe(div); // OBSERVE MO PARA PAG SCROLL LALABAS
+    
+    // SLIDE UP ANIMATION ISA
+    setTimeout(() => {
+      div.classList.add('show-video');
+    }, 200 * index);
   }); 
+  
+  // ================ AUTO SCROLL TICKER ================
+  let currentScroll = 0;
+  const itemHeight = 110; // height ng 1 video + gap
+  const totalHeight = videos.length * itemHeight;
+  const containerHeight = heroVideos.parentElement.clientHeight;
+  
+  // I-STOP ANG AUTO SCROLL PAG NAG HOVER YUNG USER
+  let autoScroll = true;
+  heroVideos.parentElement.addEventListener('mouseenter', () => autoScroll = false);
+  heroVideos.parentElement.addEventListener('mouseleave', () => autoScroll = true);
+  
+  setInterval(() => {
+    if(!autoScroll || videos.length <= 2) return; // Wag mag auto scroll pag 2 lang
+    
+    currentScroll += itemHeight;
+    if(currentScroll >= totalHeight - containerHeight + itemHeight){
+      currentScroll = 0; // Balik sa taas
+    }
+    heroVideos.parentElement.scrollTo({
+      top: currentScroll,
+      behavior: 'smooth'
+    });
+  }, 4000); // 4 seconds bawat scroll
 } 
-
 loadVideos(); 
 
 // TANGGALIN MO NA TO. DOBLE NA
