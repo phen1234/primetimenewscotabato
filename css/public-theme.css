@@ -934,6 +934,47 @@ html.dark-mode .public-theme-toggle {
 
 
 
+/* STEP ITEM DEFAULT - PUTI */
+.step-item {
+  color: #e0e0e0; /* light gray/white */
+  transition: all 0.4s ease;
+}
+
+.step-item h4,
+.step-item p {
+  color: #e0e0e0;
+  transition: all 0.4s ease;
+}
+
+.step-item .step-icon i {
+  color: #e0e0e0;
+  transition: all 0.4s ease;
+}
+
+
+/* PAG DONE NA - MAGIGING GREEN */
+.step-item.done {
+  color: #00ff88; /* Neon Green */
+}
+
+.step-item.done h4,
+.step-item.done p {
+  color: #00ff88; /* Neon Green */
+}
+
+.step-item.done .step-icon i {
+  color: #00ff88; /* Green na yung check icon */
+}
+
+/* OPTIONAL: GLOW EFFECT PARA MAS TV NETWORK */
+.step-item.done {
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+}
+
+
+
+
+
 
 
 
