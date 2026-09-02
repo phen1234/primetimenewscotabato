@@ -737,5 +737,55 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const loader = document.getElementById("pageLoader");
+  const circle = document.getElementById("loaderCircle");
+  const percentText = document.getElementById("loaderPercent");
+  const steps = [step1, step2, step3, step4];
+
+  let progress = 0;
+  const circumference = 408; // 2 * PI * 65
+
+  const interval = setInterval(() => {
+    progress += Math.random() * 8;
+    if (progress > 100) progress = 100;
+
+    // Update circle
+    const offset = circumference - (progress / 100) * circumference;
+    circle.style.strokeDashoffset = offset;
+    percentText.textContent = Math.floor(progress);
+
+    // Update steps
+    if (progress > 25) steps[0].classList.add('done');
+    if (progress > 50) steps[1].classList.add('done');
+    if (progress > 75) steps[2].classList.add('done');
+    if (progress > 95) steps[3].classList.add('done');
+
+    if (progress >= 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        loader.style.opacity = "0";
+        setTimeout(() => loader.style.display = "none", 600);
+      }, 800);
+    }
+  }, 200);
+});
+</script>
+
+
+
+
+
+
+
+
+    
+
+
 </body>
 </html>
