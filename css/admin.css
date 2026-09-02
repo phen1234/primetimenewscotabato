@@ -1,524 +1,773 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
 
 body{
-
-background:#081938;
-overflow:hidden;
-
+    background:#081938;
+    overflow:hidden;
 }
 
-/* BACKGROUND */
+/* =========================================
+   BACKGROUND
+   ========================================= */
 
 .background{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:url("../images/fb-backgound.gif") center center no-repeat;
-
-background-size:cover;
-
-z-index:-3;
-
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:url("../images/fb-backgound.gif") center center no-repeat;
+    background-size:cover;
+    z-index:-3;
 }
 
 .overlay{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:rgba(5,15,35,.65);
-
-backdrop-filter:blur(3px);
-
-z-index:-2;
-
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(5,15,35,.65);
+    backdrop-filter:blur(3px);
+    z-index:-2;
 }
 
-/* LEFT PANEL */
+
+/* =========================================
+   LEFT PANEL
+   ========================================= */
 
 .left-panel{
+    position:absolute;
+    left:8%;
+    top:50%;
+    transform:translateY(-50%);
 
-position:absolute;
+    width:500px;
 
-left:8%;
-top:50%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
 
-transform:translateY(-50%);
+    color:#fff;
 
-color:#fff;
-
-width:500px;
-
-animation:fadeIn 1.5s;
-
+    animation:fadeIn 1.5s;
 }
 
 .brand{
+    width:690px;
+    margin-bottom:5px;
 
-width:800px;
+    animation:float 4s ease-in-out infinite;
 
-margin-bottom:30px;
-
-animation:float 4s ease-in-out infinite;
-
+    filter:drop-shadow(0 15px 35px rgba(0,0,0,.45));
 }
 
-.left-panel{
-
-position:absolute;
-
-left:8%;
-top:50%;
-
-transform:translateY(-50%);
-
-width:500px;
-
-display:flex;
-flex-direction:column;
-align-items:center;
-text-align:center;
-
-color:#fff;
-
-animation:fadeIn 1.5s;
-
-}
-
-.brand{
-
-width:690px;
-margin-bottom:5px;
-
-animation:float 4s ease-in-out infinite;
-
-filter:drop-shadow(0 15px 35px rgba(0,0,0,.45));
-
-}
 .tagline{
-
-font-size:22px;
-
-font-weight:600;
-
-line-height:1.8;
-
-max-width:450px;
-
-color:#fff;
-
+    font-size:22px;
+    font-weight:600;
+    line-height:1.8;
+    max-width:450px;
+    color:#fff;
 }
 
 .tagline span{
-
-display:block;
-
-margin-top:10px;
-
-font-size:18px;
-
-font-weight:400;
-
-color:#d9d9d9;
-
-letter-spacing:1px;
-
+    display:block;
+    margin-top:10px;
+    font-size:18px;
+    font-weight:400;
+    color:#d9d9d9;
+    letter-spacing:1px;
 }
 
+
+/* =========================================
+   DIVIDER
+   ========================================= */
+
 .divider{
+    display:flex;
+    align-items:center;
 
-display:flex;
-align-items:center;
+    margin:28px 0 25px;
 
-margin:28px 0 25px;
-
-color:#cfcfcf;
-
-font-size:15px;
-
+    color:#cfcfcf;
+    font-size:15px;
 }
 
 .divider::before,
 .divider::after{
-
-content:"";
-
-flex:1;
-
-height:1px;
-
-background:rgba(255,255,255,.18);
-
+    content:"";
+    flex:1;
+    height:1px;
+    background:rgba(255,255,255,.18);
 }
 
 .divider span{
-
-padding:0 18px;
-
+    padding:0 18px;
 }
 
+
+/* =========================================
+   GOOGLE LOGIN
+   ========================================= */
+
 .google-logo-btn{
+    width:65px;
+    height:65px;
 
-width:65px;
-height:65px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-display:flex;
-justify-content:center;
-align-items:center;
+    margin:5px auto;
 
-margin:5px auto;
+    background:rgba(255,255,255,.05);
 
-background:rgba(255,255,255,.05);
+    backdrop-filter:blur(10px);
 
-backdrop-filter:blur(10px);
+    border:2px solid rgba(255,255,255,.25);
 
-border:2px solid rgba(255,255,255,.25);
+    border-radius:50%;
 
-border-radius:50%;
+    cursor:pointer;
 
-cursor:pointer;
+    transition:.4s;
 
-transition:.4s;
-
-box-shadow:
-0 0 15px rgba(255,255,255,.15),
-0 0 30px rgba(227,6,19,.15);
-
+    box-shadow:
+        0 0 15px rgba(255,255,255,.15),
+        0 0 30px rgba(227,6,19,.15);
 }
 
 .google-logo-btn img{
-
-width:48px;
-
-height:48px;
-
+    width:48px;
+    height:48px;
 }
 
 .google-logo-btn:hover{
+    transform:translateY(-6px) scale(1.08);
 
-transform:translateY(-6px) scale(1.08);
+    border-color:#E30613;
 
-border-color:#E30613;
-
-box-shadow:
-0 0 15px #E30613,
-0 0 35px rgba(227,6,19,.8),
-0 0 60px rgba(227,6,19,.5);
-
+    box-shadow:
+        0 0 15px #E30613,
+        0 0 35px rgba(227,6,19,.8),
+        0 0 60px rgba(227,6,19,.5);
 }
 
+
+/* =========================================
+   SECURE TEXT
+   ========================================= */
+
 .secure-text{
+    margin-top:18px;
 
-margin-top:18px;
+    text-align:center;
 
-text-align:center;
+    font-size:13px;
 
-font-size:13px;
-
-color:#d6d6d6;
-
+    color:#d6d6d6;
 }
 
 .secure-text i{
-
-color:#38d46c;
-
-margin-right:6px;
-
+    color:#38d46c;
+    margin-right:6px;
 }
 
-/* LOGIN CARD */
+
+/* =========================================
+   LOGIN CARD
+   ========================================= */
 
 .login-card{
+    position:absolute;
 
-position:absolute;
+    right:18%;
+    top:50%;
 
-right:18%;
-top:50%;
+    transform:translateY(-50%);
 
-transform:translateY(-50%);
+    width:550px;
 
-width:550px;
+    padding:45px;
 
-padding:45px;
+    border-radius:25px;
 
-border-radius:25px;
+    background:rgba(12,20,50,.70);
 
-background:rgba(12,20,50,.70);
+    backdrop-filter:blur(18px);
 
-backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.15);
 
-border:1px solid rgba(255,255,255,.15);
+    box-shadow:0 25px 60px rgba(0,0,0,.45);
 
-box-shadow:0 25px 60px rgba(0,0,0,.45);
-
-animation:slideIn .9s;
-
+    animation:slideIn .9s;
 }
 
 .login-logo{
+    width:130px;
 
-width:130px;
+    display:block;
 
-display:block;
+    margin:auto;
 
-margin:auto;
+    margin-bottom:20px;
 
-margin-bottom:20px;
+    border-radius:50%;
 
-border-radius:50%;
-
-box-shadow:0 10px 25px rgba(0,0,0,.4);
-
+    box-shadow:0 10px 25px rgba(0,0,0,.4);
 }
 
 .login-card h2{
+    color:#fff;
 
-color:#fff;
+    text-align:center;
 
-text-align:center;
-
-margin-bottom:10px;
-
+    margin-bottom:10px;
 }
 
 .subtitle{
+    color:#ddd;
 
-color:#ddd;
+    text-align:center;
 
-text-align:center;
-
-margin-bottom:30px;
-
+    margin-bottom:30px;
 }
 
-/* INPUT */
+
+/* =========================================
+   INPUT
+   ========================================= */
 
 .input-box{
+    display:flex;
 
-display:flex;
+    align-items:center;
 
-align-items:center;
+    margin-bottom:20px;
 
-margin-bottom:20px;
+    background:#10264a;
 
-background:#10264a;
+    padding:15px 18px;
 
-padding:15px 18px;
+    border-radius:12px;
 
-border-radius:12px;
+    transition:.3s;
 
-transition:.3s;
-
+    position:relative;
 }
 
 .input-box:focus-within{
+    box-shadow:0 0 20px rgba(255,70,70,.45);
 
-box-shadow:0 0 20px rgba(255,70,70,.45);
-
-border:1px solid #ff4d4d;
-
+    border:1px solid #ff4d4d;
 }
 
-.input-box i{
-
-color:#fff;
-
+.input-box > i:first-child{
+    color:#fff;
 }
 
 .input-box input{
+    flex:1;
 
-flex:1;
+    min-width:0;
 
-margin-left:15px;
+    margin-left:15px;
 
-border:none;
+    border:none;
 
-outline:none;
+    outline:none;
 
-background:none;
+    background:none;
 
-color:#fff;
+    color:#fff;
 
-font-size:16px;
-
+    font-size:16px;
 }
+
+.input-box input::placeholder{
+    color:rgba(255,255,255,.55);
+}
+
+
+/* =========================================
+   PASSWORD TOGGLE
+   ========================================= */
 
 .toggle-password{
+    cursor:pointer;
 
-cursor:pointer;
+    color:#fff;
 
+    flex-shrink:0;
 }
 
-/* BUTTON */
+
+/* =========================================
+   BUTTON
+   ========================================= */
 
 button{
+    width:100%;
 
-width:100%;
+    padding:16px;
 
-padding:16px;
+    border:none;
 
-border:none;
+    border-radius:12px;
 
-border-radius:12px;
+    background:linear-gradient(
+        135deg,
+        #E30613,
+        #ff5b5b
+    );
 
-background:linear-gradient(135deg,#E30613,#ff5b5b);
+    color:#fff;
 
-color:#fff;
+    font-size:18px;
 
-font-size:18px;
+    font-weight:700;
 
-font-weight:700;
+    cursor:pointer;
 
-cursor:pointer;
-
-transition:.35s;
-
+    transition:.35s;
 }
 
 button:hover{
+    transform:translateY(-5px);
 
-transform:translateY(-5px);
-
-box-shadow:0 15px 35px rgba(227,6,19,.45);
-
+    box-shadow:0 15px 35px rgba(227,6,19,.45);
 }
+
+
+/* =========================================
+   LOGIN MESSAGE
+   ========================================= */
 
 #loginMessage{
+    margin-top:15px;
 
-margin-top:15px;
+    text-align:center;
 
-text-align:center;
-
-font-weight:600;
-
+    font-weight:600;
 }
 
-/* ANIMATION */
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
 
 @keyframes slideIn{
 
-from{
+    from{
+        opacity:0;
+        transform:translate(80px,-50%);
+    }
 
-opacity:0;
-
-transform:translate(80px,-50%);
-
-}
-
-to{
-
-opacity:1;
-
-transform:translate(0,-50%);
-
-}
-
+    to{
+        opacity:1;
+        transform:translate(0,-50%);
+    }
 }
 
 @keyframes fadeIn{
 
-from{
+    from{
+        opacity:0;
+        transform:translateY(-40%);
+    }
 
-opacity:0;
-
-transform:translateY(-40%);
-
-}
-
-to{
-
-opacity:1;
-
-transform:translateY(-50%);
-
-}
-
+    to{
+        opacity:1;
+        transform:translateY(-50%);
+    }
 }
 
 @keyframes zoom{
 
-from{
+    from{
+        transform:scale(1);
+    }
 
-transform:scale(1);
-
-}
-
-to{
-
-transform:scale(1.08);
-
-}
-
+    to{
+        transform:scale(1.08);
+    }
 }
 
 @keyframes float{
 
-0%{
+    0%{
+        transform:translateY(0);
+    }
 
-transform:translateY(0);
+    50%{
+        transform:translateY(-10px);
+    }
 
+    100%{
+        transform:translateY(0);
+    }
 }
 
-50%{
 
-transform:translateY(-10px);
-
-}
-
-100%{
-
-transform:translateY(0);
-
-}
-
-}
-
-/* RESPONSIVE */
+/* =========================================
+   RESPONSIVE
+   MOBILE / TABLET
+   ========================================= */
 
 @media(max-width:900px){
 
-.left-panel{
+    /* Hide desktop left panel */
+    .left-panel{
+        display:none;
+    }
 
-display:none;
+
+    /* =====================================
+       LOGIN CARD
+       ===================================== */
+
+    .login-card{
+
+        left:50%;
+        right:auto;
+
+        transform:translate(-50%,-50%);
+
+        width:calc(100% - 30px);
+
+        max-width:420px;
+
+        padding:28px 20px;
+
+        border-radius:22px;
+    }
+
+
+    /* =====================================
+       LOGIN LOGO
+       ===================================== */
+
+    .login-logo{
+
+        width:105px;
+
+        margin-bottom:14px;
+    }
+
+
+    /* =====================================
+       TITLE
+       ===================================== */
+
+    .login-card h2{
+
+        font-size:27px;
+
+        line-height:1.25;
+
+        margin-bottom:9px;
+    }
+
+
+    /* =====================================
+       SUBTITLE
+       ===================================== */
+
+    .subtitle{
+
+        font-size:15px;
+
+        line-height:1.45;
+
+        margin-bottom:20px;
+    }
+
+
+    /* =====================================
+       INPUT BOX
+       ===================================== */
+
+    .input-box{
+
+        position:relative;
+
+        height:56px;
+
+        margin-bottom:13px;
+
+        padding:12px 15px;
+
+        border-radius:11px;
+    }
+
+    .input-box input{
+
+        min-width:0;
+
+        margin-left:12px;
+
+        padding-right:40px;
+
+        font-size:15px;
+    }
+
+
+    /* =====================================
+       PASSWORD EYE
+       INSIDE PASSWORD FIELD
+       ===================================== */
+
+    .toggle-password{
+
+        position:absolute;
+
+        right:14px;
+
+        top:50%;
+
+        transform:translateY(-50%);
+
+        margin:0 !important;
+
+        width:22px;
+
+        height:22px;
+
+        display:flex;
+
+        align-items:center;
+
+        justify-content:center;
+
+        cursor:pointer;
+
+        color:#fff;
+    }
+
+
+    /* =====================================
+       SIGN IN BUTTON
+       ===================================== */
+
+    .login-card form > button{
+
+        height:56px;
+
+        padding:12px;
+
+        font-size:17px;
+
+        border-radius:11px;
+    }
+
+
+    /* =====================================
+       LOGIN MESSAGE
+       ===================================== */
+
+    #loginMessage{
+
+        margin-top:10px;
+
+        font-size:13px;
+    }
+
+
+    /* =====================================
+       GOOGLE DIVIDER
+       ===================================== */
+
+    .divider{
+
+        margin:20px 0 17px;
+
+        font-size:13px;
+    }
+
+    .divider span{
+
+        padding:0 12px;
+    }
+
+
+    /* =====================================
+       GOOGLE BUTTON
+       ===================================== */
+
+    .google-logo-btn{
+
+        width:56px;
+
+        height:56px;
+
+        margin:3px auto;
+    }
+
+    .google-logo-btn img{
+
+        width:40px;
+
+        height:40px;
+    }
+
+
+    /* =====================================
+       SECURE TEXT
+       ===================================== */
+
+    .secure-text{
+
+        margin-top:13px;
+
+        font-size:11px;
+    }
 
 }
 
-.login-card{
 
-left:50%;
+/* =========================================
+   EXTRA SMALL PHONES
+   ========================================= */
 
-right:auto;
+@media(max-width:380px){
 
-transform:translate(-50%,-50%);
+    .login-card{
 
-width:95%;
+        width:calc(100% - 22px);
 
-max-width:420px;
+        padding:22px 16px;
 
-}
-.toggle-password{
+        border-radius:20px;
+    }
 
-margin-right: 1000px;
 
-}
+    /* LOGO */
 
-}
+    .login-logo{
+
+        width:90px;
+
+        margin-bottom:11px;
+    }
+
+
+    /* TITLE */
+
+    .login-card h2{
+
+        font-size:23px;
+
+        line-height:1.2;
+
+        margin-bottom:8px;
+    }
+
+
+    /* SUBTITLE */
+
+    .subtitle{
+
+        font-size:13px;
+
+        line-height:1.35;
+
+        margin-bottom:16px;
+    }
+
+
+    /* INPUT */
+
+    .input-box{
+
+        height:52px;
+
+        margin-bottom:10px;
+
+        padding:10px 13px;
+    }
+
+    .input-box input{
+
+        font-size:14px;
+
+        margin-left:10px;
+
+        padding-right:35px;
+    }
+
+
+    /* EYE */
+
+    .toggle-password{
+
+        right:12px;
+
+        width:20px;
+
+        height:20px;
+    }
+
+
+    /* SIGN IN */
+
+    .login-card form > button{
+
+        height:52px;
+
+        padding:10px;
+
+        font-size:16px;
+    }
+
+
+    /* DIVIDER */
+
+    .divider{
+
+        margin:16px 0 14px;
+
+        font-size:12px;
+    }
+
+    .divider span{
+
+        padding:0 10px;
+    }
+
+
+    /* GOOGLE */
+
+    .google-logo-btn{
+
+        width:50px;
+
+        height:50px;
+    }
+
+    .google-logo-btn img{
+
+        width:36px;
+
+        height:36px;
+    }
+
+
+    /* SECURE TEXT */
+
+    .secure-text{
+
+        font-size:10px;
+
+        margin-top:10px;
+    }
+
+  }
