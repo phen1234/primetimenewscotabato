@@ -4317,12 +4317,12 @@ body .news-grid .news-content{
 /* ========== MALIIT NA BADGE ========== */
 body .news-grid .news-badge{
   display: inline-block;
-  padding: 3px 8px; /* MAS MANIPIS */
+  padding: 2px 6px; /* MAS MANIPIS */
   border-radius: 3px; /* MAS KUTING */
-  font-size: 9px; /* MAS MALIIT NA FONT */
+  font-size: 8px; /* MAS MALIIT NA FONT */
   font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 6px; /* MAS LAPIT SA TITLE */
+  margin-bottom: 5px; /* MAS LAPIT SA TITLE */
   width: fit-content;
   letter-spacing: 0.5px;
   line-height: 1;
