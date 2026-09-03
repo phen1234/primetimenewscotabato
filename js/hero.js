@@ -11,6 +11,7 @@ const DEFAULT_IMAGE = "https://res.cloudinary.com/ufx7karu/image/upload/v1787537
 let slides = [];
 let dots = [];
 let currentSlide = 0;
+let autoSlideInterval;
 
 // =========================
 // LOAD HERO SLIDER
@@ -25,39 +26,26 @@ async function loadHeroSlider() {
 
   try {
     let snapshot;
-    // PINNED NEWS FIRST
     try {
       const pinnedQuery = query( collection(db, "news"), where("pinned", "==", true), orderBy("createdAt", "desc"), limit(5) );
       snapshot = await getDocs(pinnedQuery);
     } catch (error) {
       console.warn("Pinned query failed. Loading latest news.", error );
-      // FALLBACK
       const latestQuery = query( collection(db, "news"), orderBy("createdAt", "desc"), limit(5) );
       snapshot = await getDocs(latestQuery);
     }
 
-    // CONVERT TO ARRAY
     let newsList = [];
     snapshot.forEach(docSnap => {
       const news = docSnap.data();
-      // Only published news
       if ( news.status && news.status!== "published" ) {
         return;
       }
       newsList.push({ id: docSnap.id,...news });
     });
 
-    // NO NEWS
     if (!newsList.length) {
-      heroSlider.innerHTML = `
-        <div class="slide active">
-          <img src="${DEFAULT_IMAGE}" alt="PrimeTime News" >
-          <div class="overlay">
-            <span>NO NEWS</span>
-            <h1 style="font-size:14px!important; -webkit-line-clamp:3!important; display:-webkit-box!important; -webkit-box-orient:vertical!important; overflow:hidden!important;"> No news available. </h1>
-          </div>
-        </div>
-      `;
+      heroSlider.innerHTML = `<div class="slide active"><img src="${DEFAULT_IMAGE}" alt="PrimeTime News"><div class="overlay"><h1>No news available.</h1></div></div>`;
       return;
     }
 
@@ -71,21 +59,21 @@ async function loadHeroSlider() {
       heroSlider.innerHTML += `
         <div class="slide ${index === 0? "active" : ""}">
           <a href="article.html?id=${news.id}">
-            <img src="${image}" alt="${headline.replace(/"/g, "&quot;")}" onerror=" this.onerror=null; this.src='${DEFAULT_IMAGE}'; " >
+            <img src="${image}" alt="${headline.replace(/"/g, "&quot;")}" onerror="this.onerror=null; this.src='${DEFAULT_IMAGE}';" >
           </a>
           <div class="overlay">
-            <span class="hero-category"> ${category} </span>
-            <h1 style="font-size:14px!important; font-weight:800!important; line-height:1.3!important; color:#fff!important; text-transform:uppercase!important; text-shadow:2px 2px 6px rgba(0,0,0,0.9)!important; margin:0 0 10px 0!important; display:-webkit-box!important; -webkit-line-clamp:3!important; -webkit-box-orient:vertical!important; overflow:hidden!important; text-overflow:ellipsis!important;"> ${headline} </h1>
-            <p style="font-size:11px!important; line-height:1.4!important; display:-webkit-box!important; -webkit-line-clamp:2!important; -webkit-box-orient:vertical!important; overflow:hidden!important; margin-bottom:10px!important;"> ${summary} </p>
-            <a href="article.html?id=${news.id}" class="hero-btn" > Read Full Story <i class="fas fa-arrow-right"></i> </a>
+            <span class="hero-category">${category}</span>
+            <h1 class="hero-title">${headline}</h1>
+            <p class="hero-summary">${summary}</p>
+            <a href="article.html?id=${news.id}" class="hero-btn">Read Full Story <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
       `;
 
-      heroDots.innerHTML += ` <span class="dot ${index === 0? "active" : ""}" data-index="${index}"> </span> `;
+      heroDots.innerHTML += `<span class="dot ${index === 0? "active" : ""}" data-index="${index}"></span>`;
     });
 
-    // REFRESH ELEMENTS
+    // REFRESH ELEMENTS - DITO YUNG FIX
     slides = document.querySelectorAll("#heroSlider.slide");
     dots = document.querySelectorAll("#heroDots.dot");
     currentSlide = 0;
@@ -95,9 +83,11 @@ async function loadHeroSlider() {
       dot.addEventListener("click", () => {
         currentSlide = index;
         showSlide(currentSlide);
+        resetAutoSlide();
       });
     });
 
+    startAutoSlide();
     console.log("✅ HERO NEWS LOADED:", slides.length );
 
   } catch (err) {
@@ -109,35 +99,41 @@ async function loadHeroSlider() {
 // SHOW SLIDE
 // =========================
 function showSlide(index) {
-  if (!slides.length) { return; }
-  slides.forEach(slide => { slide.classList.remove("active"); });
-  dots.forEach(dot => { dot.classList.remove("active"); });
+  if (!slides.length) return;
+  slides.forEach(slide => slide.classList.remove("active"));
+  dots.forEach(dot => dot.classList.remove("active"));
   slides[index].classList.add("active");
-  if (dots[index]) { dots[index].classList.add("active"); }
+  if (dots[index]) dots[index].classList.add("active");
 }
 
 // NEXT
 function nextSlide() {
-  if (slides.length <= 1) { return; }
+  if (slides.length <= 1) return;
   currentSlide++;
-  if (currentSlide >= slides.length) { currentSlide = 0; }
+  if (currentSlide >= slides.length) currentSlide = 0;
   showSlide(currentSlide);
 }
 
 // PREVIOUS
 function prevSlide() {
-  if (slides.length <= 1) { return; }
+  if (slides.length <= 1) return;
   currentSlide--;
-  if (currentSlide < 0) { currentSlide = slides.length - 1; }
+  if (currentSlide < 0) currentSlide = slides.length - 1;
   showSlide(currentSlide);
 }
 
-// BUTTONS
-if (next) { next.addEventListener("click", nextSlide ); }
-if (prev) { prev.addEventListener("click", prevSlide ); }
-
 // AUTO SLIDE
-setInterval(() => { nextSlide(); }, 5000);
+function startAutoSlide(){
+  autoSlideInterval = setInterval(() => { nextSlide(); }, 5000);
+}
+function resetAutoSlide(){
+  clearInterval(autoSlideInterval);
+  startAutoSlide();
+}
+
+// BUTTONS
+if (next) next.addEventListener("click", () => { nextSlide(); resetAutoSlide(); });
+if (prev) prev.addEventListener("click", () => { prevSlide(); resetAutoSlide(); });
 
 // LOAD
 loadHeroSlider();
