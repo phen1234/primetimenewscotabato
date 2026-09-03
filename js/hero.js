@@ -4,8 +4,8 @@ import { collection, getDocs, query, where, orderBy, limit } from "https://www.g
 
 const heroSlider = document.getElementById("heroSlider");
 const heroDots = document.getElementById("heroDots");
-const next = document.querySelector(".next");
-const prev = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
+const prevBtn = document.querySelector(".prev");
 const DEFAULT_IMAGE = "https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png";
 
 let slides = [];
@@ -27,25 +27,23 @@ async function loadHeroSlider() {
   try {
     let snapshot;
     try {
-      const pinnedQuery = query( collection(db, "news"), where("pinned", "==", true), orderBy("createdAt", "desc"), limit(5) );
+      const pinnedQuery = query(collection(db, "news"), where("pinned", "==", true), orderBy("createdAt", "desc"), limit(5));
       snapshot = await getDocs(pinnedQuery);
     } catch (error) {
-      console.warn("Pinned query failed. Loading latest news.", error );
-      const latestQuery = query( collection(db, "news"), orderBy("createdAt", "desc"), limit(5) );
+      console.warn("Pinned query failed. Loading latest news.", error);
+      const latestQuery = query(collection(db, "news"), orderBy("createdAt", "desc"), limit(5));
       snapshot = await getDocs(latestQuery);
     }
 
     let newsList = [];
     snapshot.forEach(docSnap => {
       const news = docSnap.data();
-      if ( news.status && news.status!== "published" ) {
-        return;
-      }
+      if (news.status && news.status!== "published") return;
       newsList.push({ id: docSnap.id,...news });
     });
 
     if (!newsList.length) {
-      heroSlider.innerHTML = `<div class="slide active"><img src="${DEFAULT_IMAGE}" alt="PrimeTime News"><div class="overlay"><h1>No news available.</h1></div></div>`;
+      heroSlider.innerHTML = `<div class="slide active"><img src="${DEFAULT_IMAGE}" alt="PrimeTime News"><div class="overlay"><h1 class="hero-title">No news available.</h1></div></div>`;
       return;
     }
 
@@ -59,7 +57,7 @@ async function loadHeroSlider() {
       heroSlider.innerHTML += `
         <div class="slide ${index === 0? "active" : ""}">
           <a href="article.html?id=${news.id}">
-            <img src="${image}" alt="${headline.replace(/"/g, "&quot;")}" onerror="this.onerror=null; this.src='${DEFAULT_IMAGE}';" >
+            <img src="${image}" alt="${headline.replace(/"/g, "&quot;")}" onerror="this.onerror=null; this.src='${DEFAULT_IMAGE}';">
           </a>
           <div class="overlay">
             <span class="hero-category">${category}</span>
@@ -73,7 +71,7 @@ async function loadHeroSlider() {
       heroDots.innerHTML += `<span class="dot ${index === 0? "active" : ""}" data-index="${index}"></span>`;
     });
 
-    // REFRESH ELEMENTS - DITO YUNG FIX
+    // FIX DITO: MAY SPACE
     slides = document.querySelectorAll("#heroSlider.slide");
     dots = document.querySelectorAll("#heroDots.dot");
     currentSlide = 0;
@@ -88,10 +86,10 @@ async function loadHeroSlider() {
     });
 
     startAutoSlide();
-    console.log("✅ HERO NEWS LOADED:", slides.length );
+    console.log("✅ HERO NEWS LOADED:", slides.length);
 
   } catch (err) {
-    console.error("❌ Hero Slider Error:", err );
+    console.error("❌ Hero Slider Error:", err);
   }
 }
 
@@ -109,31 +107,29 @@ function showSlide(index) {
 // NEXT
 function nextSlide() {
   if (slides.length <= 1) return;
-  currentSlide++;
-  if (currentSlide >= slides.length) currentSlide = 0;
+  currentSlide = (currentSlide + 1) % slides.length;
   showSlide(currentSlide);
 }
 
 // PREVIOUS
 function prevSlide() {
   if (slides.length <= 1) return;
-  currentSlide--;
-  if (currentSlide < 0) currentSlide = slides.length - 1;
+  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
   showSlide(currentSlide);
 }
 
 // AUTO SLIDE
 function startAutoSlide(){
+  clearInterval(autoSlideInterval);
   autoSlideInterval = setInterval(() => { nextSlide(); }, 5000);
 }
 function resetAutoSlide(){
-  clearInterval(autoSlideInterval);
   startAutoSlide();
 }
 
 // BUTTONS
-if (next) next.addEventListener("click", () => { nextSlide(); resetAutoSlide(); });
-if (prev) prev.addEventListener("click", () => { prevSlide(); resetAutoSlide(); });
+if (nextBtn) nextBtn.addEventListener("click", () => { nextSlide(); resetAutoSlide(); });
+if (prevBtn) prevBtn.addEventListener("click", () => { prevSlide(); resetAutoSlide(); });
 
 // LOAD
 loadHeroSlider();
