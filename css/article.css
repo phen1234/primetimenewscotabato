@@ -4,25 +4,26 @@ body{
 
 /* ========== NARROW TYPE CONTAINER ========== */
 .container{
-  max-width: 1100px; /* DATING 100%. NGAYON 1100px LANG */
-  margin: 0 auto;    /* CENTER */
-  padding: 0 20px;   /* 20px space sa gilid */
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
   width: 100%;
   box-sizing: border-box;
 }
 
 /* ====================== ARTICLE PAGE ====================== */
 .article-page{ 
-  padding:40px 0; 
+  padding:0 0 40px 0; /* TINANGGAL TOP PADDING */
 }
 
 .article-layout{ 
-  max-width: 900px;  /* YUNG ARTICLE LANG MAS MAKITID */
-  margin: 0 auto;    /* CENTER */
+  max-width: 900px;
+  margin: 0 auto;
   display:grid; 
   grid-template-columns:2fr 0.8fr; 
   gap:30px; 
   align-items:start; 
+  padding-top: 25px; /* LAGYAN LANG NG SPACE SA BABA NG IMAGE */
 }
 
 /* LEFT */
@@ -111,13 +112,17 @@ body{
   background:#d60000; 
 }
 
-/* Featured */
+/* ========== ABS-CBN STYLE FEATURED IMAGE ========== */
 .featured-image{ 
-  width:100%; 
-  height:500px; 
-  object-fit:cover; 
-  border-radius:10px; 
-  margin-bottom:30px; 
+  width: 100vw; /* FULL WIDTH NG SCREEN */
+  height: 55vh; /* 55% NG HEIGHT NG SCREEN */
+  max-height: 600px; /* MAX 600PX SA DESKTOP */
+  min-height: 250px;
+  object-fit: cover; 
+  display: block;
+  margin: 0; /* WALANG MARGIN */
+  border-radius: 0; /* WALANG ROUNDED */
+  margin-bottom: 0;
 }
 
 /* Body */
@@ -435,13 +440,10 @@ body.dark-mode .share button {
 @media(max-width:900px){ 
   .article-layout{ 
     grid-template-columns:1fr; 
-    max-width: 100%; /* SA MOBILE FULL WIDTH NA */
+    max-width: 100%;
   }
   .related-grid{ 
     grid-template-columns:1fr; 
-  }
-  .featured-image{ 
-    height:260px; 
   }
   .article-main h1{ 
     font-size:30px; 
@@ -452,17 +454,21 @@ body.dark-mode .share button {
 }
 
 @media(max-width:768px){
-  .container{
-    padding: 0 14px; /* MAS MAKITID SA MOBILE */
+  .featured-image{ 
+    height: 40vh; /* MAS MALIIT SA MOBILE */
+    max-height: 350px;
   }
-  .article-main{
-    padding: 20px; /* BAWASAN PADDING */
+  .container{ 
+    padding: 0 14px; 
   }
-  .article-main h1{
-    font-size: 24px;
+  .article-main{ 
+    padding: 20px; 
   }
-  .article-body{
-    font-size: 15px;
-    line-height: 1.7;
+  .article-main h1{ 
+    font-size: 24px; 
+  }
+  .article-body{ 
+    font-size: 15px; 
+    line-height: 1.7; 
   }
 }
