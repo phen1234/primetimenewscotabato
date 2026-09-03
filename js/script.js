@@ -268,7 +268,7 @@ async function loadLocalNews() {
     const snapshot = await getDocs(q);
     
     if(snapshot.empty){
-      track.innerHTML = "<p>No local news yet</p>";
+      track.innerHTML = "<p style='color:#888; text-align:center; width:100%;'>No local news yet</p>";
       return;
     }
 
@@ -289,19 +289,23 @@ async function loadLocalNews() {
     // SLIDER LOGIC
     const prev = document.querySelector(".local-prev");
     const next = document.querySelector(".local-next");
-    let scrollAmount = 0;
 
-    next.addEventListener("click", () => {
-      track.scrollBy({left: 280, behavior: "smooth"});
-    });
-    prev.addEventListener("click", () => {
-      track.scrollBy({left: -280, behavior: "smooth"});
-    });
+    if(next && prev){
+      next.addEventListener("click", () => {
+        track.scrollBy({left: 280, behavior: "smooth"});
+      });
+      prev.addEventListener("click", () => {
+        track.scrollBy({left: -280, behavior: "smooth"});
+      });
+    }
+
+    console.log("✅ LOCAL NEWS LOADED:", snapshot.size);
 
   } catch(err){
     console.error("Local News Error:", err);
-    track.innerHTML = "<p>Error loading local news</p>";
+    track.innerHTML = `<p style='color:red; text-align:center; width:100%;'>Error: ${err.message}</p>`;
   }
 }
 
-loadLocalNews();
+// TAWAGIN MO TO PAG LOAD
+document.addEventListener("DOMContentLoaded", loadLocalNews);
