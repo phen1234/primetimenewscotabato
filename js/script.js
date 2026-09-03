@@ -254,66 +254,91 @@ onAuthStateChanged(auth, (user) => {
 
 const DEFAULT_IMAGE = "https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png";
 
-// ========================= LOAD LOCAL NEWS SLIDER - 1 BY 1 =========================
-async function loadLocalNews() {
-  const track = document.getElementById("localNewsTrack");
-  if(!track) return;
+// ========================= LOAD ALL CATEGORY SLIDERS =========================
+async function loadCategorySliders() {
+  const widgets = document.querySelectorAll(".local-news-widget");
 
-  try {
-    const q = query(
-      collection(db, "news"),
-      where("category", "==", "Local News"),
-      where("status", "==", "published"),
-      orderBy("createdAt", "desc"),
-      limit(8)
-    );
-    const snapshot = await getDocs(q);
+  widgets.forEach(async (widget) => {
+    const category = widget.dataset.category;
+    const track = widget.querySelector(".local-track");
+    if(!track ||!category) return;
 
-    if(snapshot.empty){
-      track.innerHTML = "<p style='color:#888; text-align:center; padding:20px;'>No local news yet</p>";
-      return;
+    try {
+      const q = query(
+        collection(db, "news"),
+        where("category", "==", category),
+        where("status", "==", "published"),
+        orderBy("createdAt", "desc"),
+        limit(8)
+      );
+      const snapshot = await getDocs(q);
+
+      if(snapshot.empty){
+        track.innerHTML = "<p style='color:#888; text-align:center; padding:20px; width:100%;'>No news yet</p>";
+        widget.style.display = "none"; // ITATAGO PAG WALANG LAMAN
+        return;
+      }
+
+      track.innerHTML = "";
+      snapshot.forEach(docSnap => {
+        const news = docSnap.data();
+        const image = news.featuredImage || DEFAULT_IMAGE;
+        const headline = news.headline || news.title || category;
+
+        track.innerHTML += `
+          <a href="article.html?id=${docSnap.id}" class="local-card">
+            <img src="${image}" alt="${headline}" onerror="this.src='${DEFAULT_IMAGE}'">
+            <h4>${headline}</h4>
+          </a>
+        `;
+      });
+
+      // SLIDER LOGIC PER WIDGET
+      const cards = track.querySelectorAll(".local-card");
+      const prev = widget.querySelector(".local-prev");
+      const next = widget.querySelector(".local-next");
+      const slider = widget.querySelector(".local-news-slider");
+
+      // DOTS
+      let dotsHTML = '<div class="local-dots">';
+      cards.forEach((_, i) => {
+        dotsHTML += `<span class="local-dot ${i === 0? 'active' : ''}" data-index="${i}"></span>`;
+      });
+      dotsHTML += '</div>';
+      slider.insertAdjacentHTML('afterend', dotsHTML);
+
+      const dots = widget.querySelectorAll(".local-dot");
+      let currentSlide = 0;
+
+      function showSlide(n) {
+        currentSlide = n;
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        dots.forEach(d => d.classList.remove("active"));
+        if(dots[currentSlide]) dots[currentSlide].classList.add("active");
+      }
+
+      next.addEventListener("click", () => {
+        currentSlide = (currentSlide + 1) % cards.length;
+        showSlide(currentSlide);
+      });
+      prev.addEventListener("click", () => {
+        currentSlide = (currentSlide - 1 + cards.length) % cards.length;
+        showSlide(currentSlide);
+      });
+
+      dots.forEach(dot => {
+        dot.addEventListener("click", (e) => {
+          showSlide(parseInt(e.target.dataset.index));
+        });
+      });
+
+    } catch(err){
+      console.error(`${category} Error:`, err);
     }
-
-    track.innerHTML = "";
-    let index = 0;
-    snapshot.forEach(docSnap => {
-      const news = docSnap.data();
-      const image = news.featuredImage || DEFAULT_IMAGE;
-      const headline = news.headline || news.title || "Local News";
-
-      track.innerHTML += `
-        <a href="article.html?id=${docSnap.id}" class="local-card">
-          <img src="${image}" alt="${headline}" onerror="this.src='${DEFAULT_IMAGE}'">
-          <h4>${headline}</h4>
-        </a>
-      `;
-    });
-
-    // SLIDER LOGIC - 1 BY 1
-    const cards = track.querySelectorAll(".local-card");
-    const prev = document.querySelector(".local-prev");
-    const next = document.querySelector(".local-next");
-    const slider = document.querySelector(".local-news-slider");
-
-    // DOTS
-    let dotsHTML = '<div class="local-dots">';
-    cards.forEach((_, i) => {
-      dotsHTML += `<span class="local-dot ${i === 0? 'active' : ''}" data-index="${i}"></span>`;
-    });
-    dotsHTML += '</div>';
-    slider.insertAdjacentHTML('afterend', dotsHTML);
-
-    const dots = document.querySelectorAll(".local-dot");
-    let currentSlide = 0;
-
-    function showSlide(n) {
-  currentSlide = n;
-  track.style.transform = `translateX(-${currentSlide * 100}%)`; // ETO YUNG PAMPASLIDE
-  dots.forEach(d => d.classList.remove("active"));
-  if(dots[currentSlide]) dots[currentSlide].classList.add("active");
+  });
 }
 
-    next.addEventListener("click", () => {
+document.addEventListener("DOMContentLoaded", loadCategorySliders);
       currentSlide = (currentSlide + 1) % cards.length;
       showSlide(currentSlide);
     });
