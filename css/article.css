@@ -466,3 +466,58 @@ body.dark-mode .share button {
     line-height: 1.7;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* MOBILE BRAND TEXT SA NAV */
+#navbar .mobile-brand{
+  display: none; /* HIDE SA DESKTOP */
+}
+
+@media (max-width: 768px) {
+  #navbar .container.nav{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  #navbar .mobile-brand{
+    display: block !important;
+    flex: 1 !important;
+    text-align: center !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    margin-right: 36px; /* para ma gitna kasi may 36px na button sa kaliwa */
+  }
+
+  /* LIGHT MODE */
+  body.light-mode #navbar{
+    background: #fff !important;
+    border-bottom: 1px solid #e5e9f0 !important;
+  }
+  body.light-mode #navbar .mobile-brand{
+    color: #0066ff !important;
+  }
+  body.light-mode #navbar .mobile-menu-toggle{
+    color: #111 !important;
+  }
+}
