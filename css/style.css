@@ -4649,6 +4649,116 @@ body .news-grid .news-time{
 }
 
 @media(max-width: 768px){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* ================= LOCAL NEWS HORIZONTAL SLIDER ================= */
+.local-news-widget{
+  margin-top: 25px;
+  background: #1a1a1a;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.local-news-widget .section-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.local-news-widget .section-title h3{
+  font-size: 14px;
+  color: #fff;
+  margin: 0;
+}
+.local-news-widget .section-title h3 i{
+  color: #ff0000;
+  margin-right: 5px;
+}
+
+.local-news-slider{
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.local-track{
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 5px 0;
+  scrollbar-width: none; /* Firefox */
+}
+.local-track::-webkit-scrollbar{ display: none; } /* Chrome */
+
+.local-card{
+  min-width: 160px;
+  max-width: 160px;
+  background: #222;
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  transition: transform 0.2s;
+}
+.local-card:hover{ transform: translateY(-3px); }
+
+.local-card img{
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+}
+
+.local-card h4{
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+  padding: 8px;
+  margin: 0;
+  
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.local-prev, .local-next{
+  position: absolute;
+  z-index: 2;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.local-prev{ left: -5px; }
+.local-next{ right: -5px; }
+
+@media(max-width: 768px){
+  .local-card{ min-width: 140px; max-width: 140px; }
+  .local-prev, .local-next{ display: none; } /* Swipe nalang sa mobile */
+}
   .hero.overlay h1.hero-title{ font-size: 11px !important; -webkit-line-clamp: 2 !important; }
   .hero.overlay p.hero-summary{ font-size: 9px !important; -webkit-line-clamp: 1 !important; }
 }
