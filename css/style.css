@@ -4757,44 +4757,41 @@ body .news-grid .news-time{
 
 
 
-/* ================= LOCAL NEWS LIGHT MODE V2 ================= */
-body.light .local-news-widget{
+/* ================= LOCAL NEWS LIGHT MODE - PARA SA TOGGLE MO ================= */
+body.light-mode .local-news-widget{
   background: #ffffff !important;
   border: 1px solid #e0e0e0 !important;
 }
 
-body.light .local-news-widget .section-title h3{
+body.light-mode .local-news-widget .section-title h3{
   color: #222 !important;
 }
 
-body.light .local-news-widget .section-title .view-all-btn{
+body.light-mode .local-news-widget .section-title .view-all-btn{
   color: #cc0000 !important;
 }
 
-body.light .local-news-slider{
-  background: #fff !important;
-}
-
-body.light .local-card{
+body.light-mode .local-card{
   background: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08) !important;
 }
 
-body.light .local-card h4{
-  background: linear-gradient(transparent, rgba(0,0,0,0.8)) !important; /* Gradient nalang para mas clean */
+body.light-mode .local-card h4{
+  background: linear-gradient(transparent, rgba(0,0,0,0.75)) !important;
   color: #fff !important;
 }
 
-body.light .local-prev,
-body.light .local-next{
+body.light-mode .local-prev,
+body.light-mode .local-next{
   background: rgba(255,255,255,0.95) !important;
   color: #222 !important;
   border: 1px solid #ccc !important;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-body.light .local-dot{
+body.light-mode .local-dot{
   background: #ccc !important;
 }
-body.light .local-dot.active{ 
+body.light-mode .local-dot.active{ 
   background: #ff0000 !important; 
 }
