@@ -4314,22 +4314,26 @@ body .news-grid .news-content{
   justify-content: center;
 }
 
-/* BADGE */
+/* ========== MALIIT NA BADGE ========== */
 body .news-grid .news-badge{
   display: inline-block;
-  padding: 4px 8px;
-  border-radius: 3px;
-  font-size: 10px;
+  padding: 3px 8px; /* MAS MANIPIS */
+  border-radius: 3px; /* MAS KUTING */
+  font-size: 9px; /* MAS MALIIT NA FONT */
   font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 6px; /* MAS LAPIT SA TITLE */
   width: fit-content;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.5px;
+  line-height: 1;
 }
-body .news-grid .news-badge.police-report{ background: #e60000; color: #fff; }
-body .news-grid .news-badge.local-news{ background: #e60000; color: #fff; }
-body .news-grid .news-badge.political-news{ background: #e60000; color: #fff; }
 
+/* LAHAT RED TULAD SA PIC MO */
+body .news-grid .news-badge.police-report{ background: #d60000; color: #fff; }
+body .news-grid .news-badge.local-news{ background: #d60000; color: #fff; }
+body .news-grid .news-badge.political-news{ background: #d60000; color: #fff; }
+body .news-grid .news-badge.national-news{ background: #d60000; color: #fff; }
+body .news-grid .news-badge.international-news{ background: #d60000; color: #fff; }
 /* TITLE */
 body .news-grid .news-content h3{
   font-family: 'Poppins', sans-serif;
