@@ -242,3 +242,66 @@ onAuthStateChanged(auth, (user) => {
   console.log("Current Firebase User:", user ? user.uid : "NOT LOGGED IN"); 
   updateLoginButton(user); 
 });
+
+
+
+
+
+
+
+
+
+
+// ========================= LOAD LOCAL NEWS SLIDER =========================
+async function loadLocalNews() {
+  const track = document.getElementById("localNewsTrack");
+  if(!track) return;
+
+  try {
+    const q = query(
+      collection(db, "news"),
+      where("category", "==", "Local News"),
+      where("status", "==", "published"),
+      orderBy("createdAt", "desc"),
+      limit(8)
+    );
+    const snapshot = await getDocs(q);
+    
+    if(snapshot.empty){
+      track.innerHTML = "<p>No local news yet</p>";
+      return;
+    }
+
+    track.innerHTML = "";
+    snapshot.forEach(docSnap => {
+      const news = docSnap.data();
+      const image = news.featuredImage || DEFAULT_IMAGE;
+      const headline = news.headline || news.title || "Local News";
+      
+      track.innerHTML += `
+        <a href="article.html?id=${docSnap.id}" class="local-card">
+          <img src="${image}" alt="${headline}" onerror="this.src='${DEFAULT_IMAGE}'">
+          <h4>${headline}</h4>
+        </a>
+      `;
+    });
+
+    // SLIDER LOGIC
+    const prev = document.querySelector(".local-prev");
+    const next = document.querySelector(".local-next");
+    let scrollAmount = 0;
+
+    next.addEventListener("click", () => {
+      track.scrollBy({left: 280, behavior: "smooth"});
+    });
+    prev.addEventListener("click", () => {
+      track.scrollBy({left: -280, behavior: "smooth"});
+    });
+
+  } catch(err){
+    console.error("Local News Error:", err);
+    track.innerHTML = "<p>Error loading local news</p>";
+  }
+}
+
+loadLocalNews();
