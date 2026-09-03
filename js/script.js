@@ -252,6 +252,8 @@ onAuthStateChanged(auth, (user) => {
 
 
 
+const DEFAULT_IMAGE = "https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png";
+
 // ========================= LOAD LOCAL NEWS SLIDER =========================
 async function loadLocalNews() {
   const track = document.getElementById("localNewsTrack");
@@ -307,5 +309,5 @@ async function loadLocalNews() {
   }
 }
 
-// TAWAGIN MO TO PAG LOAD
+// TAWAGIN PAG LOAD
 document.addEventListener("DOMContentLoaded", loadLocalNews);
