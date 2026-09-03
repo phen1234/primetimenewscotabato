@@ -4666,69 +4666,56 @@ body .news-grid .news-time{
 
 
 
-
-
-/* ================= LOCAL NEWS - 1 CARD LANG SLIDE ================= */
+/* ================= LOCAL NEWS - LEVEL LANG, MAY ANIMATION ================= */
 .local-news-widget{
-  margin-top: 25px;
+  margin-top: 20px;
   background: #1a1a1a;
-  padding: 15px;
+  padding: 12px;
   border-radius: 10px;
-  position: relative;
-}
-
-.local-news-widget.section-title{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.local-news-widget.section-title h3{
-  font-size: 15px;
-  color: #fff;
-  margin: 0;
-}
-.local-news-widget.section-title h3 i{
-  color: #ff0000;
-  margin-right: 5px;
 }
 
 .local-news-slider{
   position: relative;
-  overflow: hidden; /* DITO PARA ISANG CARD LANG */
+  overflow: hidden; /* PARA DI LUMAMPAS */
   border-radius: 10px;
+  width: 100%;
 }
 
 .local-track{
   display: flex;
-  transition: transform 0.4s ease-in-out; /* SMOOTH SLIDE */
+  transition: transform 0.5s ease-in-out; /* ETO YUNG ANIMATION */
+  width: 100%;
 }
 
 .local-card{
-  min-width: 100%!important; /* ISANG CARD LANG SA SCREEN */
+  min-width: 100%; /* ISANG CARD LANG */
+  max-width: 100%;
   background: #222;
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
   text-decoration: none;
   color: #fff;
+  flex-shrink: 0; /* IMPORTANTE PARA DI MAGLAMPAS */
 }
 
 .local-card img{
   width: 100%;
-  height: 200px; /* MAS MALAKI */
+  height: 160px; /* NILIITAN FROM 200 */
   object-fit: cover;
+  display: block;
 }
 
 .local-card h4{
-  font-size: 14px;
+  font-size: 12px; /* NILIITAN FROM 14 */
   font-weight: 700;
-  line-height: 1.4;
-  padding: 12px 15px;
+  line-height: 1.3;
+  padding: 10px 12px;
   margin: 0;
+  background: rgba(0,0,0,0.85); /* BLACK BG SA BABA */
+  color: #fff;
 
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* 3 LINES LANG */
+  -webkit-line-clamp: 2; /* 2 LINES LANG */
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -4737,30 +4724,31 @@ body .news-grid .news-time{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2;
+  z-index: 3;
   background: rgba(0,0,0,0.6);
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
 }
-.local-prev{ left: 10px; }
-.local-next{ right: 10px; }
+.local-prev{ left: 8px; }
+.local-next{ right: 8px; }
 
 .local-dots{
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 6px;
+  margin-top: 10px;
 }
 .local-dot{
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #555;
   cursor: pointer;
+  transition: 0.3s;
 }
-.local-dot.active{ background: #ff0000; }
+.local-dot.active{ background: #ff0000; width: 18px; border-radius: 4px; }
