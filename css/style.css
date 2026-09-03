@@ -4668,79 +4668,99 @@ body .news-grid .news-time{
 
 
 
-/* ================= LOCAL NEWS HORIZONTAL SLIDER - MAS MALAKI ================= */
+/* ================= LOCAL NEWS - 1 CARD LANG SLIDE ================= */
 .local-news-widget{
   margin-top: 25px;
   background: #1a1a1a;
   padding: 15px;
   border-radius: 10px;
+  position: relative;
+}
+
+.local-news-widget.section-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.local-news-widget.section-title h3{
+  font-size: 15px;
+  color: #fff;
+  margin: 0;
+}
+.local-news-widget.section-title h3 i{
+  color: #ff0000;
+  margin-right: 5px;
+}
+
+.local-news-slider{
+  position: relative;
+  overflow: hidden; /* DITO PARA ISANG CARD LANG */
+  border-radius: 10px;
 }
 
 .local-track{
   display: flex;
-  gap: 15px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 10px 5px 15px 5px;
-  scrollbar-width: none;
+  transition: transform 0.4s ease-in-out; /* SMOOTH SLIDE */
 }
-.local-track::-webkit-scrollbar{ display: none; }
 
 .local-card{
-  min-width: 240px !important; /* PINALAKI FROM 140 */
-  max-width: 240px !important;
+  min-width: 100%!important; /* ISANG CARD LANG SA SCREEN */
   background: #222;
   border-radius: 10px;
   overflow: hidden;
   text-decoration: none;
   color: #fff;
-  transition: transform 0.2s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
-.local-card:hover{ transform: translateY(-3px); }
 
 .local-card img{
   width: 100%;
-  height: 140px !important; /* PINALAKI FROM 100 */
+  height: 200px; /* MAS MALAKI */
   object-fit: cover;
 }
 
 .local-card h4{
-  font-size: 13px !important; /* PINALAKI FROM 11 */
-  font-weight: 700 !important;
-  line-height: 1.4 !important;
-  padding: 10px 12px !important;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  padding: 12px 15px;
   margin: 0;
-  min-height: 70px; /* PARA PANTAY LAHAT NG CARD */
-  
-  display: -webkit-box !important;
-  -webkit-line-clamp: 4 !important; /* GINAWANG 4 LINES */
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* 3 LINES LANG */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.local-prev, .local-next{
+.local-prev,.local-next{
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 2;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.6);
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 35px;
+  height: 35px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
 }
-.local-prev{ left: -8px; }
-.local-next{ right: -8px; }
+.local-prev{ left: 10px; }
+.local-next{ right: 10px; }
 
-@media(max-width: 768px){
-  .local-card{ 
-    min-width: 200px !important; /* Mobile mas maliit konti */
-    max-width: 200px !important; 
-  }
-  .local-card img{ height: 120px !important; }
-  .local-card h4{ font-size: 12px !important; -webkit-line-clamp: 3 !important; min-height: 60px; }
-  .local-prev, .local-next{ display: none; } /* Swipe nalang sa mobile */
+.local-dots{
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
 }
+.local-dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #555;
+  cursor: pointer;
+}
+.local-dot.active{ background: #ff0000; }
