@@ -4511,3 +4511,46 @@ body.light-mode .sidebar #mostReadList li{ border-bottom: 1px solid #eee !import
 body.light-mode .sidebar #mostReadList .most-read-content h4{ color: #111 !important; }
 body.light-mode .sidebar #mostReadList .most-read-views{ color: #666 !important; }
 body.light-mode .sidebar #mostReadList .bookmark-btn{ color: #999 !important; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========================= LATEST NEWS HEADLINE OVERRIDE ========================= */
+
+/* MAS MALIIT NA HEADLINE + 3 LINES */
+body .news-grid .news-content h3{
+  font-size: 14px !important; /* dating 15px/18px. Mas maliit */
+  font-weight: 700 !important;
+  line-height: 1.35 !important; /* mas siksik */
+  margin: 0 0 8px 0 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important; /* 3 LINES NA */
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* MAS MALIIT DIN SA MOBILE */
+@media(max-width: 768px){
+  body .news-grid .news-content h3{
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    -webkit-line-clamp: 3 !important;
+  }
+}
+
+/* MAS MALIIT DIN YUNG TIME */
+body .news-grid .news-time{
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+}
