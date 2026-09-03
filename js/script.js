@@ -1,6 +1,6 @@
 import { db } from "./firebase.js"; 
 import { getVideoId } from "./youtube.js"; 
-import { collection, doc, getDoc, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js"; 
+import { collection, doc, getDoc, getDocs, query, where, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js"; 
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js"; 
 
 async function loadNews() { 
