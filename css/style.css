@@ -4565,40 +4565,32 @@ body .news-grid .news-time{
 
 
 
-/* ========================= FEATURED HERO TEXT - FORCE OVERRIDE ========================= */
-
-/* TARGET LAHAT NG POSSIBLE CLASS */
-.featured h2, 
-.hero h2, 
-.slider h2,
-[class*="featured"] h2,
-[class*="slider"] h2,
-[class*="hero"] h2,
-body .container .featured h2{
-  font-size: 14px !important;
-  font-weight: 800 !important;
-  line-height: 1.3 !important;
-  text-transform: uppercase !important;
-  color: #fff !important;
-  margin: 0 0 8px 0 !important;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
-  
-  display: -webkit-box !important;
-  -webkit-line-clamp: 3 !important; /* 3 LINES LANG */
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+/* HERO SLIDER TEXT - 3 LINES LANG */
+.hero.overlay.hero-title{
+  font-size: 14px!important;
+  font-weight: 800!important;
+  line-height: 1.3!important;
+  color: #fff!important;
+  text-transform: uppercase!important;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.9)!important;
+  margin: 0 0 8px 0!important;
+  display: -webkit-box!important;
+  -webkit-line-clamp: 3!important;
+  -webkit-box-orient: vertical!important;
+  overflow: hidden!important;
 }
 
-/* SA MOBILE MAS LIIT PA */
+.hero.overlay.hero-summary{
+  font-size: 11px!important;
+  line-height: 1.4!important;
+  color: #eee!important;
+  display: -webkit-box!important;
+  -webkit-line-clamp: 2!important;
+  -webkit-box-orient: vertical!important;
+  overflow: hidden!important;
+  margin-bottom: 10px!important;
+}
+
 @media(max-width: 768px){
-  .featured h2, 
-  .hero h2, 
-  .slider h2,
-  [class*="featured"] h2,
-  [class*="slider"] h2,
-  [class*="hero"] h2{
-    font-size: 13px !important;
-    padding: 0 10px !important;
-  }
+ .hero.overlay.hero-title{ font-size: 12px!important; }
 }
