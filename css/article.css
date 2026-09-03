@@ -1,5 +1,6 @@
 body{ 
   background:#f5f5f5; 
+  font-family: 'Roboto', Arial, sans-serif; /* ABS BODY FONT */
 }
 
 /* ========== NARROW TYPE CONTAINER ========== */
@@ -13,7 +14,7 @@ body{
 
 /* ====================== ARTICLE PAGE ====================== */
 .article-page{ 
-  padding:0 0 40px 0; /* TINANGGAL TOP PADDING */
+  padding:0 0 40px 0;
 }
 
 .article-layout{ 
@@ -23,7 +24,7 @@ body{
   grid-template-columns:2fr 0.8fr; 
   gap:30px; 
   align-items:start; 
-  padding-top: 25px; /* LAGYAN LANG NG SPACE SA BABA NG IMAGE */
+  padding-top: 25px;
 }
 
 /* LEFT */
@@ -39,8 +40,10 @@ body{
   display:flex; 
   align-items:center; 
   gap:10px; 
-  font-size:14px; 
+  font-size:13px; /* PINALIIT NG KONTI */
+  font-weight: 500;
   margin-bottom:15px; 
+  font-family: 'Roboto', sans-serif;
 }
 .breadcrumb a{ 
   color:#666; 
@@ -56,26 +59,33 @@ body{
   background:#d60000; 
   color:#fff; 
   padding:6px 14px; 
-  border-radius:30px; 
+  border-radius:4px; /* GINAWA KONG SQUARE TULAD SA ABS */
   font-size:12px; 
   margin-bottom:15px; 
-  font-weight:600; 
+  font-weight:800; /* MAS MAKAPAL */
+  font-family: 'Montserrat', sans-serif; /* HEADLINE FONT */
+  text-transform: uppercase; /* CAPITAL LAHAT */
+  letter-spacing: 0.5px;
 }
 
-/* Headline */
+/* Headline - ITO YUNG ABS-CBN STYLE */
 .article-main h1{ 
-  font-size:42px; 
-  line-height:1.25; 
+  font-size:40px; /* PINALIIT NG KONTI */
+  line-height:1.2; 
   color:#111; 
   margin-bottom:15px; 
+  font-family: 'Montserrat', sans-serif; /* ABS HEADLINE FONT */
+  font-weight: 800; /* SOBRANG BOLD */
+  letter-spacing: -0.5px; /* MAS DIKIT */
 }
 
 /* Summary */
 .summary{ 
-  font-size:20px; 
-  color:#666; 
-  line-height:1.8; 
+  font-size:18px; /* PINALIIT */
+  color:#444; /* MAS MADILIM */
+  line-height:1.6; 
   margin-bottom:25px; 
+  font-weight: 400;
 }
 
 /* Meta */
@@ -84,8 +94,9 @@ body{
   gap:25px; 
   flex-wrap:wrap; 
   color:#777; 
-  font-size:14px; 
+  font-size:13px; 
   margin-bottom:25px; 
+  font-weight: 500;
 }
 .article-meta i{ 
   color:#d60000; 
@@ -114,22 +125,23 @@ body{
 
 /* ========== ABS-CBN STYLE FEATURED IMAGE ========== */
 .featured-image{ 
-  width: 100vw; /* FULL WIDTH NG SCREEN */
-  height: 55vh; /* 55% NG HEIGHT NG SCREEN */
-  max-height: 600px; /* MAX 600PX SA DESKTOP */
+  width: 100vw;
+  height: 55vh;
+  max-height: 600px;
   min-height: 250px;
   object-fit: cover; 
   display: block;
-  margin: 0; /* WALANG MARGIN */
-  border-radius: 0; /* WALANG ROUNDED */
+  margin: 0;
+  border-radius: 0;
   margin-bottom: 0;
 }
 
-/* Body */
+/* Body - ROBOTO DIN */
 .article-body{ 
-  font-size:18px; 
-  line-height:2; 
-  color:#333; 
+  font-size:17px; /* 17px standard ng ABS */
+  line-height:1.8; /* MAS MALUWAG */
+  color:#222; 
+  font-weight: 400;
 }
 .article-body p{ 
   margin-bottom:22px; 
@@ -149,8 +161,12 @@ body{
 }
 .widget h3{ 
   margin-bottom:15px; 
-  border-left:5px solid #d60000; 
+  border-left:4px solid #d60000; /* MAS MANIPIS */
   padding-left:10px; 
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  text-transform: uppercase;
 }
 
 /* Related */
@@ -159,6 +175,10 @@ body{
 }
 .related-news h2{ 
   margin-bottom:25px; 
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  text-transform: uppercase;
 }
 .related-grid{ 
   display:grid; 
@@ -167,31 +187,9 @@ body{
 }
 
 /* =========================== MOST READ =========================== */
-.most-read-item{ 
-  display:flex; 
-  gap:12px; 
-  align-items:flex-start; 
-  padding:12px 0; 
-  text-decoration:none; 
-  border-bottom:1px solid #ececec; 
-  transition:.3s; 
-}
-.most-read-item:hover{ 
-  transform:translateX(6px); 
-}
-.most-read-item img{ 
-  width:90px; 
-  height:70px; 
-  object-fit:cover; 
-  border-radius:8px; 
-  flex-shrink:0; 
-}
-.most-read-content{ 
-  flex:1; 
-}
 .most-read-content h4{ 
-  font-size:14px; 
-  font-weight:600; 
+  font-size:15px; 
+  font-weight:700; /* MAS BOLD */
   line-height:1.4; 
   color:#111; 
   margin-bottom:6px; 
@@ -199,241 +197,17 @@ body{
   -webkit-line-clamp:2; 
   -webkit-box-orient:vertical; 
   overflow:hidden; 
-}
-.most-read-content small{ 
-  font-size:12px; 
-  color:#777; 
-  display:flex; 
-  align-items:center; 
-  gap:6px; 
-}
-.most-read-content small i{ 
-  color:#d62828; 
-}
-
-/* =========================== FEATURED MOST READ =========================== */
-.featured-most-read{ 
-  display:block; 
-  position:relative; 
-  overflow:hidden; 
-  border-radius:10px; 
-  margin-bottom:18px; 
-  text-decoration:none; 
-}
-.featured-most-read img{ 
-  width:100%; 
-  height:220px; 
-  object-fit:cover; 
-  display:block; 
-}
-.featured-overlay{ 
-  position:absolute; 
-  left:0; 
-  right:0; 
-  bottom:0; 
-  padding:16px; 
-  background:linear-gradient( transparent, rgba(0,0,0,.85) ); 
-  color:#fff; 
-}
-.featured-overlay span{ 
-  display:inline-block; 
-  background:#d62828; 
-  padding:4px 10px; 
-  border-radius:20px; 
-  font-size:12px; 
-  font-weight:600; 
-  margin-bottom:8px; 
-}
-.featured-overlay h3{ 
-  font-size:18px; 
-  margin-bottom:8px; 
-  line-height:1.4; 
-}
-.featured-overlay small{ 
-  font-size:13px; 
-  opacity:.9; 
-}
-.rank-number{ 
-  width:30px; 
-  height:30px; 
-  background:#d62828; 
-  color:#fff; 
-  border-radius:50%; 
-  display:flex; 
-  justify-content:center; 
-  align-items:center; 
-  font-weight:bold; 
-  font-size:14px; 
-  flex-shrink:0; 
-  margin-top:18px; 
-}
-
-#navbar { 
-  background: #0b1d3a; 
-  width: 100%; 
-}
-.nav-links { 
-  display: flex; 
-  align-items: stretch; 
-  margin: 0; 
-  padding: 0; 
-  list-style: none; 
-}
-.nav-links li { 
-  margin: 0; 
-  padding: 0; 
-}
-.nav-links li a { 
-  display: flex; 
-  align-items: center; 
-  height: 56px; 
-  padding: 0 18px; 
-  color: #fff; 
-  text-decoration: none; 
-  font-weight: 700; 
-  transition: background 0.2s ease; 
-}
-.nav-links li a.active { 
-  background: #e60000; 
-  color: #fff; 
-}
-.nav-links li a:hover { 
-  background: #e60000; 
-  color: #fff; 
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* ========================== TOP HEADER ========================== */
-.page-header{ 
-  background:#0b1d3a; 
-  padding:18px 0; 
-}
-.top-header{ 
-  display:flex; 
-  align-items:center; 
-  gap:30px; 
-}
-.logo img{ 
-  width:170px; 
-}
-.header-text{ 
-  flex:1; 
-}
 .header-text h1{ 
   margin:0; 
   color:#fff; 
-  font-size:42px; 
-  font-weight:800; 
-}
-.header-text p{ 
-  margin-top:8px; 
-  color:#ddd; 
-  font-size:17px; 
-}
-
-/* ========================= LINKS ========================= */
-.article-main a, .article-sidebar a, .related-news a{ 
-  text-decoration:none; 
-  color:#111; 
-}
-.article-main a:hover, .article-sidebar a:hover, .related-news a:hover{ 
-  color:#d60000; 
-}
-.side-news a{ 
-  display:block; 
-  padding:10px 0; 
-  text-decoration:none; 
-  color:#111; 
-  font-weight:500; 
-  transition:.3s; 
-}
-.social a{ 
-  background:#081a3b; 
-  color:#fff; 
-  text-decoration:none; 
-  padding:12px; 
-  border-radius:6px; 
-  display:block; 
-  text-align:center; 
-}
-.social a:hover{ 
-  background:#d60000; 
-  color:#fff; 
-}
-.side-news a:hover{ 
-  color:#d60000; 
-  padding-left:8px; 
-}
-.back-link{ 
-  display:flex; 
-  align-items:center; 
-  gap:6px; 
-  color:#222; 
-  font-weight:600; 
-  text-decoration:none; 
-  transition:.3s; 
-}
-.back-link:hover{ 
-  color:#d60000; 
-}
-.back-link i{ 
-  font-size:13px; 
-}
-
-/* ========================= PUBLIC DARK MODE - ARTICLE ========================= */
-body.dark-mode .article-page, 
-body.dark-mode .related-news { 
-  background:#0b1220 !important; 
-  color:#e9eef7 !important; 
-}
-body.dark-mode .article-main, 
-body.dark-mode .article-sidebar .widget, 
-body.dark-mode .article-sidebar, 
-body.dark-mode .related-news .related-card, 
-body.dark-mode .related-news .news-card { 
-  background:#111c2e !important; 
-  color:#e9eef7 !important; 
-  border-color:#263752 !important; 
-  box-shadow:0 5px 18px rgba(0,0,0,.28); 
-}
-body.dark-mode .article-main h1, 
-body.dark-mode .article-main h2, 
-body.dark-mode .article-main h3, 
-body.dark-mode .article-main h4, 
-body.dark-mode .article-body, 
-body.dark-mode .article-body p, 
-body.dark-mode .article-sidebar h3, 
-body.dark-mode .related-news h2, 
-body.dark-mode .most-read-content h4 { 
-  color:#e9eef7 !important; 
-}
-body.dark-mode .summary, 
-body.dark-mode .article-meta, 
-body.dark-mode .most-read-content small, 
-body.dark-mode .article-main small { 
-  color:#aebbd0 !important; 
-}
-body.dark-mode .breadcrumb a, 
-body.dark-mode .back-link, 
-body.dark-mode .article-main a, 
-body.dark-mode .article-sidebar a, 
-body.dark-mode .related-news a, 
-body.dark-mode .side-news a { 
-  color:#dbe7ff !important; 
-}
-body.dark-mode .breadcrumb a:hover, 
-body.dark-mode .back-link:hover, 
-body.dark-mode .article-main a:hover, 
-body.dark-mode .article-sidebar a:hover, 
-body.dark-mode .related-news a:hover, 
-body.dark-mode .side-news a:hover { 
-  color:#ff4b4b !important; 
-}
-body.dark-mode .most-read-item { 
-  border-bottom-color:#2a3b57 !important; 
-}
-body.dark-mode .social a, 
-body.dark-mode .share button { 
-  color:#fff !important; 
+  font-size:38px; 
+  font-weight:900; /* PINAKA BOLD */
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -1px;
 }
 
 /* ========================= RESPONSIVE ========================= */
@@ -448,14 +222,11 @@ body.dark-mode .share button {
   .article-main h1{ 
     font-size:30px; 
   }
-  .summary{ 
-    font-size:17px; 
-  }
 }
 
 @media(max-width:768px){
   .featured-image{ 
-    height: 40vh; /* MAS MALIIT SA MOBILE */
+    height: 40vh;
     max-height: 350px;
   }
   .container{ 
@@ -465,10 +236,11 @@ body.dark-mode .share button {
     padding: 20px; 
   }
   .article-main h1{ 
-    font-size: 24px; 
+    font-size: 26px; /* MAS MALAKI PA DIN SA MOBILE */
+    line-height: 1.25;
   }
   .article-body{ 
-    font-size: 15px; 
+    font-size: 16px; 
     line-height: 1.7; 
   }
 }
