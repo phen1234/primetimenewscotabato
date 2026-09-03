@@ -244,3 +244,68 @@ body{
     line-height: 1.7; 
   }
 }
+
+
+
+
+/* =========================== MOST READ =========================== */
+.most-read-item{ 
+  display:flex; 
+  gap:12px; 
+  align-items:flex-start; 
+  padding:12px 0; 
+  text-decoration:none; 
+  border-bottom:1px solid #ececec; 
+  transition:.3s; 
+}
+.most-read-item:hover{ 
+  transform:translateX(6px); 
+}
+
+/* ITO YUNG KULANG - THUMBNAIL IMAGE */
+.most-read-item img{ 
+  width:100px; /* FIXED WIDTH */
+  height:75px; /* FIXED HEIGHT 4:3 RATIO */
+  object-fit:cover; /* PARA DI MAG STRETCH */
+  border-radius:6px; /* KONTING ROUNDED */
+  flex-shrink:0; /* PARA DI LUMIIT */
+  background: #ddd; /* LOADING BG */
+}
+
+.most-read-content{ 
+  flex:1; 
+  min-width: 0; /* PARA DI SUMABOG YUNG TEXT */
+}
+.most-read-content h4{ 
+  font-size:15px; 
+  font-weight:700;
+  line-height:1.4; 
+  color:#111; 
+  margin-bottom:6px; 
+  display:-webkit-box; 
+  -webkit-line-clamp:2; /* 2 LINES LANG */
+  -webkit-box-orient:vertical; 
+  overflow:hidden; 
+  font-family: 'Montserrat', sans-serif;
+}
+.most-read-content small{ 
+  font-size:12px; 
+  color:#777; 
+  display:flex; 
+  align-items:center; 
+  gap:6px; 
+}
+.most-read-content small i{ 
+  color:#d62828; 
+}
+
+/* MOBILE VERSION */
+@media(max-width:768px){
+  .most-read-item img{
+    width: 90px;
+    height: 65px;
+  }
+  .most-read-content h4{
+    font-size: 14px;
+  }
+}
