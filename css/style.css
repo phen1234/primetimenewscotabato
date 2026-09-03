@@ -4353,3 +4353,165 @@ body .news-grid .news-badge.political{ background: #ff6600 !important; }
     height: 220px !important;
   }
 }
+
+
+
+
+
+
+/* ========================= LATEST NEWS - DARK + LIGHT MODE ========================= */
+
+/* ========== DARK MODE DEFAULT ========== */
+body .latest-news{
+  padding: 40px 0;
+  background: #020b1a;
+}
+
+body .section-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #0066ff;
+  padding-bottom: 10px;
+}
+body .section-title h2{
+  font-family: 'Poppins', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  text-transform: uppercase;
+}
+body .view-all-btn{
+  color: #4da3ff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+}
+body .view-all-btn:hover{ color: #fff; }
+
+body .news-grid{
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+body .news-grid a.news-card{
+  display: flex;
+  background: #0f203d;
+  border: 1px solid rgba(0, 102, 255, 0.2);
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: .3s ease;
+}
+body .news-grid a.news-card:hover{
+  border-color: #0066ff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3);
+}
+
+body .news-grid a.news-card img{
+  flex: 0 0 38%;
+  max-width: 38%;
+  width: 38%;
+  height: 190px;
+  object-fit: cover;
+}
+
+body .news-grid .news-content{
+  flex: 1;
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+body .news-grid .news-content h3{
+  font-family: 'Poppins', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.4;
+  margin: 0 0 10px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+body .news-grid .news-time{
+  font-size: 12px;
+  color: #aebbd0;
+  font-weight: 500;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+body .news-grid .news-badge{
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  width: fit-content;
+  background: #0066ff;
+  color: #fff;
+}
+body .news-grid .news-badge.police-report{ background: #d60000; }
+body .news-grid .news-badge.political-news{ background: #ff6600; }
+body .news-grid .news-badge.local-news{ background: #0066ff; }
+
+/* ========== LIGHT MODE OVERRIDE ========== */
+body.light-mode .latest-news{
+  background: #f5f7fa;
+}
+
+body.light-mode .section-title h2{
+  color: #111;
+}
+body.light-mode .view-all-btn{
+  color: #0066ff;
+}
+body.light-mode .view-all-btn:hover{ color: #0044aa; }
+
+body.light-mode .news-grid a.news-card{
+  background: #fff;
+  border: 1px solid #e0e6ed;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+body.light-mode .news-grid a.news-card:hover{
+  border-color: #0066ff;
+  box-shadow: 0 8px 25px rgba(0, 102, 255, 0.15);
+}
+
+body.light-mode .news-grid .news-content h3{
+  color: #111;
+}
+
+body.light-mode .news-grid .news-time{
+  color: #666;
+}
+
+/* ========== MOBILE ========== */
+@media(max-width: 900px){
+  body .latest-grid{
+    grid-template-columns: 1fr;
+  }
+}
+@media(max-width: 768px){
+  body .news-grid a.news-card{
+    flex-direction: column;
+  }
+  body .news-grid a.news-card img{
+    flex: 0 0 auto;
+    max-width: 100%;
+    width: 100%;
+    height: 220px;
+  }
+}
