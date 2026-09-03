@@ -48,16 +48,18 @@ async function loadMostRead() {
     container.innerHTML = ""; 
     snapshot.forEach(doc => { 
       const news = doc.data(); 
+      const catClass = news.category ? news.category.toLowerCase().replace(/\s+/g, '-') : 'general';
       container.innerHTML += ` 
         <li> 
-          <a href="article.html?id=${doc.id}"> 
-            <img src="${news.featuredImage || 'images/news1.jpg'}" alt="${news.headline || 'News'}" loading="lazy"> 
+          <a href="article.html?id=${doc.id}">
+            <img src="${news.featuredImage || 'images/news1.jpg'}" alt="${news.headline}" loading="lazy">
             <div class="most-read-content"> 
-              <span class="category">${news.category || ""}</span> 
+              <span class="news-badge ${catClass}">${news.category || "News"}</span> 
               <h4>${news.headline || ""}</h4> 
-              <small><i class="fas fa-eye"></i> ${news.views || 0} Views</small> 
-            </div> 
-          </a> 
+              <p class="most-read-views"><i class="fas fa-eye"></i> ${news.views || 0} VIEWS</p>
+            </div>
+          </a>
+          <button class="bookmark-btn"><i class="far fa-bookmark"></i></button>
         </li> 
       `; 
     }); 
@@ -68,7 +70,7 @@ async function loadMostRead() {
     console.error("Failed to load Most Read:", error); 
     container.innerHTML = "<li>Unable to load Most Read.</li>"; 
   } 
-} 
+}
 
 loadMostRead(); 
 
