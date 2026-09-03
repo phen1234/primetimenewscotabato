@@ -4752,3 +4752,46 @@ body .news-grid .news-time{
   transition: 0.3s;
 }
 .local-dot.active{ background: #ff0000; width: 18px; border-radius: 4px; }
+
+
+
+
+
+/* ================= LOCAL NEWS LIGHT MODE ================= */
+body.light .local-news-widget{
+  background: #f5f5f5 !important;
+  border: 1px solid #ddd;
+}
+
+body.light .local-news-widget .section-title h3{
+  color: #111 !important;
+}
+
+body.light .local-card{
+  background: #fff !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+body.light .local-card h4{
+  background: rgba(0,0,0,0.75) !important; /* Medyo transparent pa rin para mabasa */
+  color: #fff !important;
+}
+
+body.light .local-prev,
+body.light .local-next{
+  background: rgba(255,255,255,0.9) !important;
+  color: #111 !important;
+  border: 1px solid #ddd;
+}
+
+body.light .local-dot{
+  background: #bbb !important;
+}
+body.light .local-dot.active{ 
+  background: #ff0000 !important; 
+}
+
+/* Kung naka white yung buong site mo */
+body.light .local-news-widget .view-all-btn{
+  color: #ff0000 !important;
+}
