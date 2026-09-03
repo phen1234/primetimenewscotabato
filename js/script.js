@@ -307,11 +307,11 @@ async function loadLocalNews() {
     let currentSlide = 0;
 
     function showSlide(n) {
-      currentSlide = n;
-      track.style.transform = `translateX(-${currentSlide * 100}%)`;
-      dots.forEach(d => d.classList.remove("active"));
-      if(dots[currentSlide]) dots[currentSlide].classList.add("active");
-    }
+  currentSlide = n;
+  track.style.transform = `translateX(-${currentSlide * 100}%)`; // ETO YUNG PAMPASLIDE
+  dots.forEach(d => d.classList.remove("active"));
+  if(dots[currentSlide]) dots[currentSlide].classList.add("active");
+}
 
     next.addEventListener("click", () => {
       currentSlide = (currentSlide + 1) % cards.length;
