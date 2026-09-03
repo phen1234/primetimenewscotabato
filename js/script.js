@@ -13,16 +13,15 @@ async function loadNews() {
   snapshot.forEach(doc => { 
     const news = doc.data(); 
     container.innerHTML += ` 
-      <a href="article.html?id=${doc.id}" class="news-link"> 
-        <article class="news-card"> 
-          <img src="${news.featuredImage}" alt=""> 
-          <div class="news-card-content"> 
-            <span>${news.category}</span> 
-            <h3>${news.headline}</h3> 
-            <p>${news.summary}</p> 
-          </div> 
-        </article> 
-      </a> `; 
+  <a href="article.html?id=${doc.id}" class="news-card">
+    <img src="${news.featuredImage}" alt="${news.headline}">
+    <div class="news-content">
+      <span class="news-badge ${news.category.toLowerCase()}">${news.category}</span>
+      <h3>${news.headline}</h3>
+      <p class="news-time"><i class="far fa-clock"></i> ${timeAgo(news.createdAt)}</p>
+    </div>
+  </a>
+`;
   }); 
 } 
 loadNews(); 
