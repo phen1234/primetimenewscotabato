@@ -4394,3 +4394,120 @@ body.light-mode .news-grid .news-time{ color: #666; }
     -webkit-line-clamp: 2;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========================= MOST READ OVERRIDE ========================= */
+
+body .sidebar #mostReadList{
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 15px !important;
+}
+
+/* ITEM */
+body .sidebar #mostReadList li{
+  display: flex !important;
+  gap: 12px !important;
+  padding-bottom: 15px !important;
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+  align-items: flex-start !important;
+}
+body .sidebar #mostReadList li:last-child{
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+}
+
+body .sidebar #mostReadList li a{
+  display: flex !important;
+  gap: 12px !important;
+  text-decoration: none !important;
+  flex: 1 !important;
+}
+
+/* IMAGE */
+body .sidebar #mostReadList li img{
+  flex: 0 0 80px !important;
+  width: 80px !important;
+  height: 70px !important;
+  object-fit: cover !important;
+  border-radius: 6px !important;
+}
+
+/* CONTENT */
+body .sidebar #mostReadList .most-read-content{
+  flex: 1 !important;
+}
+
+/* MALIIT NA RED BADGE */
+body .sidebar #mostReadList .news-badge{
+  display: inline-block !important;
+  padding: 3px 8px !important;
+  border-radius: 3px !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  margin-bottom: 6px !important;
+  width: fit-content !important;
+  letter-spacing: 0.5px !important;
+  line-height: 1 !important;
+  background: #d60000 !important;
+  color: #fff !important;
+}
+
+/* TITLE */
+body .sidebar #mostReadList .most-read-content h4{
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  line-height: 1.4 !important;
+  margin: 0 0 6px 0 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
+
+/* VIEWS */
+body .sidebar #mostReadList .most-read-views{
+  font-size: 11px !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+}
+
+/* BOOKMARK */
+body .sidebar #mostReadList .bookmark-btn{
+  background: transparent !important;
+  border: none !important;
+  font-size: 16px !important;
+  cursor: pointer !important;
+  padding: 5px !important;
+  margin-left: auto !important;
+}
+
+/* ========== DARK MODE ========== */
+body:not(.light-mode) .sidebar #mostReadList li{ border-bottom: 1px solid rgba(255,255,255,0.08) !important; }
+body:not(.light-mode) .sidebar #mostReadList .most-read-content h4{ color: #fff !important; }
+body:not(.light-mode) .sidebar #mostReadList .most-read-views{ color: #8a9bb0 !important; }
+body:not(.light-mode) .sidebar #mostReadList .bookmark-btn{ color: #8a9bb0 !important; }
+
+/* ========== LIGHT MODE ========== */
+body.light-mode .sidebar #mostReadList li{ border-bottom: 1px solid #eee !important; }
+body.light-mode .sidebar #mostReadList .most-read-content h4{ color: #111 !important; }
+body.light-mode .sidebar #mostReadList .most-read-views{ color: #666 !important; }
+body.light-mode .sidebar #mostReadList .bookmark-btn{ color: #999 !important; }
