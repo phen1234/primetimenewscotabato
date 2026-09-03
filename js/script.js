@@ -254,7 +254,7 @@ onAuthStateChanged(auth, (user) => {
 
 const DEFAULT_IMAGE = "https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png";
 
-// ========================= LOAD LOCAL NEWS SLIDER =========================
+// ========================= LOAD LOCAL NEWS SLIDER - 1 BY 1 =========================
 async function loadLocalNews() {
   const track = document.getElementById("localNewsTrack");
   if(!track) return;
@@ -268,18 +268,19 @@ async function loadLocalNews() {
       limit(8)
     );
     const snapshot = await getDocs(q);
-    
+
     if(snapshot.empty){
-      track.innerHTML = "<p style='color:#888; text-align:center; width:100%;'>No local news yet</p>";
+      track.innerHTML = "<p style='color:#888; text-align:center; padding:20px;'>No local news yet</p>";
       return;
     }
 
     track.innerHTML = "";
+    let index = 0;
     snapshot.forEach(docSnap => {
       const news = docSnap.data();
       const image = news.featuredImage || DEFAULT_IMAGE;
       const headline = news.headline || news.title || "Local News";
-      
+
       track.innerHTML += `
         <a href="article.html?id=${docSnap.id}" class="local-card">
           <img src="${image}" alt="${headline}" onerror="this.src='${DEFAULT_IMAGE}'">
@@ -288,26 +289,55 @@ async function loadLocalNews() {
       `;
     });
 
-    // SLIDER LOGIC
+    // SLIDER LOGIC - 1 BY 1
+    const cards = track.querySelectorAll(".local-card");
     const prev = document.querySelector(".local-prev");
     const next = document.querySelector(".local-next");
+    const slider = document.querySelector(".local-news-slider");
 
-    if(next && prev){
-      next.addEventListener("click", () => {
-        track.scrollBy({left: 280, behavior: "smooth"});
-      });
-      prev.addEventListener("click", () => {
-        track.scrollBy({left: -280, behavior: "smooth"});
-      });
+    // DOTS
+    let dotsHTML = '<div class="local-dots">';
+    cards.forEach((_, i) => {
+      dotsHTML += `<span class="local-dot ${i === 0? 'active' : ''}" data-index="${i}"></span>`;
+    });
+    dotsHTML += '</div>';
+    slider.insertAdjacentHTML('afterend', dotsHTML);
+
+    const dots = document.querySelectorAll(".local-dot");
+    let currentSlide = 0;
+
+    function showSlide(n) {
+      currentSlide = n;
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      dots.forEach(d => d.classList.remove("active"));
+      if(dots[currentSlide]) dots[currentSlide].classList.add("active");
     }
 
-    console.log("✅ LOCAL NEWS LOADED:", snapshot.size);
+    next.addEventListener("click", () => {
+      currentSlide = (currentSlide + 1) % cards.length;
+      showSlide(currentSlide);
+    });
+    prev.addEventListener("click", () => {
+      currentSlide = (currentSlide - 1 + cards.length) % cards.length;
+      showSlide(currentSlide);
+    });
+
+    // DOT CLICK
+    dots.forEach(dot => {
+      dot.addEventListener("click", (e) => {
+        showSlide(parseInt(e.target.dataset.index));
+      });
+    });
+
+    // AUTO SLIDE
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % cards.length;
+      showSlide(currentSlide);
+    }, 5000);
 
   } catch(err){
     console.error("Local News Error:", err);
-    track.innerHTML = `<p style='color:red; text-align:center; width:100%;'>Error: ${err.message}</p>`;
   }
 }
 
-// TAWAGIN PAG LOAD
 document.addEventListener("DOMContentLoaded", loadLocalNews);
