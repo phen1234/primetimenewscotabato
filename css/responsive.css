@@ -678,3 +678,250 @@ margin:0 0 10px;
     }
 
 }
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   PRIMETIME NEWS - DESKTOP VIEW FIX ONLY
+   992px PATAAS
+   HUWAG GALAWIN ANG MOBILE / RESPONSIVE
+========================================================= */
+
+@media (min-width: 992px) {
+
+    /* =========================
+       MAIN CONTAINER
+    ========================= */
+
+    .container {
+        width: 1200px;
+        max-width: calc(100% - 40px);
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header .header {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 20px !important;
+        text-align: left !important;
+    }
+
+    header .logo {
+        flex: 0 0 auto !important;
+    }
+
+    header .logo img {
+        width: 230px !important;
+        height: auto !important;
+    }
+
+    header .tagline {
+        display: block !important;
+        font-size: 24px !important;
+        text-align: center !important;
+    }
+
+    header .weather {
+        display: flex !important;
+        align-items: center !important;
+        gap: 15px !important;
+    }
+
+    header .clock {
+        display: block !important;
+    }
+
+
+    /* =========================
+       DESKTOP NAVIGATION
+    ========================= */
+
+    #navbar .nav {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        flex-direction: row !important;
+    }
+
+    #navbar .nav-links {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        position: static !important;
+        width: auto !important;
+        background: transparent !important;
+    }
+
+    #navbar .nav-links li {
+        width: auto !important;
+    }
+
+    #navbar .nav-links li a {
+        display: block !important;
+        width: auto !important;
+        padding: 18px 20px !important;
+        border: none !important;
+    }
+
+    .menu-toggle,
+    .logo-mobile {
+        display: none !important;
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+        margin: 30px 0 !important;
+    }
+
+    .hero-grid {
+        display: grid !important;
+        grid-template-columns: 2.3fr 0.9fr !important;
+        gap: 18px !important;
+        align-items: start !important;
+    }
+
+    .hero-left {
+        min-width: 0 !important;
+        position: relative !important;
+    }
+
+    .hero-right {
+        min-width: 0 !important;
+        height: 330px !important;
+        overflow-y: auto !important;
+    }
+
+    #heroSlider {
+        width: 100% !important;
+    }
+
+
+    /* =========================
+       LATEST NEWS
+    ========================= */
+
+    body .latest-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr) !important;
+        gap: 30px !important;
+        align-items: start !important;
+
+        width: 100% !important;
+        max-width: 1200px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+
+        box-sizing: border-box !important;
+    }
+
+    .latest-left {
+        min-width: 0 !important;
+        grid-column: 1 !important;
+    }
+
+    .sidebar {
+        min-width: 0 !important;
+        grid-column: 2 !important;
+    }
+
+
+    /* =========================
+       LATEST NEWS CARDS
+    ========================= */
+
+    #newsContainer.news-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 20px !important;
+        width: 100% !important;
+    }
+
+    #newsContainer .news-card {
+        width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    #newsContainer .news-card img {
+        width: 100% !important;
+        max-width: 100% !important;
+        object-fit: cover !important;
+    }
+
+
+    /* =========================
+       MOST READ SIDEBAR
+    ========================= */
+
+    .sidebar {
+        width: 100% !important;
+    }
+
+    .sidebar #mostReadList {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+
+    /* =========================
+       CATEGORY NEWS
+    ========================= */
+
+    .local-news-widget .local-track,
+    .widget .local-track {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 20px !important;
+        overflow: visible !important;
+        width: 100% !important;
+    }
+
+    .local-news-widget .news-card,
+    .widget .news-card {
+        min-width: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .local-news-widget .news-card img,
+    .widget .news-card img {
+        width: 100% !important;
+        object-fit: cover !important;
+    }
+
+    .local-prev,
+    .local-next {
+        display: none !important;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .footer-container {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr 1fr !important;
+        align-items: start !important;
+    }
+
+}
