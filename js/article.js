@@ -309,6 +309,10 @@ async function loadLatestNews(){
 
 }
 
+
+
+
+
 async function loadRelatedNews() {
 
     const container = document.getElementById("relatedNews");
@@ -406,66 +410,68 @@ async function loadRelatedNews() {
                         alt="${news.headline || ""}"
                     >
 
-                    <div class="news-card-content">
+async function loadRelatedNews() {
+  const container = document.getElementById("relatedNews");
+  if (!container) return;
+  container.innerHTML = "Loading related news...";
+  
+  try {
+    const currentSnap = await getDoc(doc(db, "news", articleId));
+    if (!currentSnap.exists()) { container.innerHTML = ""; return; }
+    
+    const currentNews = currentSnap.data();
+    const currentCategory = (currentNews.category || "").trim();
+    
+    if (!currentCategory) { container.innerHTML = ""; return; }
 
-                        <span class="news-category">
-                            ${news.category || ""}
-                        </span>
-
-                        <h3>
-                            ${news.headline || ""}
-                        </h3>
-
-                        <div class="related-meta">
-
-                            <span>
-                                <i class="fas fa-user"></i>
-                                ${news.author || "Primetime News Cotabato"}
-                            </span>
-
-                            <span>
-                                <i class="fas fa-eye"></i>
-                                ${news.views || 0} Views
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </a>
-
-            `;
-
-            count++;
-
-        });
-
-        if (count === 0) {
-
-            container.innerHTML = `
-                <p class="no-related">
-                    No related ${currentCategory} news yet.
-                </p>
-            `;
-
-        }
-
-    } catch (error) {
-
-        console.error(
-            "Related News Error:",
-            error
-        );
-
-        container.innerHTML = `
-            <p class="no-related">
-                Unable to load related news.
-            </p>
-        `;
-
+    const q = query(
+      collection(db, "news"),
+      where("status", "==", "published"),
+      where("category", "==", currentCategory),
+      orderBy("createdAt", "desc"),
+      limit(4)
+    );
+    
+    const snapshot = await getDocs(q);
+    container.innerHTML = "";
+    let count = 0;
+    
+    snapshot.forEach(docSnap => {
+      if (docSnap.id === articleId) return;
+      if (count >= 3) return;
+      
+      const news = docSnap.data();
+      const dateValue = news.publishedAt || news.createdAt;
+      const date = dateValue && dateValue.seconds ? new Date(dateValue.seconds * 1000).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) : "";
+      
+      // ETO NA YUNG BAGONG STRUCTURE - EXACT COPY NG LATEST NEWS
+      container.innerHTML += `
+        <a href="article.html?id=${docSnap.id}" class="related-card">
+          <img src="${news.featuredImage || ""}" alt="${news.headline || ""}">
+          <div class="related-content">
+            <h3>${news.headline || ""}</h3>
+            <div class="related-meta">
+              <i class="fas fa-calendar"></i> ${date} 
+              <i class="fas fa-eye"></i> ${news.views || 0} Views
+            </div>
+          </div>
+        </a>
+      `;
+      count++;
+    });
+    
+    if (count === 0) {
+      container.innerHTML = `<p class="no-related">No related ${currentCategory} news yet.</p>`;
     }
-
+  } catch (error) {
+    console.error("Related News Error:", error);
+    container.innerHTML = `<p class="no-related">Unable to load related news.</p>`;
+  }
 }
+
+
+
+
 
 async function loadMostRead() {
 
