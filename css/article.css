@@ -635,3 +635,107 @@ body.dark-mode .share button {
     font-size: 18px !important; 
   } 
 }
+
+
+
+
+
+
+
+
+
+/* ========== MOST READ #2 #3 #4 #5 - MAS MALAKI + NARROW ========== */
+.most-read-item{
+  display: flex !important;
+  gap: 14px !important;
+  align-items: flex-start !important;
+  padding: 14px 0 !important;
+}
+
+.most-read-item img{
+  width: 110px !important; /* PINAKITID GALING 90px */
+  height: 80px !important; /* PINATAAS KONTI */
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.most-read-content{
+  flex: 1;
+}
+
+.most-read-content h4{
+  font-family: 'Merriweather', Georgia, serif !important; /* GINAYANG ABS */
+  font-size: 16px !important; /* PINALAKI GALING 14px */
+  font-weight: 700 !important; /* PINABOLD */
+  line-height: 1.5 !important; /* MAS MALUWAG */
+  color: #111;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3 !important; /* GINAWANG 3 LINES GALING 2 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.most-read-content small{
+  font-size: 13px !important; /* PINALAKI GALING 12px */
+  font-weight: 600;
+  color: #777;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* YUNG RED CIRCLE NUMBER */
+.rank-number{
+  width: 34px !important; /* PINALAKI KONTI */
+  height: 34px !important;
+  font-size: 15px !important;
+  margin-top: 22px !important;
+}
+
+/* ========== LATEST NEWS SIDEBAR - PAREHONG STYLE ========== */
+#latestSidebar .most-read-item{
+  display: flex !important;
+  gap: 14px !important;
+  padding: 14px 0 !important;
+}
+
+#latestSidebar .most-read-item img{
+  width: 110px !important; /* NARROW */
+  height: 80px !important;
+}
+
+#latestSidebar .most-read-content h4{
+  font-family: 'Merriweather', Georgia, serif !important;
+  font-size: 16px !important; /* PINALAKI */
+  font-weight: 700 !important;
+  line-height: 1.5 !important;
+  -webkit-line-clamp: 3 !important; /* 3 LINES */
+}
+
+/* ========== MOBILE ========== */
+@media(max-width:768px){
+  .most-read-item img{
+    width: 100px !important; /* MAS NARROW SA MOBILE */
+    height: 75px !important;
+  }
+  .most-read-content h4{
+    font-size: 15px !important; /* MAS MALAKI PA RIN VS DATI */
+    -webkit-line-clamp: 3 !important;
+  }
+  .rank-number{
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* DARK MODE SUPPORT */
+body.dark-mode .most-read-content h4{
+  color: #e9eef7 !important;
+}
+body.dark-mode .most-read-content small{
+  color: #aebbd0 !important;
+}
+
