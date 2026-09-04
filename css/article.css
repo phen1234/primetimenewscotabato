@@ -739,3 +739,72 @@ body.dark-mode .most-read-content small{
   color: #aebbd0 !important;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========== FIX MOST READ DARK MODE IMAGE ========== */
+.most-read-item{
+  display: flex !important;
+  gap: 14px !important;
+  align-items: flex-start !important; /* PARA DI MAGOVERLAP */
+  position: relative !important; /* IMPORTANT TO */
+  z-index: 1 !important;
+  background: transparent !important; /* WAG LAGYAN BG */
+}
+
+.most-read-item img{
+  width: 110px !important;
+  height: 80px !important;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  position: relative !important; /* PARA MAIBABAW SA TEXT */
+  z-index: 2 !important;
+}
+
+.most-read-content{
+  flex: 1;
+  position: relative !important;
+  z-index: 1 !important;
+  background: transparent !important; /* TANGGALIN BG KUNG MERON */
+}
+
+/* DARK MODE SPECIFIC FIX */
+body.dark-mode .most-read-item{
+  background: transparent !important;
+}
+
+body.dark-mode .most-read-item img{
+  background: #111c2e !important; /* LAGYAN BG YUNG IMG CONTAINER */
+  border: 1px solid #263752 !important; /* PARA MAY BORDER SA DILIM */
+}
+
+body.dark-mode .most-read-content{
+  background: transparent !important;
+}
+
+body.dark-mode .most-read-content h4{
+  color: #e9eef7 !important;
+  background: transparent !important; /* WAG LAGYAN BG YUNG TEXT */
+}
+
+body.dark-mode .featured-most-read{
+  background: #111c2e !important; /* BG LANG SA CARD, HINDI SA TEXT */
+  position: relative;
+}
+
+body.dark-mode .featured-overlay{
+  background: linear-gradient(transparent, rgba(0,0,0,.9)) !important; /* MAS DARK PARA MABASA */
+  z-index: 3; /* NASA IBABAW NG IMAGE */
+}
+
