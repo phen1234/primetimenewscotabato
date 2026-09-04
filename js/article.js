@@ -653,30 +653,29 @@ document.getElementById("nativeShare").addEventListener("click", async () => {
 
 
 
-
-
-// PRO SHARE FUNCTIONS
+// ABS-CBN STYLE SHARE
 document.getElementById('shareFacebook')?.addEventListener('click', (e) => {
   e.preventDefault();
   const url = encodeURIComponent(window.location.href);
   window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
 });
 
+document.getElementById('shareX')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  const url = encodeURIComponent(window.location.href);
+  const text = encodeURIComponent(document.title);
+  window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+});
+
+document.getElementById('shareViber')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  const url = encodeURIComponent(window.location.href);
+  window.open(`viber://forward?text=${url}`); // Sa mobile mag oopen Viber app
+});
+
 document.getElementById('copyLink')?.addEventListener('click', (e) => {
   e.preventDefault();
   navigator.clipboard.writeText(window.location.href);
-  alert('Link copied!'); // Gawa tayo toast mamaya
-});
-
-document.getElementById('nativeShare')?.addEventListener('click', async (e) => {
-  e.preventDefault();
-  if(navigator.share){
-    await navigator.share({
-      title: document.title,
-      url: window.location.href
-    }).catch(err => console.log(err));
-  } else {
-    navigator.clipboard.writeText(window.location.href);
-    alert('Link copied!');
-  }
+  e.target.closest('.share-btn').style.color = '#25d366'; // Green pag na-copy
+  setTimeout(() => { e.target.closest('.share-btn').style.color = '#666'; }, 1000);
 });
