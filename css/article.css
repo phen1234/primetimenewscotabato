@@ -814,7 +814,95 @@ body.dark-mode .featured-overlay{
 
 
 
+/* ========== RELATED NEWS - EXACT COPY NG LATEST NEWS ========== */
+.related-news{ padding: 40px 0 !important; }
 
+.related-news h2{
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 24px !important;
+  font-weight: 900 !important;
+  border-left: 5px solid #d60000;
+  padding-left: 12px;
+  margin-bottom: 25px;
+}
+
+.related-grid{
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+}
+
+/* GAWING LIST ITEM */
+.related-grid .related-card{
+  display: flex !important;
+  gap: 14px !important;
+  padding: 14px 0 !important;
+  border-bottom: 1px solid #ececec;
+  text-decoration: none;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+.related-grid .related-card:hover{
+  transform: translateX(6px);
+}
+
+/* IMAGE NARROW */
+.related-grid .related-card img{
+  width: 110px !important;
+  height: 80px !important;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+/* CONTENT */
+.related-content{
+  flex: 1;
+  padding: 0 !important;
+}
+
+.related-content h3{
+  font-family: 'Merriweather', Georgia, serif !important;
+  font-size: 16px !important; /* PAREHO SA MOST READ */
+  font-weight: 700 !important;
+  line-height: 1.5 !important;
+  color: #111;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* TAGO NATIN YUNG MGA BADGE NA PULA */
+.related-content .category-badge,
+.related-content .author-badge,
+.related-content .views-badge{
+  display: none !important;
+}
+
+/* METADATA - PAREHO SA MOST READ */
+.related-meta{
+  font-size: 13px !important;
+  font-weight: 600;
+  color: #777;
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+}
+.related-meta i{ color: #d62828; }
+
+/* DARK MODE */
+body.dark-mode .related-grid .related-card{ border-bottom-color: #2a3b57 !important; }
+body.dark-mode .related-content h3{ color: #e9eef7 !important; }
+body.dark-mode .related-meta{ color: #aebbd0 !important; }
+
+/* MOBILE */
+@media(max-width:768px){
+  .related-grid .related-card img{ width: 100px !important; height: 75px !important; }
+  .related-content h3{ font-size: 15px !important; }
+}
 
 
 
