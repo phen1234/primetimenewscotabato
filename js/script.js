@@ -254,9 +254,8 @@ onAuthStateChanged(auth, (user) => {
 
 const DEFAULT_IMAGE = "https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png";
 
-// ========================= LOAD ALL CATEGORY SLIDERS =========================
 async function loadCategorySliders() {
-  const widgets = document.querySelectorAll(".local-news-widget");
+  const widgets = document.querySelectorAll(".widget[data-category]"); // LAHAT NG WIDGET NA MAY DATA-CATEGORY
 
   widgets.forEach(async (widget) => {
     const category = widget.dataset.category;
@@ -274,9 +273,8 @@ async function loadCategorySliders() {
       const snapshot = await getDocs(q);
 
       if(snapshot.empty){
-        track.innerHTML = "<p style='color:#888; text-align:center; padding:20px; width:100%;'>No news yet</p>";
-        widget.style.display = "none"; // ITATAGO PAG WALANG LAMAN
-        return;
+        track.innerHTML = "<p style='color:#888; text-align:center; padding:20px;'>No news in this category</p>";
+        return; // WAG NA ITAGO
       }
 
       track.innerHTML = "";
@@ -293,76 +291,48 @@ async function loadCategorySliders() {
         `;
       });
 
-      // SLIDER LOGIC PER WIDGET
+      // SLIDER LOGIC
       const cards = track.querySelectorAll(".local-card");
       const prev = widget.querySelector(".local-prev");
       const next = widget.querySelector(".local-next");
       const slider = widget.querySelector(".local-news-slider");
 
-      // DOTS
-      let dotsHTML = '<div class="local-dots">';
-      cards.forEach((_, i) => {
-        dotsHTML += `<span class="local-dot ${i === 0? 'active' : ''}" data-index="${i}"></span>`;
-      });
-      dotsHTML += '</div>';
-      slider.insertAdjacentHTML('afterend', dotsHTML);
-
-      const dots = widget.querySelectorAll(".local-dot");
-      let currentSlide = 0;
-
-      function showSlide(n) {
-        currentSlide = n;
-        track.style.transform = `translateX(-${currentSlide * 100}%)`;
-        dots.forEach(d => d.classList.remove("active"));
-        if(dots[currentSlide]) dots[currentSlide].classList.add("active");
-      }
-
-      next.addEventListener("click", () => {
-        currentSlide = (currentSlide + 1) % cards.length;
-        showSlide(currentSlide);
-      });
-      prev.addEventListener("click", () => {
-        currentSlide = (currentSlide - 1 + cards.length) % cards.length;
-        showSlide(currentSlide);
-      });
-
-      dots.forEach(dot => {
-        dot.addEventListener("click", (e) => {
-          showSlide(parseInt(e.target.dataset.index));
+      if(cards.length > 1){
+        let dotsHTML = '<div class="local-dots">';
+        cards.forEach((_, i) => {
+          dotsHTML += `<span class="local-dot ${i === 0? 'active' : ''}" data-index="${i}"></span>`;
         });
-      });
+        dotsHTML += '</div>';
+        slider.insertAdjacentHTML('afterend', dotsHTML);
+
+        const dots = widget.querySelectorAll(".local-dot");
+        let currentSlide = 0;
+
+        function showSlide(n) {
+          currentSlide = n;
+          track.style.transform = `translateX(-${currentSlide * 100}%)`;
+          dots.forEach(d => d.classList.remove("active"));
+          if(dots[currentSlide]) dots[currentSlide].classList.add("active");
+        }
+
+        next.onclick = () => {
+          currentSlide = (currentSlide + 1) % cards.length;
+          showSlide(currentSlide);
+        };
+        prev.onclick = () => {
+          currentSlide = (currentSlide - 1 + cards.length) % cards.length;
+          showSlide(currentSlide);
+        };
+      } else {
+        widget.querySelector(".local-prev").style.display = "none";
+        widget.querySelector(".local-next").style.display = "none";
+      }
 
     } catch(err){
       console.error(`${category} Error:`, err);
+      track.innerHTML = `<p style='color:red; text-align:center; padding:20px;'>Error loading</p>`;
     }
   });
 }
 
 document.addEventListener("DOMContentLoaded", loadCategorySliders);
-      currentSlide = (currentSlide + 1) % cards.length;
-      showSlide(currentSlide);
-    });
-    prev.addEventListener("click", () => {
-      currentSlide = (currentSlide - 1 + cards.length) % cards.length;
-      showSlide(currentSlide);
-    });
-
-    // DOT CLICK
-    dots.forEach(dot => {
-      dot.addEventListener("click", (e) => {
-        showSlide(parseInt(e.target.dataset.index));
-      });
-    });
-
-    // AUTO SLIDE
-    setInterval(() => {
-      currentSlide = (currentSlide + 1) % cards.length;
-      showSlide(currentSlide);
-    }, 5000);
-
-  } catch(err){
-    console.error("Local News Error:", err);
-  }
-}
-
-document.addEventListener("DOMContentLoaded", loadLocalNews);
