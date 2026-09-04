@@ -653,40 +653,43 @@ document.getElementById("nativeShare").addEventListener("click", async () => {
 
 
 
-// ABS-CBN STYLE SHARE
+// 1. FACEBOOK
 document.getElementById('shareFacebook')?.addEventListener('click', (e) => {
   e.preventDefault();
   const url = encodeURIComponent(window.location.href);
-  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
 });
 
-document.getElementById('copyLink')?.addEventListener('click', (e) => {
-  e.preventDefault();
-  navigator.clipboard.writeText(window.location.href);
-  e.target.closest('.share-btn').style.color = '#25d366'; // Green pag na-copy
-  setTimeout(() => { e.target.closest('.share-btn').style.color = '#666'; }, 1000);
-});
-
+// 2. X / TWITTER - GAYA KAY ABS
 document.getElementById('shareX')?.addEventListener('click', (e) => {
   e.preventDefault();
   const url = encodeURIComponent(window.location.href);
   const text = encodeURIComponent(document.title);
-  // GUMAGANA SA MOBILE AT DESKTOP TO
+  // NOTE: x.com na ngayon hindi twitter.com
   window.open(`https://x.com/intent/tweet?url=${url}&text=${text}`, '_blank');
 });
 
+// 3. VIBER - GAYA KAY ABS
 document.getElementById('shareViber')?.addEventListener('click', (e) => {
   e.preventDefault();
   const url = encodeURIComponent(window.location.href);
-  const text = encodeURIComponent(document.title);
-  // VIBER LINK FORMAT - DAPAT GANITO
-  window.location.href = `viber://forward?text=${text} ${url}`;
-  
-  // FALLBACK: PAG WALANG VIBER APP, COPY NA LANG
-  setTimeout(() => {
-    if (!document.hidden) {
-      navigator.clipboard.writeText(`${document.title} ${window.location.href}`);
-      alert('Viber app not found. Link copied instead.');
-    }
-  }, 1000);
+  const text = encodeURIComponent(document.title + ' + window.location.href);
+  // DIRECT LINK LANG. WALANG FALLBACK. GAYA KAY ABS
+  window.location.href = `viber://forward?text=${text}`;
 });
+
+// 4. COPY
+document.getElementById('copyLink')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  navigator.clipboard.writeText(window.location.href);
+  showToast('Link copied!');
+});
+
+// TOAST FUNCTION
+function showToast(msg){
+  const t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#0a2540;color:#fff;padding:10px 16px;border-radius:8px;z-index:99999';
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2000);
+}
