@@ -498,7 +498,7 @@ async function loadMostRead() {
 
                 <div class="featured-overlay">
 
-                    <span>🔥 MOST READ</span>
+                    
 
                     <h3>${news.headline}</h3>
 
