@@ -254,17 +254,16 @@ onAuthStateChanged(auth, (user) => {
 
 const DEFAULT_IMAGE = "https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png";
 
-// ========================= LOAD ALL CATEGORY SLIDERS - CP VERSION =========================
+// ========================= LOAD ALL CATEGORY SLIDERS WITH AUTO SLIDE =========================
 async function loadCategorySliders() {
   const widgets = document.querySelectorAll(".widget[data-category]");
 
   widgets.forEach(async (widget) => {
     const category = widget.dataset.category;
     const track = widget.querySelector(".local-track");
-    if(!track ||!category) return;
+    if(!track || !category) return;
 
     try {
-      // TINANGGAL KO ORDERBY PARA DI NA KAILANGAN INDEX
       const q = query(
         collection(db, "news"),
         where("category", "==", category),
@@ -273,7 +272,7 @@ async function loadCategorySliders() {
       );
       const snapshot = await getDocs(q);
 
-      track.innerHTML = ""; // CLEAR "LOADING..."
+      track.innerHTML = ""; 
 
       if(snapshot.empty){
         track.innerHTML = `<div style='display:flex; align-items:center; justify-content:center; height:200px; color:#888;'>No ${category} yet</div>`;
@@ -282,10 +281,9 @@ async function loadCategorySliders() {
         return;
       }
 
-      // I-SORT NATIN MANUALLY SA JS KESA SA FIREBASE
       let newsArray = [];
       snapshot.forEach(docSnap => newsArray.push({id: docSnap.id, ...docSnap.data()}));
-      newsArray.sort((a,b) => b.createdAt?.seconds - a.createdAt?.seconds); // BAGO NASA UNA
+      newsArray.sort((a,b) => b.createdAt?.seconds - a.createdAt?.seconds);
 
       newsArray.forEach(news => {
         const image = news.featuredImage || DEFAULT_IMAGE;
@@ -298,14 +296,16 @@ async function loadCategorySliders() {
         `;
       });
 
-      // SLIDER
+      // SLIDER + AUTO SLIDE
       const cards = track.querySelectorAll(".local-card");
       const prev = widget.querySelector(".local-prev");
       const next = widget.querySelector(".local-next");
       const slider = widget.querySelector(".local-news-slider");
       let currentSlide = 0;
+      let autoSlideInterval;
 
       if(cards.length > 1){
+        // DOTS
         let dotsHTML = '<div class="local-dots">';
         cards.forEach((_, i) => dotsHTML += `<span class="local-dot ${i === 0? 'active' : ''}" data-index="${i}"></span>`);
         dotsHTML += '</div>';
@@ -316,10 +316,37 @@ async function loadCategorySliders() {
           currentSlide = n;
           track.style.transform = `translateX(-${currentSlide * 100}%)`;
           dots.forEach(d => d.classList.remove("active"));
-          dots[currentSlide].classList.add("active");
+          if(dots[currentSlide]) dots[currentSlide].classList.add("active");
         }
-        next.onclick = () => showSlide((currentSlide + 1) % cards.length);
-        prev.onclick = () => showSlide((currentSlide - 1 + cards.length) % cards.length);
+
+        // MANUAL CLICK
+        next.onclick = () => {
+          showSlide((currentSlide + 1) % cards.length);
+          resetAutoSlide(); // RESET TIMER PAG NI-CLICK
+        };
+        prev.onclick = () => {
+          showSlide((currentSlide - 1 + cards.length) % cards.length);
+          resetAutoSlide(); // RESET TIMER PAG NI-CLICK
+        };
+
+        // AUTO SLIDE EVERY 3 SECONDS
+        function startAutoSlide() {
+          autoSlideInterval = setInterval(() => {
+            showSlide((currentSlide + 1) % cards.length);
+          }, 3000); // 3000ms = 3 seconds. Palitan mo kung gusto mo mas mabilis
+        }
+
+        function resetAutoSlide() {
+          clearInterval(autoSlideInterval);
+          startAutoSlide();
+        }
+
+        // STOP PAG NAKA HOVER
+        slider.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+        slider.addEventListener('mouseleave', () => startAutoSlide());
+
+        startAutoSlide(); // START AGAD
+
       } else {
         prev.style.display = "none";
         next.style.display = "none";
