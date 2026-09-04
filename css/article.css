@@ -515,7 +515,7 @@ body.dark-mode .share button {
     border-bottom: 1px solid #e5e9f0 !important;
   }
   body.light-mode #navbar .mobile-brand{
-    color: #0066ff !important;
+    color: #000 !important;
   }
   body.light-mode #navbar .mobile-menu-toggle{
     color: #111 !important;
