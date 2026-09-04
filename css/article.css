@@ -589,12 +589,12 @@ body.dark-mode .share button {
 /* ========== SUMMARY - ITALIC ========== */
 .summary{ 
   font-family: 'Roboto', sans-serif !important;
-  font-size: 18px !important;
+  font-size: 24px !important;
   color: #444 !important; /* MAS ITIM KONTI */
   line-height: 1.7 !important;
   margin-bottom: 25px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 /* ========== BODY - SERIF GAYA NI ABS - MAS BOLD + MALAKI ========== */
@@ -605,11 +605,11 @@ body.dark-mode .share button {
   line-height: 1.85 !important; /* GINAWANG 1.85 GALING 1.8 */
   color: #111 !important; /* MAS ITIM GALING 222 */
   text-align: justify; /* PANTAY LEFT-RIGHT GAYA ABS */
-  letter-spacing: 0.2px; /* MAS READABLE */
+  letter-spacing: 0.4px; /* MAS READABLE */
 } 
 
 .article-body p{ 
-  margin-bottom: 24px !important; /* MAS MALAYO SPACING */
+  margin-bottom: 27px !important; /* MAS MALAYO SPACING */
 }
 
 /* ========== "MANILA (UPDATE)" - AUTO BOLD YUNG UNA ========== */
