@@ -517,10 +517,6 @@ async function loadMostRead() {
             container.innerHTML += `
             <a href="article.html?id=${docSnap.id}" class="most-read-item">
 
-                <div class="rank-number">
-                    ${rank}
-                </div>
-
                 <img src="${news.featuredImage}" alt="">
 
                 <div class="most-read-content">
