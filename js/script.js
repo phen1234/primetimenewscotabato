@@ -254,6 +254,7 @@ onAuthStateChanged(auth, (user) => {
 
 const DEFAULT_IMAGE = "https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png";
 
+// ========================= LOAD ALL CATEGORY SLIDERS - CP VERSION =========================
 async function loadCategorySliders() {
   const widgets = document.querySelectorAll(".widget[data-category]");
 
@@ -263,16 +264,16 @@ async function loadCategorySliders() {
     if(!track ||!category) return;
 
     try {
+      // TINANGGAL KO ORDERBY PARA DI NA KAILANGAN INDEX
       const q = query(
         collection(db, "news"),
         where("category", "==", category),
         where("status", "==", "published"),
-        orderBy("createdAt", "desc"),
         limit(8)
       );
       const snapshot = await getDocs(q);
 
-      track.innerHTML = ""; // CLEAR MUNA YUNG "LOADING..."
+      track.innerHTML = ""; // CLEAR "LOADING..."
 
       if(snapshot.empty){
         track.innerHTML = `<div style='display:flex; align-items:center; justify-content:center; height:200px; color:#888;'>No ${category} yet</div>`;
@@ -281,20 +282,23 @@ async function loadCategorySliders() {
         return;
       }
 
-      snapshot.forEach(docSnap => {
-        const news = docSnap.data();
+      // I-SORT NATIN MANUALLY SA JS KESA SA FIREBASE
+      let newsArray = [];
+      snapshot.forEach(docSnap => newsArray.push({id: docSnap.id, ...docSnap.data()}));
+      newsArray.sort((a,b) => b.createdAt?.seconds - a.createdAt?.seconds); // BAGO NASA UNA
+
+      newsArray.forEach(news => {
         const image = news.featuredImage || DEFAULT_IMAGE;
         const headline = news.headline || news.title || category;
-
         track.innerHTML += `
-          <a href="article.html?id=${docSnap.id}" class="local-card">
+          <a href="article.html?id=${news.id}" class="local-card">
             <img src="${image}" alt="${headline}" onerror="this.src='${DEFAULT_IMAGE}'">
             <h4>${headline}</h4>
           </a>
         `;
       });
 
-      // SLIDER LOGIC - KOPYA LANG NG LOCAL NEWS
+      // SLIDER
       const cards = track.querySelectorAll(".local-card");
       const prev = widget.querySelector(".local-prev");
       const next = widget.querySelector(".local-next");
@@ -323,6 +327,9 @@ async function loadCategorySliders() {
 
     } catch(err){
       console.error(`${category} Error:`, err);
+      track.innerHTML = `<div style='color:red; text-align:center; padding:20px;'>Error</div>`;
     }
   });
 }
+
+document.addEventListener("DOMContentLoaded", loadCategorySliders);
