@@ -565,3 +565,57 @@ body.dark-mode .share button {
 .share-buttons.abs-style .share-btn.copy{ color: #666; } /* GRAY */
 
 .share-buttons.abs-style .share-btn.copy:hover{ color: #000; }
+
+
+
+
+
+
+
+/* ========== ABS-CBN FONT STYLE ========== */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Montserrat:wght@700;800&display=swap');
+
+/* HEADLINE - MATIGAS */
+.article-main h1{ 
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 36px !important; /* BINABAAN KONTI GALING 42px */
+  line-height: 1.3 !important;
+  font-weight: 800 !important;
+  color: #111 !important;
+  margin-bottom: 15px;
+}
+
+/* SUMMARY - ITALIC */
+.summary{ 
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 18px !important; /* BINABAAN GALING 20px */
+  color: #555 !important;
+  line-height: 1.7 !important;
+  margin-bottom: 25px;
+  font-style: italic;
+}
+
+/* BODY - SERIF GAYA NI ABS */
+.article-body{ 
+  font-family: 'Merriweather', Georgia, serif !important; /* ETO YUNG SEKRETO */
+  font-size: 17px !important; /* BINABAAN GALING 18px */
+  line-height: 1.8 !important; /* BINABAAN GALING 2 */
+  color: #222 !important;
+  text-align: justify; /* PANTAY LEFT-RIGHT GAYA ABS */
+}
+
+.article-body p{ 
+  margin-bottom: 22px !important;
+}
+
+/* YUNG "MANILA — UPDATE" NA BOLD */
+.article-body p:first-of-type::first-letter {
+  font-weight: 700;
+}
+
+/* RESPONSIVE - MOBILE */
+@media(max-width:768px){
+  .article-main h1{ font-size: 26px !important; }
+  .article-body{ font-size: 16px !important; line-height: 1.7 !important; }
+  .summary{ font-size: 16px !important; }
+}
