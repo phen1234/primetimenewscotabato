@@ -660,22 +660,33 @@ document.getElementById('shareFacebook')?.addEventListener('click', (e) => {
   window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
 });
 
-document.getElementById('shareX')?.addEventListener('click', (e) => {
-  e.preventDefault();
-  const url = encodeURIComponent(window.location.href);
-  const text = encodeURIComponent(document.title);
-  window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
-});
-
-document.getElementById('shareViber')?.addEventListener('click', (e) => {
-  e.preventDefault();
-  const url = encodeURIComponent(window.location.href);
-  window.open(`viber://forward?text=${url}`); // Sa mobile mag oopen Viber app
-});
-
 document.getElementById('copyLink')?.addEventListener('click', (e) => {
   e.preventDefault();
   navigator.clipboard.writeText(window.location.href);
   e.target.closest('.share-btn').style.color = '#25d366'; // Green pag na-copy
   setTimeout(() => { e.target.closest('.share-btn').style.color = '#666'; }, 1000);
+});
+
+document.getElementById('shareX')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  const url = encodeURIComponent(window.location.href);
+  const text = encodeURIComponent(document.title);
+  // GUMAGANA SA MOBILE AT DESKTOP TO
+  window.open(`https://x.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+});
+
+document.getElementById('shareViber')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  const url = encodeURIComponent(window.location.href);
+  const text = encodeURIComponent(document.title);
+  // VIBER LINK FORMAT - DAPAT GANITO
+  window.location.href = `viber://forward?text=${text} ${url}`;
+  
+  // FALLBACK: PAG WALANG VIBER APP, COPY NA LANG
+  setTimeout(() => {
+    if (!document.hidden) {
+      navigator.clipboard.writeText(`${document.title} ${window.location.href}`);
+      alert('Viber app not found. Link copied instead.');
+    }
+  }, 1000);
 });
