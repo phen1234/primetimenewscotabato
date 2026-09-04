@@ -578,9 +578,9 @@ body.dark-mode .share button {
 /* ========== HEADLINE - MAS BOLD + MALAKI ========== */
 .article-main h1{ 
   font-family: 'Montserrat', sans-serif !important;
-  font-size: 38px !important; /* GINAWANG 38 GALING 36 */
+  font-size: 34px !important; /* GINAWANG 38 GALING 36 */
   line-height: 1.25 !important;
-  font-weight: 900 !important; /* GINAWANG 900 GALING 800 - MAS BOLD */
+  font-weight: 700 !important; /* GINAWANG 900 GALING 800 - MAS BOLD */
   color: #000 !important; /* MAS ITIM */
   margin-bottom: 18px;
   letter-spacing: -0.5px; /* MAS DIKIT PARA MATIGAS */
@@ -600,7 +600,7 @@ body.dark-mode .share button {
 /* ========== BODY - SERIF GAYA NI ABS - MAS BOLD + MALAKI ========== */
 .article-body{ 
   font-family: 'Merriweather', Georgia, serif !important; /* ETO YUNG SA PIC MO */
-  font-size: 21px !important; /* GINAWANG 18 GALING 17 - MAS MALAKI */
+  font-size: 29px !important; /* GINAWANG 18 GALING 17 - MAS MALAKI */
   font-weight: 400 !important; /* NORMAL PERO MAKAPAL NA YUNG MERRIWEATHER */
   line-height: 1.85 !important; /* GINAWANG 1.85 GALING 1.8 */
   color: #111 !important; /* MAS ITIM GALING 222 */
