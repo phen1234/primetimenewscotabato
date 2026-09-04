@@ -553,94 +553,9 @@ loadArticle();
 loadLatestNews();
 loadRelatedNews();
 
-// ===============================
-// SHARE BUTTONS
-// ===============================
-
-// ===============================
-// SHARE BUTTONS
-// ===============================
-
-// ===============================
-// SHARE BUTTONS
-// ===============================
-
-const articleUrl = window.location.href;
-
-document.getElementById("shareFacebook").addEventListener("click", () => {
-
-    window.open(
-        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl)}`,
-        "_blank",
-        "width=600,height=500"
-    );
-
-});
+// =
 
 
-// Copy Link
-document.getElementById("copyLink").addEventListener("click", async () => {
-
-    try{
-
-        await navigator.clipboard.writeText(articleUrl);
-
-        alert("✅ Link copied!");
-
-    }
-
-    catch(err){
-
-        const input = document.createElement("input");
-
-        input.value = articleUrl;
-
-        document.body.appendChild(input);
-
-        input.select();
-
-        document.execCommand("copy");
-
-        document.body.removeChild(input);
-
-        alert("✅ Link copied!");
-
-    }
-
-});
-
-// Native Share (Mobile)
-document.getElementById("nativeShare").addEventListener("click", async () => {
-
-    if(navigator.share){
-
-        try{
-
-            await navigator.share({
-
-                title: document.title,
-
-                text: "Read this news from Primetime News Cotabato",
-
-                url: articleUrl
-
-            });
-
-        }
-
-        catch(err){
-
-            console.log(err);
-
-        }
-
-    }else{
-
-        alert("Native Share is only available on supported mobile devices.");
-
-    }
-
-});
 
 
 
