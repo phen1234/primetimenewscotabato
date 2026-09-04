@@ -653,43 +653,70 @@ document.getElementById("nativeShare").addEventListener("click", async () => {
 
 
 
+// =============================== SHARE BUTTONS - ABS CBN STYLE ===============================
+const articleUrl = window.location.href;
+const articleTitle = document.title;
+
 // 1. FACEBOOK
-document.getElementById('shareFacebook')?.addEventListener('click', (e) => {
+document.getElementById("shareFacebook")?.addEventListener("click", (e) => {
   e.preventDefault();
-  const url = encodeURIComponent(window.location.href);
-  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+  window.open(
+    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl)}`,
+    "_blank"
+  );
 });
 
-// 2. X / TWITTER - GAYA KAY ABS
-document.getElementById('shareX')?.addEventListener('click', (e) => {
+// 2. X / TWITTER
+document.getElementById("shareX")?.addEventListener("click", (e) => {
   e.preventDefault();
-  const url = encodeURIComponent(window.location.href);
-  const text = encodeURIComponent(document.title);
-  // NOTE: x.com na ngayon hindi twitter.com
-  window.open(`https://x.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+  const url = encodeURIComponent(articleUrl);
+  const text = encodeURIComponent(articleTitle);
+  window.open(`https://x.com/intent/tweet?url=${url}&text=${text}`, "_blank");
 });
 
-// 3. VIBER - GAYA KAY ABS
-document.getElementById('shareViber')?.addEventListener('click', (e) => {
+// 3. VIBER
+document.getElementById("shareViber")?.addEventListener("click", (e) => {
   e.preventDefault();
-  const url = encodeURIComponent(window.location.href);
-  const text = encodeURIComponent(document.title + ' + window.location.href);
-  // DIRECT LINK LANG. WALANG FALLBACK. GAYA KAY ABS
+  const text = encodeURIComponent(articleTitle + " " + articleUrl);
   window.location.href = `viber://forward?text=${text}`;
 });
 
-// 4. COPY
-document.getElementById('copyLink')?.addEventListener('click', (e) => {
+// 4. COPY LINK
+document.getElementById("copyLink")?.addEventListener("click", async (e) => {
   e.preventDefault();
-  navigator.clipboard.writeText(window.location.href);
-  showToast('Link copied!');
+  try{
+    await navigator.clipboard.writeText(articleUrl);
+    showToast("✅ Link copied!");
+  } catch(err){
+    const input = document.createElement("input");
+    input.value = articleUrl;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand("copy");
+    document.body.removeChild(input);
+    showToast("✅ Link copied!");
+  }
+});
+
+// 5. NATIVE SHARE - TANGGALIN MO NA TO KUNG DI MO GAGAMITIN
+document.getElementById("nativeShare")?.addEventListener("click", async () => {
+  if(navigator.share){
+    try{
+      await navigator.share({
+        title: articleTitle,
+        text: "Read this news from Primetime News Cotabato",
+        url: articleUrl
+      });
+    } catch(err){ console.log(err); }
+  }
 });
 
 // TOAST FUNCTION
 function showToast(msg){
   const t = document.createElement('div');
   t.textContent = msg;
-  t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#0a2540;color:#fff;padding:10px 16px;border-radius:8px;z-index:99999';
+  t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#0a2540;color:#fff;padding:10px 16px;border-radius:8px;z-index:99999;opacity:0;transition:0.3s';
   document.body.appendChild(t);
-  setTimeout(() => t.remove(), 2000);
+  setTimeout(() => t.style.opacity = '1', 100);
+  setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2000);
 }
