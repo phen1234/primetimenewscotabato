@@ -1346,3 +1346,61 @@ body.dark-mode .most-read-content small{ color: #aebbd0 !important; }
 body.dark-mode .related-category-widget{ background: #1e2a3a; }
 body.dark-mode .related-category-card{ background: #223047; }
 body.dark-mode .related-category-content h4{ color: #e9eef7; }
+
+
+
+
+
+
+
+
+
+
+
+/* ========== LIITAN SA MOBILE ========== */
+@media (max-width: 991px) {
+  .featured-overlay {
+    padding: 15px; /* LIITAN PADDING */
+  }
+
+  .featured-overlay .badge {
+    font-size: 10px; /* LIITAN BADGE */
+    padding: 4px 10px;
+    margin-bottom: 10px;
+  }
+
+  .featured-overlay .news-meta {
+    gap: 10px; /* LIITAN GAP */
+    font-size: 11px; /* LIITAN FONT */
+    margin: 8px 0 12px 0;
+  }
+  
+  .featured-overlay .news-meta i {
+    font-size: 11px;
+  }
+
+  .featured-overlay h2 {
+    font-size: 16px; /* LIITAN TITLE */
+    line-height: 1.3;
+    margin: 0 0 12px 0;
+  }
+
+  .read-btn {
+    padding: 10px 16px; /* LIITAN BUTTON */
+    font-size: 13px;
+  }
+}
+
+/* ========== DESKTOP MANANATILING MALAKI ========== */
+@media (min-width: 992px) {
+  .featured-overlay .badge {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+  .featured-overlay .news-meta {
+    font-size: 13px;
+  }
+  .featured-overlay h2 {
+    font-size: 28px;
+  }
+}
