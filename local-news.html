@@ -1,93 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Local News | Primetime News Cotabato</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/category-news.css">
-<link rel="stylesheet" href="css/public-theme.css">
-
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local News | Primetime News Cotabato</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/category-news.css">
+  <link rel="stylesheet" href="css/public-theme.css">
 </head>
 <body data-page="local">
-<!-- HEADER -->
-<header class="page-header">
-  <div class="container top-header">
-    <div class="logo">
-      <a href="index.html">
-        <img src="./images/profile.png" alt="Logo">
-      </a>
-    </div>
-    <div class="header-text">
-      <p id="pageSubtitle">Latest Local News from Primetime News Cotabato</p>
-      <h1 id="pageTitle">Local News</h1>
-    </div>
-  </div>
-</header>
 
-<!-- NAV -->
-<nav id="navbar">
-  <div class="container nav">
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="local-news.html" class="active">Local News</a></li>
-      <li><a href="police-report.html">Police Report</a></li>
-      <li><a href="political-news.html">Political News</a></li>
-      <li><a href="weather-news.html">Weather</a></li>
-      <li><a href="national-news.html">National News</a></li>
-      <li><a href="international-news.html">International News</a></li>
-    </ul>
-  </div>
-</nav>
-
-<!-- SEARCH -->
-<section class="search-section">
-  <div class="container search-mobile-wrapper">
-    <button class="menu-toggle" id="menuToggle" type="button">
-      <i class="fas fa-bars"></i>
-      <span>Categories</span>
-    </button>
-    <div class="search-box">
-      <i class="fas fa-search"></i>
-      <input type="text" placeholder="Search Local News...">
+  <!-- HEADER -->
+  <header class="page-header">
+    <div class="container top-header">
+      <div class="logo">
+        <a href="index.html">
+          <img src="./images/profile.png" alt="Logo">
+        </a>
+      </div>
+      <div class="header-text">
+        <p id="pageSubtitle">Latest Local News from Primetime News Cotabato</p>
+        <h1 id="pageTitle">Local News</h1>
+      </div>
     </div>
-  </div>
-</section>
+  </header>
 
-<!-- CONTENT -->
-<section class="category-page">
-  <div class="container page-layout">
-    <!-- LEFT -->
-    <div class="page-main">
-      <div id="featuredContent"></div>
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="container nav">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="local-news.html" class="active">Local News</a></li>
+        <li><a href="police-report.html">Police Report</a></li>
+        <li><a href="political-news.html">Political News</a></li>
+        <li><a href="weather-news.html">Weather</a></li>
+        <li><a href="national-news.html">National News</a></li>
+        <li><a href="international-news.html">International News</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- SEARCH -->
+  <section class="search-section">
+    <div class="container search-mobile-wrapper">
+      <button class="menu-toggle" id="menuToggle" type="button">
+        <i class="fas fa-bars"></i> <span>Categories</span>
+      </button>
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search Local News...">
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <section class="category-page">
+    <div class="container page-layout">
       
-      
+      <!-- LEFT -->
+      <div class="page-main">
+        <div id="featuredContent"></div>
 
-      <h2 class="section-title">Latest Local News</h2>
-      <div id="contentList"></div>
+        <!-- TICKER WIDGET - ITO YUNG BAGO -->
+        <div class="latest-ticker-widget">
+          <h3 class="ticker-title"><i class="fas fa-bolt"></i> Latest Local News</h3>
+          <div class="ticker-container">
+            <div id="tickerList" class="ticker-list">
+              <p>Loading...</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-title">Latest Local News</h2>
+        <div id="contentList"></div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="page-sidebar">
+        <div id="sidebarContent"></div>
+      </aside>
+
     </div>
+  </section>
 
-    <!-- SIDEBAR -->
-    <aside class="page-sidebar">
-      <div id="sidebarContent"></div>
-    </aside>
-  </div>
-</section>
+  <footer>
+    <div class="container">
+      <h2>Primetime News Cotabato</h2>
+      <p>© 2026 Primetime News Cotabato</p>
+    </div>
+  </footer>
 
-<footer>
-  <div class="container">
-    <h2>Primetime News Cotabato</h2>
-    <p>© 2026 Primetime News Cotabato</p>
-  </div>
-</footer>
+  <script type="module" src="js/category-news.js"></script>
+  <script type="module" src="./js/website-settings.js"></script>
+  <script src="js/public-theme.js"></script>
 
-<script type="module" src="js/category-news.js"></script>
-<script type="module" src="./js/website-settings.js"></script>
-<script src="js/public-theme.js"></script>
 </body>
 </html>
