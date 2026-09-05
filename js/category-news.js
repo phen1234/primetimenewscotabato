@@ -655,125 +655,42 @@ function renderFeaturedNews(news) {
 }
 
 
-// ===============================
-// NEWS LIST
-// ===============================
+// =============================== 
+// NEWS LIST - VERTICAL 4 CARDS
+// =============================== 
+function renderNewsList(newsList) { 
+    if (!contentList) { return; } 
+    if (!newsList.length) { contentList.innerHTML = ""; return; } 
 
-function renderNewsList(newsList) {
-
-    if (!contentList) {
-        return;
-    }
-
-
-    if (!newsList.length) {
-
-        contentList.innerHTML = "";
-
-        return;
-
-    }
-
-
-    let html = "";
-
-
-    newsList.forEach(
-        news => {
-
-            const image =
-                news.featuredImage ||
-                "images/news1.jpg";
-
-
-            const headline =
-                news.headline ||
-                news.title ||
-                "Primetime News";
-
-
-            const summary =
-                news.summary ||
-                "";
-
-
-            const category =
-                news.category ||
-                CURRENT_CATEGORY;
-
-
-            const views =
-                news.views ||
-                0;
-
-
-            html += `
-
-                <div
-                    class="news-card"
-                    data-id="${news.id}"
-                >
-
-                    <img
-                        src="${image}"
-                        alt="${headline}"
-                        loading="lazy"
-                        onerror="
-                            this.onerror=null;
-                            this.src='images/news1.jpg';
-                        "
-                    >
-
-
-                    <div class="news-info">
-
-                        <span class="badge">
-
-                            ${category}
-
-                        </span>
-
-
-                        <h3>
-
-                            ${headline}
-
-                        </h3>
-
-
-                        <p>
-
-                            ${summary}
-
-                        </p>
-
-
-                        <div class="news-meta">
-
-                            <span>
-
-                                <i class="fas fa-eye"></i>
-
-                                ${views} Views
-
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-
-    contentList.innerHTML =
-        html;
-
+    let html = ""; 
+    newsList.forEach( news => { 
+        const image = news.featuredImage || "images/news1.jpg"; 
+        const headline = news.headline || news.title || "Primetime News"; 
+        const summary = news.summary || ""; 
+        const category = news.category || CURRENT_CATEGORY; 
+        const views = news.views || 0; 
+        
+        html += ` 
+        <div class="news-card" data-id="${news.id}"> 
+            <img src="${image}" alt="${headline}" loading="lazy" onerror="this.onerror=null; this.src='images/news1.jpg';"> 
+            <div class="news-info"> 
+                <span class="badge">${category}</span> 
+                <h3>${headline}</h3> 
+                <p>${summary}</p> 
+                <div class="news-meta"> 
+                    <span><i class="fas fa-eye"></i> ${views} Views</span> 
+                </div> 
+            </div> 
+        </div> 
+        `; 
+    }); 
+    
+    contentList.innerHTML = html; 
+    autoSlideNewsCards(); // TAWAGIN DITO PARA SA SLIDE
 }
+
+
+
 
 
 // ===============================
