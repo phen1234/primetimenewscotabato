@@ -1414,58 +1414,63 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
 
 
 
-/* ========== VERTICAL AUTO SLIDE NEWS CARDS ========== */
+/* ========== VERTICAL AUTO SLIDE - MALIIT NA VERSION ========== */
 #contentList {
-  height: 900px !important; /* 4 cards x 225px = 900px */
-  overflow-y: hidden !important; /* itago yung sobra */
+  height: 520px !important; /* 4 cards x 130px = 520px */
+  overflow-y: hidden !important;
   display: block !important;
   position: relative;
 }
 
 #contentList .news-card {
-  height: 225px !important; /* height ng 1 card */
+  height: 115px !important; /* pinaliit na */
   display: flex !important;
-  gap: 15px;
+  gap: 12px;
   background: #1e2a3a;
-  border-radius: 15px;
+  border-radius: 12px;
   overflow: hidden;
   border: 1px solid #2a3a52;
-  margin-bottom: 15px !important;
+  margin-bottom: 15px !important; /* 115 + 15 = 130px total */
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: all 0.3s;
 }
 #contentList .news-card:hover {
   transform: translateX(5px);
+  border-color: #dc2626;
 }
 
 #contentList .news-card img {
-  width: 280px !important;
+  width: 160px !important; /* pinaliit din image */
   height: 100% !important;
   object-fit: cover;
   flex-shrink: 0;
 }
 
 #contentList .news-info {
-  padding: 15px;
+  padding: 12px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #contentList .news-info .badge {
   display: inline-block;
   background: #dc2626;
   color: white;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-size: 10px;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  width: fit-content;
 }
 
 #contentList .news-info h3 {
-  font-size: 16px;
+  font-size: 14px; /* pinaliit font */
   color: #e9eef7;
-  margin-bottom: 8px;
-  line-height: 1.4;
+  margin-bottom: 5px;
+  line-height: 1.3;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -1473,11 +1478,16 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
 }
 
 #contentList .news-info p {
-  font-size: 13px;
+  font-size: 12px; /* pinaliit font */
   color: #94a3b8;
-  line-height: 1.5;
+  line-height: 1.4;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1; /* 1 line na lang */
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+#contentList .news-meta {
+  font-size: 11px;
+  color: #94a3b8;
 }
