@@ -1,7 +1,5 @@
 import { db } from "./firebase.js";
-
-import { collection, getDocs, query, where, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";/www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-
+import { collection, getDocs, query, where, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 // ===============================
 // PAGE INFO
@@ -470,6 +468,9 @@ async function loadNews() {
         renderMostRead(
             newsData
         );
+
+
+        loadLatestTicker(); // TAWAGIN ANG AUTO SLIDE
 
     }
 
@@ -971,7 +972,7 @@ if (searchInput) {
 
 
 
-                loadLatestTicker(); // TAWAGIN ANG AUTO SLIDE
+                
 
 
                 return;
