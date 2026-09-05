@@ -890,45 +890,6 @@ function renderMostRead(newsList) {
 
 
 
-// ===============================
-// AUTO SLIDE NEWS CARDS
-// ===============================
-function autoSlideNewsCards() {
-  const container = document.getElementById("contentList");
-  if(!container) return;
-  
-  const cards = container.querySelectorAll('.news-card');
-  if(cards.length <= 1) return; // kung 1 lang wag na mag slide
-  
-  let currentSlide = 0;
-  
-  // gawing horizontal yung cards
-  container.style.display = "flex";
-  container.style.overflowX = "hidden";
-  container.style.scrollBehavior = "smooth";
-  container.style.gap = "15px";
-  
-  cards.forEach(card => {
-    card.style.minWidth = "100%";
-    card.style.flexShrink = "0";
-  });
-
-  setInterval(() => {
-    currentSlide++;
-    if(currentSlide >= cards.length) currentSlide = 0;
-    container.scrollTo({ 
-      left: currentSlide * container.offsetWidth, 
-      behavior: 'smooth' 
-    });
-  }, 4000); // 4 seconds bago magpalit
-}
-
-
-
-
-
-
-
 
 // ===============================
 // NEWS CLICK HANDLER
@@ -1240,7 +1201,26 @@ document.addEventListener(
 
 
 
-
+function autoSlideNewsCards() {
+  const container = document.getElementById("contentList");
+  if(!container) return;
+  const cards = container.querySelectorAll('.news-card');
+  if(cards.length <= 1) return;
+  let currentSlide = 0;
+  container.style.display = "flex";
+  container.style.overflowX = "hidden";
+  container.style.scrollBehavior = "smooth";
+  container.style.gap = "15px";
+  cards.forEach(card => {
+    card.style.minWidth = "100%";
+    card.style.flexShrink = "0";
+  });
+  setInterval(() => {
+    currentSlide++;
+    if(currentSlide >= cards.length) currentSlide = 0;
+    container.scrollTo({ left: currentSlide * container.offsetWidth, behavior: 'smooth' });
+  }, 4000);
+}
 
 
 
