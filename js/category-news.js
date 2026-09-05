@@ -1201,56 +1201,56 @@ document.addEventListener(
 
 
 
-// ===============================
-// AUTO SLIDE NEWS CARDS - VERTICAL
-// ===============================
-function autoSlideNewsCards() {
-  const container = document.getElementById("contentList");
-  if(!container) return;
-  
-  const cards = container.querySelectorAll('.news-card');
-  if(cards.length <= 4) return; // kung 4 pababa wag na mag slide
-  
-  let currentSlide = 0;
-  const cardHeight = 150; // 115px + 15px margin // 225px + 15px margin
-
-  setInterval(() => {
-    currentSlide++;
-    const maxSlide = cards.length - 4; // kasi 4 ang kita
-    if(currentSlide > maxSlide) currentSlide = 0;
+// =============================== 
+// AUTO SLIDE NEWS CARDS - VERTICAL 
+// =============================== 
+function autoSlideNewsCards() { 
+    const container = document.getElementById("contentList"); 
+    if(!container) return; 
     
-    container.scrollTo({ 
-      top: currentSlide * cardHeight, 
-      behavior: 'smooth' 
-    });
-  }, 4000); // 4 seconds bago mag slide pataas
-}
+    const cards = container.querySelectorAll('.news-card'); 
+    if(cards.length <= 4) return; // kung 4 pababa wag na mag slide 
+    
+    let currentSlide = 0; 
+    const cardHeight = 140; // 125px + 15px margin TAMA NA TO
+    
+    setInterval(() => { 
+        currentSlide++; 
+        const maxSlide = cards.length - 4; // kasi 4 ang kita 
+        if(currentSlide > maxSlide) currentSlide = 0; 
+        
+        container.scrollTo({ 
+            top: currentSlide * cardHeight, 
+            behavior: 'smooth' 
+        }); 
+    }, 4000); // 4 seconds bago mag slide pataas 
+} 
 
-// ===============================
-// RENDER NEWS CARDS
-// ===============================
-function renderNews(newsData){
-    const contentList = document.getElementById("contentList");
-    if(!contentList) return;
-    contentList.innerHTML = ""; // clear muna
-
-    newsData.forEach((news) => {
-        contentList.innerHTML += `
-        <div class="news-card" onclick="window.location.href='article.html?id=${news.id}'">
-            <img src="${news.image}" alt="${news.title}">
-            <div class="news-info">
-                <span class="badge">${news.category}</span>
-                <h3>${news.title}</h3>  <!-- ITO YUNG HEADLINE. BAKA WALA TO SAYO -->
-                <p>${news.excerpt}</p>
-                <div class="news-meta">
-                    <i class="fas fa-eye"></i> ${news.views} Views
-                </div>
-            </div>
-        </div>
-        `;
-    });
-
-    autoSlideNewsCards(); // tawagin dito after ma-render lahat
+// =============================== 
+// RENDER NEWS CARDS 
+// =============================== 
+function renderNews(newsData){ 
+    const contentList = document.getElementById("contentList"); 
+    if(!contentList) return; 
+    contentList.innerHTML = ""; // clear muna 
+    
+    newsData.forEach((news) => { 
+        contentList.innerHTML += ` 
+        <div class="news-card" onclick="window.location.href='article.html?id=${news.id}'"> 
+            <img src="${news.image}" alt="${news.title}"> 
+            <div class="news-info"> 
+                <span class="badge">${news.category}</span> 
+                <h3>${news.title}</h3> 
+                <p>${news.excerpt}</p> 
+                <div class="news-meta"> 
+                    <i class="fas fa-eye"></i> ${news.views} Views 
+                </div> 
+            </div> 
+        </div> 
+        `; 
+    }); 
+    
+    autoSlideNewsCards(); // tawagin dito after ma-render lahat 
 }
 
 
