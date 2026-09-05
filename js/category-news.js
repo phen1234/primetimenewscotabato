@@ -885,6 +885,58 @@ function renderMostRead(newsList) {
 }
 
 
+
+
+
+
+
+// ===============================
+// LATEST TICKER - AUTO SLIDE
+// ===============================
+function loadLatestTicker() {
+  if (!tickerList) return;
+  
+  const latest = newsData.slice(0, 6); // kuha 6 pinakabago
+  if (latest.length === 0) {
+    tickerList.innerHTML = "<p>No news</p>";
+    return;
+  }
+  
+  let html = "";
+  latest.forEach(news => {
+    const headline = news.headline || "News";
+    const time = news.publishedAt?.seconds ? new Date(news.publishedAt.seconds * 1000).toLocaleTimeString("en-US", {hour: "2-digit", minute:"2-digit"}) : "";
+    
+    html += `
+      <a href="article.html?id=${news.id}" class="ticker-item">
+        <span class="ticker-time">${time}</span>
+        <h4>${headline}</h4>
+      </a>
+    `;
+  });
+  
+  tickerList.innerHTML = html;
+  
+  // AUTO SLIDE
+  let currentIndex = 0;
+  const items = tickerList.querySelectorAll('.ticker-item');
+  const itemHeight = 70; // dapat same sa CSS height
+  
+  setInterval(() => {
+    currentIndex++;
+    if (currentIndex >= items.length) currentIndex = 0;
+    tickerList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+  }, 3000); // 3 seconds bago magpalit
+}
+
+
+
+
+
+
+
+
+
 // ===============================
 // NEWS CLICK HANDLER
 // ===============================
@@ -1198,38 +1250,6 @@ document.addEventListener(
 
 
 
-// ===============================
-// AUTO SLIDE NEWS CARDS
-// ===============================
-function autoSlideNewsCards() {
-  const container = document.getElementById("contentList");
-  if(!container) return;
-  
-  let currentSlide = 0;
-  const cards = container.querySelectorAll('.news-card');
-  
-  if(cards.length <= 1) return; // kung 1 lang wag na mag slide
-  
-  // gawing horizontal yung cards
-  container.style.display = "flex";
-  container.style.overflowX = "hidden";
-  container.style.scrollBehavior = "smooth";
-  container.style.gap = "15px";
-  
-  cards.forEach(card => {
-    card.style.minWidth = "100%";
-    card.style.flexShrink = "0";
-  });
-  
-  setInterval(() => {
-    currentSlide++;
-    if(currentSlide >= cards.length) currentSlide = 0;
-    container.scrollTo({
-      left: currentSlide * container.offsetWidth,
-      behavior: 'smooth'
-    });
-  }, 4000); // 4 seconds bago magpalit
-}
 
 
 // ===============================
