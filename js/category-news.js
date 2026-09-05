@@ -1226,9 +1226,6 @@ function autoSlideNewsCards() {
     }, 4000); // 4 seconds bago mag slide pataas 
 } 
 
-// =============================== 
-// RENDER NEWS CARDS 
-// =============================== 
 function renderNews(newsData){ 
     const contentList = document.getElementById("contentList"); 
     if(!contentList) return; 
@@ -1237,10 +1234,11 @@ function renderNews(newsData){
     newsData.forEach((news) => { 
         contentList.innerHTML += ` 
         <div class="news-card" onclick="window.location.href='article.html?id=${news.id}'"> 
-            <img src="${news.image}" alt="${news.title}"> 
+            <img src="${news.featuredImage}" alt="${news.headline}"> <!-- featuredImage din pala gamit mo -->
             <div class="news-info"> 
                 <span class="badge">${news.category}</span> 
-                <h3>${news.title || 'No Title'}</h3> <!-- DINAGDAGAN NG FALLBACK -->
+                <h3>${news.headline || 'No Headline'}</h3> <!-- ITO ANG PALIT -->
+                <p>${news.summary}</p> <!-- summary gamit mo din -->
                 <div class="news-meta"> 
                     <i class="fas fa-eye"></i> ${news.views} Views 
                 </div> 
@@ -1251,7 +1249,6 @@ function renderNews(newsData){
     
     autoSlideNewsCards(); 
 }
-
 
 // ===============================
 // START
