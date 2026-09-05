@@ -1422,7 +1422,6 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
   padding: 20px;
   margin-top: 30px;
 }
-
 .ticker-title {
   font-size: 18px;
   font-weight: 700;
@@ -1431,25 +1430,38 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
   display: flex;
   align-items: center;
 }
-.ticker-title i { color: #ffc107; margin-right: 8px; }
-
+.ticker-title i { 
+  color: #ffc107; 
+  margin-right: 8px; 
+}
 .ticker-container {
   height: 210px !important; /* 3 ITEMS * 70px */
   overflow: hidden !important;
   position: relative;
 }
-
 .ticker-list {
   transition: transform 0.6s ease-in-out !important;
 }
-
 .ticker-item {
   display: block !important;
   padding: 12px 15px !important;
   height: 70px !important;
   box-sizing: border-box !important;
   border-bottom: 1px solid #2a3a52;
-  text-decoration: none;
+  text-decoration: none; /* DAGDAG KO NA PARA WALANG UNDERLINE */
 }
-.ticker-item:hover { background: #223047; }
-.ticker-time { font-size: 11px; color: #94a3b
+.ticker-item:hover { 
+  background: #223047; /* HOVER EFFECT */
+}
+.ticker-time { 
+  font-size: 11px; 
+  color: #94a3b8; 
+  display: block; 
+  margin-bottom: 4px; 
+}
+.ticker-item h4 { 
+  font-size: 14px; 
+  color: #e9eef7; 
+  margin: 0; 
+  line-height: 1.4; 
+}
