@@ -470,8 +470,52 @@ async function loadNews() {
         );
 
 
-        loadLatestTicker(); // TAWAGIN ANG AUTO SLIDE
 
+
+
+        
+
+        // ===============================
+// LATEST TICKER - AUTO SLIDE UP ISA ISA
+// ===============================
+async function loadLatestTicker() {
+  if(!tickerList) return;
+  try {
+    const q = query(collection(db, "news"), where("status", "==", "published"), where("category", "==", CURRENT_CATEGORY), orderBy("publishedAt", "desc"), limit(10));
+    const snap = await getDocs(q);
+    const latest = snap.docs.map(doc => ({id: doc.id,...doc.data()}));
+
+    if(latest.length === 0) { tickerList.innerHTML = '<p>No recent news</p>'; return; }
+
+    tickerList.innerHTML = latest.map(item => `
+      <a href="article.html?id=${item.id}" class="ticker-item">
+        <span class="ticker-time">${item.publishedAt?.seconds ? new Date(item.publishedAt.seconds * 1000).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : ""}</span>
+        <h4>${item.headline}</h4>
+      </a>
+    `).join('');
+
+    let currentIndex = 0;
+    const items = tickerList.querySelectorAll('.ticker-item');
+    if(items.length <= 3) return; // WAG NA MAG SLIDE KUNG 3 PABABA LANG
+    const itemHeight = items[0].offsetHeight;
+    
+    setInterval(() => {
+      currentIndex++;
+      if(currentIndex >= items.length - 3 + 1){ // -3 kasi 3 ang kita
+        currentIndex = 0;
+      }
+      tickerList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+    }, 3000); // 3 seconds kada slide
+
+  } catch(error) { console.error("Error loading ticker:", error); }
+}
+
+
+
+
+
+
+        
     }
 
     catch (err) {
