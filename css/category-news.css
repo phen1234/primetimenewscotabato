@@ -1404,3 +1404,25 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
     font-size: 28px;
   }
 }
+
+
+
+
+
+
+
+
+/* ========== LATEST TICKER WIDGET - AUTO SLIDE ========== */
+.latest-ticker-widget {
+  background: #1e2a3a;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.2);
+}
+
+.ticker-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #e9
