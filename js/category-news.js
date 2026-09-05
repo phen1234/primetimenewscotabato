@@ -1212,7 +1212,7 @@ function autoSlideNewsCards() {
   if(cards.length <= 4) return; // kung 4 pababa wag na mag slide
   
   let currentSlide = 0;
-  const cardHeight = 240; // 225px + 15px margin
+  const cardHeight = 130; // 115px + 15px margin // 225px + 15px margin
 
   setInterval(() => {
     currentSlide++;
