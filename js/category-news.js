@@ -1201,25 +1201,29 @@ document.addEventListener(
 
 
 
+// ===============================
+// AUTO SLIDE NEWS CARDS - VERTICAL
+// ===============================
 function autoSlideNewsCards() {
   const container = document.getElementById("contentList");
   if(!container) return;
+  
   const cards = container.querySelectorAll('.news-card');
-  if(cards.length <= 1) return;
+  if(cards.length <= 4) return; // kung 4 pababa wag na mag slide
+  
   let currentSlide = 0;
-  container.style.display = "flex";
-  container.style.overflowX = "hidden";
-  container.style.scrollBehavior = "smooth";
-  container.style.gap = "15px";
-  cards.forEach(card => {
-    card.style.minWidth = "100%";
-    card.style.flexShrink = "0";
-  });
+  const cardHeight = 240; // 225px + 15px margin
+
   setInterval(() => {
     currentSlide++;
-    if(currentSlide >= cards.length) currentSlide = 0;
-    container.scrollTo({ left: currentSlide * container.offsetWidth, behavior: 'smooth' });
-  }, 4000);
+    const maxSlide = cards.length - 4; // kasi 4 ang kita
+    if(currentSlide > maxSlide) currentSlide = 0;
+    
+    container.scrollTo({ 
+      top: currentSlide * cardHeight, 
+      behavior: 'smooth' 
+    });
+  }, 4000); // 4 seconds bago mag slide pataas
 }
 
 
