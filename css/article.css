@@ -600,7 +600,7 @@ body.dark-mode .share button {
 /* ========== BODY - SERIF GAYA NI ABS - MAS BOLD + MALAKI ========== */
 .article-body{ 
   font-family: 'Merriweather', Georgia, serif !important; /* ETO YUNG SA PIC MO */
-  font-size: 34px !important; /* GINAWANG 18 GALING 17 - MAS MALAKI */
+  font-size: 24px !important; /* GINAWANG 18 GALING 17 - MAS MALAKI */
   font-weight: 400 !important; /* NORMAL PERO MAKAPAL NA YUNG MERRIWEATHER */
   line-height: 1.85 !important; /* GINAWANG 1.85 GALING 1.8 */
   color: #111 !important; /* MAS ITIM GALING 222 */
