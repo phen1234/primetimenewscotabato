@@ -1036,3 +1036,100 @@ body.dark-mode #contentList .news-info .news-meta{ color: #aebbd0 !important; }
   #contentList .news-info p{ font-size: 13px !important; }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================== DESKTOP FIX LANG - 992PX PATAAS =========================== */
+@media (min-width: 992px){
+
+  /* LAYOUT: 2/3 + 1/3 GAYA NG ARTICLE PAGE */
+  .page-layout{
+    display: grid !important;
+    grid-template-columns: 2fr 1fr !important;
+    gap: 30px !important;
+    align-items: start !important;
+  }
+  .page-main{ grid-column: 1; }
+  .page-sidebar{ grid-column: 2; }
+
+  /* LATEST NEWS GRID - 2 COLUMNS NA CARD */
+  #contentList{
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 25px !important;
+  }
+
+  /* CARD STYLE - GAYA NG FEATURED */
+  #contentList .news-card{
+    display: block !important;
+    background: #fff !important;
+    border-radius: 18px !important;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,.08) !important;
+    padding: 0 !important;
+    border: none !important;
+    transition: .3s;
+  }
+  #contentList .news-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,.12);
+  }
+
+  /* MALAKING IMAGE */
+  #contentList .news-card img{
+    width: 100% !important;
+    height: 220px !important;
+    object-fit: cover;
+    border-radius: 0 !important;
+  }
+
+  /* CONTENT */
+  #contentList .news-info{
+    padding: 24px !important;
+  }
+
+  /* TITLE - GAYA SA ARTICLE */
+  #contentList .news-info h3{
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    line-height: 1.35 !important;
+    margin-bottom: 12px !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* IPAPAKITA YUNG SUMMARY */
+  #contentList .news-info p{
+    display: -webkit-box !important;
+    color: #666 !important;
+    font-size: 14px !important;
+    line-height: 1.8 !important;
+    margin-bottom: 12px !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* META */
+  #contentList .news-info .news-meta{
+    font-size: 13px !important;
+    color: #666 !important;
+    gap: 20px !important;
+  }
+}
+
+/* =========================== MOBILE HAYAAN LANG =========================== */
+/* LAHAT NG @media max-width:991px MO DATI WAG GALAWIN */
+
