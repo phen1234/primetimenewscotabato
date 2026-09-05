@@ -1409,37 +1409,45 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
 
 
 
-/* ========== AUTO SLIDE NEWS CARDS ========== */
+
+
+
+
+
+/* ========== VERTICAL AUTO SLIDE NEWS CARDS ========== */
 #contentList {
-  display: flex !important; /* gawing horizontal */
-  overflow-x: hidden !important; /* itago yung sobra */
-  scroll-behavior: smooth !important;
-  gap: 20px !important;
-  padding-bottom: 10px;
+  height: 900px !important; /* 4 cards x 225px = 900px */
+  overflow-y: hidden !important; /* itago yung sobra */
+  display: block !important;
+  position: relative;
 }
 
 #contentList .news-card {
-  min-width: 100% !important; /* kada card = 1 buong width */
-  flex-shrink: 0 !important;
+  height: 225px !important; /* height ng 1 card */
+  display: flex !important;
+  gap: 15px;
   background: #1e2a3a;
   border-radius: 15px;
   overflow: hidden;
   border: 1px solid #2a3a52;
+  margin-bottom: 15px !important;
   cursor: pointer;
   transition: transform 0.3s;
 }
 #contentList .news-card:hover {
-  transform: translateY(-5px);
+  transform: translateX(5px);
 }
 
 #contentList .news-card img {
-  width: 100%;
-  height: 220px;
+  width: 280px !important;
+  height: 100% !important;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 #contentList .news-info {
-  padding: 18px;
+  padding: 15px;
+  flex: 1;
 }
 
 #contentList .news-info .badge {
@@ -1450,11 +1458,11 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
   border-radius: 20px;
   font-size: 11px;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 #contentList .news-info h3 {
-  font-size: 18px;
+  font-size: 16px;
   color: #e9eef7;
   margin-bottom: 8px;
   line-height: 1.4;
@@ -1465,22 +1473,11 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
 }
 
 #contentList .news-info p {
-  font-size: 14px;
+  font-size: 13px;
   color: #94a3b8;
-  line-height: 1.6;
-  margin-bottom: 12px;
+  line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
-#contentList .news-meta {
-  font-size: 12px;
-  color: #94a3b8;
-}
-
-
-
-
-
