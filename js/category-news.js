@@ -1232,7 +1232,7 @@ function autoSlideNewsCards() {
 function renderNews(newsData){ 
     const contentList = document.getElementById("contentList"); 
     if(!contentList) return; 
-    contentList.innerHTML = ""; // clear muna 
+    contentList.innerHTML = ""; 
     
     newsData.forEach((news) => { 
         contentList.innerHTML += ` 
@@ -1240,8 +1240,7 @@ function renderNews(newsData){
             <img src="${news.image}" alt="${news.title}"> 
             <div class="news-info"> 
                 <span class="badge">${news.category}</span> 
-                <h3>${news.title}</h3> 
-                <p>${news.excerpt}</p> 
+                <h3>${news.title || 'No Title'}</h3> <!-- DINAGDAGAN NG FALLBACK -->
                 <div class="news-meta"> 
                     <i class="fas fa-eye"></i> ${news.views} Views 
                 </div> 
@@ -1250,7 +1249,7 @@ function renderNews(newsData){
         `; 
     }); 
     
-    autoSlideNewsCards(); // tawagin dito after ma-render lahat 
+    autoSlideNewsCards(); 
 }
 
 
