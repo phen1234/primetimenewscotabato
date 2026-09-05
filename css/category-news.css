@@ -1,0 +1,1348 @@
+/* ===========================
+FEATURED NEWS
+=========================== */
+
+.featured-news{
+    background:#fff;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.featured-image{
+    width:100%;
+    height:430px;
+    object-fit:cover;
+}
+
+.featured-overlay{
+    padding:28px;
+}
+
+.featured-overlay h2{
+    font-size:32px;
+    line-height:1.35;
+    margin:15px 0;
+}
+
+.featured-overlay p{
+    color:#666;
+    line-height:1.8;
+    margin-top:15px;
+}
+
+.news-meta{
+
+display:flex;
+align-items:center;
+gap:20px;
+
+font-size:13px;
+color:#666;
+
+margin:10px 0;
+
+}
+
+
+.read-btn{
+    margin-top:22px;
+    background:#d60000;
+    color:#fff;
+    border:none;
+    padding:12px 28px;
+    border-radius:40px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+}
+
+.read-btn:hover{
+    background:#b60000;
+}
+
+/* ===========================
+WIDGET
+=========================== */
+
+.widget{
+    background:#fff;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.widget h2,
+.widget h3{
+    font-size:22px;
+    margin-bottom:18px;
+}
+
+
+/* ===========================
+GLOBAL
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Poppins",sans-serif;
+    background:#f5f6fa;
+    color:#222;
+}
+
+.container{
+    width:95%;
+    max-width:1400px;
+    margin:auto;
+}
+
+/* ==========================
+TOP HEADER
+========================== */
+
+.page-header{
+
+    background:#0b1d3a;
+
+    padding:18px 0;
+
+}
+
+.top-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:30px;
+
+}
+
+.logo img{
+
+    width:170px;
+
+}
+
+.header-text{
+
+    flex:1;
+
+}
+
+.header-text h1{
+
+    margin:0;
+
+    color:#fff;
+
+    font-size:42px;
+
+    font-weight:800;
+
+}
+
+.header-text p{
+
+    margin-top:8px;
+
+    color:#ddd;
+
+    font-size:17px;
+
+}
+
+/* NAV */
+#navbar{
+
+    margin-top:0;
+
+}
+
+/* ===========================
+SEARCH
+=========================== */
+
+.search-section{
+
+    background:#fff;
+    padding:25px 0;
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+
+}
+
+.search-box{
+
+    max-width:700px;
+    margin:auto;
+    position:relative;
+
+}
+
+.search-box input{
+
+    width:100%;
+    border:none;
+    background:#f1f2f6;
+    border-radius:40px;
+    padding:16px 20px 16px 50px;
+    font-size:15px;
+
+}
+
+.search-box i{
+
+    position:absolute;
+    top:50%;
+    left:18px;
+    transform:translateY(-50%);
+    color:#777;
+
+}
+
+/* ===========================
+LAYOUT
+=========================== */
+
+.category-page{
+
+     background:#f5f5f5;
+
+    padding:40px 0;
+
+}
+
+.page-layout{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:30px;
+
+    align-items:start;
+
+    background:#ffffff;
+
+}
+
+.page-main{
+
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+
+}
+
+.page-sidebar{
+
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+
+}
+
+/* ===========================
+SECTION TITLE
+=========================== */
+
+.section-title{
+
+    font-size:28px;
+    font-weight:700;
+
+}
+
+/* ===========================
+BADGE
+=========================== */
+
+.badge{
+
+    display:inline-block;
+    background:#d60000;
+    color:#fff;
+    padding:5px 14px;
+    border-radius:30px;
+    font-size:12px;
+    font-weight:700;
+
+}
+
+/* ===========================
+MOST READ
+=========================== */
+
+.most-read-item{
+
+    display:flex;
+    gap:14px;
+
+    margin-bottom:18px;
+    padding-bottom:18px;
+
+    border-bottom:1px solid #ececec;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.most-read-item:hover{
+
+    transform:translateX(5px);
+
+}
+
+.most-read-item:last-child{
+
+    border-bottom:none;
+    margin-bottom:0;
+    padding-bottom:0;
+
+}
+
+.most-read-item img{
+
+    width:110px;
+    height:75px;
+
+    object-fit:cover;
+
+    border-radius:10px;
+
+    flex-shrink:0;
+
+}
+
+.most-read-content{
+
+    flex:1;
+
+}
+
+.most-read-content h4{
+
+    font-size:15px;
+
+    line-height:1.45;
+
+    margin-top:8px;
+
+    display:-webkit-box;
+
+    -webkit-line-clamp:2;
+
+    -webkit-box-orient:vertical;
+
+    overflow:hidden;
+    
+
+}
+
+.most-read-content small{
+
+    display:block;
+
+    margin-top:8px;
+
+    font-size:12px;
+
+    color:#888;
+
+}
+
+.most-read-content small i{
+
+    color:#d60000;
+
+    margin-right:5px;
+
+}
+
+.news-meta{
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    font-size:13px;
+    color:#666;
+}
+
+.news-meta i{
+    color:#d60000;
+    margin-right:4px;
+}
+
+.most-read-content small{
+    display:block;
+    margin-top:6px;
+    line-height:1.6;
+}
+
+.news-meta span{
+
+display:flex;
+align-items:center;
+gap:6px;
+
+}
+
+/* ==========================
+TYPE BADGE
+========================== */
+
+.typeBadge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:700;
+    color:#fff;
+    margin-bottom:8px;
+}
+
+.typeBadge.news{
+    background:#1e40af;
+}
+
+.typeBadge.video{
+    background:#dc2626;
+}
+
+.headlineText{
+    font-weight:600;
+    line-height:1.4;
+}
+
+
+/* ===========================
+RESPONSIVE
+=========================== */
+
+@media(max-width:991px){
+
+.page-layout{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+.weather-api{
+padding:40px 0;
+}
+
+.weather-api-grid{
+display:grid;
+grid-template-columns:1fr 2fr;
+gap:25px;
+}
+
+.weather-card,
+.forecast-card{
+
+background:#fff;
+padding:25px;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+}
+
+.weather-card h1{
+
+font-size:55px;
+color:#0077ff;
+
+}
+
+#forecastContainer{
+
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:15px;
+
+}
+
+.forecast-item{
+
+text-align:center;
+
+}
+
+.forecast-item img{
+
+width:70px;
+
+}
+
+/* =========================================
+   CATEGORY NAVIGATION
+   ========================================= */
+
+#navbar{
+    position:relative;
+}
+
+.category-menu{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:25px;
+}
+
+.category-menu a{
+    color:#222;
+    text-decoration:none;
+    font-weight:600;
+}
+
+
+/* =========================================
+   MOBILE SEARCH + CATEGORIES
+   ========================================= */
+
+.search-mobile-wrapper{
+    position:relative;
+}
+
+
+/* HIDE HAMBURGER ON DESKTOP */
+
+.menu-toggle{
+    display:none;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media(max-width:767px){
+
+    .search-section{
+        padding:10px 0;
+    }
+
+    .search-mobile-wrapper{
+        display:flex;
+        align-items:center;
+        gap:8px;
+    }
+
+
+    /* CATEGORIES BUTTON */
+
+    .menu-toggle{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:6px;
+
+        flex:0 0 105px;
+
+        height:45px;
+
+        padding:0 10px;
+
+        border:none;
+        border-radius:10px;
+
+        background:#0b1d3a;
+        color:#fff;
+
+        font-family:"Poppins",sans-serif;
+
+        font-size:11px;
+        font-weight:600;
+
+        cursor:pointer;
+    }
+
+    .menu-toggle i{
+        font-size:14px;
+    }
+
+
+    /* SEARCH */
+
+    .search-box{
+        flex:1;
+        width:auto;
+    }
+
+    .search-box input{
+        height:45px;
+        padding:12px 12px 12px 40px;
+        font-size:12px;
+    }
+
+    .search-box i{
+        left:14px;
+        font-size:12px;
+    }
+
+
+    /* CATEGORY DROPDOWN */
+
+    .nav{
+        position:relative;
+    }
+
+    .nav-links{
+    display:none !important;
+
+    position:absolute;
+
+    top:calc(100% + 8px);
+    left:0;
+
+    width:230px;
+
+    padding:5px 0;
+    margin:0;
+
+    background:#0b1d3a;
+
+    border-radius:10px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
+
+    z-index:9999;
+
+    list-style:none;
+}
+
+.nav-links.active{
+    display:block !important;
+}
+
+.nav-links li{
+    width:100%;
+}
+
+.nav-links li a{
+    display:block;
+
+    padding:12px 15px;
+
+    font-size:12px;
+    font-weight:500;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    border-bottom:1px solid rgba(255,255,255,.10);
+}
+
+.nav-links li:last-child a{
+    border-bottom:none;
+}
+
+/* ACTIVE CATEGORY */
+
+.nav-links li a.active{
+    background:#d60000;
+    color:#fff;
+    font-weight:600;
+}
+
+/* HOVER */
+
+.nav-links li a:hover{
+    background:#122b50;
+}
+
+.nav-links li a.active:hover{
+    background:#b90000;
+}
+
+
+/* =========================================
+   VERY SMALL PHONES
+   ========================================= */
+
+@media(max-width:380px){
+
+    .menu-toggle{
+        flex:0 0 95px;
+        font-size:10px;
+    }
+
+    .menu-toggle i{
+        font-size:13px;
+    }
+
+    .search-box input{
+        font-size:11px;
+    }
+
+}
+
+}
+
+/* =========================================
+   MOST READ - MOBILE
+   REMOVE UNDERLINE
+   ========================================= */
+
+@media (max-width: 767px){
+
+    .most-read-item,
+    .most-read-item a,
+    .most-read-content a,
+    .most-read-content h4 a{
+        text-decoration: none !important;
+        border-bottom: none !important;
+    }
+
+    .most-read-content h4{
+        text-decoration: none !important;
+    }
+
+}
+.most-read-content a{
+    text-decoration:none !important;
+}
+
+/* =========================================
+   MOST READ - CATEGORY PAGES
+========================================= */
+
+.most-read a,
+#mostRead a,
+#mostReadList a {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.most-read a:hover,
+#mostRead a:hover,
+#mostReadList a:hover {
+    text-decoration: none !important;
+}
+
+
+/* Most Read item */
+.most-read-item,
+.most-read li,
+#mostReadList li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+
+/* Thumbnail */
+.most-read-item img,
+.most-read li img,
+#mostReadList img {
+    width: 65px !important;
+    height: 45px !important;
+    object-fit: cover !important;
+    flex-shrink: 0;
+    border-radius: 4px;
+}
+
+
+/* Headline */
+.most-read-item h3,
+.most-read-item h4,
+.most-read li h3,
+.most-read li h4,
+#mostReadList h3,
+#mostReadList h4 {
+    margin: 0 !important;
+    font-size: 12px !important;
+    line-height: 1.3 !important;
+    font-weight: 600 !important;
+}
+
+
+/* MOST READ - NO UNDERLINE */
+
+.most-read-item,
+.most-read-item:hover,
+.most-read-item:visited {
+    text-decoration: none !important;
+}
+
+.most-read-content h4 {
+    text-decoration: none !important;
+}
+
+@media (max-width: 768px) {
+
+    .most-read-item {
+        gap: 8px !important;
+        margin-bottom: 10px !important;
+        padding-bottom: 10px !important;
+    }
+
+    .most-read-item img {
+        width: 65px !important;
+        height: 45px !important;
+        border-radius: 5px !important;
+        object-fit: cover !important;
+        flex-shrink: 0 !important;
+    }
+
+    .most-read-content h4 {
+        font-size: 11px !important;
+        line-height: 1.3 !important;
+        margin: 3px 0 !important;
+    }
+
+    .most-read-content small {
+        font-size: 9px !important;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .most-read-item img {
+        width: 58px !important;
+        height: 40px !important;
+    }
+
+    .most-read-content h4 {
+        font-size: 10.5px !important;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================== CATEGORY PAGE - GAWING KOPYA NG MOST READ =========================== */
+/* I-FORCE NATIN YUNG .news-card PARA MAGING TULAD NG .most-read-item */
+
+/* BUONG CARD */
+#contentList .news-card{
+  display: flex !important;
+  gap: 14px !important;
+  padding: 18px 0 !important;
+  border-bottom: 1px solid #ececec;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  cursor: pointer;
+  transition: .25s;
+  margin-bottom: 0 !important;
+}
+#contentList .news-card:hover{ transform: translateX(5px); }
+#contentList .news-card:last-child{ border-bottom: none; padding-bottom: 0; }
+
+/* IMAGE */
+#contentList .news-card img{
+  width: 110px !important;
+  height: 75px !important;
+  object-fit: cover;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+/* CONTENT WRAPPER */
+#contentList .news-info{
+  flex: 1;
+  padding: 0 !important;
+}
+
+/* TANGGALIN YUNG BADGE NA PULA */
+#contentList .news-info .badge{ display: none !important; }
+
+/* TITLE */
+#contentList .news-info h3{
+  font-family: 'Merriweather', Georgia, serif !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.45 !important;
+  color: #222;
+  margin: 8px 0 !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* TANGGALIN YUNG SUMMARY/P */
+#contentList .news-info p{ display: none !important; }
+
+/* META */
+#contentList .news-info .news-meta{
+  margin-top: 8px !important;
+  font-size: 12px !important;
+  font-weight: 600;
+  color: #888;
+  gap: 12px !important;
+}
+#contentList .news-info .news-meta i{ color: #d60000; margin-right: 4px; }
+
+/* =========================== DARK MODE =========================== */
+body.dark-mode #contentList .news-card{ border-bottom-color: #2a3b57 !important; }
+body.dark-mode #contentList .news-info h3{ color: #e9eef7 !important; }
+body.dark-mode #contentList .news-info .news-meta{ color: #aebbd0 !important; }
+
+/* =========================== MOBILE =========================== */
+@media(max-width:768px){
+  #contentList .news-card img{ 
+    width: 65px !important; 
+    height: 45px !important; 
+    border-radius: 5px !important;
+  }
+  #contentList .news-info h3{ 
+    font-size: 11px !important; 
+    line-height: 1.3 !important;
+    margin: 3px 0 !important;
+  }
+  #contentList .news-info .news-meta{ 
+    font-size: 9px !important; 
+  }
+}
+
+
+
+
+
+
+
+
+
+/* =========================== CATEGORY PAGE - GAWING KOPYA NG ARTICLE =========================== */
+
+/* BUONG GRID NG NEWS */
+#contentList{
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important; /* 2 COLUMNS SA DESKTOP */
+  gap: 25px !important;
+}
+
+/* BUONG CARD - GAYA NG FEATURED CARD */
+#contentList .news-card{
+  display: block !important; /* HINDI NA FLEX LIST */
+  background: #fff !important;
+  border-radius: 18px !important;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08) !important;
+  padding: 0 !important;
+  border: none !important;
+  cursor: pointer;
+  transition: .3s;
+}
+#contentList .news-card:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,.12);
+}
+#contentList .news-card:last-child{ border-bottom: none; }
+
+/* IMAGE - MALAKI GAYA SA ARTICLE */
+#contentList .news-card img{
+  width: 100% !important;
+  height: 220px !important; /* KAPAREHO NG FEATURED */
+  object-fit: cover;
+  border-radius: 0 !important;
+}
+
+/* CONTENT WRAPPER */
+#contentList .news-info{
+  padding: 20px 24px !important; /* KAPAREHO NG .featured-overlay */
+}
+
+/* BADGE - IPAPAKITA NATIN GAYA SA FEATURED */
+#contentList .news-info .badge{
+  display: inline-block !important; 
+  background: #d60000;
+  color: #fff;
+  padding: 5px 14px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* TITLE - GAYA NG .featured-overlay h2 */
+#contentList .news-info h3{
+  font-family: "Poppins", sans-serif !important; /* SAME FONT */
+  font-size: 20px !important; /* MALAKI GAYA SA ARTICLE */
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
+  color: #222;
+  margin: 0 0 12px 0 !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2 !important; /* 2 LINES LANG */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* SUMMARY/P - IPAPAKITA NATIN */
+#contentList .news-info p{
+  display: block !important; /* WAG ITAGO */
+  color: #666 !important;
+  font-size: 14px !important;
+  line-height: 1.8 !important;
+  margin-bottom: 12px !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2 !important; /* 2 LINES LANG */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* META - GAYA SA FEATURED */
+#contentList .news-info .news-meta{
+  margin-top: 10px !important;
+  font-size: 13px !important;
+  color: #666 !important;
+  gap: 20px !important;
+  font-weight: 500 !important;
+}
+#contentList .news-info .news-meta i{ 
+  color: #d60000; 
+  margin-right: 4px; 
+}
+
+/* =========================== DARK MODE =========================== */
+body.dark-mode #contentList .news-card{ background: #1e2a3a !important; }
+body.dark-mode #contentList .news-info h3{ color: #e9eef7 !important; }
+body.dark-mode #contentList .news-info p{ color: #aebbd0 !important; }
+body.dark-mode #contentList .news-info .news-meta{ color: #aebbd0 !important; }
+
+/* =========================== RESPONSIVE =========================== */
+@media(max-width:991px){
+  #contentList{ grid-template-columns: 1fr !important; } /* 1 COLUMN SA TABLET */
+}
+
+@media(max-width:768px){
+  #contentList .news-card img{ height: 180px !important; }
+  #contentList .news-info{ padding: 16px !important; }
+  #contentList .news-info h3{ font-size: 17px !important; }
+  #contentList .news-info p{ font-size: 13px !important; }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================== DESKTOP FIX LANG - 992PX PATAAS =========================== */
+@media (min-width: 992px){
+
+  /* LAYOUT: 2/3 + 1/3 GAYA NG ARTICLE PAGE */
+  .page-layout{
+    display: grid !important;
+    grid-template-columns: 2fr 1fr !important;
+    gap: 30px !important;
+    align-items: start !important;
+  }
+  .page-main{ grid-column: 1; }
+  .page-sidebar{ grid-column: 2; }
+
+  /* LATEST NEWS GRID - 2 COLUMNS NA CARD */
+  #contentList{
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 25px !important;
+  }
+
+  /* CARD STYLE - GAYA NG FEATURED */
+  #contentList .news-card{
+    display: block !important;
+    background: #fff !important;
+    border-radius: 18px !important;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,.08) !important;
+    padding: 0 !important;
+    border: none !important;
+    transition: .3s;
+  }
+  #contentList .news-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,.12);
+  }
+
+  /* MALAKING IMAGE */
+  #contentList .news-card img{
+    width: 100% !important;
+    height: 220px !important;
+    object-fit: cover;
+    border-radius: 0 !important;
+  }
+
+  /* CONTENT */
+  #contentList .news-info{
+    padding: 24px !important;
+  }
+
+  /* TITLE - GAYA SA ARTICLE */
+  #contentList .news-info h3{
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    line-height: 1.35 !important;
+    margin-bottom: 12px !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* IPAPAKITA YUNG SUMMARY */
+  #contentList .news-info p{
+    display: -webkit-box !important;
+    color: #666 !important;
+    font-size: 14px !important;
+    line-height: 1.8 !important;
+    margin-bottom: 12px !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* META */
+  #contentList .news-info .news-meta{
+    font-size: 13px !important;
+    color: #666 !important;
+    gap: 20px !important;
+  }
+}
+
+/* =========================== MOBILE HAYAAN LANG =========================== */
+/* LAHAT NG @media max-width:991px MO DATI WAG GALAWIN */
+
+
+
+
+
+
+
+
+/* =========================== MOST READ - GAWING KOPYA NG ARTICLE =========================== */
+
+/* DESKTOP: 992PX PATAAS */
+@media (min-width: 992px){
+  #sidebarContent .widget h3{
+    font-size: 24px !important; /* MALAKI NA TITLE */
+    font-weight: 700 !important;
+    margin-bottom: 20px !important;
+  }
+
+  .most-read-item{
+    display: flex !important;
+    gap: 16px !important;
+    padding: 18px 0 !important;
+    border-bottom: 1px solid #ececec !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin-bottom: 0 !important;
+    transition: .25s;
+  }
+  .most-read-item:hover{
+    transform: translateX(5px);
+  }
+  .most-read-item:last-child{
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* IMAGE - MEDYO MALAKI */
+  .most-read-item img{
+    width: 120px !important;  /* NARROW PERO MALAKI */
+    height: 85px !important;
+    border-radius: 12px !important;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  /* CONTENT */
+  .most-read-content{
+    flex: 1;
+  }
+
+  /* TITLE - NARROW NA MALAKI GAYA SA ARTICLE */
+  .most-read-content h4{
+    font-family: "Poppins", sans-serif !important;
+    font-size: 16px !important; /* MALAKI SA DESKTOP */
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+    color: #222 !important;
+    margin: 0 0 8px 0 !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* META - DATE/VIEWS */
+  .most-read-content small{
+    font-size: 12px !important;
+    color: #666 !important;
+    font-weight: 500 !important;
+  }
+  .most-read-content small i{
+    color: #d60000 !important;
+    margin-right: 5px;
+  }
+}
+
+/* =========================== MOBILE: 991PX PABABA =========================== */
+@media (max-width: 991px){
+  .most-read-item{
+    display: flex !important;
+    gap: 12px !important;
+    padding: 14px 0 !important;
+    border-bottom: 1px solid #ececec !important;
+  }
+
+  /* IMAGE - NARROW SA MOBILE */
+  .most-read-item img{
+    width: 90px !important;  /* NARROW */
+    height: 65px !important;
+    border-radius: 10px !important;
+  }
+
+  /* TITLE - MEDYO MALAKI PA RIN */
+  .most-read-content h4{
+    font-size: 14px !important; /* HINDI SOBRANG LIIT */
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+    -webkit-line-clamp: 2 !important;
+  }
+
+  .most-read-content small{
+    font-size: 11px !important;
+  }
+}
+
+/* =========================== DARK MODE =========================== */
+body.dark-mode .most-read-item{ border-bottom-color: #2a3b57 !important; }
+body.dark-mode .most-read-content h4{ color: #e9eef7 !important; }
+body.dark-mode .most-read-content small{ color: #aebbd0 !important; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================== FEATURED IMAGE FIX - DESKTOP =========================== */
+@media (min-width: 992px){
+  .featured-image{
+    height: 480px !important; /* MAS MALAKI SA DESKTOP */
+    border-radius: 18px 18px 0 0;
+  }
+  .featured-news{
+    border-radius: 18px;
+  }
+  .featured-overlay h2{
+    font-size: 34px !important; /* MAS MALAKI TITLE */
+    line-height: 1.3 !important;
+  }
+}
+
+/* =========================== RELATED NEWS SA CATEGORY PAGE =========================== */
+.related-category-widget{
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  margin: 40px 0;
+}
+.related-category-widget h3{
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.related-category-widget h3 i{
+  color: #d60000;
+  margin-right: 8px;
+}
+
+.related-category-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 COLUMNS */
+  gap: 20px;
+}
+
+.related-category-card{
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,.08);
+  transition: .3s;
+  cursor: pointer;
+}
+.related-category-card:hover{
+  transform: translateY(-5px);
+}
+
+.related-category-card img{
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.related-category-content{
+  padding: 15px;
+}
+.related-category-content .badge{
+  margin-bottom: 8px;
+}
+.related-category-content h4{
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* MOBILE */
+@media(max-width: 991px){
+  .related-category-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media(max-width: 600px){
+  .related-category-grid{ grid-template-columns: 1fr; }
+  .related-category-card img{ height: 200px; }
+}
+
+/* DARK MODE */
+body.dark-mode .related-category-widget{ background: #1e2a3a; }
+body.dark-mode .related-category-card{ background: #223047; }
+body.dark-mode .related-category-content h4{ color: #e9eef7; }
