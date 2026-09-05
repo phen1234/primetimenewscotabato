@@ -465,13 +465,9 @@ async function loadNews() {
         // MOST READ
         // =============================
 
-        renderMostRead(
-            newsData
-        );
-
-
-        loadLatestTicker();
-
+        renderMostRead( newsData );
+loadLatestTicker(); 
+autoSlideNewsCards();
 
 
 
@@ -1203,61 +1199,36 @@ document.addEventListener(
 
 
 // ===============================
-// LATEST TICKER - AUTO SLIDE UP ISA - DEBUG VERSION
+// AUTO SLIDE NEWS CARDS
 // ===============================
-async function loadLatestTicker() {
-  console.log("🔥 TICKER STARTED");
-  console.log("tickerList element:", tickerList);
-  if(!tickerList) { console.error("❌ tickerList NOT FOUND"); return; }
+function autoSlideNewsCards() {
+  const container = document.getElementById("contentList");
+  if(!container) return;
   
-  try {
-    const q = query(collection(db, "news"), where("status", "==", "published"), where("category", "==", CURRENT_CATEGORY), orderBy("publishedAt", "desc"), limit(10));
-    const snap = await getDocs(q);
-    const latest = snap.docs.map(doc => ({id: doc.id,...doc.data()}));
-    
-    console.log("✅ TICKER NEWS COUNT:", latest.length);
-    
-    if(latest.length === 0) { 
-      tickerList.innerHTML = '<p style="padding:15px;color:#94a3b8">No recent news</p>'; 
-      return; 
-    }
-    
-    tickerList.innerHTML = latest.map(item => `
-      <a href="article.html?id=${item.id}" class="ticker-item">
-        <span class="ticker-time">${item.publishedAt?.seconds ? new Date(item.publishedAt.seconds * 1000).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : ""}</span>
-        <h4>${item.headline}</h4>
-      </a>
-    `).join('');
-    
-    setTimeout(() => {
-      let currentIndex = 0;
-      const items = tickerList.querySelectorAll('.ticker-item');
-      console.log("✅ TICKER ITEMS FOUND:", items.length);
-      
-      if(items.length <= 3) { 
-        console.log("⏭️ LESS THAN 4 ITEMS, NO SLIDE"); 
-        return; 
-      }
-      
-      const itemHeight = items[0].offsetHeight;
-      console.log("✅ ITEM HEIGHT:", itemHeight);
-      
-      if(itemHeight === 0) { 
-        console.error("❌ ITEM HEIGHT IS 0"); 
-        return; 
-      }
-      
-      setInterval(() => {
-        currentIndex++;
-        if(currentIndex > items.length - 3){
-          currentIndex = 0;
-        }
-        console.log("SLIDING TO INDEX:", currentIndex);
-        tickerList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
-      }, 3000);
-    }, 500);
-    
-  } catch(error) { console.error("Error loading ticker:", error); }
+  let currentSlide = 0;
+  const cards = container.querySelectorAll('.news-card');
+  
+  if(cards.length <= 1) return; // kung 1 lang wag na mag slide
+  
+  // gawing horizontal yung cards
+  container.style.display = "flex";
+  container.style.overflowX = "hidden";
+  container.style.scrollBehavior = "smooth";
+  container.style.gap = "15px";
+  
+  cards.forEach(card => {
+    card.style.minWidth = "100%";
+    card.style.flexShrink = "0";
+  });
+  
+  setInterval(() => {
+    currentSlide++;
+    if(currentSlide >= cards.length) currentSlide = 0;
+    container.scrollTo({
+      left: currentSlide * container.offsetWidth,
+      behavior: 'smooth'
+    });
+  }, 4000); // 4 seconds bago magpalit
 }
 
 
