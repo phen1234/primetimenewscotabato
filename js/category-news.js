@@ -1,9 +1,6 @@
 import { db } from "./firebase.js";
 
-import {
-    collection,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+import { collection, getDocs, query, where, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";/www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 
 // ===============================
@@ -129,6 +126,10 @@ const sidebarContent =
     document.getElementById(
         "sidebarContent"
     );
+
+
+
+const tickerList = document.getElementById( "tickerList" ); // PARA SA AUTO SLIDE
 
 
 // IMPORTANT:
@@ -969,6 +970,10 @@ if (searchInput) {
                 );
 
 
+
+                loadLatestTicker(); // TAWAGIN ANG AUTO SLIDE
+
+
                 return;
 
             }
@@ -1182,6 +1187,45 @@ document.addEventListener(
 
     }
 );
+
+
+
+
+
+
+// ===============================
+// LATEST TICKER - AUTO SLIDE UP ISA ISA
+// ===============================
+async function loadLatestTicker() {
+  if(!tickerList) return;
+  try {
+    const q = query(collection(db, "news"), where("status", "==", "published"), where("category", "==", CURRENT_CATEGORY), orderBy("publishedAt", "desc"), limit(10));
+    const snap = await getDocs(q);
+    const latest = snap.docs.map(doc => ({id: doc.id,...doc.data()}));
+
+    tickerList.innerHTML = latest.map(item => `
+      <a href="article.html?id=${item.id}" class="ticker-item">
+        <span class="ticker-time">${item.publishedAt?.seconds ? new Date(item.publishedAt.seconds * 1000).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : ""}</span>
+        <h4>${item.headline}</h4>
+      </a>
+    `).join('');
+
+    let currentIndex = 0;
+    const items = tickerList.querySelectorAll('.ticker-item');
+    if(items.length < 2) return;
+    const itemHeight = items[0].offsetHeight;
+    
+    setInterval(() => {
+      currentIndex++;
+      if(currentIndex >= items.length - 2){ currentIndex = 0; } // -2 para 3 laging kita
+      tickerList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+    }, 3000); // 3 seconds kada slide
+
+  } catch(error) { console.error("Error loading ticker:", error); }
+}
+
+
+
 
 
 // ===============================
