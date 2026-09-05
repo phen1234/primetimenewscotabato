@@ -275,91 +275,296 @@ body {
 .related-category-content h4 {
   font-size: 15px;
   font-weight: 700;
+/* =============================== 
+   CATEGORY NEWS - DARK MODE READY
+   =============================== */
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0f172a; /* DARK BG */
+  color: #e9eef7;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.badge {
+  background: #d60000;
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 40px 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #d60000;
+  color: #e9eef7;
+}
+
+/* ===== PAGE LAYOUT ===== */
+.page-layout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+/* ===== FEATURED NEWS - AYOS NA TO ===== */
+.featured-news {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.4);
+  background: #1e2a3a;
+}
+
+.featured-image {
+  width: 100%;
+  height: 250px; /* MOBILE DEFAULT */
+  object-fit: cover;
+  display: block;
+}
+
+.featured-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);
+  padding: 25px;
+  color: #fff;
+}
+
+.featured-overlay .news-meta {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  margin: 10px 0;
+  opacity: 0.85;
+}
+.featured-overlay .news-meta i { margin-right: 5px; }
+
+.featured-overlay h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 10px 0;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.featured-overlay p {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 15px;
+  display: none; /* TAGO MUNA SA MOBILE */
+}
+
+.read-btn {
+  background: #d60000;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ===== NEWS LIST ===== */
+.news-card {
+  display: flex;
+  flex-direction: column; /* MOBILE FIRST */
+  gap: 15px;
+  background: #1e2a3a;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.2);
+}
+
+.news-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.news-info h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 8px 0;
   line-height: 1.4;
+  color: #e9eef7;
+}
+.news-info p {
+  font-size: 14px;
+  color: #94a3b8;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.news-meta {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 8px;
+}
+
+/* ===== SIDEBAR ===== */
+.most-read-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #2a3a52;
+  color: #e9eef7;
+}
+
+.most-read-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: #1e2a3a;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.most-read-item img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.most-read-content h4 {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 5px 0;
+  line-height: 1.3;
+  color: #e9eef7;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-/* ===== NO NEWS ===== */
-.no-news {
-  text-align: center;
-  padding: 60px 20px;
-  background: #fff;
+/* ===== RELATED CATEGORY WIDGET - AYOS NA TO ===== */
+.related-category-widget {
+  background: #1e2a3a;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.3);
+  margin: 40px 0;
+}
+
+.related-category-widget h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #e9eef7;
+}
+.related-category-widget h3 i { color: #d60000; margin-right: 8px; }
+
+.related-category-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* MOBILE DEFAULT 1 COL */
+  gap: 15px;
+}
+
+.related-category-card {
   border-radius: 15px;
+  overflow: hidden;
+  background: #223047;
+  box-shadow: 0 5px 15px rgba(0,0,0,.2);
 }
-.no-news h2 { font-size: 24px; margin-bottom: 10px; }
 
-/* ===== SEARCH ===== */
-.search-box {
-  position: relative;
-}
-.search-box i {
-  position: absolute;
-  left: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #777;
-}
-.search-box input {
+.related-category-card img {
   width: 100%;
-  padding: 12px 15px 12px 45px;
-  border: 2px solid #ddd;
-  border-radius: 10px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.related-category-content { padding: 15px; }
+.related-category-content .badge {
+  background: #2a3a52;
+  color: #e9eef7;
+  font-size: 11px;
+}
+.related-category-content h4 {
   font-size: 14px;
-  font-family: 'Poppins';
-}
-.search-box input:focus {
-  outline: none;
-  border-color: #d60000;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #e9eef7;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-/* ================== RESPONSIVE ================== */
-
-/* TABLET */
-@media (max-width: 991px) {
-  .page-layout {
-    grid-template-columns: 1fr;
-  }
+/* ================== DESKTOP 992px pataas ================== */
+@media (min-width: 992px) {
+  .page-layout { grid-template-columns: 1fr 350px; }
   
-  .featured-image { height: 350px; }
-  .featured-overlay h2 { font-size: 28px; }
+  .featured-image { height: 480px; } /* MALAKI NA SA DESKTOP */
+  .featured-overlay { padding: 40px; }
+  .featured-overlay h2 { font-size: 34px; }
+  .featured-overlay p { display: block; } /* PAKITA NA SA DESKTOP */
   
   .news-card {
-    grid-template-columns: 200px 1fr;
-  }
-  
-  .related-category-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-  .container { padding: 0 15px; }
-  
-  .featured-image { height: 250px; }
-  .featured-overlay { padding: 20px; }
-  .featured-overlay h2 { font-size: 20px; }
-  .featured-overlay p { display: none; }
-  
-  .news-card {
-    grid-template-columns: 1fr;
-    padding: 15px;
+    flex-direction: row; /* TABI NA IMAGE AT TEXT */
   }
   .news-card img {
-    height: 200px;
+    width: 280px;
+    height: 180px;
+    flex-shrink: 0;
   }
+  .news-info h3 { font-size: 18px; }
   
   .related-category-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr); /* 3 COLUMNS */
+    gap: 20px;
   }
-  .related-category-card img {
-    height: 220px;
-  }
-  
-  .section-title { font-size: 20px; }
+  .related-category-card img { height: 180px; }
+}
+
+/* ================== TABLET 768px - 991px ================== */
+@media (min-width: 768px) and (max-width: 991px) {
+  .page-layout { grid-template-columns: 1fr; }
+  .featured-image { height: 350px; }
+  .featured-overlay h2 { font-size: 28px; }
+  .related-category-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ================== LIGHT MODE BACKUP ================== */
+body:not(.dark-mode) {
+  background: #f5f7fa;
+  color: #1a1a1a;
+}
+body:not(.dark-mode) .news-card,
+body:not(.dark-mode) .related-category-widget,
+body:not(.dark-mode) .most-read-item,
+body:not(.dark-mode) .related-category-card {
+  background: #fff;
+}
+body:not(.dark-mode) .news-info h3,
+body:not(.dark-mode) .related-category-content h4,
+body:not(.dark-mode) .section-title {
+  color: #1a1a1a;
 }
 
 /* ================== DARK MODE ================== */
