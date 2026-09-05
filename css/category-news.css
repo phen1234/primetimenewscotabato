@@ -1242,3 +1242,32 @@ body.dark-mode #contentList .news-info .news-meta{ color: #aebbd0 !important; }
 body.dark-mode .most-read-item{ border-bottom-color: #2a3b57 !important; }
 body.dark-mode .most-read-content h4{ color: #e9eef7 !important; }
 body.dark-mode .most-read-content small{ color: #aebbd0 !important; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.related-news-widget{
+  background: #fff; border-radius: 18px; padding: 28px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08); margin-top: 30px;
+}
+.related-news-grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.related-news-card{ background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,.08); }
+.related-news-card img{ width: 100%; height: 160px; object-fit: cover; }
+.related-news-content{ padding: 15px; }
+.related-news-content h4{ font-size: 15px; font-weight: 700; }
+@media(max-width: 600px){ .related-news-grid{ grid-template-columns: 1fr; } }
