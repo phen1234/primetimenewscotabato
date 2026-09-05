@@ -1261,13 +1261,88 @@ body.dark-mode .most-read-content small{ color: #aebbd0 !important; }
 
 
 
-.related-news-widget{
-  background: #fff; border-radius: 18px; padding: 28px;
-  box-shadow: 0 8px 20px rgba(0,0,0,.08); margin-top: 30px;
+/* =========================== FEATURED IMAGE FIX - DESKTOP =========================== */
+@media (min-width: 992px){
+  .featured-image{
+    height: 480px !important; /* MAS MALAKI SA DESKTOP */
+    border-radius: 18px 18px 0 0;
+  }
+  .featured-news{
+    border-radius: 18px;
+  }
+  .featured-overlay h2{
+    font-size: 34px !important; /* MAS MALAKI TITLE */
+    line-height: 1.3 !important;
+  }
 }
-.related-news-grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.related-news-card{ background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,.08); }
-.related-news-card img{ width: 100%; height: 160px; object-fit: cover; }
-.related-news-content{ padding: 15px; }
-.related-news-content h4{ font-size: 15px; font-weight: 700; }
-@media(max-width: 600px){ .related-news-grid{ grid-template-columns: 1fr; } }
+
+/* =========================== RELATED NEWS SA CATEGORY PAGE =========================== */
+.related-category-widget{
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  margin: 40px 0;
+}
+.related-category-widget h3{
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.related-category-widget h3 i{
+  color: #d60000;
+  margin-right: 8px;
+}
+
+.related-category-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 COLUMNS */
+  gap: 20px;
+}
+
+.related-category-card{
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,.08);
+  transition: .3s;
+  cursor: pointer;
+}
+.related-category-card:hover{
+  transform: translateY(-5px);
+}
+
+.related-category-card img{
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.related-category-content{
+  padding: 15px;
+}
+.related-category-content .badge{
+  margin-bottom: 8px;
+}
+.related-category-content h4{
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* MOBILE */
+@media(max-width: 991px){
+  .related-category-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media(max-width: 600px){
+  .related-category-grid{ grid-template-columns: 1fr; }
+  .related-category-card img{ height: 200px; }
+}
+
+/* DARK MODE */
+body.dark-mode .related-category-widget{ background: #1e2a3a; }
+body.dark-mode .related-category-card{ background: #223047; }
+body.dark-mode .related-category-content h4{ color: #e9eef7; }
