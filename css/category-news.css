@@ -1457,16 +1457,16 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
   width: fit-content;
 }
 
-#contentList .news-info h3 {
-  font-size: 14px; 
-  color: #e9eef7;
-  margin-bottom: 6px;
-  line-height: 1.3;
-  font-weight: 600;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* IBINALIK SA 2 LINES */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+#contentList .news-info h3 { 
+    font-size: 14px; 
+    color: #ffffff !important; 
+    font-weight: 700;
+    margin: 8px 0;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 #contentList .news-info p {
