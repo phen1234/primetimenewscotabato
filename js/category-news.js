@@ -1203,35 +1203,60 @@ document.addEventListener(
 
 
 // ===============================
-// LATEST TICKER - AUTO SLIDE UP ISA ISA - FIXED VERSION
+// LATEST TICKER - AUTO SLIDE UP ISA - DEBUG VERSION
 // ===============================
 async function loadLatestTicker() {
-  if(!tickerList) return;
+  console.log("🔥 TICKER STARTED");
+  console.log("tickerList element:", tickerList);
+  if(!tickerList) { console.error("❌ tickerList NOT FOUND"); return; }
+  
   try {
     const q = query(collection(db, "news"), where("status", "==", "published"), where("category", "==", CURRENT_CATEGORY), orderBy("publishedAt", "desc"), limit(10));
     const snap = await getDocs(q);
     const latest = snap.docs.map(doc => ({id: doc.id,...doc.data()}));
-    if(latest.length === 0) { tickerList.innerHTML = '<p style="padding:15px;color:#94a3b8">No recent news</p>'; return; }
+    
+    console.log("✅ TICKER NEWS COUNT:", latest.length);
+    
+    if(latest.length === 0) { 
+      tickerList.innerHTML = '<p style="padding:15px;color:#94a3b8">No recent news</p>'; 
+      return; 
+    }
+    
     tickerList.innerHTML = latest.map(item => `
       <a href="article.html?id=${item.id}" class="ticker-item">
         <span class="ticker-time">${item.publishedAt?.seconds ? new Date(item.publishedAt.seconds * 1000).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : ""}</span>
         <h4>${item.headline}</h4>
       </a>
     `).join('');
+    
     setTimeout(() => {
       let currentIndex = 0;
       const items = tickerList.querySelectorAll('.ticker-item');
-      if(items.length <= 3) return;
+      console.log("✅ TICKER ITEMS FOUND:", items.length);
+      
+      if(items.length <= 3) { 
+        console.log("⏭️ LESS THAN 4 ITEMS, NO SLIDE"); 
+        return; 
+      }
+      
       const itemHeight = items[0].offsetHeight;
-      if(itemHeight === 0) return;
+      console.log("✅ ITEM HEIGHT:", itemHeight);
+      
+      if(itemHeight === 0) { 
+        console.error("❌ ITEM HEIGHT IS 0"); 
+        return; 
+      }
+      
       setInterval(() => {
         currentIndex++;
         if(currentIndex > items.length - 3){
           currentIndex = 0;
         }
+        console.log("SLIDING TO INDEX:", currentIndex);
         tickerList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
       }, 3000);
-    }, 200);
+    }, 500);
+    
   } catch(error) { console.error("Error loading ticker:", error); }
 }
 
