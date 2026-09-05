@@ -470,6 +470,9 @@ async function loadNews() {
         );
 
 
+        loadLatestTicker();
+
+
 
 
 
