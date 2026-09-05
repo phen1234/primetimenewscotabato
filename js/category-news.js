@@ -88,14 +88,14 @@ async function loadNews() {
     });
 
     if (newsData.length === 0) {
-      if (featuredContent) featuredContent.innerHTML = `<div class="no-news"><h2>No ${currentPage.title} Found</h2></div>`;
+      if (featuredContent) featuredContent.innerHTML = `<div class="no-news"><h2>No ${currentPage.title} Found</h2><p>Add news with status: published and category: ${CURRENT_CATEGORY}</p></div>`;
       return;
     }
 
     renderFeaturedNews(newsData[0]);
     renderNewsList(newsData.slice(1));
     renderMostRead(newsData);
-    loadRelatedFromOtherCategories(); // DITO KO NILIPAT
+    loadRelatedFromOtherCategories();
 
   } catch (err) { console.error("❌ CATEGORY NEWS ERROR:", err); }
 }
@@ -187,7 +187,7 @@ function renderFeaturedNews(news) {
         </div>
         <h2>${headline}</h2>
         <p>${summary}</p>
-        <button class="read-btn" data-id="${id}" type="button">Read Full Story</button>
+        <button class="read-btn" data-id="${news.id}" type="button">Read Full Story</button>
       </div>
     </div>
   `;
@@ -289,7 +289,7 @@ if (searchInput) {
 // START
 // ===============================
 console.log("🔥 CATEGORY-NEWS.JS LOADED");
-if(page){ // KUNG CATEGORY PAGE LANG
+if(page){
   loadNews();
 }
-window.loadRelatedNews = loadRelatedNews; // PARA SA ARTICLE.JS
+window.loadRelatedNews = loadRelatedNews;
