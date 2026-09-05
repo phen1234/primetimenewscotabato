@@ -1133,3 +1133,112 @@ body.dark-mode #contentList .news-info .news-meta{ color: #aebbd0 !important; }
 /* =========================== MOBILE HAYAAN LANG =========================== */
 /* LAHAT NG @media max-width:991px MO DATI WAG GALAWIN */
 
+
+
+
+
+
+
+
+/* =========================== MOST READ - GAWING KOPYA NG ARTICLE =========================== */
+
+/* DESKTOP: 992PX PATAAS */
+@media (min-width: 992px){
+  #sidebarContent .widget h3{
+    font-size: 24px !important; /* MALAKI NA TITLE */
+    font-weight: 700 !important;
+    margin-bottom: 20px !important;
+  }
+
+  .most-read-item{
+    display: flex !important;
+    gap: 16px !important;
+    padding: 18px 0 !important;
+    border-bottom: 1px solid #ececec !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin-bottom: 0 !important;
+    transition: .25s;
+  }
+  .most-read-item:hover{
+    transform: translateX(5px);
+  }
+  .most-read-item:last-child{
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* IMAGE - MEDYO MALAKI */
+  .most-read-item img{
+    width: 120px !important;  /* NARROW PERO MALAKI */
+    height: 85px !important;
+    border-radius: 12px !important;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  /* CONTENT */
+  .most-read-content{
+    flex: 1;
+  }
+
+  /* TITLE - NARROW NA MALAKI GAYA SA ARTICLE */
+  .most-read-content h4{
+    font-family: "Poppins", sans-serif !important;
+    font-size: 16px !important; /* MALAKI SA DESKTOP */
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+    color: #222 !important;
+    margin: 0 0 8px 0 !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* META - DATE/VIEWS */
+  .most-read-content small{
+    font-size: 12px !important;
+    color: #666 !important;
+    font-weight: 500 !important;
+  }
+  .most-read-content small i{
+    color: #d60000 !important;
+    margin-right: 5px;
+  }
+}
+
+/* =========================== MOBILE: 991PX PABABA =========================== */
+@media (max-width: 991px){
+  .most-read-item{
+    display: flex !important;
+    gap: 12px !important;
+    padding: 14px 0 !important;
+    border-bottom: 1px solid #ececec !important;
+  }
+
+  /* IMAGE - NARROW SA MOBILE */
+  .most-read-item img{
+    width: 90px !important;  /* NARROW */
+    height: 65px !important;
+    border-radius: 10px !important;
+  }
+
+  /* TITLE - MEDYO MALAKI PA RIN */
+  .most-read-content h4{
+    font-size: 14px !important; /* HINDI SOBRANG LIIT */
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+    -webkit-line-clamp: 2 !important;
+  }
+
+  .most-read-content small{
+    font-size: 11px !important;
+  }
+}
+
+/* =========================== DARK MODE =========================== */
+body.dark-mode .most-read-item{ border-bottom-color: #2a3b57 !important; }
+body.dark-mode .most-read-content h4{ color: #e9eef7 !important; }
+body.dark-mode .most-read-content small{ color: #aebbd0 !important; }
