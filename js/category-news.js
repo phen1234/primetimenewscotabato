@@ -476,13 +476,6 @@ async function loadNews() {
 
 
 
-        
-
-        // ===============================
-
-
-
-
 
 
 
@@ -1209,10 +1202,8 @@ document.addEventListener(
 
 
 
-// LATEST TICKER - AUTO SLIDE UP ISA ISA
 // ===============================
-// ===============================
-// LATEST TICKER - AUTO SLIDE UP ISA - FIXED
+// LATEST TICKER - AUTO SLIDE UP ISA ISA - FIXED VERSION
 // ===============================
 async function loadLatestTicker() {
   if(!tickerList) return;
@@ -1220,37 +1211,29 @@ async function loadLatestTicker() {
     const q = query(collection(db, "news"), where("status", "==", "published"), where("category", "==", CURRENT_CATEGORY), orderBy("publishedAt", "desc"), limit(10));
     const snap = await getDocs(q);
     const latest = snap.docs.map(doc => ({id: doc.id,...doc.data()}));
-
     if(latest.length === 0) { tickerList.innerHTML = '<p style="padding:15px;color:#94a3b8">No recent news</p>'; return; }
-
     tickerList.innerHTML = latest.map(item => `
       <a href="article.html?id=${item.id}" class="ticker-item">
         <span class="ticker-time">${item.publishedAt?.seconds ? new Date(item.publishedAt.seconds * 1000).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : ""}</span>
         <h4>${item.headline}</h4>
       </a>
     `).join('');
-
-    // ANTI-BUG: MAGHINTAY NG 100ms PARA MA-RENDER MUNA NG CSS
     setTimeout(() => {
       let currentIndex = 0;
       const items = tickerList.querySelectorAll('.ticker-item');
-      if(items.length <= 3) return; // PAG 3 OR PABABA WAG NA
-      
+      if(items.length <= 3) return;
       const itemHeight = items[0].offsetHeight;
-      if(itemHeight === 0) return; // PAG 0 WAG ITULOY
-      
+      if(itemHeight === 0) return;
       setInterval(() => {
         currentIndex++;
-        if(currentIndex > items.length - 3){ // -3 kasi 3 ang kita
+        if(currentIndex > items.length - 3){
           currentIndex = 0;
         }
         tickerList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
-      }, 3000); // 3 seconds
-    }, 100);
-
+      }, 3000);
+    }, 200);
   } catch(error) { console.error("Error loading ticker:", error); }
 }
-
 
 
 // ===============================
