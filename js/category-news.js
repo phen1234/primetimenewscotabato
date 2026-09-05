@@ -467,7 +467,7 @@ async function loadNews() {
 
         renderMostRead( newsData );
 loadLatestTicker(); 
-autoSlideNewsCards();
+
 
 
 
