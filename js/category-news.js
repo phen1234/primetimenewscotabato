@@ -1,5 +1,5 @@
 import { db } from "./firebase.js";
-import { collection, getDocs, query, where, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js"; // DAGDAG NATIN SI QUERY
+import { collection, getDocs, query, where, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 // ===============================
 // PAGE INFO
@@ -41,10 +41,7 @@ const featuredContent = document.getElementById("featuredContent");
 const contentList = document.getElementById("contentList");
 const sidebarContent = document.getElementById("sidebarContent");
 const searchInput = document.getElementById("searchInput") || document.querySelector(".search-box input");
-
-// IMPORTANT: DAGDAG NATIN TO PARA SA ARTICLE PAGE
-const relatedNewsList = document.getElementById("relatedNewsList");
-
+const relatedNewsList = document.getElementById("relatedNewsList"); // PARA SA ARTICLE PAGE
 let newsData = [];
 
 // ===============================
@@ -59,110 +56,28 @@ function normalizeCategory(value) {
 // ===============================
 function formatDate(timestamp) {
   if (!timestamp?.seconds) return "";
-  return new Date(timestamp.seconds * 1000).toLocaleDateString("en-US", {
-    year: "numeric", month: "long", day: "numeric"
-  });
+  return new Date(timestamp.seconds * 1000).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 }
-
-
-
-
-
-// ===============================
-// LOAD RELATED FROM OTHER CATEGORIES
-// ===============================
-async function loadRelatedFromOtherCategories() {
-  // GUMAWA TAYO NG LALAGYAN SA BABA NG contentList
-  if(!contentList || document.getElementById('relatedCategoryWidget')) return;
-
-  const relatedWidget = document.createElement('div');
-  relatedWidget.id = 'relatedCategoryWidget';
-  relatedWidget.className = 'related-category-widget';
-  relatedWidget.innerHTML = `
-    <h3><i class="fas fa-fire"></i> You Might Also Like</h3>
-    <div id="relatedCategoryList" class="related-category-grid">
-      <p>Loading...</p>
-    </div>
-  `;
-  contentList.after(relatedWidget); // ILALAGAY SA BABA NG LATEST NEWS
-
-  try {
-    // KUHA NG NEWS NA HINDI SAME CATEGORY
-    const q = query(
-      collection(db, "news"),
-      where("status", "==", "published"),
-      orderBy("publishedAt", "desc"),
-      limit(9)
-    );
-    const snap = await getDocs(q);
-
-    const related = snap.docs
-     .map(doc => ({id: doc.id,...doc.data()}))
-     .filter(item => normalizeCategory(item.category)!== normalizeCategory(CURRENT_CATEGORY)) // IBANG CATEGORY LANG
-     .slice(0, 3);
-
-    if(related.length === 0){
-      document.getElementById('relatedCategoryList').innerHTML = '<p>No other news.</p>';
-      return;
-    }
-
-    document.getElementById('relatedCategoryList').innerHTML = related.map(item => `
-      <a href="article.html?id=${item.id}" style="text-decoration:none; color:inherit;">
-        <div class="related-category-card">
-          <img src="${item.featuredImage || 'images/news1.jpg'}" alt="${item.headline}">
-          <div class="related-category-content">
-            <span class="badge">${item.category}</span>
-            <h4>${item.headline}</h4>
-          </div>
-        </div>
-      </a>
-    `).join('');
-
-  } catch(error) {
-    console.error("Error loading related categories:", error);
-  }
-}
-
-// ===============================
-// START
-// ===============================
-console.log("🔥 CATEGORY-NEWS.JS LOADED");
-if(page){
-  loadNews().then(() => {
-    loadRelatedFromOtherCategories(); // TATAWAGIN NATIN AFTER MALOAD ANG NEWS
-  });
-}
-
-
-
-
-
-
-
-
 
 // ===============================
 // LOAD NEWS - CATEGORY PAGE
 // ===============================
 async function loadNews() {
   console.log("🔥 CATEGORY NEWS LOADING");
-  if (featuredContent) { featuredContent.innerHTML = `<p>Loading...</p>`; }
-  if (contentList) { contentList.innerHTML = ""; }
-  if (sidebarContent) { sidebarContent.innerHTML = ""; }
+  if (featuredContent) featuredContent.innerHTML = `<p>Loading...</p>`;
+  if (contentList) contentList.innerHTML = "";
+  if (sidebarContent) sidebarContent.innerHTML = "";
 
   try {
     const snapshot = await getDocs(collection(db, "news"));
     newsData = [];
-
     snapshot.forEach(docSnap => {
       const news = docSnap.data();
       const status = String(news.status || "").trim().toLowerCase();
       const savedCategory = normalizeCategory(news.category);
       const targetCategory = normalizeCategory(CURRENT_CATEGORY);
-
       if (status!== "published") return;
       if (savedCategory!== targetCategory) return;
-
       newsData.push({ id: docSnap.id,...news });
     });
 
@@ -173,47 +88,67 @@ async function loadNews() {
     });
 
     if (newsData.length === 0) {
-      if (featuredContent) {
-        featuredContent.innerHTML = `<div class="no-news"><h2>No ${currentPage.title} Found</h2></div>`;
-      }
+      if (featuredContent) featuredContent.innerHTML = `<div class="no-news"><h2>No ${currentPage.title} Found</h2></div>`;
       return;
     }
 
     renderFeaturedNews(newsData[0]);
     renderNewsList(newsData.slice(1));
     renderMostRead(newsData);
+    loadRelatedFromOtherCategories(); // DITO KO NILIPAT
 
-  } catch (err) {
-    console.error("❌ CATEGORY NEWS ERROR:", err);
+  } catch (err) { console.error("❌ CATEGORY NEWS ERROR:", err); }
+}
+
+// ===============================
+// LOAD RELATED FROM OTHER CATEGORIES - PARA SA CATEGORY PAGE
+// ===============================
+async function loadRelatedFromOtherCategories() {
+  if(!contentList) return;
+  let relatedWidget = document.getElementById('relatedCategoryWidget');
+  if(!relatedWidget){
+    relatedWidget = document.createElement('div');
+    relatedWidget.id = 'relatedCategoryWidget';
+    relatedWidget.className = 'related-category-widget';
+    relatedWidget.innerHTML = `
+      <h3><i class="fas fa-fire"></i> You Might Also Like</h3>
+      <div id="relatedCategoryList" class="related-category-grid"><p>Loading...</p></div>
+    `;
+    contentList.after(relatedWidget);
   }
+  const relatedList = document.getElementById('relatedCategoryList');
+
+  try {
+    const q = query(collection(db, "news"), where("status", "==", "published"), orderBy("publishedAt", "desc"), limit(12));
+    const snap = await getDocs(q);
+    const related = snap.docs.map(doc => ({id: doc.id,...doc.data()})).filter(item => normalizeCategory(item.category)!== normalizeCategory(CURRENT_CATEGORY)).slice(0, 3);
+
+    if(related.length === 0){ relatedList.innerHTML = '<p>No other news.</p>'; return; }
+
+    relatedList.innerHTML = related.map(item => `
+      <a href="article.html?id=${item.id}" style="text-decoration:none; color:inherit;">
+        <div class="related-category-card">
+          <img src="${item.featuredImage || 'images/news1.jpg'}" alt="${item.headline}" onerror="this.src='images/news1.jpg'">
+          <div class="related-category-content">
+            <span class="badge">${item.category}</span>
+            <h4>${item.headline}</h4>
+          </div>
+        </div>
+      </a>
+    `).join('');
+  } catch(error) { console.error("Error loading related categories:", error); relatedList.innerHTML = '<p>Error loading.</p>'; }
 }
 
 // ===============================
 // LOAD RELATED NEWS - PARA SA ARTICLE PAGE
 // ===============================
 async function loadRelatedNews(currentId, category) {
-  if(!relatedNewsList) return; // WALA TO SA CATEGORY PAGE
-
+  if(!relatedNewsList) return;
   try {
-    const q = query(
-      collection(db, "news"),
-      where("category", "==", category),
-      where("status", "==", "published"),
-      orderBy("publishedAt", "desc"),
-      limit(4)
-    );
+    const q = query(collection(db, "news"), where("category", "==", category), where("status", "==", "published"), orderBy("publishedAt", "desc"), limit(4));
     const snap = await getDocs(q);
-
-    const related = snap.docs
-     .map(doc => ({id: doc.id,...doc.data()}))
-     .filter(item => item.id!== currentId) // TANGGALIN YUNG CURRENT
-     .slice(0, 3);
-
-    if(related.length === 0){
-      relatedNewsList.innerHTML = '<p>No related news found.</p>';
-      return;
-    }
-
+    const related = snap.docs.map(doc => ({id: doc.id,...doc.data()})).filter(item => item.id!== currentId).slice(0, 3);
+    if(related.length === 0){ relatedNewsList.innerHTML = '<p>No related news found.</p>'; return; }
     relatedNewsList.innerHTML = related.map(item => `
       <a href="article.html?id=${item.id}" style="text-decoration:none; color:inherit;">
         <div class="related-news-card">
@@ -225,17 +160,14 @@ async function loadRelatedNews(currentId, category) {
         </div>
       </a>
     `).join('');
-
-  } catch(error) {
-    console.error("Error loading related news:", error);
-  }
+  } catch(error) { console.error("Error loading related news:", error); }
 }
 
 // ===============================
 // FEATURED NEWS
 // ===============================
 function renderFeaturedNews(news) {
-  if (!featuredContent) { return; }
+  if (!featuredContent) return;
   const image = news.featuredImage || "images/news1.jpg";
   const headline = news.headline || "Primetime News";
   const category = news.category || CURRENT_CATEGORY;
@@ -243,7 +175,6 @@ function renderFeaturedNews(news) {
   const publishedDate = formatDate(news.publishedAt);
   const author = news.author || "Primetime News Cotabato";
   const views = news.views || 0;
-
   featuredContent.innerHTML = `
     <div class="featured-news" data-id="${news.id}">
       <img src="${image}" class="featured-image" alt="${headline}">
@@ -256,7 +187,7 @@ function renderFeaturedNews(news) {
         </div>
         <h2>${headline}</h2>
         <p>${summary}</p>
-        <button class="read-btn" data-id="${news.id}" type="button">Read Full Story</button>
+        <button class="read-btn" data-id="${id}" type="button">Read Full Story</button>
       </div>
     </div>
   `;
@@ -266,9 +197,8 @@ function renderFeaturedNews(news) {
 // NEWS LIST
 // ===============================
 function renderNewsList(newsList) {
-  if (!contentList) { return; }
+  if (!contentList) return;
   if (!newsList.length) { contentList.innerHTML = ""; return; }
-
   let html = "";
   newsList.forEach(news => {
     const image = news.featuredImage || "images/news1.jpg";
@@ -295,7 +225,7 @@ function renderNewsList(newsList) {
 // MOST READ
 // ===============================
 function renderMostRead(newsList) {
-  if (!sidebarContent) { return; }
+  if (!sidebarContent) return;
   let html = `<div class="most-read-title">🔥 Most Read</div>`;
   newsList.slice(0, 5).forEach(news => {
     const image = news.featuredImage || "images/news1.jpg";
@@ -324,9 +254,9 @@ document.addEventListener("click", (e) => {
   const card = e.target.closest(".news-card");
   const mostRead = e.target.closest(".most-read-item");
   const target = btn || card || mostRead;
-  if (!target) { return; }
+  if (!target) return;
   const id = target.dataset.id;
-  if (!id) { return; }
+  if (!id) return;
   window.location.href = `article.html?id=${id}`;
 });
 
@@ -359,11 +289,7 @@ if (searchInput) {
 // START
 // ===============================
 console.log("🔥 CATEGORY-NEWS.JS LOADED");
-if(page){ // KUNG CATEGORY PAGE
+if(page){ // KUNG CATEGORY PAGE LANG
   loadNews();
 }
-
-// IMPORTANT: ITO ANG TATAWAGIN MO SA article.js MO
-// Pag nasa article.html ka, tawagin mo to after mo maload yung article
-// Example: loadRelatedNews(articleId, articleData.category);
-window.loadRelatedNews = loadRelatedNews; // GINAWANG GLOBAL PARA MATAWAG SA ARTICLE.JS
+window.loadRelatedNews = loadRelatedNews; // PARA SA ARTICLE.JS
