@@ -64,6 +64,83 @@ function formatDate(timestamp) {
   });
 }
 
+
+
+
+
+// ===============================
+// LOAD RELATED FROM OTHER CATEGORIES
+// ===============================
+async function loadRelatedFromOtherCategories() {
+  // GUMAWA TAYO NG LALAGYAN SA BABA NG contentList
+  if(!contentList || document.getElementById('relatedCategoryWidget')) return;
+
+  const relatedWidget = document.createElement('div');
+  relatedWidget.id = 'relatedCategoryWidget';
+  relatedWidget.className = 'related-category-widget';
+  relatedWidget.innerHTML = `
+    <h3><i class="fas fa-fire"></i> You Might Also Like</h3>
+    <div id="relatedCategoryList" class="related-category-grid">
+      <p>Loading...</p>
+    </div>
+  `;
+  contentList.after(relatedWidget); // ILALAGAY SA BABA NG LATEST NEWS
+
+  try {
+    // KUHA NG NEWS NA HINDI SAME CATEGORY
+    const q = query(
+      collection(db, "news"),
+      where("status", "==", "published"),
+      orderBy("publishedAt", "desc"),
+      limit(9)
+    );
+    const snap = await getDocs(q);
+
+    const related = snap.docs
+     .map(doc => ({id: doc.id,...doc.data()}))
+     .filter(item => normalizeCategory(item.category)!== normalizeCategory(CURRENT_CATEGORY)) // IBANG CATEGORY LANG
+     .slice(0, 3);
+
+    if(related.length === 0){
+      document.getElementById('relatedCategoryList').innerHTML = '<p>No other news.</p>';
+      return;
+    }
+
+    document.getElementById('relatedCategoryList').innerHTML = related.map(item => `
+      <a href="article.html?id=${item.id}" style="text-decoration:none; color:inherit;">
+        <div class="related-category-card">
+          <img src="${item.featuredImage || 'images/news1.jpg'}" alt="${item.headline}">
+          <div class="related-category-content">
+            <span class="badge">${item.category}</span>
+            <h4>${item.headline}</h4>
+          </div>
+        </div>
+      </a>
+    `).join('');
+
+  } catch(error) {
+    console.error("Error loading related categories:", error);
+  }
+}
+
+// ===============================
+// START
+// ===============================
+console.log("🔥 CATEGORY-NEWS.JS LOADED");
+if(page){
+  loadNews().then(() => {
+    loadRelatedFromOtherCategories(); // TATAWAGIN NATIN AFTER MALOAD ANG NEWS
+  });
+}
+
+
+
+
+
+
+
+
+
 // ===============================
 // LOAD NEWS - CATEGORY PAGE
 // ===============================
