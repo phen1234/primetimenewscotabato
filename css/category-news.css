@@ -923,3 +923,116 @@ body.dark-mode #contentList .news-info .news-meta{ color: #aebbd0 !important; }
 
 
 
+
+
+
+/* =========================== CATEGORY PAGE - GAWING KOPYA NG ARTICLE =========================== */
+
+/* BUONG GRID NG NEWS */
+#contentList{
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important; /* 2 COLUMNS SA DESKTOP */
+  gap: 25px !important;
+}
+
+/* BUONG CARD - GAYA NG FEATURED CARD */
+#contentList .news-card{
+  display: block !important; /* HINDI NA FLEX LIST */
+  background: #fff !important;
+  border-radius: 18px !important;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08) !important;
+  padding: 0 !important;
+  border: none !important;
+  cursor: pointer;
+  transition: .3s;
+}
+#contentList .news-card:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,.12);
+}
+#contentList .news-card:last-child{ border-bottom: none; }
+
+/* IMAGE - MALAKI GAYA SA ARTICLE */
+#contentList .news-card img{
+  width: 100% !important;
+  height: 220px !important; /* KAPAREHO NG FEATURED */
+  object-fit: cover;
+  border-radius: 0 !important;
+}
+
+/* CONTENT WRAPPER */
+#contentList .news-info{
+  padding: 20px 24px !important; /* KAPAREHO NG .featured-overlay */
+}
+
+/* BADGE - IPAPAKITA NATIN GAYA SA FEATURED */
+#contentList .news-info .badge{
+  display: inline-block !important; 
+  background: #d60000;
+  color: #fff;
+  padding: 5px 14px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* TITLE - GAYA NG .featured-overlay h2 */
+#contentList .news-info h3{
+  font-family: "Poppins", sans-serif !important; /* SAME FONT */
+  font-size: 20px !important; /* MALAKI GAYA SA ARTICLE */
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
+  color: #222;
+  margin: 0 0 12px 0 !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2 !important; /* 2 LINES LANG */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* SUMMARY/P - IPAPAKITA NATIN */
+#contentList .news-info p{
+  display: block !important; /* WAG ITAGO */
+  color: #666 !important;
+  font-size: 14px !important;
+  line-height: 1.8 !important;
+  margin-bottom: 12px !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2 !important; /* 2 LINES LANG */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* META - GAYA SA FEATURED */
+#contentList .news-info .news-meta{
+  margin-top: 10px !important;
+  font-size: 13px !important;
+  color: #666 !important;
+  gap: 20px !important;
+  font-weight: 500 !important;
+}
+#contentList .news-info .news-meta i{ 
+  color: #d60000; 
+  margin-right: 4px; 
+}
+
+/* =========================== DARK MODE =========================== */
+body.dark-mode #contentList .news-card{ background: #1e2a3a !important; }
+body.dark-mode #contentList .news-info h3{ color: #e9eef7 !important; }
+body.dark-mode #contentList .news-info p{ color: #aebbd0 !important; }
+body.dark-mode #contentList .news-info .news-meta{ color: #aebbd0 !important; }
+
+/* =========================== RESPONSIVE =========================== */
+@media(max-width:991px){
+  #contentList{ grid-template-columns: 1fr !important; } /* 1 COLUMN SA TABLET */
+}
+
+@media(max-width:768px){
+  #contentList .news-card img{ height: 180px !important; }
+  #contentList .news-info{ padding: 16px !important; }
+  #contentList .news-info h3{ font-size: 17px !important; }
+  #contentList .news-info p{ font-size: 13px !important; }
+    }
+
