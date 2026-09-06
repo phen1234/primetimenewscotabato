@@ -3600,6 +3600,11 @@ html.dark-mode #heroVideos > div {
         gap: 6px !important;
     }
 
+    .video-ticker-wrapper { /* or .hero-videos-wrapper depende sa class mo */
+    height: 330px !important; /* 3 x 110px */
+    overflow: hidden !important;
+}
+
     #heroVideos .video-card,
     #heroVideos .video-item {
     margin-bottom: 6px !important;
@@ -3638,6 +3643,11 @@ html.dark-mode #heroVideos > div {
 }
 
 @media (max-width: 480px) {
+
+    .video-ticker-wrapper { /* or .hero-videos-wrapper depende sa class mo */
+    height: 330px !important; /* 3 x 110px */
+    overflow: hidden !important;
+}
 
     #heroVideos .video-card,
     #heroVideos .video-item {
