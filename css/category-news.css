@@ -1505,13 +1505,13 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
 
 /* ========== VERTICAL AUTO SLIDE CONTAINER ========== */
 #contentList {
-  height: 700px !important; /* 175 x 4 = dati 640 */
+  height:860px !important; /* 175 x 4 = dati 640 */
   overflow-y: hidden !important;
   display: block !important;
 }
 
 #contentList .news-card {
-  height: 160px !important; /* 145 -> 160. +15px para sa views */
+  height: 200px !important; /* 145 -> 160. +15px para sa views */
   display: flex !important;
   gap: 12px;
   background: #1e2a3a !important;
@@ -1542,10 +1542,10 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
 }
 
 #contentList .news-info h3 {
-  font-size: 13px !important; 
+  font-size: 14px !important; 
   color: #ffffff !important; 
   margin: 0 !important;
-  line-height: 1.5 !important;
+  line-height: 1.4 !important;
   font-weight: 700 !important; 
   font-family: 'Poppins', sans-serif !important;
   display: -webkit-box !important;
@@ -1553,7 +1553,7 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
   -webkit-box-orient: vertical !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
-  min-height: 68px;
+  min-height: 84px;
 }
 
 #contentList .news-meta {
