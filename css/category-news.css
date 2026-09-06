@@ -1501,76 +1501,51 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
 
 
 
-/* ========== VERTICAL AUTO SLIDE ========== */
-#contentList {
-  height: 560px !important; /* 4 x 140px */
-  overflow-y: hidden !important;
-  display: block !important;
-}
-
-#contentList .news-card {
-  height: 125px !important;
-  display: flex !important;
-  gap: 12px;
-  background: #1e2a3a; /* DARK MODE BG */
-  border-radius: 0px;
-  overflow: hidden;
-  border: 1px solid #2a3a52;
-  margin-bottom: 15px !important;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-#contentList .news-card:hover {
-  transform: translateX(5px);
-  border-color: #dc2626;
-}
-
-#contentList .news-card img {
-  width: 160px !important;
-  height: 135px !important;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
+/* ========== PINAGANDA NA NEWS CARD TEXT ========== */
 #contentList .news-info {
-  padding: 12px 12px 12px 0;
+  padding: 14px 14px 14px 0;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 8px; /* pinalitan ko yung space-between */
   min-width: 0;
 }
 
 #contentList .news-info .badge {
   background: #dc2626;
   color: white;
-  padding: 3px 8px;
-  border-radius: 12px;
-  font-size: 8px;
-  font-weight: 600;
-  margin-bottom: 6px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
   width: fit-content;
+  text-transform: uppercase;
 }
 
-/* DARK MODE TEXT */
+/* HEADLINE - CATCHY FONT GAYA SA ARTICLE */
 #contentList .news-info h3 {
-  font-size: 12px !important; 
-  color: #ffffff !important; /* WHITE SA DARK */
-  margin: 0 0 6px 0 !important;
-  line-height: 1.3 !important;
-  font-weight: 600 !important;
+  font-size: 15px !important; /* mas malaki */
+  color: #ffffff !important; 
+  margin: 0 !important;
+  line-height: 1.4 !important; /* mas maluwag */
+  font-weight: 800 !important; /* mas bold */
+  font-family: 'Poppins', sans-serif !important;
   display: -webkit-box !important;
-  -webkit-line-clamp: 3 !important;
+  -webkit-line-clamp: 3 !important; /* 3 PARAGRAPHS NA */
   -webkit-box-orient: vertical !important;
   overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
+/* DESCRIPTION - 1 LINE LANG */
 #contentList .news-info p {
-  font-size: 10px !important;
-  color: #94a3b8 !important; /* GRAY SA DARK */
-  margin: 0 0 6px 0 !important;
+  font-size: 12px !important;
+  color: #94a3b8 !important;
+  line-height: 1.4 !important;
+  margin: 0 !important;
   display: -webkit-box !important;
-  -webkit-line-clamp: 1 !important;
+  -webkit-line-clamp: 1 !important; 
   -webkit-box-orient: vertical !important;
   overflow: hidden !important;
 }
@@ -1578,26 +1553,26 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
 #contentList .news-meta {
   font-size: 11px !important;
   color: #94a3b8 !important;
+  margin-top: auto; /* itulak pababa */
+  font-weight: 500;
 }
 
 
-/* ========== LIGHT MODE OVERRIDE ========== */
+/* ========== LIGHT MODE ========== */
 body.light-mode #contentList .news-card {
-  background: #ffffff !important; /* PUTI BG */
+  background: #ffffff !important;
   border: 1px solid #e2e8f0;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 body.light-mode #contentList .news-info h3 {
-  color: #1e293b !important; /* DILIM NA TEXT */
+  color: #0f172a !important; /* mas itim para catchy */
 }
 
 body.light-mode #contentList .news-info p,
 body.light-mode #contentList .news-meta {
-  color: #64748b !important; /* GRAY SA LIGHT */
+  color: #64748b !important;
 }
-
-
 
 
 
