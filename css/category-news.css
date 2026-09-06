@@ -1618,7 +1618,7 @@ body.light-mode #contentList .news-meta {
 
 #contentList .news-meta i {
   font-size: 8px !important; /* 9 -> 8px */
-  color: #64748b !important;
+  color: #FF0000 !important;
 }
 
 /* LIGHT MODE */
