@@ -1885,12 +1885,11 @@ body.dark-mode .kebab-toggle {
 /* =================================================== LATEST VIDEO SIDEBAR =================================================== */ 
 .hero-right{ 
     background:#0f172a; 
-    padding:22px; 
+    padding:20px; 
     border-radius:18px; 
     box-shadow:0 10px 25px rgba(0,0,0,.15); 
-    height: 468px; /* 22px top + 22px bottom + 420px content = 468. PARA 4 KASYA */
-    overflow: hidden; /* IMPORTANTE: HIDDEN PARA SA AUTO SCROLL */
-} 
+    height: 520px; /* TAASAN NATIN. 110 x 4 = 440 + header + padding */
+    overflow: hidden; /* PARA SA AUTO SCROLL LANG */
 
 .sidebar-title{ 
     display:flex; 
@@ -1899,45 +1898,55 @@ body.dark-mode .kebab-toggle {
     color:#ef4444; 
     font-size:17px; 
     font-weight:700; 
-    margin-bottom:18px; 
+    margin-bottom:16px; 
     position: sticky; 
     top: 0; 
     background:#0f172a; 
     z-index: 2; 
-    padding-bottom: 12px; 
+    padding-bottom: 10px; 
 } 
 
 #heroVideos{ 
     display:flex; 
     flex-direction:column; 
-    gap:12px; /* 12px gap para kasya 4 */
-    height: 420px; /* 105 x 4 = 420. 4 VIDEOS KITA */
-    overflow-y: hidden; /* HIDDEN PARA DI MAKITA SCROLLBAR */
-    overflow-x: hidden; 
+    gap:14px; 
+    height: 440px; /* 110 x 4 = 440. DITO KASYA ANG 4 */
+    overflow: hidden; /* WALANG MANUAL SCROLL */
 } 
 
 .video-item{ 
     display:flex; 
     align-items:flex-start; 
-    gap:12px; 
+    gap:14px; 
     cursor:pointer; 
-    padding:10px 0; 
+    padding:12px 0; 
     border-bottom:1px solid #334155; 
     opacity:0; 
     transform:translateY(40px); 
-    transition: opacity .8s ease, transform .8s ease, background .3s ease; 
+    animation: slideUp .8s ease forwards; /* BINALIK KO ANIMATION */
     flex-shrink: 0; 
-    height: 105px; /* 420 / 4 = 105. FIXED HEIGHT PARA 4 KASYA */
+    height: 110px; /* 440 / 4 = 110. FIXED */
     box-sizing: border-box;
 } 
+
+
+    @keyframes slideUp{ /* BINALIK KO TO */
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+    
 .show-video{ opacity:1; transform:translateY(0); } 
 .video-item:hover{ transform:translateX(8px); background:#1e293b; } 
+
 
 /* =========================== THUMBNAIL =========================== */ 
 .thumb-wrapper{ 
     position:relative; 
-    width:135px; /* LIITAN NG 5px para kasya */
-    height:80px; 
+    width:145px; 
+    height:88px; 
     overflow:hidden; 
     border-radius:12px; 
     flex-shrink:0; 
@@ -1956,45 +1965,43 @@ body.dark-mode .kebab-toggle {
     top:50%; 
     left:50%; 
     transform:translate(-50%,-50%); 
-    width:26px; /* LIITAN NG KONTI */
-    height:26px; 
+    width:28px; 
+    height:28px; 
     border-radius:50%; 
     background:#e60000; 
     display:flex; 
     justify-content:center; 
     align-items:center; 
     color:#fff; 
-    font-size:12px; 
+    font-size:13px; 
     box-shadow:0 8px 18px rgba(230,0,0,.35); 
     transition:.3s; 
 } 
 .video-item:hover .play-btn{ background:#ff0000; transform:translate(-50%,-50%) scale(1.12); } 
-
 /* =========================== VIDEO INFO =========================== */ 
 .video-info{ 
     flex:1; 
     display:flex; 
     flex-direction:column; 
     justify-content:flex-start; 
-    padding-top: 2px;
 } 
 .video-category{ 
     display:inline-block; 
     width:fit-content; 
     background:linear-gradient(90deg,#ff0000,#c70000); 
     color:#fff; 
-    padding:4px 8px; /* LIITAN NG KONTI */
+    padding:5px 9px; 
     border-radius:30px; 
-    font-size:8px; 
+    font-size:9px; 
     font-weight:700; 
-    margin-bottom:6px; 
+    margin-bottom:7px; 
     letter-spacing:.4px; 
 } 
 .video-info h4{ 
-    font-size:13px; /* LIITAN NG 1px */
+    font-size:14px; 
     font-weight:600; 
-    line-height:1.4; 
-    margin: 0 0 5px 0; /* MAY SPACE PARA SA DATE */
+    line-height:1.5; 
+    margin: 0 0 6px 0; 
     display:-webkit-box; 
     -webkit-box-orient:vertical; 
     -webkit-line-clamp:2; 
@@ -2003,11 +2010,11 @@ body.dark-mode .kebab-toggle {
 } 
 .video-info small{ 
     color:#94a3b8; 
-    font-size:10px; /* LIITAN NG 1px */
+    font-size:11px; 
     display: flex; 
     align-items: center; 
     gap: 5px; 
-} 
+}
 
 /* =========================== VIDEO MODAL =========================== */ 
 .video-modal{ 
