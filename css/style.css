@@ -1872,285 +1872,168 @@ body.dark-mode .kebab-toggle {
     }
 }
 
-/* ===================================================
-LATEST VIDEO SIDEBAR
-=================================================== */
-
-
-
+/* =================================================== LATEST VIDEO SIDEBAR =================================================== */ 
 .hero-right{ 
-  background:#0f172a; 
-  padding:22px; 
-  border-radius:18px; 
-  box-shadow:0 10px 25px rgba(0,0,0,.15); 
-  height: 330px; /* 110px x 3 = 3 VIDEOS KITA */
-  overflow-y: auto; 
-  overflow-x: hidden; 
-  scroll-behavior: smooth; 
-}
+    background:#0f172a; 
+    padding:22px; 
+    border-radius:18px; 
+    box-shadow:0 10px 25px rgba(0,0,0,.15); 
+    height: 420px; /* DATING 330px. TAASAN NATIN PARA 3 + TITLE KASYA */
+    overflow-y: hidden; /* DATING auto. HIDDEN PARA SA TICKER SCROLL LANG */
+    overflow-x: hidden; 
+    scroll-behavior: smooth; 
+} 
 
-/* ITAGO YUNG SCROLLBAR KUNG GUSTO MO */
-.hero-right::-webkit-scrollbar { width: 6px; }
-.hero-right::-webkit-scrollbar-thumb { background: #ef4444; border-radius: 10px; }
-.hero-right::-webkit-scrollbar-track { background: #1e293b; }
+/* ITAGO YUNG SCROLLBAR KUNG GUSTO MO */ 
+.hero-right::-webkit-scrollbar { width: 6px; } 
+.hero-right::-webkit-scrollbar-thumb { background: #ef4444; border-radius: 10px; } 
+.hero-right::-webkit-scrollbar-track { background: #1e293b; } 
 
 .sidebar-title{ 
-  display:flex; 
-  align-items:center; 
-  gap:8px; 
-  color:#ef4444; 
-  font-size:17px; 
-  font-weight:700; 
-  margin-bottom:20px; 
-  position: sticky; 
-  top: 0; 
-  background:#0f172a; 
-  z-index: 2; 
-  padding-bottom: 10px;
+    display:flex; 
+    align-items:center; 
+    gap:8px; 
+    color:#ef4444; 
+    font-size:17px; 
+    font-weight:700; 
+    margin-bottom:20px; 
+    position: sticky; 
+    top: 0; 
+    background:#0f172a; 
+    z-index: 2; 
+    padding-bottom: 10px; 
 } 
 
 #heroVideos{ 
-  display:flex; 
-  flex-direction:column; 
-  gap:14px; 
+    display:flex; 
+    flex-direction:column; 
+    gap:14px; 
+    height: 336px; /* DAGDAG: 98px x 3 = 294 + gap. Para 3 kita */
+    overflow: hidden;
 } 
 
 .video-item{ 
-  display:flex; 
-  align-items:flex-start; 
-  gap:14px; 
-  cursor:pointer; 
-  padding:14px 0; 
-  border-bottom:1px solid #334155; 
-  opacity:0; 
-  transform:translateY(40px); 
-  transition: opacity .8s ease, transform .8s ease, background .3s ease; 
-  flex-shrink: 0; 
+    display:flex; 
+    align-items:flex-start; 
+    gap:14px; 
+    cursor:pointer; 
+    padding:10px 0; /* DATING 14px. GINAWANG 10px para lumiit konti */
+    border-bottom:1px solid #334155; 
+    opacity:0; 
+    transform:translateY(40px); 
+    transition: opacity .8s ease, transform .8s ease, background .3s ease; 
+    flex-shrink: 0; 
+    height: 98px; /* DAGDAG: FIXED HEIGHT PARA TUGMA SA JS */
+    box-sizing: border-box;
 } 
+.show-video{ opacity:1; transform:translateY(0); } 
+.video-item:hover{ transform:translateX(8px); background:#1e293b; /* PINAG-ISA KO NA DITO */ } 
 
-.show-video{ 
-  opacity:1; 
-  transform:translateY(0); 
+/* BURAHIN MO NA TO KASI DI GINAGAMIT */ 
+/* @keyframes slideUp{ ... } */ 
+
+/* =========================== THUMBNAIL =========================== */ 
+.thumb-wrapper{ 
+    position:relative; 
+    width:130px; /* DATING 135px. LIITAN NG 5px */
+    height:78px; /* DATING 82px. LIITAN NG 4px */
+    overflow:hidden; 
+    border-radius:12px; 
+    flex-shrink:0; 
 } 
-
-.video-item:hover{ 
-  transform:translateX(8px); 
-  background:#1e293b; /* PINAG-ISA KO NA DITO */
-}
-
-/* BURAHIN MO NA TO KASI DI GINAGAMIT */
-/* @keyframes slideUp{ ... } */
-
-
-
-
-/* ===========================
-THUMBNAIL
-=========================== */
-
-.thumb-wrapper{
-
-    position:relative;
-
-    width:135px;
-    height:82px;
-
-    overflow:hidden;
-
-    border-radius:12px;
-
-    flex-shrink:0;
-
-}
-
-.video-thumb{
-
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    transition:.4s;
-
-}
-
-.video-item:hover .video-thumb{
-
-    transform:scale(1.08);
-
-}
-
-/* ===========================
-PLAY BUTTON
-=========================== */
-
-.play-btn{
-
-    position:absolute;
-
-    top:50%;
-    left:50%;
-
-    transform:translate(-50%,-50%);
-
-    width:25px;
-    height:25px;
-
-    border-radius:50%;
-
-    background:#e60000;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    color:#fff;
-
-    font-size:12px;
-
-    box-shadow:0 8px 18px rgba(230,0,0,.35);
-
-    transition:.3s;
-
-}
-
-.video-item:hover .play-btn{
-
-    background:#ff0000;
-
-    transform:translate(-50%,-50%) scale(1.12);
-
-}
-
-/* ===========================
-VIDEO INFO
-=========================== */
-
-.video-info{
-
-    flex:1;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    
-
-}
-
-.video-category{
-
-    display:inline-block;
-
-    width:fit-content;
-
-    background:linear-gradient(90deg,#ff0000,#c70000);
-
-    color:#fff;
-
-    padding:5px 7px;
-
-    border-radius:30px;
-
-    font-size:8px;
-
-    font-weight:700;
-
-    margin-bottom:10px;
-
-    letter-spacing:.4px;
-
-}
-
-.video-info h4{
-
-    font-size:15px;
-    font-weight:600;
-    line-height:1.4;
-    margin-top:6px;
-
-    display:-webkit-box;
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:2;   /* 2 lines lang */
-
-    overflow:hidden;
-    text-overflow:ellipsis;
-
-    min-height:42px;
-}
-.video-info small{
-
-    color:#888;
-
-    font-size:12px;
-
-}
-
-/* ===========================
-VIDEO MODAL
-=========================== */
-
-.video-modal{
-
-    display:none;
-
-    position:fixed;
-
-    inset:0;
-
-    background:rgba(0,0,0,.88);
-
-    backdrop-filter:blur(5px);
-
-    justify-content:center;
-    align-items:center;
-
-    z-index:9999;
-
-}
-
-.video-modal-content{
-
-    position:relative;
-
-    width:90%;
-    max-width:1200px;
-
-}
-
-.video-modal-content iframe{
-
-    width:100%;
-
-    aspect-ratio:16/9;
-
-    border:none;
-
-    border-radius:15px;
-
-}
-
-#closeVideo{
-
-    position:absolute;
-
-    top:-45px;
-    right:0;
-
-    color:#fff;
-
-    font-size:40px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-#closeVideo:hover{
-
-    color:#ff0000;
-
-}
+.video-thumb{ 
+    width:100%; 
+    height:100%; 
+    object-fit:cover; 
+    transition:.4s; 
+} 
+.video-item:hover .video-thumb{ transform:scale(1.08); } 
+
+/* =========================== PLAY BUTTON =========================== */ 
+.play-btn{ 
+    position:absolute; 
+    top:50%; 
+    left:50%; 
+    transform:translate(-50%,-50%); 
+    width:25px; 
+    height:25px; 
+    border-radius:50%; 
+    background:#e60000; 
+    display:flex; 
+    justify-content:center; 
+    align-items:center; 
+    color:#fff; 
+    font-size:12px; 
+    box-shadow:0 8px 18px rgba(230,0,0,.35); 
+    transition:.3s; 
+} 
+.video-item:hover .play-btn{ background:#ff0000; transform:translate(-50%,-50%) scale(1.12); } 
+
+/* =========================== VIDEO INFO =========================== */ 
+.video-info{ 
+    flex:1; 
+    display:flex; 
+    flex-direction:column; 
+    justify-content:center; 
+} 
+.video-category{ 
+    display:inline-block; 
+    width:fit-content; 
+    background:linear-gradient(90deg,#ff0000,#c70000); 
+    color:#fff; 
+    padding:4px 7px; /* DATING 5px */
+    border-radius:30px; 
+    font-size:8px; 
+    font-weight:700; 
+    margin-bottom:6px; /* DATING 10px */
+    letter-spacing:.4px; 
+} 
+.video-info h4{ 
+    font-size:14px; /* DATING 15px */
+    font-weight:600; 
+    line-height:1.3; /* DATING 1.4 */
+    margin-top:4px; /* DATING 6px */
+    display:-webkit-box; 
+    -webkit-box-orient:vertical; 
+    -webkit-line-clamp:2; /* 2 lines lang */ 
+    overflow:hidden; 
+    text-overflow:ellipsis; 
+    min-height:36px; /* DATING 42px */
+} 
+.video-info small{ color:#888; font-size:12px; } 
+
+/* =========================== VIDEO MODAL =========================== */ 
+.video-modal{ 
+    display:none; 
+    position:fixed; 
+    inset:0; 
+    background:rgba(0,0,0,.88); 
+    backdrop-filter:blur(5px); 
+    justify-content:center; 
+    align-items:center; 
+    z-index:9999; 
+} 
+.video-modal-content{ 
+    position:relative; 
+    width:90%; 
+    max-width:1200px; 
+} 
+.video-modal-content iframe{ 
+    width:100%; 
+    aspect-ratio:16/9; 
+    border:none; 
+    border-radius:15px; 
+} 
+#closeVideo{ 
+    position:absolute; 
+    top:-45px; 
+    right:0; 
+    color:#fff; 
+    font-size:40px; 
+    cursor:pointer; 
+    transition:.3s; 
+} 
+#closeVideo:hover{ color:#ff0000; }
 
 /* =========================================
    MOST READ - REMOVE UNDERLINE
