@@ -1559,10 +1559,10 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
 #contentList .news-info .badge {
   background: #dc2626 !important;
   color: white !important;
-  padding: 3px 10px !important;
+  padding: 2px 8px !important;
   border-radius: 20px !important;
-  font-size: 9px !important;
-  font-weight: 700 !important;
+  font-size: 6px !important;
+  font-weight: 600 !important;
   letter-spacing: 0.3px !important;
   width: fit-content !important;
   text-transform: uppercase !important;
