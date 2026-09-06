@@ -63,8 +63,8 @@ async function loadVideos() {
 
 function startTicker() { 
     const container = heroVideos.parentElement; 
-    const itemHeight = 98; // height ng 1 video
-    const containerHeight = 336; // <-- DITO. FIXED 330 = 110 x 3
+    const itemHeight = 115; // height ng 1 video
+    const containerHeight = 460; // <-- DITO. FIXED 330 = 110 x 3
     const scrollHeight = container.scrollHeight; 
     
     if(scrollHeight <= containerHeight) return; 
