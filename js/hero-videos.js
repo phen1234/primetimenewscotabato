@@ -1,5 +1,5 @@
 import { db } from "./firebase.js"; 
-import { collection, getDocs, query, orderBy, doc, limit, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js"; 
+import { collection, getDocs, query, orderBy, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js"; 
 
 const heroVideos = document.getElementById("heroVideos"); 
 const modal = document.getElementById("videoModal"); 
@@ -15,7 +15,7 @@ heroVideos.parentElement.addEventListener('mouseenter', () => autoScroll = false
 heroVideos.parentElement.addEventListener('mouseleave', () => autoScroll = true); 
 
 async function loadVideos() { 
-  const q = query( collection(db, "videos"), orderBy("createdAt", "desc"), limit(4) ); // TINANGGAL LIMIT
+  const q = query( collection(db, "videos"), orderBy("createdAt", "desc") ); // TINANGGAL LIMIT
   const snapshot = await getDocs(q); 
   heroVideos.innerHTML = ""; 
   clearInterval(tickerInterval);
