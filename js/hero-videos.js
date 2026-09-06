@@ -63,14 +63,11 @@ async function loadVideos() {
 
 function startTicker() { 
     const container = heroVideos.parentElement; 
-    const itemHeight = 114; // height ng 1 video
-    const containerHeight = 456; // <-- DITO. FIXED 330 = 110 x 3
+    const itemHeight = 105; // DAPAT SAME SA .video-item height
+    const containerHeight = 420; // DAPAT SAME SA #heroVideos height
     const scrollHeight = container.scrollHeight; 
     
     if(scrollHeight <= containerHeight) return; 
-    
-    container.style.height = containerHeight + 'px'; // FORCE 330px
-    container.style.overflow = 'hidden'; // ITAGO SCROLLBAR
     
     let currentScroll = 0; 
     tickerInterval = setInterval(() => { 
@@ -78,11 +75,11 @@ function startTicker() {
         currentScroll += itemHeight; 
         
         if(currentScroll >= scrollHeight - containerHeight){ 
-            currentScroll = 0; // reset pag dulo na
+            currentScroll = 0; // PAG DULO NA BALIK SA TAAS
         } 
         
         container.scrollTo({ top: currentScroll, behavior: 'smooth' }); 
-    }, 4000); 
+    }, 4000); // 4 seconds
 }
 
 loadVideos(); 
