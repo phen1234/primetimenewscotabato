@@ -659,6 +659,7 @@ function renderFeaturedNews(news) {
 // NEWS LIST - VERTICAL 4 CARDS
 // =============================== 
 function renderNewsList(newsList) { 
+function renderNewsList(newsList) { 
     if (!contentList) { return; } 
     if (!newsList.length) { contentList.innerHTML = ""; return; } 
 
@@ -670,6 +671,15 @@ function renderNewsList(newsList) {
         const category = news.category || CURRENT_CATEGORY; 
         const views = news.views || 0; 
         
+        // ITO DAGDAG NATIN - DATE FORMAT
+        const publishedDate = news.publishedAt?.seconds 
+            ? new Date(news.publishedAt.seconds * 1000).toLocaleDateString("en-US", {
+                month: "short", 
+                day: "numeric", 
+                year: "numeric"
+            }) 
+            : "";
+        
         html += ` 
         <div class="news-card" data-id="${news.id}"> 
             <img src="${image}" alt="${headline}" loading="lazy" onerror="this.onerror=null; this.src='images/news1.jpg';"> 
@@ -678,6 +688,7 @@ function renderNewsList(newsList) {
                 <h3>${headline}</h3> 
                 <p>${summary}</p> 
                 <div class="news-meta"> 
+                    ${publishedDate ? `<span><i class="fas fa-calendar-alt"></i> ${publishedDate}</span>` : ''}
                     <span><i class="fas fa-eye"></i> ${views} Views</span> 
                 </div> 
             </div> 
@@ -686,7 +697,7 @@ function renderNewsList(newsList) {
     }); 
     
     contentList.innerHTML = html; 
-    autoSlideNewsCards(); // TAWAGIN DITO PARA SA SLIDE
+    autoSlideNewsCards();
 }
 
 
