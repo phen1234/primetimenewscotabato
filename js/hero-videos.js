@@ -15,7 +15,7 @@ heroVideos.parentElement.addEventListener('mouseenter', () => autoScroll = false
 heroVideos.parentElement.addEventListener('mouseleave', () => autoScroll = true); 
 
 async function loadVideos() { 
-  const q = query( collection(db, "videos"), orderBy("createdAt", "desc") ); // TINANGGAL LIMIT
+  const q = query( collection(db, "videos"), orderBy("createdAt", "desc"), limit(4) ); // TINANGGAL LIMIT
   const snapshot = await getDocs(q); 
   heroVideos.innerHTML = ""; 
   clearInterval(tickerInterval);
