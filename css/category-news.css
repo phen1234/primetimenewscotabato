@@ -1598,27 +1598,33 @@ body.light-mode #contentList .news-meta {
 
 
 
-/* ========== LIITAN ANG DATE AT VIEWS ========== */
+/* ========== LIITAN ANG DATE AT VIEWS - FINAL ========== */
 #contentList .news-meta {
-  font-size: 5px !important; /* dati 11px */
-  gap: 6px !important; /* pagitan ng date at views */
+  font-size: 9px !important; /* 10 -> 9px. Mas maliit pa */
+  gap: 10px !important;
+  margin-top: 4px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
 }
 
 #contentList .news-meta span {
-  display: flex !important;
+  display: inline-flex !important; /* inline-flex para di mag break */
   align-items: center !important;
   gap: 3px !important;
-  font-weight: 400 !important; /* hindi na bold */
+  font-size: 9px !important; /* ITO KULANG KANINA */
+  font-weight: 400 !important;
+  color: #94a3b8 !important; /* DARK MODE */
 }
 
 #contentList .news-meta i {
-  font-size: 5px !important; /* icon mas maliit */
-  color: #64748b !important; /* mas muted, di red */
+  font-size: 8px !important; /* 9 -> 8px */
+  color: #64748b !important;
 }
 
 /* LIGHT MODE */
-body.light-mode #contentList .news-meta {
+body.light-mode #contentList .news-meta span {
   color: #64748b !important;
+  font-size: 9px !important;
 }
 body.light-mode #contentList .news-meta i {
   color: #94a3b8 !important;
