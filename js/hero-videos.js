@@ -62,24 +62,26 @@ async function loadVideos() {
 } 
 
 function startTicker() { 
-    const container = heroVideos.parentElement; 
-    const itemHeight = 105; // DAPAT SAME SA .video-item height
-    const containerHeight = 420; // DAPAT SAME SA #heroVideos height
+    const container = document.getElementById('heroVideos'); 
+    const itemHeight = 110; // dapat tugma sa CSS .video-item height
+    const containerHeight = 440; // 110 x 4 = 4 videos kita
     const scrollHeight = container.scrollHeight; 
     
     if(scrollHeight <= containerHeight) return; 
     
     let currentScroll = 0; 
+    clearInterval(tickerInterval); // para di mag doble
+    
     tickerInterval = setInterval(() => { 
         if(!autoScroll) return; 
-        currentScroll += itemHeight; 
+        currentScroll += itemHeight; // aakyat ng 1 video
         
         if(currentScroll >= scrollHeight - containerHeight){ 
-            currentScroll = 0; // PAG DULO NA BALIK SA TAAS
+            currentScroll = 0; // pag dulo na, balik sa taas
         } 
         
         container.scrollTo({ top: currentScroll, behavior: 'smooth' }); 
-    }, 4000); // 4 seconds
+    }, 4000); 
 }
 
 loadVideos(); 
