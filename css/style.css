@@ -3601,7 +3601,7 @@ html.dark-mode #heroVideos > div {
     }
 
     .video-ticker-wrapper { /* or .hero-videos-wrapper depende sa class mo */
-    height: 330px !important; /* 3 x 110px */
+    height:440px !important; /* 3 x 110px */
     overflow: hidden !important;
 }
 
@@ -3645,7 +3645,7 @@ html.dark-mode #heroVideos > div {
 @media (max-width: 480px) {
 
     .video-ticker-wrapper { /* or .hero-videos-wrapper depende sa class mo */
-    height: 330px !important; /* 3 x 110px */
+    height: 440px !important; /* 3 x 110px */
     overflow: hidden !important;
 }
 
