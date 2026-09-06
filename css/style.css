@@ -1888,7 +1888,7 @@ body.dark-mode .kebab-toggle {
     padding:22px; 
     border-radius:18px; 
     box-shadow:0 10px 25px rgba(0,0,0,.15); 
-    height: 560px; /* TAAS PARA KASYA TITLE + 3 VIDEOS */
+    height: 760px; /* TAAS PARA KASYA TITLE + 3 VIDEOS */
     overflow-y: hidden; /* HIDDEN PARA SA AUTO SCROLL */
     overflow-x: hidden; 
     scroll-behavior: smooth; 
@@ -1960,8 +1960,81 @@ body.dark-mode .kebab-toggle {
     position:absolute; 
     top:50%; 
     left:50%; 
+/* =================================================== LATEST VIDEO SIDEBAR =================================================== */ 
+.hero-right{ 
+    background:#0f172a; 
+    padding:22px; 
+    border-radius:18px; 
+    box-shadow:0 10px 25px rgba(0,0,0,.15); 
+    height: 456px; /* TAAS PARA KASYA LAHAT */
+    overflow: hidden; /* IMPORTANTE: HIDDEN PARA SA AUTO SCROLL */
+} 
+
+.sidebar-title{ 
+    display:flex; 
+    align-items:center; 
+    gap:8px; 
+    color:#ef4444; 
+    font-size:17px; 
+    font-weight:700; 
+    margin-bottom:18px; 
+    position: sticky; 
+    top: 0; 
+    background:#0f172a; 
+    z-index: 2; 
+    padding-bottom: 12px; 
+} 
+
+#heroVideos{ 
+    display:flex; 
+    flex-direction:column; 
+    gap:16px; 
+    height: 342px; /* 114 x 3 = 342. 3 VIDEOS KITA */
+    overflow-y: hidden; /* HIDDEN PARA DI MAKITA SCROLLBAR */
+    overflow-x: hidden;
+} 
+
+.video-item{ 
+    display:flex; 
+    align-items:flex-start; 
+    gap:14px; 
+    cursor:pointer; 
+    padding:12px 0; 
+    border-bottom:1px solid #334155; 
+    opacity:0; 
+    transform:translateY(40px); 
+    transition: opacity .8s ease, transform .8s ease, background .3s ease; 
+    flex-shrink: 0; 
+    height: 114px; /* FIXED HEIGHT */
+    box-sizing: border-box;
+} 
+.show-video{ opacity:1; transform:translateY(0); } 
+.video-item:hover{ transform:translateX(8px); background:#1e293b; } 
+
+/* =========================== THUMBNAIL =========================== */ 
+.thumb-wrapper{ 
+    position:relative; 
+    width:140px; 
+    height:84px; 
+    overflow:hidden; 
+    border-radius:12px; 
+    flex-shrink:0; 
+} 
+.video-thumb{ 
+    width:100%; 
+    height:100%; 
+    object-fit:cover; 
+    transition:.4s; 
+} 
+.video-item:hover .video-thumb{ transform:scale(1.08); } 
+
+/* =========================== PLAY BUTTON =========================== */ 
+.play-btn{ 
+    position:absolute; 
+    top:50%; 
+    left:50%; 
     transform:translate(-50%,-50%); 
-    width:28px; /* LAKIHAN NG KONTI */
+    width:28px; 
     height:28px; 
     border-radius:50%; 
     background:#e60000; 
@@ -1980,7 +2053,7 @@ body.dark-mode .kebab-toggle {
     flex:1; 
     display:flex; 
     flex-direction:column; 
-    justify-content:flex-start; /* START PARA DI NAKADIKIT SA BABA */
+    justify-content:flex-start; 
     padding-top: 2px;
 } 
 .video-category{ 
@@ -1988,26 +2061,26 @@ body.dark-mode .kebab-toggle {
     width:fit-content; 
     background:linear-gradient(90deg,#ff0000,#c70000); 
     color:#fff; 
-    padding:5px 9px; /* IBALIK SA MALAKI */
+    padding:5px 9px; 
     border-radius:30px; 
     font-size:9px; 
     font-weight:700; 
-    margin-bottom:8px; /* SPACE SA BABA */
+    margin-bottom:8px; 
     letter-spacing:.4px; 
 } 
 .video-info h4{ 
     font-size:14px; 
     font-weight:600; 
-    line-height:1.5; /* MAS MALUWAG NA LINE HEIGHT */
-    margin: 0 0 6px 0; /* MAY MARGIN SA BABA PARA SA DATE */
+    line-height:1.5; 
+    margin: 0 0 6px 0; /* MAY SPACE PARA SA DATE */
     display:-webkit-box; 
     -webkit-box-orient:vertical; 
-    -webkit-line-clamp:2; /* 2 LINES LANG */
+    -webkit-line-clamp:2; 
     overflow:hidden; 
     text-overflow:ellipsis; 
 } 
 .video-info small{ 
-    color:#94a3b8; /* MAS MALINAW */
+    color:#94a3b8; 
     font-size:11px; 
     display: flex;
     align-items: center;
