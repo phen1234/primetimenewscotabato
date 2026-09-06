@@ -1545,7 +1545,7 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
   font-size: 14px !important; 
   color: #ffffff !important; 
   margin: 0 !important;
-  line-height: 1.4 !important;
+  line-height: 1.5 !important;
   font-weight: 700 !important; 
   font-family: 'Poppins', sans-serif !important;
   display: -webkit-box !important;
@@ -1553,7 +1553,7 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
   -webkit-box-orient: vertical !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
-  min-height: 84px;
+  min-height: 90px;
 }
 
 #contentList .news-meta {
