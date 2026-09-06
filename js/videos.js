@@ -719,101 +719,71 @@ if (!rendered) {
 }
 
 
-/* =========================================
-   LOAD VIDEOS
-========================================= */
+/* ========================================= LOAD VIDEOS ========================================= */ 
+async function loadVideos() { 
+    if (!videosGrid) return; 
+    videosGrid.innerHTML = `<p>Loading videos...</p>`; 
+    try { 
+        const snapshot = await getDocs( 
+            collection( db, "videos" ) 
+        ); 
 
-async function loadVideos() {
+        allVideos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); 
 
-    if (!videosGrid) return;
+        /* ===================================== SORT NEWEST FIRST ===================================== */ 
+        allVideos.sort( (a, b) => { 
+            const time = video => { 
+                if ( video.createdAt?.seconds ) { 
+                    return ( video.createdAt.seconds * 1000 ); 
+                } 
+                if ( video.createdAt?.toDate ) { 
+                    return ( video.createdAt.toDate().getTime() ); 
+                } 
+                if (video.date) { 
+                    const parsed = new Date( video.date ).getTime(); 
+                    return Number.isNaN( parsed ) ? 0 : parsed; 
+                } 
+                return 0; 
+            }; 
+            return time(b) - time(a); 
+        } ); 
 
+        /* ===================================== RENDER SA SIDEBAR ===================================== */ 
+        heroVideos.innerHTML = ""; 
+        if(allVideos.length === 0){
+            heroVideos.innerHTML = `<p style="color:#888; text-align:center;">No videos yet.</p>`;
+            return;
+        }
 
-    videosGrid.innerHTML =
-        `<p>Loading videos...</p>`;
+        allVideos.forEach(video => { 
+            const videoId = video.videoId || getVideoId(video.youtube || video.url); 
+            const title = video.title || video.headline || "No Title"; 
+            const category = video.category || "News"; 
+            const date = video.createdAt?.toDate ? video.createdAt.toDate().toLocaleDateString() : "No Date"; 
+            
+            heroVideos.innerHTML += ` 
+            <div class="video-item show-video" data-video="${videoId}"> 
+                <div class="thumb-wrapper"> 
+                    <img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" class="video-thumb" alt="${title}"> 
+                    <div class="play-btn"> <i class="fas fa-play"></i> </div> 
+                </div> 
+                <div class="video-info"> 
+                    <span class="video-category">${category}</span> 
+                    <h4>${title}</h4> 
+                    <small><i class="fas fa-calendar"></i> ${date}</small> 
+                </div> 
+            </div> 
+            `; 
+        }); 
 
+        /* START AUTO SCROLL AFTER LOAD */
+        startTicker();
 
-    try {
-
-        const snapshot =
-            await getDocs(
-                collection(
-                    db,
-                    "videos"
-                )
-            );
-
-
-        allVideos =
-            snapshot.docs.map(doc => ({
-
-                id: doc.id,
-
-                ...doc.data()
-
-            }));
-
-
-        /* =====================================
-           SORT NEWEST FIRST
-        ===================================== */
-
-        allVideos.sort(
-            (a, b) => {
-
-                const time =
-                    video => {
-
-                        if (
-                            video.createdAt?.seconds
-                        ) {
-
-                            return (
-                                video.createdAt.seconds *
-                                1000
-                            );
-
-                        }
-
-
-                        if (
-                            video.createdAt?.toDate
-                        ) {
-
-                            return (
-                                video.createdAt
-                                    .toDate()
-                                    .getTime()
-                            );
-
-                        }
-
-
-                        if (video.date) {
-
-                            const parsed =
-                                new Date(
-                                    video.date
-                                ).getTime();
-
-
-                            return Number.isNaN(
-                                parsed
-                            )
-                                ? 0
-                                : parsed;
-
-                        }
-
-
-                        return 0;
-
-                    };
-
-
-                return time(b) - time(a);
-
-            }
-        );
+    } catch(err){ 
+        console.error("Load Videos Error:", err); 
+        videosGrid.innerHTML = "<p style='color:red;'>Error loading videos.</p>"; 
+    } 
+}
 
 
         /* =====================================
