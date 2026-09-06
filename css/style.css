@@ -4836,3 +4836,60 @@ body.light-mode .local-dot.active{
     width: 16px; 
     border-radius: 3px; 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ================= AUTO SLIDE UP BOX ================= */
+.slider{ /* GINAMIT KO NA .slider para sayo */
+    height: 496px; /* 124 x 4 = 496. 4 ITEMS KITA */
+    overflow: hidden; /* TAGO SCROLLBAR */
+    position: relative;
+}
+
+.slider-track{
+    display: flex;
+    flex-direction: column;
+    gap: 14px; /* GAP NG ITEMS */
+}
+
+.slider-item{
+    height: 110px; /* HEIGHT NG 1 ITEM */
+    flex-shrink: 0;
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid #334155;
+    opacity: 0;
+    animation: slideUpIn 0.8s ease forwards;
+    cursor: pointer;
+    transition: background .3s;
+}
+
+.slider-item:hover{
+    background: #1e293b;
+    transform: translateX(8px);
+}
+
+@keyframes slideUpIn{
+    from{
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
