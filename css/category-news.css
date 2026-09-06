@@ -1600,7 +1600,7 @@ body.light-mode #contentList .news-meta {
 
 /* ========== LIITAN ANG DATE AT VIEWS ========== */
 #contentList .news-meta {
-  font-size: 7px !important; /* dati 11px */
+  font-size: 6px !important; /* dati 11px */
   gap: 8px !important; /* pagitan ng date at views */
 }
 
@@ -1612,7 +1612,7 @@ body.light-mode #contentList .news-meta {
 }
 
 #contentList .news-meta i {
-  font-size: 9px !important; /* icon mas maliit */
+  font-size: 6px !important; /* icon mas maliit */
   color: #64748b !important; /* mas muted, di red */
 }
 
