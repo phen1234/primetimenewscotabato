@@ -1580,17 +1580,7 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
 }
 
 
-/* DESCRIPTION - 1 LINE LANG */
-#contentList .news-info p {
-  font-size: 12px !important;
-  color: #94a3b8 !important;
-  line-height: 1.4 !important;
-  margin: 0 !important;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 1 !important; 
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
-}
+
 
 
 /* ========== LIGHT MODE ========== */
