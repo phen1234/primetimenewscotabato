@@ -1535,7 +1535,7 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
   flex: 1;
   display: flex !important;
   flex-direction: column !important;
-  gap: 7px !important; /* 6 -> 8 para may hinga */
+  gap: 6px !important; /* 6 -> 8 para may hinga */
   min-width: 0;
   overflow: hidden;
   justify-content: flex-start !important; /* para di naka space-between */
@@ -1557,7 +1557,7 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
 }
 
 #contentList .news-meta {
-  font-size: 7px !important;
+  font-size: 4px !important;
   color: #94a3b8 !important;
   margin-top: 4px !important; /*  auto -> 4px para laging kita */
   font-weight: 500 !important;
