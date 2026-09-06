@@ -1600,8 +1600,8 @@ body.light-mode #contentList .news-meta {
 
 /* ========== LIITAN ANG DATE AT VIEWS ========== */
 #contentList .news-meta {
-  font-size: 10px !important; /* dati 11px */
-  gap: 10px !important; /* pagitan ng date at views */
+  font-size: 7px !important; /* dati 11px */
+  gap: 8px !important; /* pagitan ng date at views */
 }
 
 #contentList .news-meta span {
