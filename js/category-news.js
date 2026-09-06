@@ -656,9 +656,8 @@ function renderFeaturedNews(news) {
 
 
 // =============================== 
-// NEWS LIST - VERTICAL 4 CARDS
+// NEWS LIST - VERTICAL 4 CARDS 
 // =============================== 
-function renderNewsList(newsList) { 
 function renderNewsList(newsList) { 
     if (!contentList) { return; } 
     if (!newsList.length) { contentList.innerHTML = ""; return; } 
@@ -671,12 +670,12 @@ function renderNewsList(newsList) {
         const category = news.category || CURRENT_CATEGORY; 
         const views = news.views || 0; 
         
-        // ITO DAGDAG NATIN - DATE FORMAT
+        // DATE FORMAT
         const publishedDate = news.publishedAt?.seconds 
-            ? new Date(news.publishedAt.seconds * 1000).toLocaleDateString("en-US", {
+            ? new Date(news.publishedAt.seconds * 1000).toLocaleDateString("en-US", { 
                 month: "short", 
                 day: "numeric", 
-                year: "numeric"
+                year: "numeric" 
             }) 
             : "";
         
