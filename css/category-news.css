@@ -1511,7 +1511,7 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
 }
 
 #contentList .news-card {
-  height: 200px !important; /* 145 -> 160. +15px para sa views */
+  height: 220px !important; /* 145 -> 160. +15px para sa views */
   display: flex !important;
   gap: 12px;
   background: #1e2a3a !important;
@@ -1559,7 +1559,7 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
 #contentList .news-meta {
   font-size: 4px !important;
   color: #94a3b8 !important;
-  margin-top: 4px !important; /*  auto -> 4px para laging kita */
+  margin-top: 14px !important; /*  auto -> 4px para laging kita */
   font-weight: 500 !important;
   display: flex;
   align-items: center;
