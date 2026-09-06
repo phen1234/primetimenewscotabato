@@ -61,27 +61,28 @@ async function loadVideos() {
   }, 500);
 } 
 
-function startTicker() {
-  const container = heroVideos.parentElement;
-  const itemHeight = 110; 
-  const containerHeight = container.clientHeight; // HEIGHT NG BOX = 330px
-  const scrollHeight = container.scrollHeight; // TOTAL HEIGHT NG LAHAT NG VIDEO
-  
-  if(scrollHeight <= containerHeight) return; // WAG MAGSCROLL KUNG KASYA LAHAT
-
-  let currentScroll = 0; 
-
-  tickerInterval = setInterval(() => { 
-    if(!autoScroll) return; 
-    currentScroll += itemHeight; 
+function startTicker() { 
+    const container = heroVideos.parentElement; 
+    const itemHeight = 110; // height ng 1 video
+    const containerHeight = 330; // <-- DITO. FIXED 330 = 110 x 3
+    const scrollHeight = container.scrollHeight; 
     
-    // PAG DULO NA, BALIK SA TAAS
-    if(currentScroll >= scrollHeight - containerHeight){ 
-      currentScroll = 0; 
-    } 
+    if(scrollHeight <= containerHeight) return; 
     
-    container.scrollTo({ top: currentScroll, behavior: 'smooth' }); 
-  }, 4000); 
+    container.style.height = containerHeight + 'px'; // FORCE 330px
+    container.style.overflow = 'hidden'; // ITAGO SCROLLBAR
+    
+    let currentScroll = 0; 
+    tickerInterval = setInterval(() => { 
+        if(!autoScroll) return; 
+        currentScroll += itemHeight; 
+        
+        if(currentScroll >= scrollHeight - containerHeight){ 
+            currentScroll = 0; // reset pag dulo na
+        } 
+        
+        container.scrollTo({ top: currentScroll, behavior: 'smooth' }); 
+    }, 4000); 
 }
 
 loadVideos(); 
