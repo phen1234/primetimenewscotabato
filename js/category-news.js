@@ -1139,7 +1139,7 @@ function autoSlideNewsCards() {
     if(cards.length <= 4) return; // kung 4 pababa wag na mag slide 
     
     let currentSlide = 0; 
-    const cardHeight = 140; // 125px + 15px margin TAMA NA TO
+    const cardHeight = 175; // 125px + 15px margin TAMA NA TO
     
     setInterval(() => { 
         currentSlide++; 
