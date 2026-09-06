@@ -8,7 +8,7 @@ async function loadNews() {
   if(!container) return; 
   container.innerHTML = "<p style='color:#fff; text-align:center;'>Loading...</p>"; 
   try {
-    const q = query( collection(db, "news"), orderBy("createdAt", "desc"), limit(8) ); 
+    const q = query( collection(db, "news"), orderBy("createdAt", "desc"), limit(10) ); 
     const snapshot = await getDocs(q); 
     container.innerHTML = ""; 
     
