@@ -1502,12 +1502,22 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
 
 
 
-
 /* ========== VERTICAL AUTO SLIDE CONTAINER ========== */
 #contentList {
-  height:860px !important; /* 175 x 4 = dati 640 */
-  overflow-y: hidden !important;
+  height: 860px !important; /* 215 x 4 */
+  overflow-y: auto !important; /* hidden -> auto para ma scroll */
   display: block !important;
+  scroll-behavior: smooth; /* smooth pag nag click */
+}
+
+/* ITAGO NATIN YUNG SCROLLBAR PARA MALINIS */
+#contentList::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+#contentList {
+  -ms-overflow-style: none;  /* IE */
+  scrollbar-width: none;  /* Firefox */
 }
 
 #contentList .news-card {
