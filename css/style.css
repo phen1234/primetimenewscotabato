@@ -3602,8 +3602,13 @@ html.dark-mode #heroVideos > div {
 
     #heroVideos .video-card,
     #heroVideos .video-item {
-        margin-bottom: 6px !important;
-        padding: 6px !important;
+    margin-bottom: 6px !important;
+    height: 110px !important; /* dapat tugma dito */
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    box-sizing: border-box;
+
     }
 
     #heroVideos img,
@@ -3636,8 +3641,12 @@ html.dark-mode #heroVideos > div {
 
     #heroVideos .video-card,
     #heroVideos .video-item {
-        padding: 5px !important;
-        margin-bottom: 5px !important;
+    height: 110px !important; /* dapat tugma dito */
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    margin-bottom: 5px !important;
     }
 
     #heroVideos img,
