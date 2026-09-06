@@ -1511,7 +1511,7 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
 }
 
 #contentList .news-card {
-  height: 220px !important; /* 145 -> 160. +15px para sa views */
+  height: 190px !important; /* 145 -> 160. +15px para sa views */
   display: flex !important;
   gap: 12px;
   background: #1e2a3a !important;
@@ -1529,17 +1529,7 @@ body.dark-mode .related-category-content h4{ color: #e9eef7; }
   flex-shrink: 0;
 }
 
-/* ========== PINAGANDA NA NEWS CARD TEXT ========== */
-#contentList .news-info {
-  padding: 0px 0px 0px 0 !important;
-  flex: 1;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 6px !important; /* 6 -> 8 para may hinga */
-  min-width: 0;
-  overflow: hidden;
-  justify-content: flex-start !important; /* para di naka space-between */
-}
+
 
 #contentList .news-info h3 {
   font-size: 14px !important; 
