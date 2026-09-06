@@ -1591,3 +1591,35 @@ body.light-mode #contentList .news-meta {
 
 
 
+
+
+
+
+
+
+
+/* ========== LIITAN ANG DATE AT VIEWS ========== */
+#contentList .news-meta {
+  font-size: 10px !important; /* dati 11px */
+  gap: 10px !important; /* pagitan ng date at views */
+}
+
+#contentList .news-meta span {
+  display: flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  font-weight: 400 !important; /* hindi na bold */
+}
+
+#contentList .news-meta i {
+  font-size: 9px !important; /* icon mas maliit */
+  color: #64748b !important; /* mas muted, di red */
+}
+
+/* LIGHT MODE */
+body.light-mode #contentList .news-meta {
+  color: #64748b !important;
+}
+body.light-mode #contentList .news-meta i {
+  color: #94a3b8 !important;
+}
