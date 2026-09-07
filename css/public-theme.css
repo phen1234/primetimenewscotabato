@@ -1,0 +1,1231 @@
+/* ITAGO AGAD HABANG LOADING */
+html.loading header,
+html.loading nav,
+html.loading .headline-ticker,
+html.loading .search-overlay {
+  visibility: hidden!important;
+  opacity: 0!important;
+  height: 0!important;
+  overflow: hidden!important;
+}
+
+/* FORCE HIDE LAHAT MALIBAN SA LOADER */
+html.loading {
+  overflow: hidden;
+}
+html.loading body > *:not(#pageLoader) {
+  visibility: hidden!important;
+  opacity: 0!important;
+}
+
+/* LOADER */
+#pageLoader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: linear-gradient(135deg, #020b1a 0%, #0a1a2f 100%);
+  z-index: 99999; /* DITO PINAKA MATAAS */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+
+/* =========================================
+   PRIMETIME NEWS - PUBLIC LIGHT / DARK MODE
+   ========================================= */
+
+:root {
+    color-scheme: light;
+}
+
+html.dark-mode {
+    color-scheme: dark;
+}
+
+body {
+    transition: background-color .25s ease, color .25s ease;
+}
+
+/* Floating theme control - public pages only */
+.public-theme-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 99999;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    background: #0b1f3a;
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(0,0,0,.25);
+    transition: transform .2s ease, background-color .2s ease, color .2s ease;
+}
+
+.public-theme-toggle:hover { transform: scale(1.06); }
+.public-theme-toggle:focus-visible { outline: 3px solid #e10600; outline-offset: 3px; }
+
+body.light-mode .public-theme-toggle {
+    background: #0b1f3a;
+    color: #fff;
+}
+
+body.dark-mode {
+    background: #0b1220 !important;
+    color: #e9eef7 !important;
+}
+
+body.dark-mode .public-theme-toggle {
+    background: #f3f6fb;
+    color: #0b1f3a;
+}
+
+/* Main public surfaces */
+body.dark-mode header,
+body.dark-mode .top-header,
+body.dark-mode main,
+body.dark-mode section,
+body.dark-mode .page-main,
+body.dark-mode .page-layout,
+body.dark-mode .content-main,
+body.dark-mode .content-layout,
+body.dark-mode .latest-content,
+body.dark-mode .category-page,
+body.dark-mode .search-section,
+body.dark-mode .weather-page,
+body.dark-mode .weather-main,
+body.dark-mode .weather-top,
+body.dark-mode .site-footer {
+    background-color: #0b1220 !important;
+    color: #e9eef7 !important;
+}
+
+body.dark-mode .container,
+body.dark-mode .card,
+body.dark-mode .widget,
+body.dark-mode .ad-box,
+body.dark-mode .weather-card,
+body.dark-mode .weather-featured-card,
+body.dark-mode .satellite-card,
+body.dark-mode .social-card,
+body.dark-mode .price-card,
+body.dark-mode .missionCard,
+body.dark-mode .teamCard,
+body.dark-mode .article-card,
+body.dark-mode .news-card,
+body.dark-mode .video-card,
+body.dark-mode .search-box,
+body.dark-mode .page-sidebar,
+body.dark-mode .content-sidebar,
+body.dark-mode .ad-card {
+    background-color: #111c2e !important;
+    color: #e9eef7 !important;
+    border-color: #263752 !important;
+}
+
+/* Text */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6,
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode li,
+body.dark-mode label,
+body.dark-mode small,
+body.dark-mode strong,
+body.dark-mode .header-text,
+body.dark-mode .section-title,
+body.dark-mode .section-heading,
+body.dark-mode .sectionLabel,
+body.dark-mode .page-header {
+    color: #e9eef7 !important;
+}
+
+body.dark-mode a:not(.login-link):not(.public-theme-toggle) {
+    color: #dbe7ff;
+}
+
+body.dark-mode .muted,
+body.dark-mode .subtitle,
+body.dark-mode .description,
+body.dark-mode .meta,
+body.dark-mode .date,
+body.dark-mode .summary {
+    color: #aebbd0 !important;
+}
+
+/* Form controls */
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select,
+body.dark-mode button:not(.public-theme-toggle):not(.menu-toggle) {
+    background-color: #17243a !important;
+    color: #f4f7fb !important;
+    border-color: #344967 !important;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #8fa0b8 !important;
+}
+
+/* Navigation */
+body.dark-mode .nav,
+body.dark-mode #navbar {
+    background-color: #071a35 !important;
+}
+
+body.dark-mode .nav-links a,
+body.dark-mode .mobile-auth-menu a,
+body.dark-mode .desktop-auth-menu a {
+    color: #fff !important;
+}
+
+/* Tables / lists / dividers */
+body.dark-mode table,
+body.dark-mode th,
+body.dark-mode td {
+    background-color: #111c2e !important;
+    color: #e9eef7 !important;
+    border-color: #2a3b57 !important;
+}
+
+body.dark-mode hr,
+body.dark-mode .divider,
+body.dark-mode .border,
+body.dark-mode .category-menu a {
+    border-color: #2a3b57 !important;
+}
+
+/* Modals / overlays */
+body.dark-mode .video-modal-content,
+body.dark-mode .video-details,
+body.dark-mode .overlay-content,
+body.dark-mode .modal-content,
+body.dark-mode .search-results,
+body.dark-mode .search-result {
+    background-color: #111c2e !important;
+    color: #e9eef7 !important;
+}
+
+/* Keep the brand red and important action buttons visible in both themes */
+body.dark-mode .active,
+body.dark-mode .active a,
+body.dark-mode .read-more,
+body.dark-mode .view-all-btn,
+body.dark-mode .facebookBtn,
+body.dark-mode .weather-alert-btn,
+body.dark-mode .satellite-btn {
+    color: #fff !important;
+}
+
+@media (max-width: 700px) {
+    .public-theme-toggle {
+        right: 14px;
+        bottom: 14px;
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+    }
+}
+
+
+/* =========================================
+   ABOUT US - DARK MODE
+========================================= */
+
+body.dark-mode .hero,
+body.dark-mode .missionSection,
+body.dark-mode .team,
+body.dark-mode .managerSection,
+body.dark-mode .teamSection,
+body.dark-mode .editorSection,
+body.dark-mode .quoteSection {
+    background: #0b1220 !important;
+    color: #e9eef7 !important;
+}
+
+body.dark-mode .heroLeft,
+body.dark-mode .heroRight,
+body.dark-mode .missionTitle,
+body.dark-mode .teamHeading,
+body.dark-mode .sectionLabel,
+body.dark-mode .quoteLeft,
+body.dark-mode .quoteRight {
+    color: #e9eef7 !important;
+}
+
+body.dark-mode .miniTitle,
+body.dark-mode .smallTitle,
+body.dark-mode .sectionLabel {
+    color:white !important;
+}
+
+body.dark-mode .hero h1,
+body.dark-mode .hero h1 span,
+body.dark-mode .missionTitle,
+body.dark-mode .teamHeading h2,
+body.dark-mode .managerInfo h2,
+body.dark-mode .teamContent h3,
+body.dark-mode .quoteLeft h2 {
+    color: #ffffff !important;
+}
+
+body.dark-mode .hero p,
+body.dark-mode .teamHeading p,
+body.dark-mode .managerInfo p,
+body.dark-mode .missionCard p,
+body.dark-mode .teamContent h4,
+body.dark-mode .quoteLeft p {
+    color: #cbd5e1 !important;
+}
+
+/* Mission cards */
+body.dark-mode .missionCard {
+    background: #111c2e !important;
+    color: #e9eef7 !important;
+    border-color: #263752 !important;
+}
+
+body.dark-mode .missionCard h3 {
+    color: #ffffff !important;
+}
+
+body.dark-mode .missionCard .icon {
+    color: #e00000 !important;
+}
+
+/* Founder / reporter / editor cards */
+body.dark-mode .managerCard,
+body.dark-mode .teamCard {
+    background: #111c2e !important;
+    color: #e9eef7 !important;
+    border-color: #263752 !important;
+}
+
+body.dark-mode .managerInfo h4,
+body.dark-mode .teamContent h4 {
+    color: #aebbd0 !important;
+}
+
+body.dark-mode .managerInfo p {
+    color: #cbd5e1 !important;
+}
+
+/* Quote section */
+body.dark-mode .quoteSection {
+    background: #0b1220 !important;
+}
+
+body.dark-mode .quoteLeft i {
+    color: #e00000 !important;
+}
+
+/* Facebook buttons */
+body.dark-mode .facebookBtn {
+    color: #ffffff !important;
+    background: #1877f2 !important;
+}
+
+/* Images */
+body.dark-mode .managerPhoto img,
+body.dark-mode .teamCard img,
+body.dark-mode .heroRight img,
+body.dark-mode .quoteRight img {
+    border-color: #263752 !important;
+}
+
+/* =========================================================
+   ABOUT US - LIGHT MODE
+========================================================= */
+
+body.light-mode .hero,
+body.light-mode .missionSection,
+body.light-mode .team,
+body.light-mode .managerSection,
+body.light-mode .teamSection,
+body.light-mode .editorSection,
+body.light-mode .quoteSection {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+body.light-mode .heroLeft,
+body.light-mode .heroRight {
+    color: #111827 !important;
+}
+
+body.light-mode .hero h1,
+body.light-mode .hero h1 span {
+    color: white !important;
+}
+
+body.light-mode .hero p {
+    color: #4b5563 !important;
+}
+
+
+/* =========================
+   ABOUT US LABEL
+========================= */
+
+body.light-mode .miniTitle,
+body.light-mode .smallTitle,
+body.light-mode .sectionLabel {
+    background: #e10600 !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================
+   MISSION TITLE
+========================= */
+
+body.light-mode .missionTitle {
+    color: #111827 !important;
+}
+
+body.light-mode .missionTitle::after {
+    background: #e10600 !important;
+}
+
+
+/* =========================
+   MISSION CARDS
+========================= */
+
+body.light-mode .missionCard {
+    background: #f8fafc !important;
+    color: #111827 !important;
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .missionCard h3 {
+    color: #111827 !important;
+}
+
+body.light-mode .missionCard p {
+    color: #4b5563 !important;
+}
+
+body.light-mode .missionCard .icon {
+    color: #e10600 !important;
+}
+
+
+/* =========================
+   TEAM HEADING
+========================= */
+
+body.light-mode .teamHeading {
+    color: #111827 !important;
+}
+
+body.light-mode .teamHeading h2 {
+    color: #111827 !important;
+}
+
+body.light-mode .teamHeading p {
+    color: #4b5563 !important;
+}
+
+
+/* =========================
+   FOUNDER CARD
+========================= */
+
+body.light-mode .managerCard {
+    background: #f8fafc !important;
+    color: #111827 !important;
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .managerInfo h2 {
+    color: #111827 !important;
+}
+
+body.light-mode .managerInfo h4 {
+    color: #e10600 !important;
+}
+
+body.light-mode .managerInfo p {
+    color: #4b5563 !important;
+}
+
+
+/* =========================
+   REPORTER / EDITOR CARDS
+========================= */
+
+body.light-mode .teamCard {
+    background: #f8fafc !important;
+    color: #111827 !important;
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .teamContent h3 {
+    color: #111827 !important;
+}
+
+body.light-mode .teamContent h4 {
+    color: #6b7280 !important;
+}
+
+
+/* =========================
+   FACEBOOK BUTTON
+========================= */
+
+body.light-mode .facebookBtn {
+    background: #1877f2 !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================
+   QUOTE
+========================= */
+
+body.light-mode .quoteSection {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+
+body.light-mode .quoteLeft {
+    color: #111827 !important;
+}
+
+body.light-mode .quoteLeft h2 {
+    color: #111827 !important;
+}
+
+body.light-mode .quoteLeft p {
+    color: #4b5563 !important;
+}
+
+body.light-mode .quoteLeft i {
+    color: #e10600 !important;
+}
+
+
+/* =========================
+   IMAGES
+========================= */
+
+body.light-mode .managerPhoto img,
+body.light-mode .teamCard img,
+body.light-mode .heroRight img,
+body.light-mode .quoteRight img {
+    border-color: #e5e7eb !important;
+}
+
+
+/* =========================
+   GENERAL ABOUT PAGE
+========================= */
+
+body.light-mode .hero *,
+body.light-mode .missionSection *,
+body.light-mode .team *,
+body.light-mode .managerSection *,
+body.light-mode .teamSection *,
+body.light-mode .editorSection *,
+body.light-mode .quoteSection * {
+    transition:
+        background-color .25s ease,
+        color .25s ease,
+        border-color .25s ease;
+}
+
+/* =========================================================
+   SWEETALERT2 - ABOUT PAGE DARK MODE
+========================================================= */
+
+body.dark-mode .swal2-popup {
+    background: #111c2e !important;
+    color: #e9eef7 !important;
+    border: 1px solid #263752 !important;
+}
+
+body.dark-mode .swal2-title {
+    color: #ffffff !important;
+}
+
+body.dark-mode .swal2-html-container,
+body.dark-mode .swal2-content {
+    color: #cbd5e1 !important;
+}
+
+body.dark-mode .swal2-html-container p,
+body.dark-mode .swal2-html-container span,
+body.dark-mode .swal2-html-container div {
+    color: #cbd5e1 !important;
+}
+
+body.dark-mode .swal2-confirm {
+    background: #e10600 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .swal2-close {
+    color: #ffffff !important;
+}
+
+body.dark-mode .swal2-icon.swal2-info {
+    border-color: #e10600 !important;
+    color: #e10600 !important;
+}
+
+
+/* =========================================================
+   SWEETALERT2 - LIGHT MODE
+========================================================= */
+
+body.light-mode .swal2-popup {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+body.light-mode .swal2-title {
+    color: #111827 !important;
+}
+
+body.light-mode .swal2-html-container,
+body.light-mode .swal2-content {
+    color: #4b5563 !important;
+}
+
+body.light-mode .swal2-html-container p,
+body.light-mode .swal2-html-container span,
+body.light-mode .swal2-html-container div {
+    color: #4b5563 !important;
+}
+
+body.light-mode .swal2-confirm {
+    background: #e10600 !important;
+    color: #ffffff !important;
+
+
+
+
+
+
+
+/* =========================================================
+   PRIMETIME NEWS - ABOUT PAGE
+   LIGHT MODE HEADER + FOOTER
+   ========================================================= */
+
+body:not(.dark-mode) .hero {
+    background: #0B1423 !important;
+    color: #FFFFFF !important;
+}
+
+body:not(.dark-mode) .hero h1 {
+    color: #FFFFFF !important;
+}
+
+body:not(.dark-mode) .hero p {
+    color: #C5CEDB !important;
+}
+
+
+/* MAIN CONTENT */
+
+body:not(.dark-mode) .missionSection {
+    background: #F5F7FB !important;
+    color: #111827 !important;
+}
+
+body:not(.dark-mode) .missionTitle {
+    color: #111827 !important;
+}
+
+body:not(.dark-mode) .missionCard {
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    border: 1px solid #E2E8F0 !important;
+}
+
+body:not(.dark-mode) .missionCard h3 {
+    color: #111827 !important;
+}
+
+body:not(.dark-mode) .missionCard p {
+    color: #5B6678 !important;
+}
+
+
+/* TEAM */
+
+body:not(.dark-mode) .team {
+    background: #F5F7FB !important;
+    color: #111827 !important;
+}
+
+body:not(.dark-mode) .teamHeading h2 {
+    color: #111827 !important;
+}
+
+body:not(.dark-mode) .teamHeading p {
+    color: #5B6678 !important;
+}
+
+body:not(.dark-mode) .managerCard,
+body:not(.dark-mode) .teamCard {
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    border: 1px solid #E2E8F0 !important;
+}
+
+body:not(.dark-mode) .managerInfo h2,
+body:not(.dark-mode) .teamContent h3 {
+    color: #111827 !important;
+}
+
+body:not(.dark-mode) .managerInfo p {
+    color: #5B6678 !important;
+}
+
+body:not(.dark-mode) .teamContent h4 {
+    color: #E50914 !important;
+}
+
+
+/* FOOTER */
+
+body:not(.dark-mode) .quoteSection {
+    background: #0B1423 !important;
+    color: #FFFFFF !important;
+    border-top: 1px solid #24344D !important;
+}
+
+body:not(.dark-mode) .quoteSection h2 {
+    color: #FFFFFF !important;
+}
+
+body:not(.dark-mode) .quoteSection p {
+    color: #C5CEDB !important;
+}
+
+body:not(.dark-mode) .quoteLeft > i {
+    color: #E50914 !important;
+}
+
+
+
+
+   
+}
+
+body.light-mode .swal2-close {
+    color: #111827 !important;
+}
+
+
+
+
+
+
+.public-theme-toggle {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 50%;
+
+    background: #0B1423;
+    color: #FFFFFF;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        color .2s ease;
+}
+
+.public-theme-toggle:hover {
+    transform: scale(1.05);
+}
+
+.public-theme-toggle svg {
+    width: 20px;
+    height: 20px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+html.light-mode .public-theme-toggle {
+    background: #FFFFFF;
+    color: #0B1423;
+    border-color: #E2E8F0;
+}
+
+html.dark-mode .public-theme-toggle {
+    background: #121D31;
+    color: #FFFFFF;
+    border-color: #2B3A54;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===== PROFESSIONAL NEWSROOM LOADER ===== */
+#pageLoader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #020b1a 0%, #0a1a2f 100%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease;
+  padding: 20px;
+}
+
+.loader-glass-card {
+  background: rgba(10, 26, 47, 0.6);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(0, 140, 255, 0.2);
+  border-radius: 20px;
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(0, 140, 255, 0.2);
+}
+
+.loader-logo {
+  width: 120px;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 10px rgba(0, 140, 255, 0.5));
+}
+
+.loader-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #e0e7ff;
+  letter-spacing: 1px;
+  line-height: 1.3;
+  margin: 0;
+  text-shadow: 0 0 15px rgba(0, 140, 255, 0.3);
+}
+.loader-subtitle {
+  color: #94a3b8;
+  font-size: 14px;
+  margin: 10px 0 25px;
+}
+
+/* CIRCULAR LOADER */
+.circular-loader {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 30px;
+}
+.circular-loader svg {
+  width: 140px;
+  height: 140px;
+  transform: rotate(-90deg);
+}
+.circular-loader circle {
+  fill: none;
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+.circular-loader circle:nth-child(1) {
+  stroke: rgba(255,255,255,0.1);
+}
+.circular-loader circle:nth-child(2) {
+  stroke: #008cff;
+  stroke-dasharray: 408;
+  stroke-dashoffset: 408;
+  transition: stroke-dashoffset 0.5s ease;
+  filter: drop-shadow(0 0 8px #008cff);
+}
+.circular-text {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+.circular-text span { font-size: 32px; font-weight: 700; }
+.circular-text small { display: block; font-size: 12px; color: #94a3b8; letter-spacing: 1px; }
+
+/* STEPS */
+.loader-steps {
+  background: rgba(0,0,0,0.2);
+  border-radius: 12px;
+  padding: 15px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+.step-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.step-item:last-child { border: none; }
+.step-icon {
+  width: 30px; height: 30px;
+  background: rgba(0, 140, 255, 0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #008cff; font-size: 14px;
+}
+.step-item.done.step-icon { background: rgba(0, 255, 136, 0.2); color: #00ff88; }
+.step-item h4 { font-size: 14px; color: #e0e7ff; margin: 0; }
+.step-item p { font-size: 12px; color: #94a3b8; margin: 2px 0 0; }
+
+.loader-footer {
+  color: #94a3b8;
+  font-size: 12px;
+}
+.loader-footer i { color: #008cff; margin-bottom: 5px; }
+
+
+
+
+
+
+
+
+
+
+/* STEP ITEM DEFAULT - PUTI */
+.step-item {
+  color: #e0e0e0; /* light gray/white */
+  transition: all 0.4s ease;
+}
+
+.step-item h4,
+.step-item p {
+  color: #e0e0e0;
+  transition: all 0.4s ease;
+}
+
+.step-item .step-icon i {
+  color: #e0e0e0;
+  transition: all 0.4s ease;
+}
+
+
+/* PAG DONE NA - MAGIGING GREEN */
+.step-item.done {
+  color: #00ff88; /* Neon Green */
+}
+
+.step-item.done h4,
+.step-item.done p {
+  color: #00ff88; /* Neon Green */
+}
+
+.step-item.done .step-icon i {
+  color: #00ff88; /* Green na yung check icon */
+}
+
+/* OPTIONAL: GLOW EFFECT PARA MAS TV NETWORK */
+.step-item.done {
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+}
+
+
+
+
+
+
+
+
+/*PARA SA LATEST NEWS*/
+
+
+/* ===== 3. 2x2 GRID SA LOOB NG LATEST - LIIT VERSION ===== */
+.latest-left .news-grid{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+    margin-bottom: 30px !important;
+}
+
+/* CARD - DEFAULT = LIGHT MODE */
+.latest-left .news-grid .news-card, 
+.latest-left .news-grid .latest-card{
+    display: block !important;
+    text-decoration: none !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+    background: #fff !important;
+    border: 1px solid #eee !important;
+    transition: all 0.2s ease !important;
+}
+
+.latest-left .news-grid .news-card img, 
+.latest-left .news-grid .latest-card img{
+    width: 100% !important;
+    height: 160px !important; /* PINALIIT */
+    object-fit: cover !important;
+    display: block !important;
+}
+
+.latest-left .news-grid .news-card h3, 
+.latest-left .news-grid .latest-card h3{
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    color: #222 !important; /* ITIM */
+    margin: 0 !important;
+    font-weight: 600 !important;
+}
+
+/* ===== DARK MODE - PAG NAKA CLICK SA TOGGLE BUTTON ===== */
+body.dark-mode .latest-left .news-grid .news-card, 
+body.dark-mode .latest-left .news-grid .latest-card{
+    background: #111c2e !important;
+    border: 1px solid #2a2a2a !important;
+}
+
+body.dark-mode .latest-left .news-grid .news-card h3, 
+body.dark-mode .latest-left .news-grid .latest-card h3{
+    color: #f1f1f1 !important; /* PUTI */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===== FINAL DESKTOP LAYOUT - 350px MALAKING PICTURE ===== */
+@media screen and (min-width: 1024px){
+    
+    /* 1. 2 COLUMNS: LEFT 70%, RIGHT 30% */
+    .latest-wrapper{
+        display: grid !important;
+        grid-template-columns: 2fr 1fr !important;
+        gap: 24px !important;
+        align-items: start !important;
+    }
+
+    /* 2. STICKY YUNG MOST READ SA RIGHT */
+    .sidebar{
+        position: sticky !important;
+        top: 100px !important;
+        height: fit-content !important;
+    }
+
+    /* 3. 2x2 GRID SA LOOB NG LATEST */
+    .latest-left .news-grid{
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 20px !important;
+        margin-bottom: 40px !important;
+    }
+
+    /* 4. CATEGORIES = 1 COLUMN LANG PABABA */
+    .category-sliders{
+        display: block !important;
+    }
+    .category-sliders .widget{
+        margin-bottom: 30px !important;
+    }
+
+    /* 5. SLIDER MALAKI - 350px */
+    .category-sliders .local-news-slider{
+        overflow: hidden !important;
+        position: relative !important;
+        border-radius: 10px !important;
+        background: #000 !important;
+        height: 350px !important; /* 350 NA TO BOSS */
+    }
+
+    .category-sliders .local-track{
+        display: flex !important;
+        transition: transform 0.4s ease-in-out !important;
+        width: 100% !important;
+    }
+
+    .category-sliders .local-track .local-card{
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        display: block !important;
+        text-decoration: none !important;
+        position: relative !important;
+    }
+
+    .category-sliders .local-track img{
+        width: 100% !important;
+        height: 350px !important; /* PAREHAS SA BOX */
+        object-fit: cover !important;
+        display: block !important;
+    }
+
+    /* HEADLINE OVERLAY - BLACK FADE */
+    .category-sliders .local-track h4{
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        padding: 20px 16px !important;
+        margin: 0 !important;
+        font-size: 16px !important;
+        line-height: 1.4 !important;
+        color: #fff !important;
+        font-weight: 700 !important;
+        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%) !important; /* BLACK FADED */
+        height: auto !important;
+        max-height: 90px !important;
+        overflow: hidden !important;
+    }
+
+    /* 6. ARROW BUTTONS - GITNA NG IMAGE */
+    .category-sliders .local-prev, 
+    .category-sliders .local-next{
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        position: absolute !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        z-index: 5 !important;
+        background: rgba(0,0,0,.5) !important;
+        color: #fff !important;
+        border: none !important;
+        width: 34px !important;
+        height: 34px !important;
+        border-radius: 50% !important;
+        cursor: pointer !important;
+        font-size: 14px !important;
+        transition: background 0.3s !important;
+    }
+    .category-sliders .local-prev{ left: 12px !important; }
+    .category-sliders .local-next{ right: 12px !important; }
+
+    .category-sliders .local-prev:hover, 
+    .category-sliders .local-next:hover{
+        background: rgba(0,0,0,.85) !important;
+    }
+}
+
+/* MOBILE: STACK LAHAT */
+@media screen and (max-width: 1023px){
+    .latest-wrapper{ display: block !important; }
+    .sidebar{ position: static !important; margin-top: 30px !important; }
+    .latest-left .news-grid{ display: block !important; }
+}
+
+
+
+
+
+
+/* ===== CATEGORIES SLIDER - LIGHT MODE FIX ===== */
+.category-sliders .local-news-slider{
+    overflow: hidden !important;
+    position: relative !important;
+    border-radius: 10px !important;
+    background: #000 !important;
+    height: 350px !important;
+}
+
+.category-sliders .local-track .local-card{
+    position: relative !important;
+}
+
+/* IMAGE */
+.category-sliders .local-track img{
+    width: 100% !important;
+    height: 350px !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+/* HEADLINE - LIGHT MODE: ITIM NA TEXT + PUTING FADE */
+.category-sliders .local-track h4{
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    padding: 20px 16px !important;
+    margin: 0 !important;
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+    font-weight: 700 !important;
+     color: #fff !important; /* PUTING TEXT PARA SA DARK */
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%) !important; /* ITIM NA FADE */
+    max-height: 90px !important;
+    overflow: hidden !important;
+}
+
+/* ===== CATEGORIES SLIDER - DARK MODE ===== */
+body.dark-mode .category-sliders .local-track h4{
+    color: #fff !important; /* PUTING TEXT PARA SA DARK */
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%) !important; /* ITIM NA FADE */
+}
+
+/* ARROW BUTTONS LIGHT */
+.category-sliders .local-prev, 
+.category-sliders .local-next{
+    background: rgba(0,0,0,.6) !important;
+    color: #fff !important;
+}
+
+/* ARROW BUTTONS DARK */
+body.dark-mode .category-sliders .local-prev, 
+body.dark-mode .category-sliders .local-next{
+    background: rgba(255,255,255,.15) !important;
+    color: #fff !important;
+}
