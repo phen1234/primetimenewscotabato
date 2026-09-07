@@ -1136,6 +1136,14 @@ body.light-mode .featured-overlay small{
 @media (min-width: 1024px){
     
     /* 1. MOST READ TITLE */
+
+  .featured-overlay h3{
+    color: #fff !important; /* WHITE LAGI YUNG TITLE */
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    margin: 0 0 5px 0 !important;
+    line-height: 1.4 !important;
+}
     body.light-mode #mostRead::before{
         color: #111 !important; /* ITIM SA LIGHT MODE */
     }
