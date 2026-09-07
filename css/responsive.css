@@ -891,42 +891,44 @@ margin:0 0 10px;
 
 
     
-/* ========== FINAL: INDEX WIDGETS - 3 CARDS KITA SA DESKTOP ========== */
+/* ========== FINAL FIX - HINDI NA LALAMPAS SA DESKTOP ========== */
 @media screen and (min-width: 1024px){
 
-    /* 1. PALAKIHIN NATIN YUNG WIDGET TO 1140PX PARA KASYA 3 CARDS */
+    /* 1. WAG NA FIXED WIDTH. SAKTO LANG SA CONTAINER */
     .latest-grid > .widget{
-        max-width: 1140px !important; /* 1200 - 60px padding */
+        max-width: 100% !important;
         width: 100% !important;
-        margin: 30px auto !important;
+        margin: 30px 0 !important; /* WALA NG AUTO */
+        box-sizing: border-box !important;
     }
 
     .latest-grid > .widget .section-title{
-        max-width: 1140px !important;
+        max-width: 100% !important;
     }
 
-    /* 2. 3 CARDS PER ROW, WALANG SCROLL */
+    /* 2. GRID NA 3 COLUMNS - AUTO KASYA */
     .latest-grid > .widget .local-news-slider{
-        max-width: 1140px !important;
+        width: 100% !important;
         position: relative !important;
     }
 
     .latest-grid > .widget .local-track{
-        display: grid !important; /* GRID NA HINDI FLEX */
-        grid-template-columns: repeat(3, 1fr) !important; /* 3 COLUMNS */
+        display: grid !important; 
+        grid-template-columns: repeat(3, 1fr) !important; /* 3 KAPATID LANG */
         gap: 20px !important;
-        overflow: visible !important; /* WALA NG SCROLL */
+        overflow: visible !important;
+        width: 100% !important;
     }
 
-    /* 3. CARD - AUTO WIDTH NA KASI GRID */
+    /* 3. CARD - HINDI NA FIXED 352PX */
     .latest-grid > .widget .local-track .local-card,
     .latest-grid > .widget .local-track a{
         width: 100% !important;
         background: #fff !important;
         border-radius: 12px !important;
-        overflow: hidden !important; /* PARA DI LUMABAS PIC */
+        overflow: hidden !important;
         box-shadow: 0 3px 12px rgba(0,0,0,.08) !important;
-        text-decoration: none !important;
+        display: block !important;
     }
 
     .latest-grid > .widget .local-track .local-card img{
@@ -941,25 +943,22 @@ margin:0 0 10px;
         font-size: 15px !important;
         background: #fff !important;
         margin: 0 !important;
-        min-height: 70px !important; /* PARA PANTAY LAHAT */
+        min-height: 70px !important;
     }
 
-    /* 4. ITAGO YUNG ARROW KASI LAHAT NAMAN KITA */
+    /* 4. ITAGO ARROW */
     .latest-grid > .widget .local-prev, 
     .latest-grid > .widget .local-next{
         display: none !important;
     }
 }
 
-/* ========== MOBILE - SLIDER PA DIN ========== */
+/* ========== MOBILE ========== */
 @media screen and (max-width: 1023px){
-    .latest-grid > .widget{ max-width: 100% !important; }
     .latest-grid > .widget .local-track{ 
         display: flex !important; 
         gap: 12px !important;
         overflow-x: auto !important; 
     }
     .latest-grid > .widget .local-track .local-card{ flex: 0 0 280px !important; }
-    .latest-grid > .widget .local-prev, 
-    .latest-grid > .widget .local-next{ display: none !important; }
 }
