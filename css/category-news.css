@@ -1716,3 +1716,13 @@ body.light-mode #contentList .news-meta i {
     border-left: 3px solid #ef4444;
     background: #f9fafb;
 }
+
+
+
+body.light-mode .most-read-content h4{
+    color: #000;
+}
+
+body:not(.light-mode) .most-read-content h4{
+    color: #fff; /* PAG DARK MODE, WHITE */
+}
