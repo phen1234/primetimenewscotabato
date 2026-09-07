@@ -1891,3 +1891,62 @@ body.light-mode.filter-popup-body input[type="date"]{
     background: #f9fafb;
     color: #000;
 }
+
+
+
+
+
+
+
+
+
+
+/* ========== LATEST NEWS + FILTERS DESKTOP ONLY ========== */
+@media(min-width: 1024px){
+    .section-title{
+        display: flex;
+        align-items: center;
+        gap: 20px; /* DIKITIN NG KONTI */
+        justify-content: flex-start !important; /* WAG NA SPACE-BETWEEN */
+        margin-bottom: 15px;
+    }
+
+    .section-title h3{
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    .view-all-btn{
+        margin-left: 0 !important; /* TANGGAL YUNG AUTO MARGIN */
+        font-size: 12px;
+        padding: 6px 12px;
+        background: #374151;
+        border-radius: 6px;
+        text-decoration: none;
+        color: #9ca3af;
+        transition: 0.3s;
+        white-space: nowrap;
+    }
+    
+    .view-all-btn:hover{
+        background: #ff0000;
+        color: #fff;
+    }
+
+    /* PAG MAY FILTERS SA TABI */
+    .section-title .filters,
+    .section-title .category-filter{
+        margin-left: 10px; /* DIKIT LANG SA TITLE */
+    }
+}
+
+/* ========== MOBILE WAG GALAWIN ========== */
+@media(max-width: 1023px){
+    .section-title{
+        justify-content: space-between; /* BUMALIK SA DATI SA PHONE */
+    }
+}
