@@ -1030,42 +1030,7 @@ html.dark-mode .public-theme-toggle {
 
 
 
-/* 3. 2x2 GRID SA LOOB NG LATEST - PANTAY NA PICTURE */
-.latest-left .news-grid{
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 20px !important;
-    margin-bottom: 40px !important;
-}
 
-/* FORCE SAME SIZE SA LAHAT NG CARD */
-.latest-left .news-grid .news-card,
-.latest-left .news-grid .latest-card{
-    display: block !important;
-    text-decoration: none !important;
-    border-radius: 8px !important;
-    overflow: hidden !important;
-    background: #fff !important;
-}
-
-/* PANTAY NA IMAGE HEIGHT */
-.latest-left .news-grid .news-card img,
-.latest-left .news-grid .latest-card img{
-    width: 100% !important;
-    height: 200px !important; /* PARE-PAREHAS NA TO */
-    object-fit: cover !important; /* ICROP PARA DI MALAPAD */
-    display: block !important;
-}
-
-/* TITLE NG LATEST */
-.latest-left .news-grid .news-card h3,
-.latest-left .news-grid .latest-card h3{
-    padding: 12px !important;
-    font-size: 15px !important;
-    line-height: 1.4 !important;
-    color: #222 !important;
-    margin: 0 !important;
-}
 
 
 
