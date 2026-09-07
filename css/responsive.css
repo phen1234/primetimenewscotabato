@@ -891,57 +891,51 @@ margin:0 0 10px;
 
 
     
-/* ========== FINAL FIX - INDEX SLIDER 720PX DESKTOP ONLY ========== */
+/* ========== FIX PARA DI LUMABAS YUNG PICTURE ========== */
 @media screen and (min-width: 1024px){
 
-    /* TARGET LANG YUNG WIDGET NA MAY SLIDER */
     .latest-grid > .widget{
         max-width: 720px !important;
         width: 720px !important;
         margin: 30px auto !important;
     }
 
-    .latest-grid > .widget .section-title{
-        max-width: 720px !important;
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        margin-bottom: 15px !important;
-    }
-
-    .latest-grid > .widget .local-news-slider{
-        max-width: 720px !important;
-        position: relative !important;
-    }
-
-    /* GIBAIN YUNG GRID, GAWING FLEX */
     .latest-grid > .widget .local-track{
         display: flex !important;
         gap: 15px !important;
-        overflow-x: hidden !important;
+        overflow: hidden !important; /* ITO ANG IMPORTANTE */
     }
 
-    /* 2 CARDS LANG KITA = 352PX */
+    /* CARD WRAPPER */
     .latest-grid > .widget .local-track .local-card,
     .latest-grid > .widget .local-track a{
         flex: 0 0 352px !important;
-        min-width: 352px !important;
         background: #fff !important;
-        border-radius: 12px !important;
-        overflow: hidden !important;
+        border-radius: 12px !important; /* PARA MA-CURVE YUNG IMAGE */
+        overflow: hidden !important; /* ITO PARA HINDI LUMABAS YUNG PIC */
         box-shadow: 0 3px 12px rgba(0,0,0,.08) !important;
         text-decoration: none !important;
+        display: flex !important; /* PARA DI MAGIBA YUNG HEIGHT */
+        flex-direction: column !important;
     }
 
+    /* IMAGE */
     .latest-grid > .widget .local-track .local-card img{
         width: 100% !important;
         height: 200px !important;
         object-fit: cover !important;
+        display: block !important; /* PARA WALANG GAP SA ILALIM */
     }
     
+    /* TEXT AREA */
     .latest-grid > .widget .local-track .local-card h4{
-        padding: 12px 14px !important;
+        padding: 14px 16px !important;
         font-size: 15px !important;
+        line-height: 1.4 !important;
+        background: #fff !important; /* BIGYAN NG WHITE BG */
+        color: #222 !important;
+        flex: 1 !important;
+        margin: 0 !important;
     }
 
     /* ARROW */
@@ -955,31 +949,12 @@ margin:0 0 10px;
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background: rgba(0,0,0,.5);
+        background: rgba(0,0,0,.6);
         color: #fff;
         border: none;
+        cursor: pointer;
     }
+    .latest-grid > .widget{ position: relative !important; }
     .latest-grid > .widget .local-prev{ left: -20px !important; }
     .latest-grid > .widget .local-next{ right: -20px !important; }
-}
-
-/* ========== MOBILE - HAYAAN LANG ========== */
-@media screen and (max-width: 1023px){
-    .latest-grid > .widget{ max-width: 100% !important; }
-    .latest-grid > .widget .local-track{ overflow-x: auto !important; }
-    .latest-grid > .widget .local-track .local-card{ flex: 0 0 280px !important; }
-    .latest-grid > .widget .local-prev, 
-    .latest-grid > .widget .local-next{ display: none !important; }
-}
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    .footer-container {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr 1fr !important;
-        align-items: start !important;
-    }
-
 }
