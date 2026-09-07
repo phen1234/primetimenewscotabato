@@ -1131,3 +1131,57 @@ console.log(
 
 
 loadNews();
+
+
+
+
+
+
+const dateFilter = document.getElementById('dateFilter');
+const clearDate = document.getElementById('clearDate');
+let allNews = []; // STORE NATIN LAHAT NG NEWS
+
+// PAG LOAD NG NEWS
+async function loadAllNews(){
+    const q = query(collection(db, "news"), orderBy("createdAt", "desc"));
+    const snapshot = await getDocs(q);
+    allNews = [];
+    snapshot.forEach(doc => {
+        allNews.push({id: doc.id,...doc.data()});
+    });
+    renderNews(allNews); // SHOW LAHAT SA START
+}
+
+// FILTER BY DATE LANG
+function filterByDate(){
+    const selectedDate = dateFilter.value; // format: 2026-09-05
+
+    if(!selectedDate){
+        renderNews(allNews);
+        clearDate.classList.remove('show');
+        return;
+    }
+
+    clearDate.classList.add('show');
+
+    const filtered = allNews.filter(news => {
+        if(news.createdAt && news.createdAt.seconds){
+            const newsDate = new Date(news.createdAt.seconds * 1000);
+            const newsDateString = newsDate.toISOString().split('T')[0]; // 2026-09-05
+            return newsDateString === selectedDate;
+        }
+        return false;
+    });
+
+    renderNews(filtered);
+}
+
+// EVENT LISTENERS
+dateFilter.addEventListener('change', filterByDate);
+clearDate.addEventListener('click', () => {
+    dateFilter.value = '';
+    filterByDate();
+});
+
+// TAWAGIN SA START
+loadAllNews();
