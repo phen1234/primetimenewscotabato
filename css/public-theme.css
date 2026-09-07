@@ -1046,69 +1046,84 @@ html.dark-mode .public-theme-toggle {
 
 
 
-/* ===== FINAL NA PANTAY + 1 BY 1 SLIDER ===== */
+/* ===== PANTAY LAHAT NG CATEGORY - 2 COLUMNS ===== */
 @media screen and (min-width: 1024px){
+    
+    /* 1. GAWING 2 KOLUM LAHAT SA LOOB NG .latest-grid */
     .container.latest-grid{
         display: grid !important;
-        grid-template-columns: 1fr 1fr !important; /* PANTAY */
+        grid-template-columns: repeat(2, 1fr) !important; /* 50% 50% */
         gap: 20px !important;
+        align-items: start !important; /* PARA PANTAY YUNG TAAS */
     }
 
-    .latest-grid .widget .local-news-slider{
+    /* 2. LAHAT NG .widget MAGIGING 1 COLUMN LANG */
+    .latest-grid > .widget{
+        width: 100% !important;
+        grid-column: span 1 !important; /* WAG KUMAIN NG 2 COLUMNS */
+    }
+
+    /* 3. SLIDER */
+    .latest-grid .local-news-slider{
         width: 100% !important;
         overflow: hidden !important;
         position: relative !important;
+        border-radius: 12px !important;
     }
 
-    .latest-grid .widget .local-track{
+    .latest-grid .local-track{
         display: flex !important;
         transition: transform 0.4s ease !important;
     }
 
-    .latest-grid .widget .local-track > *{
-        flex: 0 0 100% !important; /* 1 CARD = 100% */
+    .latest-grid .local-track > *{
+        flex: 0 0 100% !important; /* 1 CARD = 100% NG BOX */
         width: 100% !important;
     }
 
-    .latest-grid .widget .local-track img{
+    .latest-grid .local-track img{
         width: 100% !important;
-        height: 260px !important;
+        height: 260px !important; /* PANTAY NA HEIGHT */
         object-fit: cover !important;
+        display: block !important;
     }
 
-    .latest-grid .widget .local-track h4{
+    .latest-grid .local-track h4{
         padding: 15px !important;
         background: #fff !important;
+        color: #000 !important;
         min-height: 70px !important;
         margin: 0 !important;
+        font-size: 15px !important;
     }
 
-    .latest-grid .widget .local-prev, 
-    .latest-grid .widget .local-next{
+    /* 4. ARROW */
+    .latest-grid .local-prev, 
+    .latest-grid .local-next{
         display: block !important;
         position: absolute !important;
-        top: 130px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
         z-index: 99 !important;
+        background: rgba(0,0,0,.6) !important;
+        color: #fff !important;
+        border: none !important;
+        width: 35px !important;
+        height: 35px !important;
+        border-radius: 50% !important;
+        cursor: pointer !important;
     }
-    .latest-grid .widget .local-prev{ left: 10px !important; }
-    .latest-grid .widget .local-next{ right: 10px !important; }
+    .latest-grid .local-prev{ left: 8px !important; }
+    .latest-grid .local-next{ right: 8px !important; }
 }
 
-
-
-
-
-
-
-
-
-
-
-@media screen and (min-width: 1024px){
-    .latest-grid{ display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 20px !important; }
-    .local-news-slider{ overflow: hidden !important; position: relative !important; }
-    .local-track{ display: flex !important; transition: transform 0.4s ease !important; }
-    .local-track img{ width: 100% !important; height: 260px !important; object-fit: cover !important; }
-    .local-track h4{ padding: 15px !important; background: #fff !important; min-height: 70px !important; margin: 0 !important; }
+/* MOBILE: 1 COLUMN LANG */
+@media screen and (max-width: 1023px){
+    .container.latest-grid{
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
 }
+
 
