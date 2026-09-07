@@ -1016,3 +1016,80 @@ html.dark-mode .public-theme-toggle {
   background: #00aaff;
   border-radius: 10px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===== FINAL NA PANTAY + 1 BY 1 SLIDER ===== */
+@media screen and (min-width: 1024px){
+    .container.latest-grid{
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important; /* PANTAY */
+        gap: 20px !important;
+    }
+
+    .latest-grid .widget .local-news-slider{
+        width: 100% !important;
+        overflow: hidden !important;
+        position: relative !important;
+    }
+
+    .latest-grid .widget .local-track{
+        display: flex !important;
+        transition: transform 0.4s ease !important;
+    }
+
+    .latest-grid .widget .local-track > *{
+        flex: 0 0 100% !important; /* 1 CARD = 100% */
+        width: 100% !important;
+    }
+
+    .latest-grid .widget .local-track img{
+        width: 100% !important;
+        height: 260px !important;
+        object-fit: cover !important;
+    }
+
+    .latest-grid .widget .local-track h4{
+        padding: 15px !important;
+        background: #fff !important;
+        min-height: 70px !important;
+        margin: 0 !important;
+    }
+
+    .latest-grid .widget .local-prev, 
+    .latest-grid .widget .local-next{
+        display: block !important;
+        position: absolute !important;
+        top: 130px !important;
+        z-index: 99 !important;
+    }
+    .latest-grid .widget .local-prev{ left: 10px !important; }
+    .latest-grid .widget .local-next{ right: 10px !important; }
+}
