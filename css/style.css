@@ -4170,7 +4170,7 @@ body.dark-mode .search-result-item:hover {
   padding:22px; 
   border-radius:18px; 
   box-shadow:0 10px 25px rgba(0,0,0,.15); 
-  height: 330px; 
+  height:550px; 
   overflow-y: auto; 
   overflow-x: hidden; 
   scroll-behavior: smooth; 
