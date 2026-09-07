@@ -1204,8 +1204,8 @@ body.dark-mode .latest-left .news-grid .latest-card h3{
     font-size: 16px !important;
     line-height: 1.4 !important;
     font-weight: 700 !important;
-    color: #222 !important; /* ITIM NA TEXT PARA SA LIGHT */
-    background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%) !important; /* PUTING FADE */
+     color: #fff !important; /* PUTING TEXT PARA SA DARK */
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%) !important; /* ITIM NA FADE */
     max-height: 90px !important;
     overflow: hidden !important;
 }
