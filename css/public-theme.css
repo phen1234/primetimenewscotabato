@@ -1043,45 +1043,48 @@ html.dark-mode .public-theme-toggle {
 
 
 
-/* ===== FINAL DESKTOP LAYOUT - 1 COLUMN LANG LAHAT ===== */
+/* ===== FINAL DESKTOP LAYOUT - CATEGORIES LEFT, MOST READ RIGHT ===== */
 @media screen and (min-width: 1024px){
     
-    /* 1. LATEST + MOST READ = 1 COLUMN STACK */
+    /* 1. 2 COLUMNS: LEFT 70%, RIGHT 30% */
     .latest-wrapper{
-        display: block !important; /* HINDI NA GRID */
-        margin-bottom: 30px !important;
+        display: grid !important;
+        grid-template-columns: 2fr 1fr !important;
+        gap: 24px !important;
+        align-items: start !important;
     }
 
-    /* 2. 2x2 GRID SA LOOB NG LATEST */
+    /* 2. STICKY YUNG MOST READ SA RIGHT */
+    .sidebar{
+        position: sticky !important;
+        top: 100px !important;
+        height: fit-content !important;
+    }
+
+    /* 3. 2x2 GRID SA LOOB NG LATEST */
     .latest-left .news-grid{
         display: grid !important;
-        grid-template-columns: 1fr 1fr !important; /* 2x2 pa din sa loob */
+        grid-template-columns: 1fr 1fr !important;
         gap: 20px !important;
-        margin-bottom: 30px !important;
+        margin-bottom: 40px !important;
     }
 
-    /* 3. MOST READ = FULL WIDTH SA ILALIM NG LATEST */
-    .sidebar{
-        width: 100% !important;
-        margin-top: 20px !important;
-    }
-
-    /* 4. CATEGORY SLIDERS = 1 COLUMN LANG */
+    /* 4. CATEGORIES = 1 COLUMN LANG PABABA */
     .category-sliders{
-        display: block !important; /* HINDI NA 2x2 GRID */
+        display: block !important;
     }
 
     .category-sliders .widget{
-        margin-bottom: 24px !important; /* PATAAS BABA LANG */
+        margin-bottom: 30px !important;
     }
 
-    /* 5. SLIDER 1 BY 1 - MALIIT VERSION */
+    /* 5. SLIDER 1 BY 1 - MALIIT */
     .category-sliders .local-news-slider{
         overflow: hidden !important;
         position: relative !important;
         border-radius: 8px !important;
         background: #000 !important;
-        height: 220px !important; /* BUONG BOX: 160 + 50 + 10 */
+        height: 220px !important; /* 160 img + 50 title + 10 */
     }
 
     .category-sliders .local-track{
@@ -1099,7 +1102,7 @@ html.dark-mode .public-theme-toggle {
 
     .category-sliders .local-track img{
         width: 100% !important;
-        height: 160px !important; /* LAKI NG PICTURE */
+        height: 160px !important;
         object-fit: cover !important;
         display: block !important;
     }
@@ -1108,7 +1111,7 @@ html.dark-mode .public-theme-toggle {
         padding: 10px 12px !important;
         background: #fff !important;
         color: #222 !important;
-        height: 50px !important; /* LAKI NG TITLE */
+        height: 50px !important;
         overflow: hidden !important;
         margin: 0 !important;
         font-size: 13px !important;
@@ -1122,7 +1125,7 @@ html.dark-mode .public-theme-toggle {
         align-items: center !important;
         justify-content: center !important;
         position: absolute !important;
-        top: 80px !important; /* GITNA NG IMAGE */
+        top: 80px !important; /* GITNA NG 160px IMG */
         z-index: 5 !important;
         background: rgba(0,0,0,.6) !important;
         color: #fff !important;
@@ -1144,7 +1147,14 @@ html.dark-mode .public-theme-toggle {
 
 /* MOBILE: STACK LAHAT */
 @media screen and (max-width: 1023px){
-    .latest-wrapper{ display: block !important; }
-    .category-sliders{ display: block !important; }
-    .latest-left .news-grid{ display: block !important; }
+    .latest-wrapper{
+        display: block !important;
+    }
+    .sidebar{
+        position: static !important;
+        margin-top: 30px !important;
+    }
+    .latest-left .news-grid{
+        display: block !important;
+    }
 }
