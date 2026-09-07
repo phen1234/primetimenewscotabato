@@ -1901,52 +1901,47 @@ body.light-mode.filter-popup-body input[type="date"]{
 
 
 
-/* ========== LATEST NEWS + FILTERS DESKTOP ONLY ========== */
+/* ========== SECTION TITLE + FILTER BTN DESKTOP ONLY ========== */
 @media(min-width: 1024px){
     .section-title{
-        display: flex;
-        align-items: center;
-        gap: 20px; /* DIKITIN NG KONTI */
-        justify-content: flex-start !important; /* WAG NA SPACE-BETWEEN */
-        margin-bottom: 15px;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important; /* DIKITIN, WAG SPACE-BETWEEN */
+        gap: 15px !important; /* 15px LANG PAGITAN */
+        margin-bottom: 16px;
     }
 
     .section-title h3{
-        font-size: 18px;
+        font-size: 18px !important;
+        margin: 0 !important;
         display: flex;
         align-items: center;
         gap: 8px;
-        margin: 0;
         white-space: nowrap;
     }
 
-    .view-all-btn{
-        margin-left: 0 !important; /* TANGGAL YUNG AUTO MARGIN */
-        font-size: 12px;
-        padding: 6px 12px;
-        background: #374151;
-        border-radius: 6px;
-        text-decoration: none;
-        color: #9ca3af;
+    .filter-btn{
+        margin-left: 0 !important; /* TANGGAL YUNG AUTO PUSH SA KAN */
+        font-size: 12px !important;
+        padding: 6px 12px !important;
+        background: #374151 !important;
+        color: #9ca3af !important;
+        border: none !important;
+        border-radius: 6px !important;
+        cursor: pointer;
         transition: 0.3s;
         white-space: nowrap;
     }
-    
-    .view-all-btn:hover{
-        background: #ff0000;
-        color: #fff;
-    }
 
-    /* PAG MAY FILTERS SA TABI */
-    .section-title .filters,
-    .section-title .category-filter{
-        margin-left: 10px; /* DIKIT LANG SA TITLE */
+    .filter-btn:hover{
+        background: #ff0000 !important;
+        color: #fff !important;
     }
 }
 
-/* ========== MOBILE WAG GALAWIN ========== */
+/* ========== MOBILE - BUMALIK SA DATI ========== */
 @media(max-width: 1023px){
     .section-title{
-        justify-content: space-between; /* BUMALIK SA DATI SA PHONE */
+        justify-content: space-between !important; /* MAGKABILANG DULO ULIT SA PHONE */
     }
 }
