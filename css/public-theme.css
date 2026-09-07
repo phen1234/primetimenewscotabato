@@ -1043,31 +1043,39 @@ html.dark-mode .public-theme-toggle {
 
 
 
-/* ===== FINAL DESKTOP LAYOUT - FIXED & SMALL SLIDER ===== */
+/* ===== FINAL DESKTOP LAYOUT - 1 COLUMN LANG LAHAT ===== */
 @media screen and (min-width: 1024px){
     
-    /* 1. LATEST + MOST READ = 2 COLUMNS */
+    /* 1. LATEST + MOST READ = 1 COLUMN STACK */
     .latest-wrapper{
-        display: grid !important;
-        grid-template-columns: 2fr !important; /* 70% 30% */
-        margin-bottom: 20px !important;
+        display: block !important; /* HINDI NA GRID */
+        margin-bottom: 30px !important;
     }
 
     /* 2. 2x2 GRID SA LOOB NG LATEST */
     .latest-left .news-grid{
         display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
+        grid-template-columns: 1fr 1fr !important; /* 2x2 pa din sa loob */
         gap: 20px !important;
+        margin-bottom: 30px !important;
     }
 
-    /* 3. CATEGORY SLIDERS = 2x2 BUONG LAPAD */
+    /* 3. MOST READ = FULL WIDTH SA ILALIM NG LATEST */
+    .sidebar{
+        width: 100% !important;
+        margin-top: 20px !important;
+    }
+
+    /* 4. CATEGORY SLIDERS = 1 COLUMN LANG */
     .category-sliders{
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 24px !important;
+        display: block !important; /* HINDI NA 2x2 GRID */
     }
 
-    /* 4. SLIDER 1 BY 1 - MALIIT VERSION */
+    .category-sliders .widget{
+        margin-bottom: 24px !important; /* PATAAS BABA LANG */
+    }
+
+    /* 5. SLIDER 1 BY 1 - MALIIT VERSION */
     .category-sliders .local-news-slider{
         overflow: hidden !important;
         position: relative !important;
@@ -1107,7 +1115,7 @@ html.dark-mode .public-theme-toggle {
         line-height: 1.4 !important;
     }
 
-    /* 5. ARROW BUTTONS - MALIIT */
+    /* 6. ARROW BUTTONS - MALIIT */
     .category-sliders .local-prev, 
     .category-sliders .local-next{
         display: flex !important;
@@ -1136,13 +1144,7 @@ html.dark-mode .public-theme-toggle {
 
 /* MOBILE: STACK LAHAT */
 @media screen and (max-width: 1023px){
-    .latest-wrapper{
-        display: block !important;
-    }
-    .category-sliders{
-        display: block !important;
-    }
-    .latest-left .news-grid{
-        display: block !important;
-    }
+    .latest-wrapper{ display: block !important; }
+    .category-sliders{ display: block !important; }
+    .latest-left .news-grid{ display: block !important; }
 }
