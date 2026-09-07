@@ -4739,7 +4739,7 @@ body .news-grid .news-time{
     
 /* ================= CATEGORY SLIDER - NARROW STYLE ================= */ 
 .widget.local-news-widget{ 
-  margin-top: 10px; /* NILITAN FROM 20px */
+  margin-top: 12spx; /* NILITAN FROM 20px */
   background: #111827; /* DARK BLUE BLACK PARANG SA PIC */
   padding: 0; /* TINANGGAL YUNG MALUWAG NA PADDING */
   border-radius: 0; 
