@@ -111,10 +111,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-@media screen and (min-width: 1024px){
-    .latest-grid{ display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 20px !important; }
-    .local-news-slider{ overflow: hidden !important; position: relative !important; }
-    .local-track{ display: flex !important; transition: transform 0.4s ease !important; }
-    .local-track img{ width: 100% !important; height: 260px !important; object-fit: cover !important; }
-    .local-track h4{ padding: 15px !important; background: #fff !important; min-height: 70px !important; margin: 0 !important; }
-}
