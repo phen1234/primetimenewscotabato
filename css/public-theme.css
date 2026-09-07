@@ -981,120 +981,45 @@ html.dark-mode .public-theme-toggle {
 /*PARA SA LATEST NEWS*/
 
 
-/* VIDEO MODAL CONTENT - PARA SCROLLABLE */
-.video-modal-content {
-  max-height: 90vh; /* 90% lang ng screen height */
-  display: flex;
-  flex-direction: column;
+/* 3. 2x2 GRID SA LOOB NG LATEST - PANTAY NA PICTURE */
+.latest-left .news-grid{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+    margin-bottom: 40px !important;
 }
 
-/* YUNG DETAILS LANG ANG I-SCROLL */
-.video-details {
-  flex: 1; /* Kukunin lahat ng natirang space */
-  overflow-y: auto; /* DITO MAGSCSCROLL */
-  padding-right: 8px; /* Para di dumikit sa scrollbar */
-  margin-top: 10px;
+/* FORCE SAME SIZE SA LAHAT NG CARD */
+.latest-left .news-grid .news-card,
+.latest-left .news-grid .latest-card{
+    display: block !important;
+    text-decoration: none !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    background: #fff !important;
 }
 
-/* TANGGALIN YUNG FADE AT SEE MORE BUTTON */
-#videoDescription {
-  max-height: none !important; /* Tanggalin yung limit */
-  overflow: visible !important;
-}
-#videoDescription::after {
-  display: none !important; /* Tanggalin yung fade */
-}
-.see-more-btn {
-  display: none !important; /* Tanggalin yung button */
+/* PANTAY NA IMAGE HEIGHT */
+.latest-left .news-grid .news-card img,
+.latest-left .news-grid .latest-card img{
+    width: 100% !important;
+    height: 200px !important; /* PARE-PAREHAS NA TO */
+    object-fit: cover !important; /* ICROP PARA DI MALAPAD */
+    display: block !important;
 }
 
-/* CUSTOM SCROLLBAR PARA MAGANDA TIGNAN SA MOBILE */
-.video-details::-webkit-scrollbar {
-  width: 6px;
-}
-.video-details::-webkit-scrollbar-track {
-  background: #1a2a42;
-  border-radius: 10px;
-}
-.video-details::-webkit-scrollbar-thumb {
-  background: #00aaff;
-  border-radius: 10px;
+/* TITLE NG LATEST */
+.latest-left .news-grid .news-card h3,
+.latest-left .news-grid .latest-card h3{
+    padding: 12px !important;
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+    color: #222 !important;
+    margin: 0 !important;
 }
 
-/* ===== DARKMODE SUPPORT ===== */
-@media (prefers-color-scheme: dark){
-    
-    /* BODY AT BACKGROUND */
-    body{
-        background: #0f0f0f !important;
-        color: #e0e0e0 !important;
-    }
-    
-    .container{
-        background: transparent !important;
-    }
 
-    /* LATEST CARDS */
-    .latest-left .news-grid .news-card,
-    .latest-left .news-grid .latest-card{
-        background: #1a1a1a !important;
-    }
-    
-    .latest-left .news-grid .news-card h3,
-    .latest-left .news-grid .latest-card h3{
-        color: #f1f1f1 !important;
-    }
 
-    /* SIDEBAR MOST READ */
-    .sidebar .widget{
-        background: #1a1a1a !important;
-        border: 1px solid #2a2a2a !important;
-        border-radius: 8px !important;
-        padding: 15px !important;
-    }
-    
-    .sidebar .widget h3{
-        color: #fff !important;
-    }
-    
-    .sidebar .widget ol li{
-        color: #ccc !important;
-        border-bottom: 1px solid #2a2a2a !important;
-    }
-
-    /* CATEGORY SLIDER */
-    .category-sliders .local-news-slider{
-        background: #000 !important;
-    }
-    
-    /* HEADLINE OVERLAY SA DARKMODE - MAS MAKAPAL NA ITIM */
-    .category-sliders .local-track h4{
-        background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%) !important;
-        color: #fff !important;
-    }
-
-    /* ARROW BUTTONS */
-    .category-sliders .local-prev, 
-    .category-sliders .local-next{
-        background: rgba(255,255,255,.15) !important;
-        color: #fff !important;
-    }
-    
-    .category-sliders .local-prev:hover, 
-    .category-sliders .local-next:hover{
-        background: rgba(255,255,255,.25) !important;
-    }
-
-    /* SECTION TITLE */
-    .section-title h2,
-    .section-title h3{
-        color: #fff !important;
-    }
-    
-    .view-all-btn{
-        color: #4da3ff !important;
-    }
-}
 
 
 
