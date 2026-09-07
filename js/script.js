@@ -252,75 +252,105 @@ onAuthStateChanged(auth, (user) => {
 
 
 
-const DEFAULT_IMAGE = "https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png"; 
+const DEFAULT_IMAGE = "https://res.cloudinary.com/ufx7karu/image/upload/v1787537790/primetime-news/n4eboj0okjvljwwrqloc.png";
 
 // ===== LOAD ALL CATEGORY SLIDERS - 1 BY 1 PANTAY =====
-async function loadCategorySliders() { 
+async function loadCategorySliders() {
     const widgets = document.querySelectorAll(".widget[data-category]");
-
-    widgets.forEach(async (widget) => { 
+    
+    widgets.forEach(async (widget) => {
         const category = widget.dataset.category;
         const track = widget.querySelector(".local-track");
         if(!track || !category) return;
-
+        
         try {
-            const q = query( collection(db, "news"), where("category", "==", category), where("status", "==", "published"), limit(8) );
+            const q = query(
+                collection(db, "news"),
+                where("category", "==", category),
+                where("status", "==", "published"),
+                limit(8)
+            );
+            
             const snapshot = await getDocs(q);
-
             track.innerHTML = "";
+            
             if(snapshot.empty){
                 track.innerHTML = `<div style='display:flex; align-items:center; justify-content:center; height:200px; color:#888;'>No ${category} yet</div>`;
-                widget.querySelector(".local-prev").style.display = "none";
-                widget.querySelector(".local-next").style.display = "none";
+                if(widget.querySelector(".local-prev")) widget.querySelector(".local-prev").style.display = "none";
+                if(widget.querySelector(".local-next")) widget.querySelector(".local-next").style.display = "none";
                 return;
             }
-
+            
             let newsArray = [];
             snapshot.forEach(docSnap => newsArray.push({id: docSnap.id, ...docSnap.data()}));
+            
             newsArray.sort((a,b) => (b.publishedAt?.seconds || b.createdAt?.seconds) - (a.publishedAt?.seconds || a.createdAt?.seconds));
-
+            
             newsArray.forEach(news => {
                 const image = news.featuredImage || DEFAULT_IMAGE;
                 const headline = news.headline || news.title || category;
                 track.innerHTML += `
-                <a href="article.html?id=${news.id}" class="local-card">
-                    <img src="${image}" alt="${headline}" onerror="this.src='${DEFAULT_IMAGE}'">
-                    <h4>${headline}</h4>
-                </a>
+                    <a href="article.html?id=${news.id}" class="local-card">
+                        <img src="${image}" alt="${headline}" onerror="this.src='${DEFAULT_IMAGE}'">
+                        <h4>${headline}</h4>
+                    </a>
                 `;
             });
-
-            // ===== SLIDER - 1 BY 1 LANG =====
+            
+            // ===== SLIDER - AUTO + MANUAL 1 BY 1 =====
             const cards = track.querySelectorAll(".local-card");
             const prev = widget.querySelector(".local-prev");
             const next = widget.querySelector(".local-next");
-            
             let currentSlide = 0;
+            let autoSlideTimer;
             
-            // 1 CARD = 100% KAYA BUO
+            // GAWING 100% BAWAT CARD
             cards.forEach(card => {
                 card.style.flex = `0 0 100%`;
             });
-
+            
             function showSlide(n) {
                 const maxSlide = cards.length - 1;
-                if(n > maxSlide) n = 0; // LOOP BACK
-                if(n < 0) n = maxSlide; // LOOP BACK
+                if(n > maxSlide) n = 0; // LOOP BACK SA UNA
+                if(n < 0) n = maxSlide; // LOOP BACK SA HULI
                 currentSlide = n;
                 track.style.transform = `translateX(-${currentSlide * 100}%)`;
             }
-
-            // MANUAL CLICK
-            next.onclick = () => { showSlide(currentSlide + 1); };
-            prev.onclick = () => { showSlide(currentSlide - 1); };
             
-            showSlide(0); // START
-
+            function startAuto(){
+                autoSlideTimer = setInterval(() => {
+                    showSlide(currentSlide + 1); // RIGHT TO LEFT
+                }, 4000); // 4 SECONDS
+            }
+            
+            function resetAuto(){
+                clearInterval(autoSlideTimer);
+                startAuto();
+            }
+            
+            // MANUAL CLICK
+            if(next) next.onclick = () => { 
+                showSlide(currentSlide + 1); 
+                resetAuto(); // RESET TIMER PAG NAG CLICK
+            };
+            
+            if(prev) prev.onclick = () => { 
+                showSlide(currentSlide - 1); 
+                resetAuto(); // RESET TIMER PAG NAG CLICK
+            };
+            
+            // PAUSE PAG HOVER
+            widget.addEventListener('mouseenter', () => clearInterval(autoSlideTimer));
+            widget.addEventListener('mouseleave', () => startAuto());
+            
+            showSlide(0); // START SA UNA
+            startAuto(); // START AUTO
+            
         } catch(err){
             console.error(`${category} Error:`, err);
             track.innerHTML = `<div style='color:red; text-align:center; padding:20px;'>Error</div>`;
-        } 
-    }); 
-} 
+        }
+    });
+}
 
 document.addEventListener("DOMContentLoaded", loadCategorySliders);
