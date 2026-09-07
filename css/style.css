@@ -4678,59 +4678,103 @@ body .news-grid .news-time{
 
 
 
-/* ================= LOCAL NEWS WIDGET DESKTOP COMPACT ================= */
+/* ================= LOCAL NEWS HORIZONTAL SLIDER FIX ================= */
 .local-news-widget{
-    background: #1f2937;
-    border-radius: 12px;
     padding: 14px;
+    margin-bottom: 20px;
 }
 
 .local-news-slider{
-    height:106px !important; /* 4 NEWS X 106px = 424px */
-    overflow: hidden;
     position: relative;
+    overflow: hidden;
 }
 
-.local-news-item{
-    display: flex !important;
-    gap: 10px !important;
-    padding: 10px !important;
-    background: #374151 !important;
-    border-radius: 8px !important;
-    margin-bottom: 8px !important;
-    cursor: pointer !important;
-    transition: all 0.3s !important;
-    height: 98px !important; /* BINABAAN NATIN FROM 118px */
+.local-track{
+    display: flex;
+    gap: 12px; /* BINABAAN FROM 16px */
+    transition: transform 0.4s ease;
 }
 
-.local-news-item:hover{
-    background: #4b5563 !important;
-    transform: translateX(4px) !important;
+.local-card{
+    flex: 0 0 220px !important; /* DATING 300px+ KAYA MALAKI. GAWIN NATING 220px LANG */
+    background: #1f2937;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s;
 }
 
-.local-news-item img{
-    width: 85px !important; /* PINALIIT NG KONTI */
-    height: 78px !important;
-    object-fit: cover !important;
-    border-radius: 6px !important;
-    flex-shrink: 0 !important;
+.local-card:hover{
+    transform: translateY(-3px);
 }
 
-.local-news-info .badge{
+.local-card img{
+    width: 100%;
+    height: 130px !important; /* DATING 180px+. GAWIN NATING 130px LANG */
+    object-fit: cover;
+}
+
+.local-card h4{
+    font-size: 13px !important; /* DATING 15px+. GAWIN NATING 13px */
+    color: #fff;
+    padding: 10px;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+}
+
+.local-card .badge{
     font-size: 9px !important;
-    padding: 2px 6px !important;
+    padding: 3px 6px;
+    margin: 8px 0 0 10px;
+    display: inline-block;
 }
 
-.local-news-info h4{
-    font-size: 13px !important; /* PINALIIT FONT */
-    margin: 4px 0 !important;
-    line-height: 1.2 !important;
+/* PREV NEXT BUTTONS */
+.local-prev, .local-next{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+    font-size: 14px;
+}
+.local-prev{ left: 5px; }
+.local-next{ right: 5px; }
+
+/* LIGHT MODE */
+body.light-mode.local-card{
+    background: #f3f4f6;
+}
+body.light-mode.local-card h4{
+    color: #000;
 }
 
-.local-news-info small{
-    font-size: 10px !important;
+/* DESKTOP: 4-5 CARDS KITA */
+@media(min-width: 1024px){
+    .local-card{
+        flex: 0 0 200px !important; /* MAS MALIIT PA SA DESKTOP */
+    }
+    .local-card img{
+        height: 120px !important;
+    }
 }
 
+/* MOBILE */
+@media(max-width: 768px){
+    .local-card{
+        flex: 0 0 160px !important;
+    }
+}
 
 
 
