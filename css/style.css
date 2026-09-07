@@ -1880,6 +1880,8 @@ LATEST VIDEO SIDEBAR
 
 .hero-right{ 
   background:#0f172a; 
+  flex: 1;
+  max-width: 400px;
   padding:22px; 
   border-radius:18px; 
   box-shadow:0 10px 25px rgba(0,0,0,.15); 
@@ -1911,6 +1913,7 @@ LATEST VIDEO SIDEBAR
 
 #heroVideos{ 
   display:flex; 
+  height: 504px;
   flex-direction:column; 
   gap:14px; 
 } 
@@ -2206,10 +2209,11 @@ VIDEO DETAILS
 
 .videos-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+    border-left: 3px solid #ff0000;
+    padding-left: 10px; 
 }
 
 .videos-header .sidebar-title {
