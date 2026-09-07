@@ -1899,17 +1899,15 @@ body.light-mode.filter-popup-body input[type="date"]{
 
 
 
-
-/* ========== SECTION HEADER DESKTOP BALANCED ========== */
+/* ========== SECTION HEADER ALIGNED SA CONTENT ========== */
 @media screen and (min-width: 1024px){
     .search-section .section-header{
         display: flex !important;
         align-items: center !important;
-        justify-content: space-between !important; /* KABILAAN PA DIN */
-        gap: 40px !important; /* DAGDAG SPACE SA GITNA */
-        max-width: 900px !important; /* LIMIT LANG, WAG BUONG SCREEN */
+        justify-content: space-between !important;
+        max-width: 1200px !important; /* SAME WIDTH SA .container */
         margin: 0 auto 20px auto !important; /* CENTER */
-        padding: 0 20px !important;
+        padding: 0 15px !important; /* SAME PADDING SA .container */
     }
 
     .search-section .section-header h3{
@@ -1918,7 +1916,6 @@ body.light-mode.filter-popup-body input[type="date"]{
         display: flex;
         align-items: center;
         gap: 8px;
-        white-space: nowrap;
     }
 
     .search-section .section-header .filter-btn{
@@ -1930,20 +1927,18 @@ body.light-mode.filter-popup-body input[type="date"]{
         border-radius: 6px !important;
         cursor: pointer;
         transition: 0.3s;
-        white-space: nowrap;
-        flex-shrink: 0 !important;
     }
-
+    
     .search-section .section-header .filter-btn:hover{
         background: #ff0000 !important;
         color: #fff !important;
     }
 }
 
-/* ========== MOBILE WAG GALAWIN ========== */
+/* ========== MOBILE ========== */
 @media screen and (max-width: 1023px){
     .search-section .section-header{
         justify-content: space-between !important;
-        max-width: 100% !important;
+        padding: 0 15px !important;
     }
 }
