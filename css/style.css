@@ -1930,7 +1930,7 @@ LATEST VIDEO SIDEBAR
   transition: opacity .8s ease, transform .8s ease, background .3s ease; 
   flex-shrink: 0; 
   height: 114px;
-  margin-bottom: 12px;
+  margin-bottom:9px;
 } 
 
 .show-video{ 
