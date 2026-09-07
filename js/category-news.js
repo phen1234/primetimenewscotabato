@@ -430,6 +430,40 @@ document.querySelectorAll('.local-news-slider').forEach(box => {
 
 
 
+
+// AUTO SCROLL SA CATEGORIES SLIDER - RIGHT TO LEFT
+document.addEventListener('DOMContentLoaded', () => {
+    const sliders = document.querySelectorAll('.category-sliders .local-news-slider');
+    
+    sliders.forEach(slider => {
+        const track = slider.querySelector('.local-track');
+        const cards = track.querySelectorAll('.local-card');
+        if(cards.length <= 1) return;
+        
+        let currentIndex = 0;
+        
+        function slideNext(){
+            currentIndex++;
+            if(currentIndex >= cards.length){
+                currentIndex = 0; // LOOP BACK SA UNA
+            }
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+        
+        // AUTO SCROLL EVERY 4 SECONDS
+        let autoSlide = setInterval(slideNext, 4000);
+        
+        // PAUSE PAG HOVER
+        slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
+        slider.addEventListener('mouseleave', () => {
+            autoSlide = setInterval(slideNext, 4000);
+        });
+    });
+});
+
+
+
+
 // =============================== // START // ===============================
 console.log( "🔥 CATEGORY-NEWS.JS LOADED" );
 console.log( "📂 PAGE:", page );
