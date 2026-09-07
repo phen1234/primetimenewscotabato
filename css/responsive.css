@@ -882,37 +882,107 @@ margin:0 0 10px;
     }
 
 
-    /* =========================
-       CATEGORY NEWS
-    ========================= */
 
-    .local-news-widget .local-track,
-    .widget .local-track {
-        display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        gap: 20px !important;
-        overflow: visible !important;
-        width: 100% !important;
+
+
+
+
+
+
+
+    
+
+  /* ========================= CATEGORY PAGE LANG - GRID 3 COLS ========================= */
+body.category-page .local-news-widget .local-track, 
+body.category-page .widget .local-track {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* 3 COLS SA CATEGORY */
+    gap: 20px !important;
+    overflow: visible !important;
+    width: 100% !important;
+}
+
+body.category-page .local-news-widget .news-card, 
+body.category-page .widget .news-card {
+    min-width: 0 !important;
+    width: 100% !important;
+}
+
+body.category-page .local-news-widget .news-card img, 
+body.category-page .widget .news-card img {
+    width: 100% !important;
+    height: 200px !important;
+    object-fit: cover !important;
+}
+
+body.category-page .local-prev, 
+body.category-page .local-next { 
+    display: none !important; /* ITAGO ARROW SA CATEGORY */
+}
+
+/* ========================= INDEX PAGE LANG - HORIZONTAL SLIDER 720PX ========================= */
+@media screen and (min-width: 1024px){
+    body.index-page .widget{
+        max-width: 720px !important;
+        margin: 30px auto !important;
     }
 
-    .local-news-widget .news-card,
-    .widget .news-card {
-        min-width: 0 !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
+    body.index-page .widget .local-track{
+        display: flex !important; /* FLEX HINDI GRID */
+        gap: 15px !important;
+        overflow-x: hidden !important;
     }
 
-    .local-news-widget .news-card img,
-    .widget .news-card img {
-        width: 100% !important;
-        object-fit: cover !important;
+    body.index-page .widget .local-track .local-card{
+        flex: 0 0 352px !important; /* 2 CARDS KITA */
     }
 
-    .local-prev,
-    .local-next {
-        display: none !important;
+    body.index-page .widget .local-track .local-card img{
+        height: 200px !important;
     }
 
+    body.index-page .local-prev, 
+    body.index-page .local-next { 
+        display: block !important; /* PAKITA ARROW SA INDEX */
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(0,0,0,.5);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        z-index: 10;
+    }
+    body.index-page .local-prev{ left: -20px; }
+    body.index-page .local-next{ right: -20px; }
+}
+
+/* ========================= MOBILE - LAHAT SLIDER PA DIN ========================= */
+@media screen and (max-width: 1023px){
+    .local-track{
+        display: flex !important;
+        gap: 12px !important;
+        overflow-x: auto !important;
+    }
+    .local-track .local-card{
+        flex: 0 0 280px !important;
+    }
+    .local-prev, .local-next { 
+        display: none !important; 
+    }
+}
+
+
+
+
+
+
+
+
+    
 
     /* =========================
        FOOTER
