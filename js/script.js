@@ -256,107 +256,125 @@ const DEFAULT_IMAGE = "https://res.cloudinary.com/ufx7karu/image/upload/v1787537
 
 // ========================= LOAD ALL CATEGORY SLIDERS WITH AUTO SLIDE =========================
 async function loadCategorySliders() {
-  const widgets = document.querySelectorAll(".widget[data-category]");
+    const widgets = document.querySelectorAll(".widget[data-category]");
+    
+    widgets.forEach(async (widget) => {
+        const category = widget.dataset.category;
+        const track = widget.querySelector(".local-track");
+        if(!track || !category) return;
 
-  widgets.forEach(async (widget) => {
-    const category = widget.dataset.category;
-    const track = widget.querySelector(".local-track");
-    if(!track || !category) return;
+        try {
+            const q = query(
+                collection(db, "news"),
+                where("category", "==", category),
+                where("status", "==", "published"),
+                limit(8)
+            );
+            const snapshot = await getDocs(q);
+            track.innerHTML = "";
 
-    try {
-      const q = query(
-        collection(db, "news"),
-        where("category", "==", category),
-        where("status", "==", "published"),
-        limit(8)
-      );
-      const snapshot = await getDocs(q);
+            if(snapshot.empty){
+                track.innerHTML = `<div style='display:flex; align-items:center; justify-content:center; height:200px; color:#888;'>No ${category} yet</div>`;
+                widget.querySelector(".local-prev").style.display = "none";
+                widget.querySelector(".local-next").style.display = "none";
+                return;
+            }
 
-      track.innerHTML = ""; 
+            let newsArray = [];
+            snapshot.forEach(docSnap => newsArray.push({id: docSnap.id, ...docSnap.data()}));
+            newsArray.sort((a,b) => b.createdAt?.seconds - a.createdAt?.seconds);
 
-      if(snapshot.empty){
-        track.innerHTML = `<div style='display:flex; align-items:center; justify-content:center; height:200px; color:#888;'>No ${category} yet</div>`;
-        widget.querySelector(".local-prev").style.display = "none";
-        widget.querySelector(".local-next").style.display = "none";
-        return;
-      }
+            newsArray.forEach(news => {
+                const image = news.featuredImage || DEFAULT_IMAGE;
+                const headline = news.headline || news.title || category;
+                track.innerHTML += `
+                    <a href="article.html?id=${news.id}" class="local-card">
+                        <img src="${image}" alt="${headline}" onerror="this.src='${DEFAULT_IMAGE}'">
+                        <h4>${headline}</h4>
+                    </a>
+                `;
+            });
 
-      let newsArray = [];
-      snapshot.forEach(docSnap => newsArray.push({id: docSnap.id, ...docSnap.data()}));
-      newsArray.sort((a,b) => b.createdAt?.seconds - a.createdAt?.seconds);
+            // SLIDER + AUTO SLIDE
+            const cards = track.querySelectorAll(".local-card");
+            const prev = widget.querySelector(".local-prev");
+            const next = widget.querySelector(".local-next");
+            const slider = widget.querySelector(".local-news-slider");
+            let currentSlide = 0;
+            let autoSlideInterval;
 
-      newsArray.forEach(news => {
-        const image = news.featuredImage || DEFAULT_IMAGE;
-        const headline = news.headline || news.title || category;
-        track.innerHTML += `
-          <a href="article.html?id=${news.id}" class="local-card">
-            <img src="${image}" alt="${headline}" onerror="this.src='${DEFAULT_IMAGE}'">
-            <h4>${headline}</h4>
-          </a>
-        `;
-      });
+            const isDesktop = window.innerWidth >= 1024;
+            const cardsPerView = isDesktop ? 4 : 1; // 4 KITA SA DESKTOP, 1 LANG SA MOBILE
+            const cardWidthPercent = 100 / cardsPerView;
 
-      // SLIDER + AUTO SLIDE
-      const cards = track.querySelectorAll(".local-card");
-      const prev = widget.querySelector(".local-prev");
-      const next = widget.querySelector(".local-next");
-      const slider = widget.querySelector(".local-news-slider");
-      let currentSlide = 0;
-      let autoSlideInterval;
+            // SET WIDTH NG BAWAT CARD VIA JS
+            cards.forEach(card => {
+                card.style.flex = `0 0 ${cardWidthPercent}%`;
+            });
 
-      if(cards.length > 1){
-        // DOTS
-        let dotsHTML = '<div class="local-dots">';
-        cards.forEach((_, i) => dotsHTML += `<span class="local-dot ${i === 0? 'active' : ''}" data-index="${i}"></span>`);
-        dotsHTML += '</div>';
-        slider.insertAdjacentHTML('afterend', dotsHTML);
-        const dots = widget.querySelectorAll(".local-dot");
+            if(cards.length > cardsPerView){
+                // DOTS
+                let dotsHTML = '<div class="local-dots">';
+                for(let i = 0; i <= cards.length - cardsPerView; i++){
+                    dotsHTML += `<span class="local-dot ${i === 0? 'active' : ''}" data-index="${i}"></span>`;
+                }
+                dotsHTML += '</div>';
+                slider.insertAdjacentHTML('afterend', dotsHTML);
+                const dots = widget.querySelectorAll(".local-dot");
 
-        function showSlide(n) {
-          currentSlide = n;
-          track.style.transform = `translateX(-${currentSlide * 100}%)`;
-          dots.forEach(d => d.classList.remove("active"));
-          if(dots[currentSlide]) dots[currentSlide].classList.add("active");
+                function showSlide(n) {
+                    const maxSlide = cards.length - cardsPerView;
+                    if(n > maxSlide) n = 0;
+                    if(n < 0) n = maxSlide;
+                    currentSlide = n;
+                    track.style.transform = `translateX(-${currentSlide * cardWidthPercent}%)`;
+                    dots.forEach(d => d.classList.remove("active"));
+                    if(dots[currentSlide]) dots[currentSlide].classList.add("active");
+                }
+
+                // MANUAL CLICK
+                next.onclick = () => {
+                    showSlide(currentSlide + 1);
+                    resetAutoSlide();
+                };
+                prev.onclick = () => {
+                    showSlide(currentSlide - 1);
+                    resetAutoSlide();
+                };
+
+                dots.forEach(dot => {
+                    dot.onclick = () => {
+                        showSlide(parseInt(dot.dataset.index));
+                        resetAutoSlide();
+                    }
+                });
+
+                // AUTO SLIDE EVERY 3.5 SECONDS
+                function startAutoSlide() {
+                    autoSlideInterval = setInterval(() => {
+                        showSlide(currentSlide + 1);
+                    }, 3500);
+                }
+                function resetAutoSlide() {
+                    clearInterval(autoSlideInterval);
+                    startAutoSlide();
+                }
+
+                // STOP PAG NAKA HOVER
+                slider.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+                slider.addEventListener('mouseleave', () => startAutoSlide());
+                
+                startAutoSlide(); // START AGAD
+            } else {
+                prev.style.display = "none";
+                next.style.display = "none";
+            }
+
+        } catch(err){
+            console.error(`${category} Error:`, err);
+            track.innerHTML = `<div style='color:red; text-align:center; padding:20px;'>Error</div>`;
         }
-
-        // MANUAL CLICK
-        next.onclick = () => {
-          showSlide((currentSlide + 1) % cards.length);
-          resetAutoSlide(); // RESET TIMER PAG NI-CLICK
-        };
-        prev.onclick = () => {
-          showSlide((currentSlide - 1 + cards.length) % cards.length);
-          resetAutoSlide(); // RESET TIMER PAG NI-CLICK
-        };
-
-        // AUTO SLIDE EVERY 3 SECONDS
-        function startAutoSlide() {
-          autoSlideInterval = setInterval(() => {
-            showSlide((currentSlide + 1) % cards.length);
-          }, 3000); // 3000ms = 3 seconds. Palitan mo kung gusto mo mas mabilis
-        }
-
-        function resetAutoSlide() {
-          clearInterval(autoSlideInterval);
-          startAutoSlide();
-        }
-
-        // STOP PAG NAKA HOVER
-        slider.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
-        slider.addEventListener('mouseleave', () => startAutoSlide());
-
-        startAutoSlide(); // START AGAD
-
-      } else {
-        prev.style.display = "none";
-        next.style.display = "none";
-      }
-
-    } catch(err){
-      console.error(`${category} Error:`, err);
-      track.innerHTML = `<div style='color:red; text-align:center; padding:20px;'>Error</div>`;
-    }
-  });
+    });
 }
 
 document.addEventListener("DOMContentLoaded", loadCategorySliders);
