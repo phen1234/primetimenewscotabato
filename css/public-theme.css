@@ -981,7 +981,7 @@ html.dark-mode .public-theme-toggle {
 /*PARA SA LATEST NEWS*/
 
 
-/* ===== 3. 2x2 GRID SA LOOB NG LATEST - LIGHT MODE DEFAULT ===== */
+/* ===== 3. 2x2 GRID SA LOOB NG LATEST - LIIT VERSION ===== */
 .latest-left .news-grid{
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
@@ -989,68 +989,47 @@ html.dark-mode .public-theme-toggle {
     margin-bottom: 30px !important;
 }
 
-/* CARD - LIGHT MODE */
+/* CARD - DEFAULT = LIGHT MODE */
 .latest-left .news-grid .news-card, 
 .latest-left .news-grid .latest-card{
     display: block !important;
     text-decoration: none !important;
     border-radius: 6px !important;
     overflow: hidden !important;
-    background: #fff !important; /* PUTING BACKGROUND */
-    border: 1px solid #eee !important; /* LIGHT BORDER */
+    background: #fff !important;
+    border: 1px solid #eee !important;
     transition: all 0.2s ease !important;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
 }
 
-.latest-left .news-grid .news-card:hover,
-.latest-left .news-grid .latest-card:hover{
-    transform: translateY(-3px) !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
-}
-
-/* IMAGE - PANTAY LAHAT */
 .latest-left .news-grid .news-card img, 
 .latest-left .news-grid .latest-card img{
     width: 100% !important;
-    height: 160px !important; /* LIIT NA */
+    height: 160px !important; /* PINALIIT */
     object-fit: cover !important;
     display: block !important;
 }
 
-/* TITLE - LIGHT MODE */
 .latest-left .news-grid .news-card h3, 
 .latest-left .news-grid .latest-card h3{
     padding: 10px 12px !important;
     font-size: 14px !important;
     line-height: 1.4 !important;
-    color: #222 !important; /* ITIM NA TEXT */
+    color: #222 !important; /* ITIM */
     margin: 0 !important;
     font-weight: 600 !important;
 }
 
-/* ===== DARK MODE VERSION ===== */
-@media (prefers-color-scheme: dark){
-    
-    /* CARD - DARK MODE */
-    .latest-left .news-grid .news-card, 
-    .latest-left .news-grid .latest-card{
-        background: #1a1a1a !important; /* ITIM NA CARD */
-        border: 1px solid #2a2a2a !important; /* DARK BORDER */
-        box-shadow: 0 1px 3px rgba(0,0,0,0.3) !important;
-    }
-
-    .latest-left .news-grid .news-card:hover,
-    .latest-left .news-grid .latest-card:hover{
-        box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
-    }
-    
-    /* TITLE - DARK MODE */
-    .latest-left .news-grid .news-card h3, 
-    .latest-left .news-grid .latest-card h3{
-        color: #f1f1f1 !important; /* PUTING TEXT */
-    }
+/* ===== DARK MODE - PAG NAKA CLICK SA TOGGLE BUTTON ===== */
+body.dark-mode .latest-left .news-grid .news-card, 
+body.dark-mode .latest-left .news-grid .latest-card{
+    background: #1a1a1a !important;
+    border: 1px solid #2a2a2a !important;
 }
 
+body.dark-mode .latest-left .news-grid .news-card h3, 
+body.dark-mode .latest-left .news-grid .latest-card h3{
+    color: #f1f1f1 !important; /* PUTI */
+}
 
 
 
