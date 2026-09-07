@@ -380,77 +380,41 @@ async function loadRelatedNews() {
 
 
 async function loadMostRead() {
-
-    const container = document.getElementById("mostRead");
-
-    const q = query(
-        collection(db, "news"),
-        orderBy("views", "desc"),
-        limit(5)
-    );
-
-    const snapshot = await getDocs(q);
-
-    container.innerHTML = "";
-
-    let rank = 1;
-
-    snapshot.forEach((docSnap) => {
-
-        if (docSnap.id === articleId) return;
-
-        const news = docSnap.data();
-
-        if (rank === 1) {
-
-            container.innerHTML += `
-            <a href="article.html?id=${docSnap.id}" class="featured-most-read">
-
-                <img src="${news.featuredImage}" alt="">
-
-                <div class="featured-overlay">
-
-                    
-
-                    <h3>${news.headline}</h3>
-
-                    <small>
-                        <i class="fas fa-eye"></i>
-                        ${news.views || 0} Views
-                    </small>
-
-                </div>
-
-            </a>
-            `;
-
-        } else {
-
-            container.innerHTML += `
-            <a href="article.html?id=${docSnap.id}" class="most-read-item">
-
-                <img src="${news.featuredImage}" alt="">
-
-                <div class="most-read-content">
-
-                    <h4>${news.headline}</h4>
-
-                    <small>
-
-                        <i class="fas fa-eye"></i>
-
-                        ${news.views || 0} Views
-
-                    </small>
-
-                </div>
-
-            </a>
-            `;
-
-        }
-
-        rank++;
+  const container = document.getElementById("mostRead");
+  if(!container) return;
+  
+  const q = query( collection(db, "news"), orderBy("views", "desc"), limit(6) );
+  const snapshot = await getDocs(q);
+  container.innerHTML = "";
+  let rank = 1;
+  
+  snapshot.forEach((docSnap) => {
+    if (docSnap.id === articleId) return;
+    const news = docSnap.data();
+    if (rank === 1) {
+      container.innerHTML += `
+        <a href="article.html?id=${docSnap.id}" class="featured-most-read">
+          <img src="${news.featuredImage}" alt="">
+          <div class="featured-overlay">
+            <h3>${news.headline}</h3>
+            <small> <i class="fas fa-eye"></i> ${news.views || 0} Views </small>
+          </div>
+        </a>
+      `;
+    } else {
+      container.innerHTML += `
+        <a href="article.html?id=${docSnap.id}" class="most-read-item">
+          <img src="${news.featuredImage}" alt="">
+          <div class="most-read-content">
+            <h4>${news.headline}</h4>
+            <small> <i class="fas fa-eye"></i> ${news.views || 0} Views </small>
+          </div>
+        </a>
+      `;
+    }
+    rank++;
+  });
+}
 
     });
 
