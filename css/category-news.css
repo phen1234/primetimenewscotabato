@@ -1900,15 +1900,16 @@ body.light-mode.filter-popup-body input[type="date"]{
 
 
 
-
-/* ========== LATEST NEWS + FILTER BTN DESKTOP ONLY ========== */
+/* ========== SECTION HEADER DESKTOP BALANCED ========== */
 @media screen and (min-width: 1024px){
     .search-section .section-header{
         display: flex !important;
         align-items: center !important;
-        justify-content: flex-start !important; /* DIKITIN */
-        gap: 15px !important; /* 15px LANG PAGITAN */
-        margin-bottom: 20px !important;
+        justify-content: space-between !important; /* KABILAAN PA DIN */
+        gap: 40px !important; /* DAGDAG SPACE SA GITNA */
+        max-width: 900px !important; /* LIMIT LANG, WAG BUONG SCREEN */
+        margin: 0 auto 20px auto !important; /* CENTER */
+        padding: 0 20px !important;
     }
 
     .search-section .section-header h3{
@@ -1921,9 +1922,8 @@ body.light-mode.filter-popup-body input[type="date"]{
     }
 
     .search-section .section-header .filter-btn{
-        margin-left: 0 !important; /* TANGGAL AUTO PUSH */
         font-size: 12px !important;
-        padding: 6px 14px !important;
+        padding: 7px 16px !important;
         background: #374151 !important;
         color: #9ca3af !important;
         border: none !important;
@@ -1931,6 +1931,7 @@ body.light-mode.filter-popup-body input[type="date"]{
         cursor: pointer;
         transition: 0.3s;
         white-space: nowrap;
+        flex-shrink: 0 !important;
     }
 
     .search-section .section-header .filter-btn:hover{
@@ -1939,11 +1940,10 @@ body.light-mode.filter-popup-body input[type="date"]{
     }
 }
 
-/* ========== MOBILE - BUMALIK SA MAGKABILANG DULO ========== */
+/* ========== MOBILE WAG GALAWIN ========== */
 @media screen and (max-width: 1023px){
     .search-section .section-header{
-        display: flex !important;
-        align-items: center !important;
         justify-content: space-between !important;
+        max-width: 100% !important;
     }
 }
