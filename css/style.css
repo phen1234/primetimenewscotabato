@@ -4678,47 +4678,58 @@ body .news-grid .news-time{
 
 
 
-/* ================= LOCAL NEWS LIGHT MODE - PARA SA TOGGLE MO ================= */
-body.light-mode .local-news-widget{
-  background: #ffffff !important;
-  border: 1px solid #e0e0e0 !important;
+/* ================= LOCAL NEWS WIDGET DESKTOP COMPACT ================= */
+.local-news-widget{
+    background: #1f2937;
+    border-radius: 12px;
+    padding: 14px;
 }
 
-body.light-mode .local-news-widget .section-title h3{
-  color: #222 !important;
+.local-news-slider{
+    height: 424px !important; /* 4 NEWS X 106px = 424px */
+    overflow: hidden;
+    position: relative;
 }
 
-body.light-mode .local-news-widget .section-title .view-all-btn{
-  color: #cc0000 !important;
+.local-news-item{
+    display: flex !important;
+    gap: 10px !important;
+    padding: 10px !important;
+    background: #374151 !important;
+    border-radius: 8px !important;
+    margin-bottom: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.3s !important;
+    height: 98px !important; /* BINABAAN NATIN FROM 118px */
 }
 
-body.light-mode .local-card{
-  background: #ffffff !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08) !important;
+.local-news-item:hover{
+    background: #4b5563 !important;
+    transform: translateX(4px) !important;
 }
 
-body.light-mode .local-card h4{
-  background: linear-gradient(transparent, rgba(0,0,0,0.75)) !important;
-  color: #fff !important;
+.local-news-item img{
+    width: 85px !important; /* PINALIIT NG KONTI */
+    height: 78px !important;
+    object-fit: cover !important;
+    border-radius: 6px !important;
+    flex-shrink: 0 !important;
 }
 
-body.light-mode .local-prev,
-body.light-mode .local-next{
-  background: rgba(255,255,255,0.95) !important;
-  color: #222 !important;
-  border: 1px solid #ccc !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.local-news-info .badge{
+    font-size: 9px !important;
+    padding: 2px 6px !important;
 }
 
-body.light-mode .local-dot{
-  background: #ccc !important;
+.local-news-info h4{
+    font-size: 13px !important; /* PINALIIT FONT */
+    margin: 4px 0 !important;
+    line-height: 1.2 !important;
 }
-body.light-mode .local-dot.active{ 
-  background: #ff0000 !important; 
+
+.local-news-info small{
+    font-size: 10px !important;
 }
-
-
-
 
 
 
@@ -4728,7 +4739,7 @@ body.light-mode .local-dot.active{
     
 /* ================= CATEGORY SLIDER - NARROW STYLE ================= */ 
 .widget.local-news-widget{ 
-  margin-top: 12px; /* NILITAN FROM 20px */
+  margin-top: 10px; /* NILITAN FROM 20px */
   background: #111827; /* DARK BLUE BLACK PARANG SA PIC */
   padding: 0; /* TINANGGAL YUNG MALUWAG NA PADDING */
   border-radius: 0; 
