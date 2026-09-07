@@ -1022,7 +1022,7 @@ html.dark-mode .public-theme-toggle {
 /* ===== DARK MODE - PAG NAKA CLICK SA TOGGLE BUTTON ===== */
 body.dark-mode .latest-left .news-grid .news-card, 
 body.dark-mode .latest-left .news-grid .latest-card{
-    background: #1a1a1a !important;
+    background: #111c2e !important;
     border: 1px solid #2a2a2a !important;
 }
 
