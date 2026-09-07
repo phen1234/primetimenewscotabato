@@ -404,6 +404,35 @@ if(clearDate){
     });
 }
 
+
+
+
+// SLIDER FOR ALL LOCAL-TRACK
+document.querySelectorAll('.local-news-slider').forEach(slider => {
+    const track = slider.querySelector('.local-track');
+    const prev = slider.querySelector('.local-prev');
+    const next = slider.querySelector('.local-next');
+    let index = 0;
+    const cardWidth = 600; // KAPAREHO NG CSS NATIN
+
+    if(!track || !prev || !next) return;
+
+    const totalCards = track.children.length;
+
+    next.addEventListener('click', () => {
+        if(index < totalCards - 1) index++;
+        track.style.transform = `translateX(${-index * cardWidth}px)`;
+    });
+
+    prev.addEventListener('click', () => {
+        if(index > 0) index--;
+        track.style.transform = `translateX(${-index * cardWidth}px)`;
+    });
+});
+
+
+
+
 // =============================== // START // ===============================
 console.log( "🔥 CATEGORY-NEWS.JS LOADED" );
 console.log( "📂 PAGE:", page );
