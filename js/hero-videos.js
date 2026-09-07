@@ -74,7 +74,7 @@ async function loadVideos() {
 function startTicker() {
     const container = document.getElementById('heroVideos');
     const itemHeight = 126; // 114px height + 12px margin
-    const containerHeight = 504; // 126 x 4 = 4 VIDEOS KITA
+    const containerHeight = 630; // 126 x 4 = 4 VIDEOS KITA
     const scrollHeight = container.scrollHeight;
 
     if(scrollHeight <= containerHeight) return;
