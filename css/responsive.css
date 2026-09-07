@@ -891,98 +891,86 @@ margin:0 0 10px;
 
 
     
-
-  /* ========================= CATEGORY PAGE LANG - GRID 3 COLS ========================= */
-body.category-page .local-news-widget .local-track, 
-body.category-page .widget .local-track {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important; /* 3 COLS SA CATEGORY */
-    gap: 20px !important;
-    overflow: visible !important;
-    width: 100% !important;
-}
-
-body.category-page .local-news-widget .news-card, 
-body.category-page .widget .news-card {
-    min-width: 0 !important;
-    width: 100% !important;
-}
-
-body.category-page .local-news-widget .news-card img, 
-body.category-page .widget .news-card img {
-    width: 100% !important;
-    height: 200px !important;
-    object-fit: cover !important;
-}
-
-body.category-page .local-prev, 
-body.category-page .local-next { 
-    display: none !important; /* ITAGO ARROW SA CATEGORY */
-}
-
-/* ========================= INDEX PAGE LANG - HORIZONTAL SLIDER 720PX ========================= */
+/* ========== FINAL FIX - INDEX SLIDER 720PX DESKTOP ONLY ========== */
 @media screen and (min-width: 1024px){
-    body.index-page .widget{
+
+    /* TARGET LANG YUNG WIDGET NA MAY SLIDER */
+    .latest-grid > .widget{
         max-width: 720px !important;
+        width: 720px !important;
         margin: 30px auto !important;
     }
 
-    body.index-page .widget .local-track{
-        display: flex !important; /* FLEX HINDI GRID */
+    .latest-grid > .widget .section-title{
+        max-width: 720px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-bottom: 15px !important;
+    }
+
+    .latest-grid > .widget .local-news-slider{
+        max-width: 720px !important;
+        position: relative !important;
+    }
+
+    /* GIBAIN YUNG GRID, GAWING FLEX */
+    .latest-grid > .widget .local-track{
+        display: flex !important;
         gap: 15px !important;
         overflow-x: hidden !important;
     }
 
-    body.index-page .widget .local-track .local-card{
-        flex: 0 0 352px !important; /* 2 CARDS KITA */
+    /* 2 CARDS LANG KITA = 352PX */
+    .latest-grid > .widget .local-track .local-card,
+    .latest-grid > .widget .local-track a{
+        flex: 0 0 352px !important;
+        min-width: 352px !important;
+        background: #fff !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        box-shadow: 0 3px 12px rgba(0,0,0,.08) !important;
+        text-decoration: none !important;
     }
 
-    body.index-page .widget .local-track .local-card img{
+    .latest-grid > .widget .local-track .local-card img{
+        width: 100% !important;
         height: 200px !important;
+        object-fit: cover !important;
+    }
+    
+    .latest-grid > .widget .local-track .local-card h4{
+        padding: 12px 14px !important;
+        font-size: 15px !important;
     }
 
-    body.index-page .local-prev, 
-    body.index-page .local-next { 
-        display: block !important; /* PAKITA ARROW SA INDEX */
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
+    /* ARROW */
+    .latest-grid > .widget .local-prev, 
+    .latest-grid > .widget .local-next{
+        display: block !important;
+        position: absolute !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        z-index: 999 !important;
         width: 40px;
         height: 40px;
         border-radius: 50%;
         background: rgba(0,0,0,.5);
         color: #fff;
         border: none;
-        cursor: pointer;
-        z-index: 10;
     }
-    body.index-page .local-prev{ left: -20px; }
-    body.index-page .local-next{ right: -20px; }
+    .latest-grid > .widget .local-prev{ left: -20px !important; }
+    .latest-grid > .widget .local-next{ right: -20px !important; }
 }
 
-/* ========================= MOBILE - LAHAT SLIDER PA DIN ========================= */
+/* ========== MOBILE - HAYAAN LANG ========== */
 @media screen and (max-width: 1023px){
-    .local-track{
-        display: flex !important;
-        gap: 12px !important;
-        overflow-x: auto !important;
-    }
-    .local-track .local-card{
-        flex: 0 0 280px !important;
-    }
-    .local-prev, .local-next { 
-        display: none !important; 
-    }
+    .latest-grid > .widget{ max-width: 100% !important; }
+    .latest-grid > .widget .local-track{ overflow-x: auto !important; }
+    .latest-grid > .widget .local-track .local-card{ flex: 0 0 280px !important; }
+    .latest-grid > .widget .local-prev, 
+    .latest-grid > .widget .local-next{ display: none !important; }
 }
-
-
-
-
-
-
-
-
-    
 
     /* =========================
        FOOTER
