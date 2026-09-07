@@ -1043,4 +1043,82 @@ html.dark-mode .public-theme-toggle {
 
 
 
+/* ===== FINAL DESKTOP LAYOUT ===== */
+@media screen and (min-width: 1024px){
 
+    /* 1. LATEST + MOST READ = 2 COLUMNS */
+    .latest-wrapper{
+        display: grid !important;
+        grid-template-columns: 2fr 1fr !important; /* 70% 30% */
+        gap: 24px !important;
+        align-items: start !important;
+        margin-bottom: 40px !important;
+    }
+
+    /* 2. 2x2 GRID SA LOOB NG LATEST */
+    .latest-left .news-grid{
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 20px !important;
+    }
+
+    /* 3. CATEGORY SLIDERS = 2x2 BUONG LAPAD */
+    .category-sliders{
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 24px !important;
+    }
+
+    /* 4. SLIDER 1 BY 1 */
+    .category-sliders .local-news-slider{
+        overflow: hidden !important;
+        position: relative !important;
+        border-radius: 12px !important;
+        background: #000 !important;
+    }
+    .category-sliders .local-track{
+        display: flex !important;
+        transition: transform 0.4s ease !important;
+    }
+    .category-sliders .local-track .local-card{
+        flex: 0 0 100% !important;
+        width: 100% !important;
+    }
+    .category-sliders .local-track img{
+        width: 100% !important;
+        height: 200px !important;
+        object-fit: cover !important;
+        display: block !important;
+    }
+    .category-sliders .local-track h4{
+        padding: 14px !important;
+        background: #fff !important;
+        color: #000 !important;
+        height: 60px !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+    }
+    .category-sliders .local-prev, 
+    .category-sliders .local-next{
+        position: absolute !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        z-index: 5 !important;
+        background: rgba(0,0,0,.6) !important;
+        color: #fff !important;
+        border: none !important;
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 50% !important;
+        cursor: pointer !important;
+    }
+    .category-sliders .local-prev{ left: 10px !important; }
+    .category-sliders .local-next{ right: 10px !important; }
+}
+
+/* MOBILE: STACK LAHAT */
+@media screen and (max-width: 1023px){
+    .latest-wrapper{ display: block !important; }
+    .category-sliders{ display: block !important; }
+    .latest-left .news-grid{ display: block !important; }
+}
