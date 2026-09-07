@@ -1905,7 +1905,7 @@ body.light-mode.filter-popup-body input[type="date"]{
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
-        max-width: 1200px !important; /* SAME WIDTH SA .container */
+        max-width: 1400px !important; /* SAME WIDTH SA .container */
         margin: 0 auto 20px auto !important; /* CENTER */
         padding: 0 15px !important; /* SAME PADDING SA .container */
     }
