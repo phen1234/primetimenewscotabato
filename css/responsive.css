@@ -891,19 +891,20 @@ margin:0 0 10px;
 
 
     
-/* ========== FINAL SLIDER - 1 CARD LANG BUO + NO LAMPAS ========== */
+/* ========== PANTAY LAHAT NA WIDGET - 2 COLUMNS DESKTOP ========== */
 @media screen and (min-width: 1024px){
 
-    /* 1. GAWING 2 COLUMNS YUNG .latest-grid PARA KASYA 2 WIDGET */
+    /* 1. 2 COLUMNS LANG SA LATEST-GRID */
     .latest-grid{
         display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 KAPAREHO */
         gap: 25px !important;
         max-width: 1240px !important;
         margin: 0 auto !important;
+        padding: 0 20px !important;
     }
 
-    /* 2. MALIIT NA WIDGET - 100% NG COLUMN */
+    /* 2. PANTAY NA LAPAD LAHAT NG WIDGET */
     .latest-grid > .widget{
         max-width: 100% !important;
         width: 100% !important;
@@ -911,43 +912,46 @@ margin:0 0 10px;
         position: relative !important;
     }
 
-    /* 3. SLIDER BOX - ITAGO LAMPAS */
+    /* 3. SLIDER BOX */
     .latest-grid > .widget .local-news-slider{
         width: 100% !important;
         overflow: hidden !important;
         border-radius: 12px !important;
     }
 
-    /* 4. TRACK - FLEX */
+    /* 4. TRACK */
     .latest-grid > .widget .local-track{
         display: flex !important; 
         transition: transform 0.4s ease !important;
-        width: 100% !important;
     }
 
-    /* 5. CARD - 100% NG SLIDER WIDTH = 1 BUO LANG */
+    /* 5. CARD - 100% KAYA BUO AT PANTAY LAHAT */
     .latest-grid > .widget .local-track .local-card,
     .latest-grid > .widget .local-track a{
-        flex: 0 0 100% !important; /* 100% HINDI 600PX */
+        flex: 0 0 100% !important;
         width: 100% !important;
         background: #fff !important;
+        border-radius: 12px !important;
         overflow: hidden !important;
-        display: block !important;
+        box-shadow: 0 3px 10px rgba(0,0,0,.1) !important;
     }
 
+    /* PANTAY NA IMAGE HEIGHT */
     .latest-grid > .widget .local-track .local-card img{
         width: 100% !important;
-        height: 320px !important;
+        height: 280px !important; /* PANTAY NA LAHAT */
         object-fit: cover !important;
         display: block !important;
     }
     
+    /* PANTAY NA TEXT HEIGHT */
     .latest-grid > .widget .local-track .local-card h4{
         padding: 16px 18px !important;
         font-size: 16px !important;
         background: #fff !important;
         margin: 0 !important;
-        min-height: 75px !important;
+        min-height: 80px !important; /* PARA PANTAY YUNG CARD HEIGHT */
+        line-height: 1.4 !important;
     }
 
     /* 6. ARROW NASA LOOB */
@@ -958,8 +962,8 @@ margin:0 0 10px;
         top: 50% !important;
         transform: translateY(-50%) !important;
         z-index: 10 !important;
-        width: 40px;
-        height: 40px;
+        width: 38px;
+        height: 38px;
         border-radius: 50%;
         background: rgba(0,0,0,.55);
         color: #fff;
@@ -969,4 +973,14 @@ margin:0 0 10px;
     }
     .latest-grid > .widget .local-prev{ left: 10px !important; }
     .latest-grid > .widget .local-next{ right: 10px !important; }
+}
+
+/* ========== MOBILE = 1 COLUMN ========== */
+@media screen and (max-width: 1023px){
+    .latest-grid{
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 25px !important;
+    }
+    .latest-grid > .widget .local-track .local-card img{ height: 220px !important; }
 }
