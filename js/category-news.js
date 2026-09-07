@@ -703,112 +703,46 @@ function renderNewsList(newsList) {
 
 
 
-// ===============================
-// MOST READ
-// ===============================
-
-function renderMostRead(newsList) {
-
-    if (!sidebarContent) {
-        return;
-    }
 
 
-    let html = `
 
-        <div class="most-read-title">
-
-            🔥 Most Read
-
-        </div>
-
-    `;
-
-
-    newsList
-        .slice(0, 5)
-        .forEach(
-            news => {
-
-                const image =
-                    news.featuredImage ||
-                    "images/news1.jpg";
-
-
-                const headline =
-                    news.headline ||
-                    news.title ||
-                    "News";
-
-
-                const category =
-                    news.category ||
-                    "";
-
-
-                const views =
-                    news.views ||
-                    0;
-
-
-                html += `
-
-                    <a
-                        href="article.html?id=${news.id}"
-                        class="most-read-item"
-                        data-id="${news.id}"
-                    >
-
-                        <img
-                            src="${image}"
-                            alt="${headline}"
-                            loading="lazy"
-                            onerror="
-                                this.onerror=null;
-                                this.src='images/news1.jpg';
-                            "
-                        >
-
-
-                        <div
-                            class="most-read-content"
-                        >
-
-                            <span class="badge">
-
-                                ${category}
-
-                            </span>
-
-
-                            <h4>
-
-                                ${headline}
-
-                            </h4>
-
-
-                            <small>
-
-                                <i class="fas fa-eye"></i>
-
-                                ${views} Views
-
-                            </small>
-
-                        </div>
-
-                    </a>
-
-                `;
-
-            }
-        );
-
-
-    sidebarContent.innerHTML =
-        html;
-
+// =============================== // MOST READ // =============================== 
+function renderMostRead(newsList) { 
+    if (!sidebarContent) { 
+        return; 
+    } 
+    
+    // 1. I-SORT MUNA BY VIEWS PINAKAMATAAS MAUNA
+    const sortedByViews = [...newsList].sort((a, b) => {
+        const viewsA = Number(a.views) || 0;
+        const viewsB = Number(b.views) || 0;
+        return viewsB - viewsA; // PINAKAMATAAS MAUNA
+    });
+    
+    let html = ` <div class="most-read-title"> 🔥 Most Read </div> `;
+    
+    // 2. KUHA LANG NG TOP 5
+    sortedByViews
+    .slice(0, 5) 
+    .forEach( news => { 
+        const image = news.featuredImage || "images/news1.jpg"; 
+        const headline = news.headline || news.title || "News"; 
+        const category = news.category || ""; 
+        const views = news.views || 0; 
+        
+        html += ` 
+            <a href="article.html?id=${news.id}" class="most-read-item" data-id="${news.id}" > 
+                <img src="${image}" alt="${headline}" loading="lazy" onerror=" this.onerror=null; this.src='images/news1.jpg'; " > 
+                <div class="most-read-content" > 
+                    <span class="badge"> ${category} </span> 
+                    <h4> ${headline} </h4> 
+                    <small> <i class="fas fa-eye"></i> ${views} Views </small> 
+                </div> 
+            </a> 
+        `; 
+    }); 
+    
+    sidebarContent.innerHTML = html; 
 }
 
 
