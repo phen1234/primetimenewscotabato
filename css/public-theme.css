@@ -988,7 +988,6 @@ html.dark-mode .public-theme-toggle {
     gap: 16px !important;
     margin-bottom: 30px !important;
 }
-
 /* CARD - DEFAULT = LIGHT MODE */
 .latest-left .news-grid .news-card, 
 .latest-left .news-grid .latest-card{
@@ -1000,7 +999,6 @@ html.dark-mode .public-theme-toggle {
     border: 1px solid #eee !important;
     transition: all 0.2s ease !important;
 }
-
 .latest-left .news-grid .news-card img, 
 .latest-left .news-grid .latest-card img{
     width: 100% !important;
@@ -1008,7 +1006,6 @@ html.dark-mode .public-theme-toggle {
     object-fit: cover !important;
     display: block !important;
 }
-
 .latest-left .news-grid .news-card h3, 
 .latest-left .news-grid .latest-card h3{
     padding: 10px 12px !important;
@@ -1018,40 +1015,19 @@ html.dark-mode .public-theme-toggle {
     margin: 0 !important;
     font-weight: 600 !important;
 }
-
 /* ===== DARK MODE - PAG NAKA CLICK SA TOGGLE BUTTON ===== */
 body.dark-mode .latest-left .news-grid .news-card, 
 body.dark-mode .latest-left .news-grid .latest-card{
     background: #111c2e !important;
     border: 1px solid #2a2a2a !important;
 }
-
 body.dark-mode .latest-left .news-grid .news-card h3, 
 body.dark-mode .latest-left .news-grid .latest-card h3{
     color: #f1f1f1 !important; /* PUTI */
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ===== FINAL DESKTOP LAYOUT - 350px MALAKING PICTURE ===== */
 @media screen and (min-width: 1024px){
-    
     /* 1. 2 COLUMNS: LEFT 70%, RIGHT 30% */
     .latest-wrapper{
         display: grid !important;
@@ -1059,14 +1035,12 @@ body.dark-mode .latest-left .news-grid .latest-card h3{
         gap: 24px !important;
         align-items: start !important;
     }
-
     /* 2. STICKY YUNG MOST READ SA RIGHT */
     .sidebar{
         position: sticky !important;
         top: 100px !important;
         height: fit-content !important;
     }
-
     /* 3. 2x2 GRID SA LOOB NG LATEST */
     .latest-left .news-grid{
         display: grid !important;
@@ -1074,7 +1048,6 @@ body.dark-mode .latest-left .news-grid .latest-card h3{
         gap: 20px !important;
         margin-bottom: 40px !important;
     }
-
     /* 4. CATEGORIES = 1 COLUMN LANG PABABA */
     .category-sliders{
         display: block !important;
@@ -1082,7 +1055,6 @@ body.dark-mode .latest-left .news-grid .latest-card h3{
     .category-sliders .widget{
         margin-bottom: 30px !important;
     }
-
     /* 5. SLIDER MALAKI - 350px */
     .category-sliders .local-news-slider{
         overflow: hidden !important;
@@ -1091,29 +1063,26 @@ body.dark-mode .latest-left .news-grid .latest-card h3{
         background: #000 !important;
         height: 350px !important; /* 350 NA TO BOSS */
     }
-
     .category-sliders .local-track{
         display: flex !important;
-        transition: transform 0.4s ease-in-out !important;
+        transition: transform 0.6s ease-in-out !important;
         width: 100% !important;
     }
-
-    .category-sliders .local-track .local-card{
+    /* PARA LAHAT NG CARD MAGING 100% */
+    .category-sliders .local-track > *{
         flex: 0 0 100% !important;
         width: 100% !important;
         display: block !important;
         text-decoration: none !important;
         position: relative !important;
     }
-
     .category-sliders .local-track img{
         width: 100% !important;
         height: 350px !important; /* PAREHAS SA BOX */
         object-fit: cover !important;
         display: block !important;
     }
-
-    /* HEADLINE OVERLAY - BLACK FADE */
+    /* HEADLINE - LIGHT MODE: ITIM NA TEXT + PUTING FADE */
     .category-sliders .local-track h4{
         position: absolute !important;
         bottom: 0 !important;
@@ -1123,14 +1092,13 @@ body.dark-mode .latest-left .news-grid .latest-card h3{
         margin: 0 !important;
         font-size: 16px !important;
         line-height: 1.4 !important;
-        color: #fff !important;
+        color: #222 !important; /* ITIM SA LIGHT */
         font-weight: 700 !important;
-        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%) !important; /* BLACK FADED */
+        background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%) !important; /* PUTING FADE */
         height: auto !important;
         max-height: 90px !important;
         overflow: hidden !important;
     }
-
     /* 6. ARROW BUTTONS - GITNA NG IMAGE */
     .category-sliders .local-prev, 
     .category-sliders .local-next{
@@ -1141,7 +1109,7 @@ body.dark-mode .latest-left .news-grid .latest-card h3{
         top: 50% !important;
         transform: translateY(-50%) !important;
         z-index: 5 !important;
-        background: rgba(0,0,0,.5) !important;
+        background: rgba(0,0,0,.6) !important;
         color: #fff !important;
         border: none !important;
         width: 34px !important;
@@ -1153,61 +1121,10 @@ body.dark-mode .latest-left .news-grid .latest-card h3{
     }
     .category-sliders .local-prev{ left: 12px !important; }
     .category-sliders .local-next{ right: 12px !important; }
-
     .category-sliders .local-prev:hover, 
     .category-sliders .local-next:hover{
         background: rgba(0,0,0,.85) !important;
     }
-}
-
-/* MOBILE: STACK LAHAT */
-@media screen and (max-width: 1023px){
-    .latest-wrapper{ display: block !important; }
-    .sidebar{ position: static !important; margin-top: 30px !important; }
-    .latest-left .news-grid{ display: block !important; }
-}
-
-
-
-
-
-
-/* ===== CATEGORIES SLIDER - LIGHT MODE FIX ===== */
-.category-sliders .local-news-slider{
-    overflow: hidden !important;
-    position: relative !important;
-    border-radius: 10px !important;
-    background: #000 !important;
-    height: 350px !important;
-}
-
-.category-sliders .local-track .local-card{
-    position: relative !important;
-}
-
-/* IMAGE */
-.category-sliders .local-track img{
-    width: 100% !important;
-    height: 350px !important;
-    object-fit: cover !important;
-    display: block !important;
-}
-
-/* HEADLINE - LIGHT MODE: ITIM NA TEXT + PUTING FADE */
-.category-sliders .local-track h4{
-    position: absolute !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    padding: 20px 16px !important;
-    margin: 0 !important;
-    font-size: 16px !important;
-    line-height: 1.4 !important;
-    font-weight: 700 !important;
-     color: #fff !important; /* PUTING TEXT PARA SA DARK */
-    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%) !important; /* ITIM NA FADE */
-    max-height: 90px !important;
-    overflow: hidden !important;
 }
 
 /* ===== CATEGORIES SLIDER - DARK MODE ===== */
@@ -1215,17 +1132,24 @@ body.dark-mode .category-sliders .local-track h4{
     color: #fff !important; /* PUTING TEXT PARA SA DARK */
     background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%) !important; /* ITIM NA FADE */
 }
-
-/* ARROW BUTTONS LIGHT */
-.category-sliders .local-prev, 
-.category-sliders .local-next{
-    background: rgba(0,0,0,.6) !important;
-    color: #fff !important;
-}
-
 /* ARROW BUTTONS DARK */
 body.dark-mode .category-sliders .local-prev, 
 body.dark-mode .category-sliders .local-next{
     background: rgba(255,255,255,.15) !important;
     color: #fff !important;
+}
+
+/* MOBILE: STACK LAHAT */
+@media screen and (max-width: 1023px){
+    .latest-wrapper{ display: block !important; }
+    .sidebar{ position: static !important; margin-top: 30px !important; }
+    .latest-left .news-grid{ display: block !important; }
+    .category-sliders .local-track{
+        display: flex !important;
+        transition: transform 0.6s ease-in-out !important;
+    }
+    .category-sliders .local-track > *{
+        flex: 0 0 100% !important;
+        width: 100% !important;
+    }
 }
