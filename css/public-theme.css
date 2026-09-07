@@ -1102,7 +1102,7 @@ html.dark-mode .public-theme-toggle {
 
     .category-sliders .local-track img{
         width: 100% !important;
-        height: 600px !important;
+        height: 400px !important;
         object-fit: cover !important;
         display: block !important;
     }
