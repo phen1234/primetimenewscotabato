@@ -914,113 +914,164 @@ body.dark-mode .related-meta{ color: #aebbd0 !important; }
 
 
 
-/* ========================================= ARTICLE DESKTOP LAYOUT - NO HTML CHANGE ========================================= */
+
+
+/* ========================================= DESKTOP ARTICLE LAYOUT - GAYA SA PIC ========================================= */
 @media (min-width: 1024px){
-    
-    /* 1. GAWING GRID YUNG BUONG LAYOUT */
     .article-layout{
         display: grid !important;
         grid-template-columns: 2fr 1fr !important; /* 70% 30% */
-        grid-template-areas: 
-            "hero sidebar"
-            "mostread sidebar"
-            "body sidebar"
-            "related related" !important;
         gap: 24px !important;
         align-items: start !important;
     }
 
-    /* 2. I-REORDER NATIN YUNG ELEMENTS */
-    .article-main{ grid-area: body !important; }
-    .article-sidebar{ grid-area: sidebar !important; position: sticky !important; top: 100px !important; height: fit-content !important; }
-    .related-news{ grid-area: related !important; }
+    /* TOP HERO: IMAGE KALIWA, TEXT KAN */
+    .article-main{
+        display: grid !important;
+        grid-template-columns: 1.2fr 1fr !important;
+        gap: 20px !important;
+        margin-bottom: 30px !important;
+    }
+    .article-main .breadcrumb,
+    .article-main #articleBody{
+        grid-column: 1 / -1 !important; /* Full width */
+    }
 
-    /* 3. GAWING SIDE BY SIDE YUNG IMAGE + TITLE */
-    .article-main #articleImage{
-        grid-area: hero !important;
+    #articleImage{
         width: 100% !important;
-        height: 380px !important;
+        height: 420px !important;
         object-fit: cover !important;
         border-radius: 8px !important;
-        float: left !important; /* para dikit sa text */
-        margin: 0 20px 15px 0 !important;
-    }
-
-    .article-main .breadcrumb{ grid-area: hero !important; }
-    .article-main .category-badge{ grid-area: hero !important; }
-    .article-main #articleTitle{ grid-area: hero !important; }
-    .article-main .article-meta{ grid-area: hero !important; }
-    .article-main #articleSummary{ grid-area: hero !important; }
-    .article-main .share-buttons{ grid-area: hero !important; }
-
-    /* PARA MAGING 2 COLUMNS YUNG TOP PART */
-    .article-main{
-        display: contents !important; /* para sumunod sa grid-area ng parent */
-    }
-
-    /* 4. MOST READ - 2 COLUMNS SA ILALIM */
-    .article-sidebar .widget:first-child{ display: none !important; } /* tago muna yung "Most Read" sa sidebar */
-    
-    /* Gumawa tayo ng Most Read gamit yung #mostRead */
-    .article-main::after{
-        content: "" !important;
         display: block !important;
-        grid-area: mostread !important;
     }
-    #mostRead{
-        grid-area: mostread !important;
-        background: #fff !important;
-        padding: 20px !important;
-        border-radius: 8px !important;
+
+    .article-main .article-hero-content{
+        display: contents !important;
     }
-    #mostRead h3{
-        font-size: 20px !important;
+    .category-badge{
+        display: inline-block !important;
+        background: #e63946 !important;
+        color: #fff !important;
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        padding: 5px 10px !important;
+        border-radius: 4px !important;
+        margin-bottom: 10px !important;
+        text-transform: uppercase !important;
+    }
+    #articleTitle{
+        font-size: 32px !important;
+        font-weight: 800 !important;
+        line-height: 1.3 !important;
+        margin: 0 0 12px 0 !important;
+    }
+    .article-meta{
+        display: flex !important;
+        gap: 15px !important;
+        font-size: 13px !important;
+        color: #777 !important;
+        margin-bottom: 12px !important;
+    }
+    #articleSummary{
+        font-size: 15px !important;
+        line-height: 1.6 !important;
+        color: #444 !important;
+        margin-bottom: 15px !important;
+    }
+
+    /* SIDEBAR - RELATED NEWS */
+    .article-sidebar{
+        position: sticky !important;
+        top: 100px !important;
+    }
+    .article-sidebar .widget h3{
+        font-size: 18px !important;
         border-left: 4px solid #e63946 !important;
         padding-left: 10px !important;
         margin-bottom: 15px !important;
     }
-    #mostRead > div{ /* assume na div per item */
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 15px !important;
-    }
-
-    /* 5. RELATED NEWS - LIST SA RIGHT */
-    .article-sidebar .widget:nth-child(2) h3{
-        font-size: 20px !important;
-        border-left: 4px solid #e63946 !important;
-        padding-left: 10px !important;
-    }
-    #relatedNews > div{
+    .related-card{
         display: flex !important;
         gap: 12px !important;
         margin-bottom: 15px !important;
         padding-bottom: 15px !important;
         border-bottom: 1px solid #eee !important;
+        text-decoration: none !important;
+        color: inherit !important;
     }
-    #relatedNews img{
-        width: 90px !important;
+    .related-card img{
+        width: 100px !important;
+        height: 75px !important;
+        object-fit: cover !important;
+        border-radius: 6px !important;
+    }
+    .related-card h3{
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+        margin: 0 0 5px 0 !important;
+    }
+    .related-meta{
+        font-size: 11px !important;
+        color: #888 !important;
+    }
+
+    /* MOST READ - ILALIM 2 COLUMNS */
+    #mostRead{
+        grid-column: 1 / -1 !important;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 15px !important;
+        background: #fff !important;
+        padding: 20px !important;
+        border-radius: 8px !important;
+        margin-top: 20px !important;
+    }
+    #mostRead::before{
+        content: "Most Read" !important;
+        grid-column: 1 / -1 !important;
+        font-size: 20px !important;
+        font-weight: 800 !important;
+        border-left: 4px solid #e63946 !important;
+        padding-left: 10px !important;
+        margin-bottom: 10px !important;
+    }
+    .featured-most-read{
+        grid-column: 1 / -1 !important;
+        position: relative !important;
+        border-radius: 8px !important;
+        overflow: hidden !important;
+    }
+    .featured-most-read img{
+        width: 100% !important;
+        height: 250px !important;
+        object-fit: cover !important;
+    }
+    .featured-overlay{
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent) !important;
+        color: #fff !important;
+        padding: 15px !important;
+    }
+    .most-read-item{
+        display: flex !important;
+        gap: 10px !important;
+        text-decoration: none !important;
+        color: inherit !important;
+    }
+    .most-read-item img{
+        width: 100px !important;
         height: 70px !important;
         object-fit: cover !important;
         border-radius: 6px !important;
     }
 }
 
-/* ========================================= DARK MODE ========================================= */
-body.dark-mode .article-main #mostRead,
+/* DARK MODE */
+body.dark-mode #mostRead,
 body.dark-mode .article-sidebar .widget{
     background: #111c2e !important;
 }
-body.dark-mode #relatedNews > div{ border-bottom: 1px solid #2a2a2a !important; }
-
-
-
-
-
-
-
-
-
-
-
-
+body.dark-mode .related-card{ border-bottom: 1px solid #2a2a2a !important; }
