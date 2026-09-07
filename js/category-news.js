@@ -407,7 +407,6 @@ if(clearDate){
 
 
 
-// SLIDER NA 1 BY 1 BUO
 document.querySelectorAll('.local-news-slider').forEach(slider => {
     const track = slider.querySelector('.local-track');
     const prev = slider.querySelector('.local-prev');
@@ -417,8 +416,8 @@ document.querySelectorAll('.local-news-slider').forEach(slider => {
     if(!track || !prev || !next) return;
 
     const slide = () => {
-        const cardWidth = track.querySelector('.local-card').offsetWidth; // KUHA NG BUONG LAPAD
-        track.style.transform = `translateX(${-index * cardWidth}px)`;
+        const sliderWidth = slider.offsetWidth; // KUKUNIN YUNG BUONG LAPAD NG SLIDER
+        track.style.transform = `translateX(${-index * sliderWidth}px)`;
     };
 
     next.addEventListener('click', () => {
@@ -431,9 +430,9 @@ document.querySelectorAll('.local-news-slider').forEach(slider => {
         slide();
     });
     
-    window.addEventListener('resize', slide); // PARA DI MAGIBA PAG RESIZE
+    window.addEventListener('resize', slide);
+    slide(); // RUN ONCE PAG LOAD
 });
-
 
 
 
