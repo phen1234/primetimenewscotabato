@@ -1913,7 +1913,7 @@ LATEST VIDEO SIDEBAR
 
 #heroVideos{ 
   display:flex; 
-  height: 504px;
+  height: 630px;
   flex-direction:column; 
   gap:14px; 
 } 
@@ -4875,7 +4875,7 @@ body.light-mode .local-dot.active{
 
 /* ================= OVERRIDE HERO VIDEOS ================= */
 #heroVideos{
-    height: 504px !important;
+    height: 630px !important;
     overflow: hidden !important;
     position: relative !important;
 }
