@@ -1043,9 +1043,9 @@ html.dark-mode .public-theme-toggle {
 
 
 
-/* ===== FINAL DESKTOP LAYOUT ===== */
+/* ===== FINAL DESKTOP LAYOUT - FIXED & SMALL SLIDER ===== */
 @media screen and (min-width: 1024px){
-
+    
     /* 1. LATEST + MOST READ = 2 COLUMNS */
     .latest-wrapper{
         display: grid !important;
@@ -1069,56 +1069,82 @@ html.dark-mode .public-theme-toggle {
         gap: 24px !important;
     }
 
-    /* 4. SLIDER 1 BY 1 */
+    /* 4. SLIDER 1 BY 1 - MALIIT VERSION */
     .category-sliders .local-news-slider{
         overflow: hidden !important;
         position: relative !important;
-        border-radius: 12px !important;
+        border-radius: 8px !important;
         background: #000 !important;
+        height: 220px !important; /* BUONG BOX: 160 + 50 + 10 */
     }
+
     .category-sliders .local-track{
         display: flex !important;
-        transition: transform 0.4s ease !important;
-    }
-    .category-sliders .local-track .local-card{
-        flex: 0 0 100% !important;
+        transition: transform 0.4s ease-in-out !important;
         width: 100% !important;
     }
+
+    .category-sliders .local-track .local-card{
+        flex: 0 0 100% !important; /* 1 CARD = 100% */
+        width: 100% !important;
+        display: block !important;
+        text-decoration: none !important;
+    }
+
     .category-sliders .local-track img{
         width: 100% !important;
-        height: 200px !important;
+        height: 160px !important; /* LAKI NG PICTURE */
         object-fit: cover !important;
         display: block !important;
     }
+
     .category-sliders .local-track h4{
-        padding: 14px !important;
+        padding: 10px 12px !important;
         background: #fff !important;
-        color: #000 !important;
-        height: 60px !important;
+        color: #222 !important;
+        height: 50px !important; /* LAKI NG TITLE */
         overflow: hidden !important;
         margin: 0 !important;
+        font-size: 13px !important;
+        line-height: 1.4 !important;
     }
+
+    /* 5. ARROW BUTTONS - MALIIT */
     .category-sliders .local-prev, 
     .category-sliders .local-next{
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
         position: absolute !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
+        top: 80px !important; /* GITNA NG IMAGE */
         z-index: 5 !important;
         background: rgba(0,0,0,.6) !important;
         color: #fff !important;
         border: none !important;
-        width: 36px !important;
-        height: 36px !important;
+        width: 28px !important;
+        height: 28px !important;
         border-radius: 50% !important;
         cursor: pointer !important;
+        font-size: 12px !important;
     }
-    .category-sliders .local-prev{ left: 10px !important; }
-    .category-sliders .local-next{ right: 10px !important; }
+    .category-sliders .local-prev{ left: 8px !important; }
+    .category-sliders .local-next{ right: 8px !important; }
+
+    .category-sliders .local-prev:hover, 
+    .category-sliders .local-next:hover{
+        background: rgba(0,0,0,.8) !important;
+    }
 }
 
 /* MOBILE: STACK LAHAT */
 @media screen and (max-width: 1023px){
-    .latest-wrapper{ display: block !important; }
-    .category-sliders{ display: block !important; }
-    .latest-left .news-grid{ display: block !important; }
+    .latest-wrapper{
+        display: block !important;
+    }
+    .category-sliders{
+        display: block !important;
+    }
+    .latest-left .news-grid{
+        display: block !important;
+    }
 }
