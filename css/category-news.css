@@ -1738,60 +1738,155 @@ body:not(.light-mode) .most-read-content small{
 
 
 
-/* ================= DATE FILTER ================= */
-.date-filter-box{
+/* ================= FILTER BUTTON ================= */
+.section-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    border-left: 3px solid #ff0000;
+}
+
+.filter-btn{
+    background: #1f2937;
+    border: 1px solid #374151;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: #1f2937;
-    padding: 12px 14px;
-    border-radius: 8px;
-    margin: 12px 14px;
+    gap: 6px;
 }
 
-.date-filter-box i{
-    color: #9ca3af;
-    font-size: 16px;
+.filter-btn:hover{
+    background: #374151;
 }
 
-.date-filter-box input[type="date"]{
+/* ================= FILTER POPUP ================= */
+.filter-overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 99;
+    display: none;
+}
+
+.filter-popup{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #111827;
+    border: 1px solid #374151;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    z-index: 100;
+    display: none;
+}
+
+.filter-popup.show,
+.filter-overlay.show{
+    display: block;
+}
+
+.filter-popup-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #374151;
+}
+
+.filter-popup-header h4{
+    margin: 0;
+    font-size: 18px;
+    color: #fff;
+}
+
+.filter-popup-header button{
     background: transparent;
     border: none;
-    outline: none;
-    color: #fff;
-    width: 100%;
-    font-size: 14px;
-    font-family: inherit;
+    color: #9ca3af;
+    font-size: 20px;
+    cursor: pointer;
 }
 
-.date-filter-box input[type="date"]::-webkit-calendar-picker-indicator{
-    filter: invert(1); /* PUTI YUNG CALENDAR ICON */
+.filter-popup-body{
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-popup-body label{
+    font-size: 14px;
+    color: #9ca3af;
+    font-weight: 600;
+}
+
+.filter-popup-body input[type="date"]{
+    background: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    padding: 10px;
+    color: #fff;
+    font-size: 15px;
+}
+
+.filter-popup-body input[type="date"]::-webkit-calendar-picker-indicator{
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.filter-popup-footer{
+    padding: 16px;
+    border-top: 1px solid #374151;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.filter-popup-footer button{
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 700;
     cursor: pointer;
 }
 
 #clearDate{
-    background: transparent;
-    border: none;
-    color: #9ca3af;
-    cursor: pointer;
-    font-size: 16px;
-    display: none; /* TAGO MUNA */
-    padding: 0 4px;
+    background: #374151;
+    color: #fff;
 }
 
-#clearDate.show{
-    display: block;
+#applyFilter{
+    background: #ff0000;
+    color: #fff;
+}
+
+#applyFilter:hover{
+    background: #dc2626;
 }
 
 /* LIGHT MODE */
-body.light-mode.date-filter-box{
+body.light-mode.filter-btn{
     background: #f3f4f6;
-}
-
-body.light-mode.date-filter-box input[type="date"]{
     color: #000;
+    border: 1px solid #d1d5db;
 }
 
-body.light-mode.date-filter-box input[type="date"]::-webkit-calendar-picker-indicator{
-    filter: invert(0);
+body.light-mode.filter-popup{
+    background: #fff;
+}
+
+body.light-mode.filter-popup-body input[type="date"]{
+    background: #f9fafb;
+    color: #000;
 }
