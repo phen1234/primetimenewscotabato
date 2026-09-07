@@ -1084,7 +1084,7 @@ html.dark-mode .public-theme-toggle {
         position: relative !important;
         border-radius: 8px !important;
         background: #000 !important;
-        height: 220px !important; /* 160 img + 50 title + 10 */
+        height: 620px !important; /* 160 img + 50 title + 10 */
     }
 
     .category-sliders .local-track{
@@ -1102,7 +1102,7 @@ html.dark-mode .public-theme-toggle {
 
     .category-sliders .local-track img{
         width: 100% !important;
-        height: 300px !important;
+        height: 600px !important;
         object-fit: cover !important;
         display: block !important;
     }
