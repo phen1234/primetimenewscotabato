@@ -891,74 +891,98 @@ margin:0 0 10px;
 
 
     
-/* ========== FINAL FIX - HINDI NA LALAMPAS SA DESKTOP ========== */
+/* ========== INDEX WIDGETS - MALIIT NA CONTAINER + 1 CARD PER SLIDE ========== */
 @media screen and (min-width: 1024px){
 
-    /* 1. WAG NA FIXED WIDTH. SAKTO LANG SA CONTAINER */
+    /* 1. LIITAN NATIN YUNG BUONG WIDGET */
     .latest-grid > .widget{
-        max-width: 100% !important;
+        max-width: 650px !important; /* DATING 1200, NGAYON 650 LANG */
         width: 100% !important;
-        margin: 30px 0 !important; /* WALA NG AUTO */
+        margin: 30px auto !important; /* CENTER */
         box-sizing: border-box !important;
     }
 
     .latest-grid > .widget .section-title{
-        max-width: 100% !important;
+        max-width: 650px !important;
     }
 
-    /* 2. GRID NA 3 COLUMNS - AUTO KASYA */
+    /* 2. SLIDER WRAPPER */
     .latest-grid > .widget .local-news-slider{
-        width: 100% !important;
+        max-width: 650px !important;
         position: relative !important;
     }
 
+    /* 3. TRACK - 1 CARD LANG KITA */
     .latest-grid > .widget .local-track{
-        display: grid !important; 
-        grid-template-columns: repeat(3, 1fr) !important; /* 3 KAPATID LANG */
-        gap: 20px !important;
-        overflow: visible !important;
+        display: flex !important; 
+        gap: 0 !important;
+        overflow: hidden !important; /* ITAGO YUNG IBA */
         width: 100% !important;
+        scroll-behavior: smooth !important;
     }
 
-    /* 3. CARD - HINDI NA FIXED 352PX */
+    /* 4. CARD - 100% WIDTH KAYA 1 LANG KITA */
     .latest-grid > .widget .local-track .local-card,
     .latest-grid > .widget .local-track a{
+        flex: 0 0 100% !important; /* ITO ANG IMPORTANTE */
         width: 100% !important;
         background: #fff !important;
         border-radius: 12px !important;
         overflow: hidden !important;
-        box-shadow: 0 3px 12px rgba(0,0,0,.08) !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,.1) !important;
         display: block !important;
     }
 
     .latest-grid > .widget .local-track .local-card img{
         width: 100% !important;
-        height: 200px !important;
+        height: 320px !important; /* MALAKI NA IMAGE KASI 1 LANG */
         object-fit: cover !important;
         display: block !important;
     }
     
     .latest-grid > .widget .local-track .local-card h4{
-        padding: 14px 16px !important;
-        font-size: 15px !important;
+        padding: 18px 20px !important;
+        font-size: 17px !important;
+        font-weight: 600 !important;
         background: #fff !important;
         margin: 0 !important;
-        min-height: 70px !important;
+        min-height: 80px !important;
     }
 
-    /* 4. ITAGO ARROW */
+    /* 5. PAKITA ARROW - KAILANGAN KASI 1 LANG KITA */
     .latest-grid > .widget .local-prev, 
     .latest-grid > .widget .local-next{
-        display: none !important;
+        display: block !important;
+        position: absolute !important;
+        top: 45% !important;
+        transform: translateY(-50%) !important;
+        z-index: 999 !important;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: rgba(0,0,0,.5);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 20px;
+        transition: .3s;
     }
+    .latest-grid > .widget .local-prev:hover, 
+    .latest-grid > .widget .local-next:hover{
+        background: #d10000;
+    }
+    .latest-grid > .widget .local-prev{ left: -25px !important; }
+    .latest-grid > .widget .local-next{ right: -25px !important; }
 }
 
-/* ========== MOBILE ========== */
+/* ========== MOBILE - HAYAAN NATIN 1 CARD PA DIN ========== */
 @media screen and (max-width: 1023px){
+    .latest-grid > .widget{ max-width: 100% !important; }
     .latest-grid > .widget .local-track{ 
         display: flex !important; 
-        gap: 12px !important;
+        gap: 0 !important;
         overflow-x: auto !important; 
     }
-    .latest-grid > .widget .local-track .local-card{ flex: 0 0 280px !important; }
+    .latest-grid > .widget .local-track .local-card{ flex: 0 0 100% !important; }
+    .latest-grid > .widget .local-track .local-card img{ height: 220px !important; }
 }
