@@ -1129,3 +1129,64 @@ body.light-mode .featured-overlay h3,
 body.light-mode .featured-overlay small{
     color: #fff !important;
 }
+
+
+
+/* ========================================= FIX LIGHT MODE TEXT COLORS ========================================= */
+@media (min-width: 1024px){
+    
+    /* 1. MOST READ TITLE */
+    body.light-mode #mostRead::before{
+        color: #111 !important; /* ITIM SA LIGHT MODE */
+    }
+    body.light-mode .most-read-item h4{
+        color: #222 !important;
+    }
+    body.light-mode .most-read-item small{
+        color: #666 !important;
+    }
+    body.light-mode .most-read-item:hover h4{
+        color: #e63946 !important; /* RED ON HOVER */
+    }
+
+    /* 2. LATEST NEWS / FOLLOW US WIDGET TITLES */
+    body.light-mode .article-sidebar .widget h3{
+        color: #111 !important; /* ITIM YUNG "Latest News" "Follow Us" */
+        border-left: 4px solid #e63946 !important;
+    }
+    body.light-mode .most-read-item{ /* ginagamit din to ng Latest News */
+        color: #222 !important;
+        text-decoration: none !important;
+    }
+    body.light-mode .most-read-item small{
+        color: #777 !important;
+    }
+
+    /* 3. FOLLOW US ICONS */
+    body.light-mode .social-links a{
+        background: #f1f1f1 !important;
+        color: #0a2540 !important;
+    }
+    body.light-mode .social-links a:hover{
+        background: #e63946 !important;
+        color: #fff !important;
+    }
+}
+
+/* ========================================= DARK MODE COLORS - PARA DI MAGULO ========================================= */
+@media (min-width: 1024px){
+    body.dark-mode #mostRead::before{
+        color: #fff !important;
+    }
+    body.dark-mode .most-read-item h4,
+    body.dark-mode .article-sidebar .widget h3{
+        color: #fff !important;
+    }
+    body.dark-mode .most-read-item small{
+        color: #aaa !important;
+    }
+    body.dark-mode .social-links a{
+        background: #1e2a47 !important;
+        color: #fff !important;
+    }
+}
