@@ -1732,3 +1732,66 @@ body:not(.light-mode) .most-read-content h4{
 body:not(.light-mode) .most-read-content small{
     color: #9ca3af; /* LIGHT GRAY SA DARK */
 }
+
+
+
+
+
+
+/* ================= DATE FILTER ================= */
+.date-filter-box{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #1f2937;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin: 12px 14px;
+}
+
+.date-filter-box i{
+    color: #9ca3af;
+    font-size: 16px;
+}
+
+.date-filter-box input[type="date"]{
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    width: 100%;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.date-filter-box input[type="date"]::-webkit-calendar-picker-indicator{
+    filter: invert(1); /* PUTI YUNG CALENDAR ICON */
+    cursor: pointer;
+}
+
+#clearDate{
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    font-size: 16px;
+    display: none; /* TAGO MUNA */
+    padding: 0 4px;
+}
+
+#clearDate.show{
+    display: block;
+}
+
+/* LIGHT MODE */
+body.light-mode.date-filter-box{
+    background: #f3f4f6;
+}
+
+body.light-mode.date-filter-box input[type="date"]{
+    color: #000;
+}
+
+body.light-mode.date-filter-box input[type="date"]::-webkit-calendar-picker-indicator{
+    filter: invert(0);
+}
