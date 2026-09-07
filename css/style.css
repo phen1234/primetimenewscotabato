@@ -5012,4 +5012,39 @@ body.light-mode #heroVideos .hero-video-info h4{
 
 
 
+/* ===== PANTAY FORCE 50/50 ===== */
+body .container.latest-grid{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+}
 
+body .latest-grid > .widget{
+    width: 100% !important;
+    grid-column: 1 / 2 !important;
+}
+
+body .latest-grid > .widget:nth-child(even){
+    grid-column: 2 / 3 !important;
+}
+
+body .latest-grid .local-news-slider{
+    overflow: hidden !important;
+    width: 100% !important;
+    position: relative !important;
+}
+
+body .latest-grid .local-track{
+    display: flex !important;
+}
+
+body .latest-grid .local-track > *{
+    flex: 0 0 100% !important;
+    width: 100% !important;
+}
+
+body .latest-grid .local-track img{
+    width: 100% !important;
+    height: 260px !important;
+    object-fit: cover !important;
+}
