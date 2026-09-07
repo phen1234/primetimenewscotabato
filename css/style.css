@@ -4686,7 +4686,7 @@ body .news-grid .news-time{
 }
 
 .local-news-slider{
-    height: 424px !important; /* 4 NEWS X 106px = 424px */
+    height:106px !important; /* 4 NEWS X 106px = 424px */
     overflow: hidden;
     position: relative;
 }
