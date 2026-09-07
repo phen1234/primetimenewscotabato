@@ -984,7 +984,7 @@ html.dark-mode .public-theme-toggle {
 /* ===== 3. 2x2 GRID SA LOOB NG LATEST - LIIT VERSION ===== */
 .latest-left .news-grid{
     display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: 1fr !important; /* DEFAULT = 1 COLUMN SA MOBILE */
     gap: 16px !important;
     margin-bottom: 30px !important;
 }
