@@ -4979,26 +4979,6 @@ body.light-mode #heroVideos .hero-video-info h4{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @media(min-width: 1024px){
     .local-track{
         display: flex;
@@ -5024,5 +5004,84 @@ body.light-mode #heroVideos .hero-video-info h4{
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* ========== INDEX HORIZONTAL SLIDER DESKTOP ========== */
+@media screen and (min-width: 1024px){
+    .local-news-widget .local-news-slider,
+    .widget .local-news-slider{
+        max-width: 720px !important; /* 720PX LEVEL NG CONTAINER */
+        margin: 0 !important;
+    }
+
+    .local-news-widget .local-track,
+    .widget .local-track{
+        display: flex !important;
+        gap: 15px !important;
+    }
+
+    /* MALALAKING CARDS PARA SA INDEX */
+    .local-news-widget .local-card,
+    .widget .local-track a[class*="card"]{
+        flex: 0 0 340px !important; /* 340PX X 2 = 680 + gap = 720 */
+        background: #1f2937;
+        border-radius: 12px;
+        overflow: hidden;
+        text-decoration: none;
+    }
+
+    .local-news-widget .local-card img,
+    .widget .local-track img{
+        width: 100% !important;
+        height: 200px !important; /* MALAKING IMAGE */
+        object-fit: cover;
+    }
+
+    .local-news-widget .local-card h4,
+    .widget .local-track h4{
+        font-size: 15px !important;
+        color: #fff;
+        padding: 12px 14px;
+        margin: 0;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* SECTION TITLE ALIGNED DIN */
+    .local-news-widget .section-title,
+    .widget .section-title{
+        max-width: 720px !important;
+        margin: 0 0 15px 0 !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+}
+
+/* ========== MOBILE WAG GALAWIN ========== */
+@media screen and (max-width: 1023px){
+    .local-card{
+        flex: 0 0 280px !important; /* BUMALIK SA MALIIT SA PHONE */
+    }
+    .local-card img{
+        height: 160px !important;
     }
 }
