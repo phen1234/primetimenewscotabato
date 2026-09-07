@@ -43,7 +43,7 @@ async function loadMostRead() {
   const container = document.getElementById("mostReadList"); 
   if (!container) return; 
   try { 
-    const q = query( collection(db, "news"), orderBy("views", "desc"), limit(5) ); 
+    const q = query( collection(db, "news"), orderBy("views", "desc"), limit(10) ); 
     const snapshot = await getDocs(q); 
     container.innerHTML = ""; 
     snapshot.forEach(doc => { 
