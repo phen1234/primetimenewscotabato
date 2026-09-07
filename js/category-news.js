@@ -407,21 +407,25 @@ if(clearDate){
 
 
 
-// PANTAY NA SLIDER - 1 BY 1
+// PANTAY NA SLIDER - 1 BY 1 BUO
 document.querySelectorAll('.local-news-slider').forEach(box => {
-    let i = 0;
     const track = box.querySelector('.local-track');
+    if(!track) return;
+    
+    let i = 0;
     const cards = track.children.length;
     const prev = box.querySelector('.local-prev');
     const next = box.querySelector('.local-next');
 
     function move(){
-        track.style.transform = 'translateX(' + (-i * 100) + '%)'; // % KAYA PANTAY
+        track.style.transform = 'translateX(' + (-i * 100) + '%)';
     }
 
-    next.onclick = () => { if(i < cards-1) i++; move(); }
-    prev.onclick = () => { if(i > 0) i--; move(); }
-    move();
+    if(next) next.onclick = () => { if(i < cards-1) i++; move(); }
+    if(prev) prev.onclick = () => { if(i > 0) i--; move(); }
+    
+    // HINTAYIN MUNA MATAPOS MAG LOAD YUNG NEWS
+    setTimeout(move, 1000);
 });
 
 
