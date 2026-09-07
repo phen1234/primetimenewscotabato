@@ -1094,3 +1094,38 @@ body.dark-mode .article-meta{ color: #ccc !important; border-bottom: 1px solid #
 body.dark-mode #articleSummary, body.dark-mode #articleBody{ color: #ddd !important; }
 body.dark-mode .related-card{ border-bottom: 1px solid #2a3a5a !important; }
 body.dark-mode .related-card h3{ color: #fff !important; }
+
+
+
+/* ========================================= FEATURED OVERLAY TEXT ========================================= */
+.featured-overlay{
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent) !important;
+    padding: 20px !important;
+    border-radius: 0 0 8px 8px !important;
+}
+
+.featured-overlay h3{
+    color: #fff !important; /* WHITE LAGI YUNG TITLE */
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    margin: 0 0 5px 0 !important;
+    line-height: 1.4 !important;
+}
+
+.featured-overlay small{
+    color: #ddd !important; /* LIGHT GRAY YUNG VIEWS */
+    font-size: 12px !important;
+}
+.featured-overlay small i{
+    color: #e63946 !important;
+}
+
+/* PARA SURE KAHIT LIGHT MODE */
+body.light-mode .featured-overlay h3,
+body.light-mode .featured-overlay small{
+    color: #fff !important;
+}
