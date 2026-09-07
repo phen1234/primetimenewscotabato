@@ -1901,47 +1901,45 @@ body.light-mode.filter-popup-body input[type="date"]{
 
 
 
-/* ========== SECTION TITLE + FILTER BTN DESKTOP ONLY ========== */
-@media(min-width: 1024px){
-    .section-title{
+/* ========== FORCE FIX FOR DESKTOP ========== */
+@media screen and (min-width: 1024px){
+    body .section-title{
         display: flex !important;
         align-items: center !important;
-        justify-content: flex-start !important; /* DIKITIN, WAG SPACE-BETWEEN */
-        gap: 15px !important; /* 15px LANG PAGITAN */
-        margin-bottom: 16px;
+        justify-content: flex-start !important; 
+        gap: 15px !important;
+        margin-bottom: 16px !important;
+        width: 100% !important;
     }
 
-    .section-title h3{
+    body .section-title h3{
         font-size: 18px !important;
         margin: 0 !important;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        white-space: nowrap;
+        padding: 0 !important;
+        flex-shrink: 0 !important;
     }
 
-    .filter-btn{
-        margin-left: 0 !important; /* TANGGAL YUNG AUTO PUSH SA KAN */
+    body .section-title .filter-btn{
+        margin-left: 0 !important;
+        margin-right: 0 !important;
         font-size: 12px !important;
         padding: 6px 12px !important;
         background: #374151 !important;
         color: #9ca3af !important;
         border: none !important;
         border-radius: 6px !important;
-        cursor: pointer;
-        transition: 0.3s;
-        white-space: nowrap;
+        flex-shrink: 0 !important;
     }
 
-    .filter-btn:hover{
+    body .section-title .filter-btn:hover{
         background: #ff0000 !important;
         color: #fff !important;
     }
 }
 
-/* ========== MOBILE - BUMALIK SA DATI ========== */
-@media(max-width: 1023px){
-    .section-title{
-        justify-content: space-between !important; /* MAGKABILANG DULO ULIT SA PHONE */
+/* ========== MOBILE BUMALIK SA DATI ========== */
+@media screen and (max-width: 1023px){
+    body .section-title{
+        justify-content: space-between !important;
     }
 }
