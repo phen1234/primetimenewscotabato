@@ -407,31 +407,21 @@ if(clearDate){
 
 
 
-document.querySelectorAll('.local-news-slider').forEach(slider => {
-    const track = slider.querySelector('.local-track');
-    const prev = slider.querySelector('.local-prev');
-    const next = slider.querySelector('.local-next');
-    let index = 0;
+// PANTAY NA SLIDER - 1 BY 1
+document.querySelectorAll('.local-news-slider').forEach(box => {
+    let i = 0;
+    const track = box.querySelector('.local-track');
+    const cards = track.children.length;
+    const prev = box.querySelector('.local-prev');
+    const next = box.querySelector('.local-next');
 
-    if(!track || !prev || !next) return;
+    function move(){
+        track.style.transform = 'translateX(' + (-i * 100) + '%)'; // % KAYA PANTAY
+    }
 
-    const slide = () => {
-        const sliderWidth = slider.offsetWidth; // KUKUNIN YUNG BUONG LAPAD NG SLIDER
-        track.style.transform = `translateX(${-index * sliderWidth}px)`;
-    };
-
-    next.addEventListener('click', () => {
-        if(index < track.children.length - 1) index++;
-        slide();
-    });
-
-    prev.addEventListener('click', () => {
-        if(index > 0) index--;
-        slide();
-    });
-    
-    window.addEventListener('resize', slide);
-    slide(); // RUN ONCE PAG LOAD
+    next.onclick = () => { if(i < cards-1) i++; move(); }
+    prev.onclick = () => { if(i > 0) i--; move(); }
+    move();
 });
 
 
