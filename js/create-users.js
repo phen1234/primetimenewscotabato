@@ -240,7 +240,7 @@ console.log("FINAL DATA:", data);
 // Create User
 // ======================
 
-const res = await fetch("http://localhost:3000/create-user", {
+const res = await fetch("/create-user", {
 
     method:"POST",
 
