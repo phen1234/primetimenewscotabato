@@ -5008,24 +5008,26 @@ body.light-mode #heroVideos .hero-video-info h4{
 
 
 
+/* ============ FIX: VIDEO MODAL SCROLL ============ */
 
-/* ============ OVERRIDE: VIDEO MODAL SCROLL ============ */
-
-/* 1. Wag i-lock yung body kahit naka-open modal */
-body {
-  overflow-y: scroll !important;
-}
-
-/* 2. Yung overlay mismo ang mag-scroll, hindi yung body */
+/* 1. Yung black background ang mag-scroll */
 #youtubeVideoModal .youtube-modal-overlay {
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch !important;
-  align-items: flex-start !important; /* para maka-scroll pababa */
-  padding-top: 50px !important;
-  padding-bottom: 50px !important;
+  align-items: flex-start !important; /* wag center para maka-scroll pababa */
+  padding-top: 30px !important;
+  padding-bottom: 100px !important; /* bigyan ng space sa baba */
 }
 
-/* 3. Para hindi umabot sa taas yung modal */
+/* 2. Yung modal mismo wag fixed height */
 #youtubeVideoModal .youtube-modal {
-  margin: 0 auto !important;
+  margin: 0 auto 50px auto !important;
+  max-height: none !important;
+  position: relative !important;
+}
+
+/* 3. Yung iframe dapat 16:9 lagi */
+#youtubeVideoModal .youtube-player-wrapper {
+  aspect-ratio: 16 / 9 !important;
+  width: 100% !important;
 }
