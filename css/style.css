@@ -5008,26 +5008,77 @@ body.light-mode #heroVideos .hero-video-info h4{
 
 
 
-/* ============ FIX: VIDEO MODAL SCROLL ============ */
+/* ============ OVERRIDE: VIDEO FIXED, ARTICLE SCROLL ============ */
 
-/* 1. Yung black background ang mag-scroll */
+/* 1. Buong modal naka fixed */
+#youtubeVideoModal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 999 !important;
+}
+
+/* 2. Overlay naka column para patayo */
 #youtubeVideoModal .youtube-modal-overlay {
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important;
-  align-items: flex-start !important; /* wag center para maka-scroll pababa */
-  padding-top: 30px !important;
-  padding-bottom: 100px !important; /* bigyan ng space sa baba */
+  position: fixed !important;
+  inset: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  background: rgba(0, 0, 0, .95) !important;
+  padding: 0 !important;
 }
 
-/* 2. Yung modal mismo wag fixed height */
+/* 3. Modal naka flex din */
 #youtubeVideoModal .youtube-modal {
-  margin: 0 auto 50px auto !important;
-  max-height: none !important;
-  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: #000 !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
 }
 
-/* 3. Yung iframe dapat 16:9 lagi */
+/* 4. VIDEO NAKA FIXED SA TAAS - BUO MAKIKITA */
 #youtubeVideoModal .youtube-player-wrapper {
-  aspect-ratio: 16 / 9 !important;
+  position: relative !important;
   width: 100% !important;
+  aspect-ratio: 16 / 9 !important;
+  background: #000 !important;
+  flex-shrink: 0 !important; /* wag mag shrink */
+}
+
+/* 5. ARTICLE/TITLE LANG ANG MAG SCROLL */
+#youtubeVideoModal .youtube-modal-title {
+  padding: 15px !important;
+  background: #111827 !important;
+  color: #fff !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  line-height: 1.6 !important;
+  overflow-y: auto !important; /* DITO ANG SCROLL */
+  -webkit-overflow-scrolling: touch !important;
+  flex-grow: 1 !important; /* kunin lahat ng natirang space */
+}
+
+/* 6. Close button nasa ibabaw ng video */
+#youtubeVideoModal .youtube-modal-close {
+  position: absolute !important;
+  top: 12px !important;
+  right: 12px !important;
+  z-index: 20 !important;
+  width: 38px !important;
+  height: 38px !important;
+  background: rgba(0, 0, 0, .7) !important;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  #youtubeVideoModal .youtube-modal-title {
+    padding: 12px !important;
+    font-size: 14px !important;
+  }
 }
