@@ -1,9 +1,8 @@
-import { initializeApp, cert, getApps } from 'firebase-admin/app';
-import { getAuth } from 'firebase-admin/auth';
-import { getFirestore } from 'firebase-admin/firestore';
+import { initializeApp, cert, getApps } from 'https://esm.sh/firebase-admin@11.11.0/app';
+import { getAuth } from 'https://esm.sh/firebase-admin@11.11.0/auth';
+import { getFirestore } from 'https://esm.sh/firebase-admin@11.11.0/firestore';
 
 export async function onRequestDelete(context) {
-  // Kunin yung UID galing sa URL: /delete-user/ABC123
   const url = new URL(context.request.url);
   const uid = url.pathname.split('/').pop();
   
@@ -13,15 +12,12 @@ export async function onRequestDelete(context) {
   };
 
   try {
-    // Init Firebase Admin gamit yung env variable
     if (!getApps().length) {
       const serviceAccount = JSON.parse(context.env.FIREBASE_SERVICE_ACCOUNT);
       initializeApp({ credential: cert(serviceAccount) });
     }
 
-    // 1. Delete sa Firebase Auth
     await getAuth().deleteUser(uid);
-    // 2. Delete sa Firestore
     await getFirestore().collection("users").doc(uid).delete();
 
     return new Response(JSON.stringify({ success: true, message: "User deleted" }), { headers });
@@ -31,7 +27,6 @@ export async function onRequestDelete(context) {
   }
 }
 
-// Para sa CORS preflight
 export async function onRequestOptions() {
   return new Response(null, {
     headers: {
