@@ -1,1336 +1,706 @@
-import {
-    auth,
-    db,
-    googleProvider,
-    facebookProvider
-} from "./firebase.js";
-
-import {
-    signInWithPopup,
-    EmailAuthProvider,
-    reauthenticateWithCredential
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-
-import {
-    doc,
-    getDoc,
-    setDoc,
-    updateDoc,
-    serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-
-
-// ==========================================
-// ELEMENTS
-// ==========================================
-
-const loadingOverlay = document.getElementById("loadingOverlay");
-const loadingTitle = document.getElementById("loadingTitle");
-const loadingText = document.getElementById("loadingText");
-
-const form = document.getElementById("registerForm");
-const message = document.getElementById("registerMessage");
-
-let pendingData = null;
+// ============================================================
+// PRIMETIME NEWS COTABATO
+// CLOUDFLARE PAGES FUNCTION
+// UPDATE USER
+//
+// Route:
+// PUT /update-user/:uid
+//
+// Example:
+// /update-user/JcIqHtsCnegaonSUbajN9z02ZBB2
+//
+// Uses:
+// - Cloudflare Pages Functions
+// - Firebase Service Account
+// - Google OAuth 2.0
+// - Firebase Identity Platform REST API
+// - Firestore REST API
+//
+// Required Cloudflare Secret:
+// FIREBASE_SERVICE_ACCOUNT
+// ============================================================
 
 
-// ==========================================
-// DETECT EDIT MODE
-// ==========================================
+// ============================================================
+// CORS
+// ============================================================
 
-const params = new URLSearchParams(window.location.search);
-
-const editId = params.get("id");
-
-let editUserData = null;
-let isEditMode = false;
-
-
-// ==========================================
-// INITIAL UI
-// ==========================================
-
-if (editId) {
-
-    isEditMode = true;
-
-    document.getElementById("socialLogin").style.display = "none";
-    document.getElementById("socialDivider").style.display = "none";
-    document.getElementById("passwordBox").style.display = "none";
-
-} else {
-
-    isEditMode = false;
-
-    document.getElementById("socialLogin").style.display = "block";
-    document.getElementById("socialDivider").style.display = "flex";
-    document.getElementById("passwordBox").style.display = "flex";
-
+function corsHeaders() {
+    return {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "PUT, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Content-Type": "application/json; charset=UTF-8"
+    };
 }
 
 
-// ==========================================
-// LOAD USER FOR EDIT
-// ==========================================
+// ============================================================
+// JSON RESPONSE
+// ============================================================
 
-if (isEditMode) {
-
-    document.getElementById("socialLogin").style.display = "none";
-    document.getElementById("socialDivider").style.display = "none";
-    document.getElementById("passwordBox").style.display = "none";
-
-    document.getElementById("buttonText").textContent =
-        "Update Account";
-
-    loadUserForEdit();
-
+function jsonResponse(data, status = 200) {
+    return new Response(
+        JSON.stringify(data),
+        {
+            status,
+            headers: corsHeaders()
+        }
+    );
 }
 
 
-// ==========================================
-// LOAD USER DATA
-// ==========================================
+// ============================================================
+// BASE64URL
+// ============================================================
 
-async function loadUserForEdit() {
+function base64UrlEncode(data) {
+
+    let bytes;
+
+    if (typeof data === "string") {
+        bytes = new TextEncoder().encode(data);
+    } else {
+        bytes = new Uint8Array(data);
+    }
+
+    let binary = "";
+
+    for (const byte of bytes) {
+        binary += String.fromCharCode(byte);
+    }
+
+    return btoa(binary)
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=+$/g, "");
+}
+
+
+// ============================================================
+// IMPORT SERVICE ACCOUNT
+// ============================================================
+
+function getServiceAccount(env) {
+
+    if (!env.FIREBASE_SERVICE_ACCOUNT) {
+        throw new Error(
+            "FIREBASE_SERVICE_ACCOUNT is not configured in Cloudflare."
+        );
+    }
+
+    let serviceAccount;
 
     try {
 
-        const snap =
-            await getDoc(
-                doc(db, "users", editId)
-            );
+        serviceAccount =
+            typeof env.FIREBASE_SERVICE_ACCOUNT === "string"
+                ? JSON.parse(env.FIREBASE_SERVICE_ACCOUNT)
+                : env.FIREBASE_SERVICE_ACCOUNT;
 
-        if (!snap.exists()) {
+    } catch (error) {
 
-            Swal.fire({
-                icon: "error",
-                title: "User Not Found",
-                text: "The selected user account could not be found."
-            });
-
-            return;
-        }
-
-        editUserData = snap.data();
-
-        document.getElementById("name").value =
-            editUserData.name || "";
-
-        document.getElementById("email").value =
-            editUserData.email || "";
-
-        document.getElementById("role").value =
-            editUserData.role || "User";
-
-        document.getElementById("previewPhoto").src =
-            editUserData.photoURL ||
-            "../images/default-user.png";
-
-        // Email cannot be changed in edit mode
-        document.getElementById("email").readOnly = true;
-
-        // Password is optional during edit
-        document.getElementById("password").required = false;
-
-        document.getElementById("password").placeholder =
-            "Leave blank to keep current password";
-
-        document.getElementById("buttonText").textContent =
-            "Update Account";
-
-    } catch (err) {
-
-        console.error(
-            "LOAD USER ERROR:",
-            err
+        throw new Error(
+            "FIREBASE_SERVICE_ACCOUNT contains invalid JSON."
         );
-
-        Swal.fire({
-            icon: "error",
-            title: "Unable to Load User",
-            text: err.message || "Something went wrong."
-        });
-
     }
 
+    if (
+        !serviceAccount.client_email ||
+        !serviceAccount.private_key ||
+        !serviceAccount.project_id
+    ) {
+        throw new Error(
+            "FIREBASE_SERVICE_ACCOUNT is missing client_email, private_key, or project_id."
+        );
+    }
+
+    return serviceAccount;
 }
 
 
-// ==========================================
-// REGISTER / UPDATE FORM
-// ==========================================
+// ============================================================
+// CREATE GOOGLE ACCESS TOKEN
+// ============================================================
 
-form.addEventListener("submit", async (e) => {
+async function createGoogleAccessToken(serviceAccount) {
 
-    e.preventDefault();
+    const now = Math.floor(Date.now() / 1000);
 
-    message.textContent = "";
+    const header = {
+        alg: "RS256",
+        typ: "JWT"
+    };
+
+    const payload = {
+        iss: serviceAccount.client_email,
+        scope: [
+            "https://www.googleapis.com/auth/identitytoolkit",
+            "https://www.googleapis.com/auth/datastore"
+        ].join(" "),
+        aud: "https://oauth2.googleapis.com/token",
+        iat: now,
+        exp: now + 3600
+    };
+
+    const encodedHeader =
+        base64UrlEncode(JSON.stringify(header));
+
+    const encodedPayload =
+        base64UrlEncode(JSON.stringify(payload));
+
+    const unsignedToken =
+        `${encodedHeader}.${encodedPayload}`;
+
+    const privateKeyPem =
+        serviceAccount.private_key;
+
+    const pemContents =
+        privateKeyPem
+            .replace("-----BEGIN PRIVATE KEY-----", "")
+            .replace("-----END PRIVATE KEY-----", "")
+            .replace(/\s/g, "");
+
+    const binaryKey =
+        Uint8Array.from(
+            atob(pemContents),
+            char => char.charCodeAt(0)
+        );
+
+    const cryptoKey =
+        await crypto.subtle.importKey(
+            "pkcs8",
+            binaryKey.buffer,
+            {
+                name: "RSASSA-PKCS1-v1_5",
+                hash: "SHA-256"
+            },
+            false,
+            ["sign"]
+        );
+
+    const signature =
+        await crypto.subtle.sign(
+            "RSASSA-PKCS1-v1_5",
+            cryptoKey,
+            new TextEncoder().encode(unsignedToken)
+        );
+
+    const jwt =
+        `${unsignedToken}.${base64UrlEncode(signature)}`;
+
+    const tokenResponse =
+        await fetch(
+            "https://oauth2.googleapis.com/token",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type":
+                        "application/x-www-form-urlencoded"
+                },
+                body:
+                    new URLSearchParams({
+                        grant_type:
+                            "urn:ietf:params:oauth:grant-type:jwt-bearer",
+                        assertion: jwt
+                    })
+            }
+        );
+
+    const tokenText =
+        await tokenResponse.text();
+
+    if (!tokenResponse.ok) {
+
+        throw new Error(
+            `Google OAuth token error: ${tokenText}`
+        );
+    }
+
+    let tokenData;
+
+    try {
+        tokenData =
+            JSON.parse(tokenText);
+    } catch {
+        throw new Error(
+            "Google OAuth returned invalid JSON."
+        );
+    }
+
+    if (!tokenData.access_token) {
+
+        throw new Error(
+            "Google OAuth did not return an access token."
+        );
+    }
+
+    return tokenData.access_token;
+}
 
 
-    const data = {
+// ============================================================
+// FIRESTORE VALUE HELPERS
+// ============================================================
 
-        name:
-            document.getElementById("name")
-                .value
-                .trim(),
+function firestoreString(value) {
 
-        email:
-            document.getElementById("email")
-                .value
-                .trim(),
+    return {
+        stringValue: String(value ?? "")
+    };
+}
 
-        password:
-            document.getElementById("password")
-                .value,
 
-        role:
-            document.getElementById("role")
-                .value,
+function firestoreTimestamp(date = new Date()) {
 
-        photoURL: ""
+    return {
+        timestampValue: date.toISOString()
+    };
+}
 
+
+// ============================================================
+// UPDATE FIREBASE AUTH USER
+// ============================================================
+
+async function updateFirebaseAuthUser({
+    projectId,
+    accessToken,
+    uid,
+    name,
+    email,
+    password,
+    photoURL
+}) {
+
+    const authUrl =
+        `https://identitytoolkit.googleapis.com/v1/projects/${encodeURIComponent(projectId)}/accounts:update`;
+
+    const authPayload = {
+        localId: uid,
+        displayName: name,
+        email: email
     };
 
 
-    // ======================================
-    // EDIT MODE
-    // ======================================
+    // Only change password if supplied.
+    if (
+        typeof password === "string" &&
+        password.trim() !== ""
+    ) {
+        authPayload.password =
+            password.trim();
+    }
 
-    if (isEditMode) {
 
-        pendingData = data;
+    // Only update photo when supplied.
+    if (
+        typeof photoURL === "string" &&
+        photoURL.trim() !== ""
+    ) {
+        authPayload.photoUrl =
+            photoURL.trim();
+    }
 
-        /*
-         * If changing the account to Admin,
-         * require Super Admin password.
-         */
 
-        if (data.role === "Admin") {
+    const response =
+        await fetch(
+            authUrl,
+            {
+                method: "POST",
+                headers: {
+                    "Authorization":
+                        `Bearer ${accessToken}`,
 
-            document.getElementById("adminPassword").value = "";
+                    "Content-Type":
+                        "application/json"
+                },
+                body: JSON.stringify(authPayload)
+            }
+        );
 
-            document.getElementById(
-                "adminPasswordModal"
-            ).style.display = "flex";
 
-            return;
+    const responseText =
+        await response.text();
+
+
+    if (!response.ok) {
+
+        let errorMessage =
+            responseText;
+
+        try {
+
+            const errorData =
+                JSON.parse(responseText);
+
+            errorMessage =
+                errorData?.error?.message ||
+                errorMessage;
+
+        } catch {
+            // Keep raw response.
         }
 
-
-        await updateAccount(data);
-
-        return;
+        throw new Error(
+            `Firebase Authentication update failed: ${errorMessage}`
+        );
     }
 
-
-    // ======================================
-    // CREATE MODE
-    // ======================================
-
-    /*
-     * Creating an Admin requires
-     * Super Admin verification.
-     */
-
-    if (data.role === "Admin") {
-
-        pendingData = data;
-
-        document.getElementById("adminPassword").value = "";
-
-        document.getElementById(
-            "adminPasswordModal"
-        ).style.display = "flex";
-
-        return;
-    }
-
-
-    await createAccount(data);
-
-});
-
-
-// ==========================================
-// CREATE ACCOUNT
-// ==========================================
-
-async function createAccount(data) {
 
     try {
 
-        Swal.fire({
+        return JSON.parse(responseText);
 
-            title: "Creating Account",
+    } catch {
 
-            html: `
-                <div style="margin-top:10px;">
-                    <div style="font-size:15px;color:#666;">
-                        Please wait while we create the account...
-                    </div>
-                </div>
-            `,
-
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-
-            didOpen: () => {
-
-                Swal.showLoading();
-
-            }
-
-        });
-
-
-        // ==================================
-        // UPLOAD PHOTO TO CLOUDINARY
-        // ==================================
-
-        const file =
-            document.getElementById("photo")
-                .files[0];
-
-        let photoURL = "";
-
-
-        if (file) {
-
-            const formData =
-                new FormData();
-
-            formData.append(
-                "file",
-                file
-            );
-
-            formData.append(
-                "upload_preset",
-                "Primetime-News-Cotabato"
-            );
-
-
-            const upload =
-                await fetch(
-                    "https://api.cloudinary.com/v1_1/ufx7karu/image/upload",
-                    {
-                        method: "POST",
-                        body: formData
-                    }
-                );
-
-
-            const uploaded =
-                await upload.json();
-
-
-            if (!upload.ok) {
-
-                throw new Error(
-                    uploaded?.error?.message ||
-                    "Cloudinary photo upload failed."
-                );
-            }
-
-
-            photoURL =
-                uploaded.secure_url;
-
-
-            console.log(
-                "Cloudinary Upload:",
-                uploaded
-            );
-
-            console.log(
-                "Photo URL:",
-                photoURL
-            );
-
-        }
-
-
-        data.photoURL =
-            photoURL;
-
-
-        console.log(
-            "FINAL CREATE DATA:",
-            data
-        );
-
-
-        // ==================================
-        // CREATE USER
-        // CLOUDFLARE PAGES FUNCTION
-        // ==================================
-
-        const res =
-            await fetch(
-                "/create-user",
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify(data)
-                }
-            );
-
-
-        const result =
-            await res.json();
-
-
-        console.log(
-            "CREATE USER RESPONSE:",
-            result
-        );
-
-
-        if (result.success) {
-
-            await Swal.fire({
-
-                icon: "success",
-
-                title: "Account Created!",
-
-                html: `
-                    <b>${data.name}</b>
-                    <br><br>
-                    has been added successfully.
-                    <br><br>
-                    Redirecting...
-                `,
-
-                timer: 1800,
-
-                timerProgressBar: true,
-
-                showConfirmButton: false
-
-            });
-
-
-            form.reset();
-
-            window.location.href =
-                "users.html";
-
-
-        } else {
-
-            Swal.fire({
-
-                icon: "error",
-
-                title: "Unable to Create Account",
-
-                text:
-                    result.error ||
-                    "Unable to create account.",
-
-                confirmButtonColor:
-                    "#2563eb"
-
-            });
-
-        }
-
-
-    } catch (err) {
-
-        console.error(
-            "CREATE ACCOUNT ERROR:",
-            err
-        );
-
-
-        Swal.close();
-
-
-        Swal.fire({
-
-            icon: "error",
-
-            title: "Connection Error",
-
-            text:
-                err.message ||
-                "Cannot connect to server.",
-
-            confirmButtonColor:
-                "#2563eb"
-
-        });
-
+        return {};
     }
-
 }
 
 
-// ==========================================
-// UPDATE ACCOUNT
-// ==========================================
+// ============================================================
+// UPDATE FIRESTORE USER DOCUMENT
+// ============================================================
 
-async function updateAccount(data) {
+async function updateFirestoreUser({
+    projectId,
+    accessToken,
+    uid,
+    name,
+    email,
+    role,
+    photoURL
+}) {
+
+    const firestoreUrl =
+        `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(projectId)}/databases/(default)/documents/users/${encodeURIComponent(uid)}`;
+
+
+    // Keep behavior compatible with the old Node server.
+    const fields = {
+
+        name:
+            firestoreString(name),
+
+        email:
+            firestoreString(email),
+
+        role:
+            firestoreString(role),
+
+        updatedAt:
+            firestoreTimestamp()
+    };
+
+
+    // Only replace photoURL when a new photo was uploaded.
+    if (
+        typeof photoURL === "string" &&
+        photoURL.trim() !== ""
+    ) {
+
+        fields.photoURL =
+            firestoreString(photoURL);
+    }
+
+
+    const response =
+        await fetch(
+            firestoreUrl,
+            {
+                method: "PATCH",
+
+                headers: {
+                    "Authorization":
+                        `Bearer ${accessToken}`,
+
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body:
+                    JSON.stringify({
+                        fields
+                    })
+            }
+        );
+
+
+    const responseText =
+        await response.text();
+
+
+    if (!response.ok) {
+
+        let errorMessage =
+            responseText;
+
+        try {
+
+            const errorData =
+                JSON.parse(responseText);
+
+            errorMessage =
+                errorData?.error?.message ||
+                errorMessage;
+
+        } catch {
+            // Keep raw response.
+        }
+
+
+        throw new Error(
+            `Firestore update failed: ${errorMessage}`
+        );
+    }
+
 
     try {
 
-        Swal.fire({
+        return JSON.parse(responseText);
 
-            title: "Updating Account",
+    } catch {
 
-            html: `
-                <div style="margin-top:10px;">
-                    <div style="font-size:15px;color:#666;">
-                        Please wait while we update the account...
-                    </div>
-                </div>
-            `,
+        return {};
+    }
+}
 
-            allowOutsideClick: false,
 
-            allowEscapeKey: false,
+// ============================================================
+// PUT /update-user/:uid
+// ============================================================
 
-            didOpen: () => {
+export async function onRequestPut(context) {
 
-                Swal.showLoading();
+    try {
 
-            }
+        const {
+            request,
+            env,
+            params
+        } = context;
 
+
+        // ----------------------------------------------------
+        // GET UID FROM DYNAMIC ROUTE
+        // ----------------------------------------------------
+
+        const uid =
+            String(params?.uid || "").trim();
+
+
+        if (!uid) {
+
+            return jsonResponse(
+                {
+                    success: false,
+                    error: "User ID is required."
+                },
+                400
+            );
+        }
+
+
+        // ----------------------------------------------------
+        // READ BODY
+        // ----------------------------------------------------
+
+        let body;
+
+        try {
+
+            body =
+                await request.json();
+
+        } catch {
+
+            return jsonResponse(
+                {
+                    success: false,
+                    error: "Invalid JSON request body."
+                },
+                400
+            );
+        }
+
+
+        const name =
+            String(body?.name || "").trim();
+
+        const email =
+            String(body?.email || "").trim();
+
+        const role =
+            String(body?.role || "").trim();
+
+        const password =
+            typeof body?.password === "string"
+                ? body.password
+                : "";
+
+        const photoURL =
+            typeof body?.photoURL === "string"
+                ? body.photoURL.trim()
+                : "";
+
+
+        // ----------------------------------------------------
+        // BASIC VALIDATION
+        // ----------------------------------------------------
+
+        if (!name) {
+
+            return jsonResponse(
+                {
+                    success: false,
+                    error: "Name is required."
+                },
+                400
+            );
+        }
+
+
+        if (!email) {
+
+            return jsonResponse(
+                {
+                    success: false,
+                    error: "Email is required."
+                },
+                400
+            );
+        }
+
+
+        if (!role) {
+
+            return jsonResponse(
+                {
+                    success: false,
+                    error: "Role is required."
+                },
+                400
+            );
+        }
+
+
+        // ----------------------------------------------------
+        // SERVICE ACCOUNT
+        // ----------------------------------------------------
+
+        const serviceAccount =
+            getServiceAccount(env);
+
+
+        const projectId =
+            serviceAccount.project_id;
+
+
+        // ----------------------------------------------------
+        // GOOGLE ACCESS TOKEN
+        // ----------------------------------------------------
+
+        const accessToken =
+            await createGoogleAccessToken(
+                serviceAccount
+            );
+
+
+        // ----------------------------------------------------
+        // UPDATE FIREBASE AUTH
+        // ----------------------------------------------------
+
+        await updateFirebaseAuthUser({
+
+            projectId,
+
+            accessToken,
+
+            uid,
+
+            name,
+
+            email,
+
+            password,
+
+            photoURL
         });
 
 
-        // ==================================
-        // UPLOAD NEW PHOTO IF SELECTED
-        // ==================================
+        // ----------------------------------------------------
+        // UPDATE FIRESTORE
+        // ----------------------------------------------------
 
-        const file =
-            document.getElementById("photo")
-                .files[0];
+        await updateFirestoreUser({
 
+            projectId,
 
-        if (file) {
+            accessToken,
 
-            const formData =
-                new FormData();
+            uid,
 
-            formData.append(
-                "file",
-                file
-            );
+            name,
 
-            formData.append(
-                "upload_preset",
-                "Primetime-News-Cotabato"
-            );
+            email,
+
+            role,
+
+            photoURL
+        });
 
 
-            const upload =
-                await fetch(
-                    "https://api.cloudinary.com/v1_1/ufx7karu/image/upload",
-                    {
-                        method: "POST",
-                        body: formData
-                    }
-                );
+        // ----------------------------------------------------
+        // SUCCESS
+        // ----------------------------------------------------
 
+        return jsonResponse(
+            {
+                success: true,
 
-            const uploaded =
-                await upload.json();
+                uid,
 
-
-            if (!upload.ok) {
-
-                throw new Error(
-                    uploaded?.error?.message ||
-                    "Cloudinary photo upload failed."
-                );
-            }
-
-
-            data.photoURL =
-                uploaded.secure_url;
-
-
-            console.log(
-                "Updated Cloudinary Photo:",
-                data.photoURL
-            );
-
-        }
-
-
-        // ==================================
-        // BUILD UPDATE PAYLOAD
-        // ==================================
-
-        const payload = {
-
-            name:
-                data.name,
-
-            email:
-                editUserData.email,
-
-            role:
-                data.role,
-
-            photoURL:
-                data.photoURL ||
-                editUserData.photoURL ||
-                "",
-
-            provider:
-                editUserData.provider,
-
-            status:
-                editUserData.status,
-
-            createdAt:
-                editUserData.createdAt,
-
-            lastSeen:
-                editUserData.lastSeen
-
-        };
-
-
-        /*
-         * IMPORTANT:
-         * Only send password when the user
-         * actually entered a new password.
-         *
-         * Blank password means:
-         * KEEP CURRENT PASSWORD.
-         */
-
-        if (
-            data.password &&
-            data.password.trim() !== ""
-        ) {
-
-            payload.password =
-                data.password;
-
-        }
-
-
-        console.log(
-            "FINAL UPDATE PAYLOAD:",
-            payload
+                message:
+                    "User updated successfully."
+            },
+            200
         );
 
 
-        // ==================================
-        // UPDATE USER
-        // CLOUDFLARE PAGES FUNCTION
-        // ==================================
-
-        const res =
-            await fetch(
-                `/update-user/${encodeURIComponent(editId)}`,
-                {
-                    method: "PUT",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify(payload)
-                }
-            );
-
-
-        const result =
-            await res.json();
-
-
-        console.log(
-            "UPDATE USER RESPONSE:",
-            result
-        );
-
-
-        if (result.success) {
-
-            await Swal.fire({
-
-                icon: "success",
-
-                title: "Account Updated",
-
-                text:
-                    "User account has been updated successfully.",
-
-                confirmButtonColor:
-                    "#2563eb"
-
-            });
-
-
-            location.href =
-                "users.html";
-
-
-        } else {
-
-            Swal.fire({
-
-                icon: "error",
-
-                title: "Update Failed",
-
-                text:
-                    result.error ||
-                    "Unable to update account.",
-
-                confirmButtonColor:
-                    "#2563eb"
-
-            });
-
-        }
-
-
-    } catch (err) {
+    } catch (error) {
 
         console.error(
-            "UPDATE ACCOUNT ERROR:",
-            err
+            "UPDATE USER ERROR:",
+            error
         );
 
 
-        Swal.close();
-
-
-        Swal.fire({
-
-            icon: "error",
-
-            title: "Connection Error",
-
-            text:
-                err.message ||
-                "Cannot connect to update server.",
-
-            confirmButtonColor:
-                "#2563eb"
-
-        });
-
-    }
-
-}
-
-
-// ==========================================
-// VERIFY SUPER ADMIN PASSWORD
-// ==========================================
-
-document
-    .getElementById("verifyAdminPassword")
-    .addEventListener(
-        "click",
-        async () => {
-
-            const password =
-                document.getElementById(
-                    "adminPassword"
-                ).value;
-
-
-            try {
-
-                const currentUser =
-                    auth.currentUser;
-
-
-                if (!currentUser) {
-
-                    alert(
-                        "Please login first."
-                    );
-
-                    return;
-                }
-
-
-                // ==================================
-                // GET CURRENT USER FIRESTORE DATA
-                // ==================================
-
-                const snap =
-                    await getDoc(
-                        doc(
-                            db,
-                            "users",
-                            currentUser.uid
-                        )
-                    );
-
-
-                if (!snap.exists()) {
-
-                    alert(
-                        "User record not found."
-                    );
-
-                    return;
-                }
-
-
-                const currentUserData =
-                    snap.data();
-
-
-                // ==================================
-                // ONLY SUPER ADMIN
-                // ==================================
-
-                if (
-                    currentUserData.role !==
-                    "Super Admin"
-                ) {
-
-                    alert(
-                        "Only Super Admin can create or modify Admin accounts."
-                    );
-
-                    return;
-                }
-
-
-                // ==================================
-                // VERIFY PASSWORD
-                // ==================================
-
-                const credential =
-                    EmailAuthProvider.credential(
-                        currentUser.email,
-                        password
-                    );
-
-
-                await reauthenticateWithCredential(
-                    currentUser,
-                    credential
-                );
-
-
-                // ==================================
-                // PASSWORD CORRECT
-                // ==================================
-
-                document.getElementById(
-                    "adminPasswordModal"
-                ).style.display = "none";
-
-
-                if (isEditMode) {
-
-                    await updateAccount(
-                        pendingData
-                    );
-
-                } else {
-
-                    await createAccount(
-                        pendingData
-                    );
-
-                }
-
-            } catch (err) {
-
-                console.error(
-                    "SUPER ADMIN VERIFICATION ERROR:",
-                    err
-                );
-
-
-                alert(
-                    "Incorrect Super Admin Password."
-                );
-
-            }
-
-        }
-    );
-
-
-// ==========================================
-// CANCEL ADMIN PASSWORD
-// ==========================================
-
-document
-    .getElementById("cancelAdminPassword")
-    .addEventListener(
-        "click",
-        () => {
-
-            document.getElementById(
-                "adminPasswordModal"
-            ).style.display = "none";
-
-        }
-    );
-
-
-// ==========================================
-// SHOW / HIDE PASSWORD
-// ==========================================
-
-document
-    .querySelectorAll(".toggle-password")
-    .forEach(icon => {
-
-        icon.addEventListener(
-            "click",
-            () => {
-
-                const input =
-                    document.getElementById(
-                        icon.dataset.target
-                    );
-
-
-                if (!input) {
-
-                    return;
-
-                }
-
-
-                if (
-                    input.type ===
-                    "password"
-                ) {
-
-                    input.type =
-                        "text";
-
-                    icon.classList.replace(
-                        "fa-eye",
-                        "fa-eye-slash"
-                    );
-
-                } else {
-
-                    input.type =
-                        "password";
-
-                    icon.classList.replace(
-                        "fa-eye-slash",
-                        "fa-eye"
-                    );
-
-                }
-
-            }
+        return jsonResponse(
+            {
+                success: false,
+
+                error:
+                    error?.message ||
+                    "Unable to update user."
+            },
+            500
         );
-
-    });
-
-
-// ==========================================
-// PHOTO PREVIEW
-// ==========================================
-
-const photoInput =
-    document.getElementById("photo");
-
-const choosePhotoBtn =
-    document.getElementById(
-        "choosePhotoBtn"
-    );
-
-const previewPhoto =
-    document.getElementById(
-        "previewPhoto"
-    );
-
-
-choosePhotoBtn.addEventListener(
-    "click",
-    () => {
-
-        photoInput.click();
-
     }
-);
-
-
-photoInput.addEventListener(
-    "change",
-    () => {
-
-        const file =
-            photoInput.files[0];
-
-
-        if (file) {
-
-            previewPhoto.src =
-                URL.createObjectURL(
-                    file
-                );
-
-        }
-
-    }
-);
-
-
-// ==========================================
-// GOOGLE REGISTER
-// ==========================================
-
-const googleBtn =
-    document.getElementById(
-        "googleRegister"
-    );
-
-
-if (googleBtn) {
-
-    googleBtn.addEventListener(
-        "click",
-        async () => {
-
-            try {
-
-                const result =
-                    await signInWithPopup(
-                        auth,
-                        googleProvider
-                    );
-
-
-                console.log(
-                    "GOOGLE USER:",
-                    result.user
-                );
-
-
-                const user =
-                    result.user;
-
-
-                // ==================================
-                // SAVE GOOGLE USER TO FIRESTORE
-                // ==================================
-
-                await setDoc(
-                    doc(
-                        db,
-                        "users",
-                        user.uid
-                    ),
-                    {
-
-                        name:
-                            user.displayName ||
-                            "",
-
-                        email:
-                            user.email ||
-                            "",
-
-                        photoURL:
-                            user.photoURL ||
-                            "",
-
-                        provider:
-                            "Google",
-
-                        role:
-                            "User",
-
-                        status:
-                            "Active",
-
-                        createdAt:
-                            serverTimestamp(),
-
-                        lastSeen:
-                            serverTimestamp()
-
-                    },
-                    {
-                        merge: true
-                    }
-                );
-
-
-                await updateDoc(
-                    doc(
-                        db,
-                        "users",
-                        user.uid
-                    ),
-                    {
-                        lastSeen:
-                            serverTimestamp()
-                    }
-                );
-
-
-                const check =
-                    await getDoc(
-                        doc(
-                            db,
-                            "users",
-                            user.uid
-                        )
-                    );
-
-
-                console.log(
-                    "AFTER SAVE:",
-                    check.exists(),
-                    check.data()
-                );
-
-
-                console.log(
-                    "USER SAVED TO FIRESTORE"
-                );
-
-
-                await Swal.fire({
-
-                    icon: "success",
-
-                    title: "Welcome!",
-
-                    text:
-                        "Google account registered successfully."
-
-                });
-
-
-                window.location.href =
-                    `register.html?id=${user.uid}`;
-
-
-            } catch (err) {
-
-                console.error(
-                    "GOOGLE ERROR:",
-                    err
-                );
-
-
-                Swal.fire({
-
-                    icon: "error",
-
-                    title: "Google Login Failed",
-
-                    text:
-                        err.message
-
-                });
-
-            }
-
-        }
-    );
-
 }
 
 
-// ==========================================
-// FACEBOOK REGISTER
-// ==========================================
-
-const facebookBtn =
-    document.getElementById(
-        "facebookRegister"
-    );
-
-
-let facebookLoginRunning =
-    false;
-
-
-if (facebookBtn) {
-
-    facebookBtn.addEventListener(
-        "click",
-        async () => {
-
-            // ==================================
-            // PREVENT DOUBLE CLICK
-            // ==================================
-
-            if (facebookLoginRunning) {
-
-                return;
-
-            }
-
-
-            facebookLoginRunning =
-                true;
-
-            facebookBtn.disabled =
-                true;
-
-
-            try {
-
-                console.log(
-                    "Starting Facebook Login..."
-                );
-
-
-                const result =
-                    await signInWithPopup(
-                        auth,
-                        facebookProvider
-                    );
-
-
-                const user =
-                    result.user;
-
-
-                console.log(
-                    "FACEBOOK USER:",
-                    user
-                );
-
-
-                // ==================================
-                // SAVE FACEBOOK USER
-                // ==================================
-
-                await setDoc(
-                    doc(
-                        db,
-                        "users",
-                        user.uid
-                    ),
-                    {
-
-                        name:
-                            user.displayName ||
-                            "",
-
-                        email:
-                            user.email ||
-                            "",
-
-                        photoURL:
-                            user.photoURL ||
-                            "",
-
-                        provider:
-                            "Facebook",
-
-                        role:
-                            "User",
-
-                        status:
-                            "Active",
-
-                        createdAt:
-                            serverTimestamp(),
-
-                        lastSeen:
-                            serverTimestamp()
-
-                    },
-                    {
-                        merge: true
-                    }
-                );
-
-
-                console.log(
-                    "FACEBOOK USER SAVED:",
-                    user.uid
-                );
-
-
-                await Swal.fire({
-
-                    icon: "success",
-
-                    title: "Welcome!",
-
-                    text:
-                        "Facebook account registered successfully."
-
-                });
-
-
-                window.location.href =
-                    `register.html?id=${user.uid}`;
-
-
-            } catch (err) {
-
-                console.error(
-                    "FACEBOOK ERROR:",
-                    err
-                );
-
-
-                if (
-                    err.code ===
-                    "auth/cancelled-popup-request"
-                ) {
-
-                    Swal.fire({
-
-                        icon: "warning",
-
-                        title:
-                            "Login already in progress",
-
-                        text:
-                            "Please wait for the Facebook popup to finish."
-
-                    });
-
-                } else {
-
-                    Swal.fire({
-
-                        icon: "error",
-
-                        title:
-                            "Facebook Registration Failed",
-
-                        text:
-                            err.message
-
-                    });
-
-                }
-
-            } finally {
-
-                facebookLoginRunning =
-                    false;
-
-                facebookBtn.disabled =
-                    false;
-
-            }
-
+// ============================================================
+// OPTIONS
+// ============================================================
+
+export function onRequestOptions() {
+
+    return new Response(
+        null,
+        {
+            status: 204,
+            headers: corsHeaders()
         }
     );
-
 }
