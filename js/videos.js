@@ -106,98 +106,72 @@ function escapeHtml(value) {
 /* =========================================
    YOUTUBE PLAYER MODAL
 ========================================= */
+function createVideoPlayer(id, title) { 
+  // Remove existing player if meron
+  const existing = document.getElementById("youtubeVideoModal"); 
+  if (existing) { 
+    existing.remove(); 
+  } 
+  
+  const modal = document.createElement("div"); 
+  modal.id = "youtubeVideoModal"; 
+  modal.innerHTML = ` 
+    <div class="youtube-modal-overlay"> 
+      <div class="youtube-modal" role="dialog" aria-modal="true" aria-label="${escapeHtml(title)}" > 
+        <button type="button" class="youtube-modal-close" id="youtubeModalClose" aria-label="Close video" > 
+          <i class="fas fa-xmark"></i> 
+        </button> 
+        <div class="youtube-player-wrapper"> 
+          <iframe 
+            src="https://www.youtube.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0" 
+            title="${escapeHtml(title)}" 
+            frameborder="0" 
+            allow=" accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share " 
+            allowfullscreen> 
+          </iframe> 
+        </div> 
+        <div class="youtube-modal-title"> 
+          ${escapeHtml(title)} 
+        </div> 
+      </div> 
+    </div> 
+  `; 
+  
+  document.body.appendChild(modal); 
 
-function createVideoPlayer(id, title) {
+  // TINANGGAL KO NA YUNG PAG-LOCK NG SCROLL DITO
+  // document.body.style.overflow = "hidden"; 
 
-    // Remove existing player if meron
-    const existing =
-        document.getElementById("youtubeVideoModal");
-
-    if (existing) {
-        existing.remove();
-    }
-
-
-    const modal =
-        document.createElement("div");
-
-    modal.id = "youtubeVideoModal";
-
-    modal.innerHTML = `
-
-        <div class="youtube-modal-overlay">
-
-            <div
-                class="youtube-modal"
-                role="dialog"
-                aria-modal="true"
-                aria-label="${escapeHtml(title)}"
-            >
-
-                <button
-                    type="button"
-                    class="youtube-modal-close"
-                    id="youtubeModalClose"
-                    aria-label="Close video"
-                >
-                    <i class="fas fa-xmark"></i>
-                </button>
-
-
-                <div class="youtube-player-wrapper">
-
-                    <iframe
-                        src="https://www.youtube.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0"
-                        title="${escapeHtml(title)}"
-                        frameborder="0"
-                        allow="
-                            accelerometer;
-                            autoplay;
-                            clipboard-write;
-                            encrypted-media;
-                            gyroscope;
-                            picture-in-picture;
-                            web-share
-                        "
-                        allowfullscreen>
-                    </iframe>
-
-                </div>
-
-
-                <div class="youtube-modal-title">
-                    ${escapeHtml(title)}
-                </div>
-
-            </div>
-
-        </div>
-
-    `;
-
-
-    document.body.appendChild(modal);
-
-
-    // Prevent body scrolling while player is open
-    document.body.style.overflow = "hidden";
-
-
-    const closeButton =
-        document.getElementById("youtubeModalClose");
-
-
-    function closePlayer() {
-
-        modal.remove();
-
-        document.body.style.overflow = "";
-
-        document.removeEventListener(
-            "keydown",
-            handleKeydown
-        );
-    }
+  const closeButton = document.getElementById("youtubeModalClose"); 
+  
+  function closePlayer() { 
+    modal.remove(); 
+    // TINANGGAL KO NA DIN DITO
+    // document.body.style.overflow = ""; 
+    document.removeEventListener( "keydown", handleKeydown ); 
+  } 
+  
+  function handleKeydown(event) { 
+    if (event.key === "Escape") { 
+      closePlayer(); 
+    } 
+  } 
+  
+  if (closeButton) { 
+    closeButton.addEventListener( "click", closePlayer ); 
+  } 
+  
+  const overlay = modal.querySelector(".youtube-modal-overlay"); 
+  if (overlay) { 
+    overlay.addEventListener( "click", function (event) { 
+      if (event.target === overlay) { 
+        closePlayer(); 
+      } 
+    } ); 
+  } 
+  
+  document.addEventListener( "keydown", handleKeydown ); 
+}
 
 
     function handleKeydown(event) {
