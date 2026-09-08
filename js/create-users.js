@@ -370,7 +370,7 @@ async function updateAccount(data) {
 
 };
 
-        const res = await fetch(`http://localhost:3000/update-user/${editId}`, {
+       const res = await fetch(`/update-user/${encodeURIComponent(editId)}`, {
 
             method: "PUT",
 
