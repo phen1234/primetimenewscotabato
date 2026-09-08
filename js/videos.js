@@ -155,15 +155,29 @@ function addVideoPlayerStyles() {
     }
     .youtube-player-wrapper { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; flex-shrink: 0; }
     .youtube-player-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-    .youtube-modal-content { max-height: 40vh; overflow-y: auto; background: #111827; }
+    .youtube-modal-content { max-height: 60vh; overflow-y: auto; background: #111827; }
     .youtube-modal-title { padding: 15px; color: #fff; font-family: "Poppins", sans-serif; font-size: 16px; font-weight: 600; border-bottom: 1px solid #1f2937; }
     .youtube-modal-description { padding: 15px; color: #d1d5db; font-size: 14px; line-height: 1.7; white-space: pre-line; }
     
+    
     @media (max-width: 768px) { 
-      #videosGrid { grid-template-columns: 1fr; padding: 15px; }
-      .youtube-modal-content { max-height: 35vh; }
-      .youtube-modal-close { width: 35px; height: 35px; top: 10px; right: 10px; } 
-    } 
+    #videosGrid { 
+    grid-template-columns: 1fr; 
+    padding: 15px; 
+  } 
+  
+  .youtube-modal-content { 
+    max-height: 55vh; /* DATING 35vh, GINAWANG 55vh */
+    padding-bottom: 100px; /* PARA DI PUTOL YUNG HULING LINYA */
+  } 
+  
+  .youtube-modal-close { 
+    width: 35px; 
+    height: 35px; 
+    top: 10px; 
+    right: 10px; 
+  } 
+}
   `; 
   document.head.appendChild(style); 
 } 
