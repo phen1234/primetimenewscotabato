@@ -25,8 +25,12 @@ function getCategory(video) {
 } 
 
 function getTitle(video) { 
-  return ( video.title || video.headline || video.name || video.description || "Latest Video" ); 
+  return ( video.title || video.headline || video.name || "Latest Video" ); 
 } 
+
+function getDescription(video) {
+  return ( video.description || video.content || video.script || "" );
+}
 
 function getDate(video) { 
   if (video.date) { return video.date; } 
@@ -42,10 +46,16 @@ function escapeHtml(value) {
 } 
 
 /* ========================================= YOUTUBE PLAYER MODAL - FIXED VIDEO ========================================= */ 
-function createVideoPlayer(id, title) { 
+function createVideoPlayer(id, title, description) { 
   // Remove existing player if meron
   const existing = document.getElementById("youtubeVideoModal"); 
   if (existing) { existing.remove(); } 
+
+  // ITAGO YUNG CATEGORY MENU
+  const categoryBar = document.querySelector('.video-category-bar');
+  const categoryToggle = document.getElementById('videoCategoryToggle');
+  if(categoryBar) categoryBar.style.display = 'none';
+  if(categoryToggle) categoryToggle.style.display = 'none';
   
   const modal = document.createElement("div"); 
   modal.id = "youtubeVideoModal"; 
@@ -60,19 +70,20 @@ function createVideoPlayer(id, title) {
         </div> 
         <div class="youtube-modal-content"> 
           <div class="youtube-modal-title"> ${escapeHtml(title)} </div> 
-          <div class="youtube-modal-description"> No description available </div>
+          <div class="youtube-modal-description"> ${description ? escapeHtml(description) : 'Walang description na available.'} </div>
         </div>
       </div> 
     </div> 
   `; 
   
   document.body.appendChild(modal); 
-  // TINANGGAL: document.body.style.overflow = "hidden";
 
   const closeButton = document.getElementById("youtubeModalClose"); 
   function closePlayer() { 
     modal.remove(); 
-    // TINANGGAL: document.body.style.overflow = ""; 
+    // IBALIK YUNG CATEGORY MENU
+    if(categoryBar) categoryBar.style.display = '';
+    if(categoryToggle) categoryToggle.style.display = '';
     document.removeEventListener( "keydown", handleKeydown ); 
   } 
   
@@ -93,7 +104,7 @@ function createVideoPlayer(id, title) {
 
 /* ========================================= VIDEO PLAYER CSS - OVERRIDE ========================================= */ 
 function addVideoPlayerStyles() { 
-  if ( document.getElementById( "youtubeVideoModalStyles" ) ) { return; } 
+  if ( document.getElementById( "youtubeVideoModalStyles" ) { return; } 
   
   const style = document.createElement("style"); 
   style.id = "youtubeVideoModalStyles"; 
@@ -109,7 +120,7 @@ function addVideoPlayerStyles() {
       position: fixed; 
       inset: 0; 
       display: flex; 
-      flex-direction: column; /* PATAYO */
+      flex-direction: column;
       align-items: stretch; 
       justify-content: flex-start; 
       background: rgba(0, 0, 0, .95); 
@@ -120,11 +131,12 @@ function addVideoPlayerStyles() {
     .youtube-modal { 
       position: relative; 
       width: 100%; 
-      height: 100%; /* BUONG SCREEN */
+      height: auto;
+      max-height: 100%;
       background: #000; 
       display: flex; 
       flex-direction: column; 
-      overflow: hidden; /* DITO WALANG SCROLL */
+      overflow: hidden;
       border-radius: 0; 
       margin: 0; 
     }
@@ -156,7 +168,7 @@ function addVideoPlayerStyles() {
       width: 100%; 
       aspect-ratio: 16 / 9; 
       background: #000; 
-      flex-shrink: 0; /* WAG MAG SHRINK */
+      flex-shrink: 0;
     }
     
     .youtube-player-wrapper iframe { 
@@ -169,7 +181,7 @@ function addVideoPlayerStyles() {
     
     /* ITO LANG ANG MAG SCROLL */
     .youtube-modal-content {
-      flex-grow: 1;
+      max-height: 40vh;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       background: #111827;
@@ -182,22 +194,25 @@ function addVideoPlayerStyles() {
       font-size: 16px; 
       font-weight: 600; 
       line-height: 1.5; 
+      border-bottom: 1px solid #1f2937;
     }
     
     .youtube-modal-description {
-      padding: 0 15px 20px 15px;
-      color: #ccc;
+      padding: 15px;
+      color: #d1d5db;
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.7;
+      white-space: pre-line;
     }
     
     /* MOBILE */
     @media (max-width: 768px) { 
-      .youtube-modal-overlay { padding: 0; } 
-      .youtube-modal { max-width: 100%; border-radius: 0; } 
+      .youtube-modal-content {
+        max-height: 35vh;
+      }
       .youtube-modal-close { width: 35px; height: 35px; top: 10px; right: 10px; font-size: 16px; } 
       .youtube-modal-title { padding: 12px; font-size: 14px; } 
-      .youtube-modal-description { padding: 0 12px 15px 12px; font-size: 13px; }
+      .youtube-modal-description { padding: 12px; font-size: 13px; }
     } 
   `; 
   document.head.appendChild(style); 
@@ -220,6 +235,7 @@ function renderVideos() {
     const title = getTitle(video); 
     const category = getCategory(video); 
     const date = getDate(video); 
+    const description = getDescription(video);
     const card = document.createElement("div"); 
     card.className = "video-card"; 
     card.setAttribute( "role", "button" ); 
@@ -236,9 +252,14 @@ function renderVideos() {
         ${ date ? `<div class="video-meta"> <i class="far fa-calendar"></i> ${escapeHtml(date)} </div>` : "" } 
       </div> 
     `; 
-    card.addEventListener( "click", function () { createVideoPlayer( id, title ); } ); 
+    card.addEventListener( "click", function () { 
+      createVideoPlayer( id, title, description ); 
+    } ); 
     card.addEventListener( "keydown", function (event) { 
-      if ( event.key === "Enter" || event.key === " ) { event.preventDefault(); createVideoPlayer( id, title ); } 
+      if ( event.key === "Enter" || event.key === " ) { 
+        event.preventDefault(); 
+        createVideoPlayer( id, title, description ); 
+      } 
     } ); 
     videosGrid.appendChild(card); 
   }); 
@@ -268,7 +289,9 @@ async function loadVideos() {
       const video = allVideos.find( item => item.id === requestedVideoId ); 
       if (video) { 
         const youtubeId = getId(video); 
-        if (youtubeId) { setTimeout( () => { createVideoPlayer( youtubeId, getTitle(video) ); }, 150 ); } 
+        if (youtubeId) { setTimeout( () => { 
+          createVideoPlayer( youtubeId, getTitle(video), getDescription(video) ); 
+        }, 150 ); } 
       } 
     } 
   } catch (error) { 
@@ -284,9 +307,9 @@ const selectedVideoCategory = document.getElementById( "selectedVideoCategory" )
 if (videoCategoryToggle) { 
   videoCategoryToggle.addEventListener( "click", function () { 
     if (!videoCategoryBar) return; 
-    const isOpen = videoCategoryBar.classList .contains("open"); 
-    if (isOpen) { videoCategoryBar.classList .remove("open"); videoCategoryToggle.setAttribute( "aria-expanded", "false" ); } 
-    else { videoCategoryBar.classList .add("open"); videoCategoryToggle.setAttribute( "aria-expanded", "true" ); } 
+    const isOpen = videoCategoryBar.classList.contains("open"); 
+    if (isOpen) { videoCategoryBar.classList.remove("open"); videoCategoryToggle.setAttribute( "aria-expanded", "false" ); } 
+    else { videoCategoryBar.classList.add("open"); videoCategoryToggle.setAttribute( "aria-expanded", "true" ); } 
   } ); 
 } 
 
@@ -296,10 +319,10 @@ if (videoFilters) {
     const button = event.target.closest( ".video-filter" ); 
     if (!button) return; 
     activeCategory = button.dataset.category || "All"; 
-    videoFilters .querySelectorAll( ".video-filter" ) .forEach( function (item) { item.classList .remove("active"); } ); 
+    videoFilters .querySelectorAll( ".video-filter" ) .forEach( function (item) { item.classList.remove("active"); } ); 
     button.classList.add( "active" ); 
-    if (selectedVideoCategory) { selectedVideoCategory .textContent = activeCategory; } 
-    if (videoCategoryBar) { videoCategoryBar.classList .remove("open"); } 
+    if (selectedVideoCategory) { selectedVideoCategory.textContent = activeCategory; } 
+    if (videoCategoryBar) { videoCategoryBar.classList.remove("open"); } 
     if (videoCategoryToggle) { videoCategoryToggle.setAttribute( "aria-expanded", "false" ); } 
     renderVideos(); 
   } ); 
