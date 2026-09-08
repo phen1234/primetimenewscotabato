@@ -2,7 +2,6 @@ import { initializeApp, cert, getApps } from 'https://esm.sh/firebase-admin@11.1
 import { getAuth } from 'https://esm.sh/firebase-admin@11.11.0/auth';
 import { getFirestore } from 'https://esm.sh/firebase-admin@11.11.0/firestore';
 
-// ... yung iba same lang
 export async function onRequestDelete(context) {
   const url = new URL(context.request.url);
   const uid = url.pathname.split('/').pop();
